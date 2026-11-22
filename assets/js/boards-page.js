@@ -63,6 +63,11 @@
 
       <main class="page-body">
         <div class="container">
+          ${window.RoboDexVisuals ? window.RoboDexVisuals.getFigureHtml("boards-architecture", {
+            compact: true,
+            title: "Microcontroller Voltage Domains, Signal Buses & Wireless Architecture",
+            caption: "Conceptual visual reference complementing the real manufacturer board photographs below."
+          }) : ""}
           <!-- Family Filter Bar -->
           <div class="tab-bar" role="tablist" aria-label="Filter Board Families">
             <button type="button" class="tab-btn ${activeFamily === 'all' ? 'active' : ''}" data-family="all">All 15 Variants</button>
@@ -92,6 +97,11 @@
               return `
                 <div class="card card-hover flex" style="flex-direction:column; justify-content:space-between;">
                   <div>
+                    <div class="board-card-thumb">
+                      <img src="${esc(v.photo.url)}" alt="${esc(v.name)} real hardware board" loading="lazy"
+                           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                      <span class="board-photo-fallback" style="display:none;">${esc(v.name)} (${esc(v.logicVoltage)})</span>
+                    </div>
                     <div class="card-header">
                       <span class="badge ${is3v3 ? 'badge-warning' : 'badge-success'}">${esc(v.logicVoltage)}</span>
                       <span class="badge ${stat.skill.cls}">${stat.skill.label}</span>
@@ -216,8 +226,15 @@
             <li class="text-xs"><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)} ↗</a></li>
           `).join('')}
         </ul>
-        <div class="toc-heading">Hardware Photo Status</div>
-        <p class="text-xs text-muted">${esc(variant.photoStatus.fallbackText)}</p>
+        <div class="toc-heading">Representative Board</div>
+        <div class="board-card-thumb" style="height:122px; margin-bottom:0.45rem;">
+          <img src="${esc(variant.photo.url)}" alt="${esc(variant.name)} photograph" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <span class="board-photo-fallback" style="display:none;">${esc(variant.name)}</span>
+        </div>
+        <p class="text-xs text-muted" style="margin-bottom:1rem;">
+          <a href="${esc(variant.photo.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(variant.photo.credit)} ↗</a>
+        </p>
         <div class="toc-heading mt-md">Family Note</div>
         <p class="text-xs text-muted">${esc(family.familyWarning)}</p>
       </aside>
@@ -317,7 +334,25 @@
 
             <h1>${esc(activeLesson.title)}</h1>
             <p style="font-size:1.04rem; color:var(--text-primary);">${esc(activeLesson.summary)}</p>
+            ${activeLesson.sectionCode === 'A' ? `
+              <figure class="board-photo-figure">
+                <div class="board-photo-stage">
+                  <img src="${esc(variant.photo.url)}" alt="${esc(variant.name)} real hardware photograph" loading="lazy"
+                       onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                  <span class="board-photo-fallback" style="display:none;">${esc(variant.photoStatus.fallbackText)}</span>
+                </div>
+                <figcaption class="board-photo-caption">
+                  <span><strong>${esc(variant.name)}</strong> — ${esc(variant.mcu)}</span>
+                  <a href="${esc(variant.photo.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(variant.photo.credit)} ↗</a>
+                </figcaption>
+              </figure>
+            ` : ''}
 
+            ${(['B', 'C', 'D'].includes(activeLesson.sectionCode) && window.RoboDexVisuals) ? window.RoboDexVisuals.getFigureHtml('boards-architecture', {
+              compact: true,
+              title: `${variant.name} — Conceptual Signal & Power Architecture`,
+              caption: `Conceptual visual learning figure illustrating ${activeLesson.title.toLowerCase()} for ${variant.name} (${variant.logicVoltage}).`
+            }) : ''}
             ${activeLesson.body.map((p) => `<p>${esc(p)}</p>`).join('')}
 
             ${activeLesson.specsTable ? `

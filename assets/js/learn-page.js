@@ -240,6 +240,19 @@
 
         <h1>${window.RoboDexApp.escapeHtml(lesson.title)}</h1>
         <p style="font-size:1.05rem; color:var(--text-primary);">${window.RoboDexApp.escapeHtml(lesson.introduction)}</p>
+        ${meta.mod.representativeBoardPhoto ? `
+          <figure class="board-photo-figure">
+            <div class="board-photo-stage" style="min-height:170px; max-height:220px;">
+              <img src="${window.RoboDexApp.escapeHtml(meta.mod.representativeBoardPhoto.url)}" alt="${window.RoboDexApp.escapeHtml(meta.mod.representativeBoardPhoto.credit)}" loading="lazy"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <span class="board-photo-fallback" style="display:none;">Representative hardware: ${window.RoboDexApp.escapeHtml(meta.mod.representativeBoardPhoto.credit)}</span>
+            </div>
+            <figcaption class="board-photo-caption">
+              <span>Representative Hardware for ${window.RoboDexApp.escapeHtml(meta.mod.shortTitle)}</span>
+              <a href="${window.RoboDexApp.escapeHtml(meta.mod.representativeBoardPhoto.sourceUrl)}" target="_blank" rel="noopener noreferrer">${window.RoboDexApp.escapeHtml(meta.mod.representativeBoardPhoto.credit)} ↗</a>
+            </figcaption>
+          </figure>
+        ` : ''}
 
         ${lesson.diagram ? `
           <div class="diagram-frame">
@@ -260,6 +273,14 @@
 
         <section class="lesson-section" id="sec-concept">
           <h2 class="lesson-section-title">2. Concept Explanation</h2>
+          ${window.RoboDexVisuals ? window.RoboDexVisuals.getFigureHtml(
+            window.RoboDexVisuals.resolveProgrammingKey(meta.mod.id),
+            {
+              compact: true,
+              title: `${meta.mod.shortTitle} — Conceptual Visual Model`,
+              caption: `Visualizing core concepts for ${lesson.title} alongside your real representative hardware.`
+            }
+          ) : ""}
           ${lesson.conceptExplanation.map((p) => `<p>${window.RoboDexApp.escapeHtml(p)}</p>`).join('')}
         </section>
 

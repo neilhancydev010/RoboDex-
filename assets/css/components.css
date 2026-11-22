@@ -454,3 +454,176 @@
   font-size: 0.88rem;
   box-shadow: var(--shadow-lg);
 }
+
+/* Real Representative Board Photograph Framing (Clean studio surface + offline fallback) */
+.board-card-thumb {
+  width: 100%;
+  height: 156px;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+  padding: 0.6rem;
+}
+
+.board-card-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.board-photo-figure {
+  background: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: 1rem 0 1.25rem;
+}
+
+.board-photo-stage {
+  background: #ffffff;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  max-height: 280px;
+}
+
+.board-photo-stage img {
+  max-height: 245px;
+  width: auto;
+  object-fit: contain;
+}
+
+.board-photo-caption {
+  padding: 0.65rem 0.95rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.board-photo-fallback {
+  font-size: 0.8rem;
+  color: #475569;
+  text-align: center;
+  padding: 0.75rem;
+}
+
+/* Conceptual Visual Learning Figures (Hyper-Bloom framed, distinct from real hardware photos) */
+.visual-figure {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: 1.1rem 0 1.35rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.visual-figure--compact {
+  margin: 0.85rem 0 1.15rem;
+}
+
+.visual-figure-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 360px;
+  background: #0d0818;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual-figure--compact .visual-figure-stage {
+  max-height: 250px;
+}
+
+.visual-figure-stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.visual-figure-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #f5f3ff;
+  background: rgba(15, 10, 30, 0.78);
+  border: 1px solid rgba(192, 132, 252, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.visual-figure-caption {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+}
+
+.visual-figure-caption strong {
+  color: var(--text-primary);
+  font-size: 0.88rem;
+}
+
+.visual-figure-fallback {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: #e9d5ff;
+  font-size: 0.9rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.visual-track-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+  background: #0d0818;
+  border: 1px solid var(--border-color);
+}
+
+.visual-track-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.visual-track-tag {
+  position: absolute;
+  bottom: 0.45rem;
+  right: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  color: #f5f3ff;
+  background: rgba(15, 10, 30, 0.76);
+  border: 1px solid rgba(192, 132, 252, 0.38);
+}

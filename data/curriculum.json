@@ -34,7 +34,13 @@
           "id": "m01-l06",
           "title": "Understanding Source Code"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r3",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
+      }
     },
     {
       "id": "mod-02",
@@ -73,7 +79,13 @@
           "id": "m02-l07",
           "title": "Designing Solutions Before Coding"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r3",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
+      }
     },
     {
       "id": "mod-03",
@@ -128,7 +140,13 @@
           "id": "m03-l11",
           "title": "Type Conversion"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r3",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
+      }
     },
     {
       "id": "mod-04",
@@ -167,7 +185,13 @@
           "id": "m04-l07",
           "title": "Compound Conditions"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r3",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
+      }
     },
     {
       "id": "mod-05",
@@ -198,7 +222,13 @@
           "id": "m05-l05",
           "title": "Break and Continue"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r4-minima",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00080_00.default_934x700.jpg?v=1727967929",
+        "sourceUrl": "https://store.arduino.cc/products/uno-r4-minima",
+        "credit": "Official Arduino UNO R4 Minima photograph (Arduino Store / ABX00080)"
+      }
     },
     {
       "id": "mod-06",
@@ -237,7 +267,13 @@
           "id": "m06-l07",
           "title": "Modular Programming"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r4-minima",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00080_00.default_934x700.jpg?v=1727967929",
+        "sourceUrl": "https://store.arduino.cc/products/uno-r4-minima",
+        "credit": "Official Arduino UNO R4 Minima photograph (Arduino Store / ABX00080)"
+      }
     },
     {
       "id": "mod-07",
@@ -276,7 +312,13 @@
           "id": "m07-l07",
           "title": "Enumerations (enum)"
         }
-      ]
+      ],
+      "representativeBoardId": "mega-2560",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000067_00.front_934x700.jpg?v=1727098253",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-mega-2560-rev3",
+        "credit": "Official Arduino Mega 2560 Rev3 photograph (Arduino Store / A000067)"
+      }
     },
     {
       "id": "mod-08",
@@ -315,7 +357,13 @@
           "id": "m08-l07",
           "title": "Modular Code Organization"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r4-wifi",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00087_00.front_934x700.jpg?v=1749566714",
+        "sourceUrl": "https://store.arduino.cc/products/uno-r4-wifi",
+        "credit": "Official Arduino UNO R4 WiFi photograph (Arduino Store / ABX00087)"
+      }
     },
     {
       "id": "mod-09",
@@ -370,7 +418,13 @@
           "id": "m09-l11",
           "title": "Troubleshooting"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r3",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
+      }
     },
     {
       "id": "mod-10",
@@ -437,7 +491,13 @@
           "id": "m10-l14",
           "title": "Sensor Data Processing"
         }
-      ]
+      ],
+      "representativeBoardId": "uno-r3",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
+      }
     },
     {
       "id": "mod-11",
@@ -468,7 +528,13 @@
           "id": "m11-l05",
           "title": "ESP32 Family Development"
         }
-      ]
+      ],
+      "representativeBoardId": "esp32-s3",
+      "representativeBoardPhoto": {
+        "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/_images/esp32-s3-devkitc-1-v1.1-isometric.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html",
+        "credit": "Official Espressif ESP32-S3-DevKitC-1 v1.1 photograph (Espressif Docs)"
+      }
     },
     {
       "id": "mod-12",
@@ -519,7 +585,13 @@
           "id": "m12-l10",
           "title": "Basic Obstacle Detection"
         }
-      ]
+      ],
+      "representativeBoardId": "mega-2560",
+      "representativeBoardPhoto": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000067_00.front_934x700.jpg?v=1727098253",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-mega-2560-rev3",
+        "credit": "Official Arduino Mega 2560 Rev3 photograph (Arduino Store / A000067)"
+      }
     }
   ]
 }

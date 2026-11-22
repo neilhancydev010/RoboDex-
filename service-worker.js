@@ -19,6 +19,7 @@ const CORE_ASSETS = [
   './assets/js/db.js',
   './assets/js/progress.js',
   './assets/js/app.js',
+  './assets/js/visual-figures.js',
   './assets/js/profile-gate.js',
   './assets/js/dashboard-page.js',
   './assets/js/learn-page.js',
@@ -30,7 +31,11 @@ const CORE_ASSETS = [
   './data/curriculum.json',
   './data/boards-curriculum.json',
   './data/hardware-assets.json',
-  './data/quizzes/quizzes.json'
+  './data/quizzes/quizzes.json',
+  './assets/img/visuals/visual-programming.jpg',
+  './assets/img/visuals/visual-embedded-io.jpg',
+  './assets/img/visuals/visual-boards-architecture.jpg',
+  './assets/img/visuals/visual-robotics-applied.jpg'
 ];
 
 self.addEventListener('install', (event) => {

@@ -8,135 +8,180 @@
       "componentName": "Arduino Uno R3",
       "familyId": "arduino-uno",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/uno-rev3",
-      "fallbackLabel": "Arduino Uno R3 (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic)"
+      "fallbackLabel": "Arduino Uno R3 (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+      "sourcePageUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+      "attribution": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
     },
     {
       "id": "uno-r4-minima",
       "componentName": "Arduino Uno R4 Minima",
       "familyId": "arduino-uno",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/resources/datasheets/ABX00080-datasheet.pdf",
-      "fallbackLabel": "Arduino Uno R4 Minima (Renesas RA4M1 (32-bit Arm Cortex-M4 w/ FPU) @ 48 MHz, 5V logic)"
+      "fallbackLabel": "Arduino Uno R4 Minima (Renesas RA4M1 (32-bit Arm Cortex-M4 w/ FPU) @ 48 MHz, 5V logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/ABX00080_00.default_934x700.jpg?v=1727967929",
+      "sourcePageUrl": "https://store.arduino.cc/products/uno-r4-minima",
+      "attribution": "Official Arduino UNO R4 Minima photograph (Arduino Store / ABX00080)"
     },
     {
       "id": "uno-r4-wifi",
       "componentName": "Arduino Uno R4 WiFi",
       "familyId": "arduino-uno",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf",
-      "fallbackLabel": "Arduino Uno R4 WiFi (Renesas RA4M1 (48 MHz, 5V) + ESP32-S3-MINI-1-N8 (3.3V wireless co-processor), 5V on main headers (3.3V on Qwiic I2C) logic)"
+      "fallbackLabel": "Arduino Uno R4 WiFi (Renesas RA4M1 (48 MHz, 5V) + ESP32-S3-MINI-1-N8 (3.3V wireless co-processor), 5V on main headers (3.3V on Qwiic I2C) logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/ABX00087_00.front_934x700.jpg?v=1749566714",
+      "sourcePageUrl": "https://store.arduino.cc/products/uno-r4-wifi",
+      "attribution": "Official Arduino UNO R4 WiFi photograph (Arduino Store / ABX00087)"
     },
     {
       "id": "nano-classic",
       "componentName": "Classic Arduino Nano",
       "familyId": "arduino-nano",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano/",
-      "fallbackLabel": "Classic Arduino Nano (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic)"
+      "fallbackLabel": "Classic Arduino Nano (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic)",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Arduino_Nano.jpg",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Arduino_Nano.jpg",
+      "attribution": "Arduino Nano photograph by David Mellis via Wikimedia Commons"
     },
     {
       "id": "nano-every",
       "componentName": "Arduino Nano Every",
       "familyId": "arduino-nano",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-every",
-      "fallbackLabel": "Arduino Nano Every (ATmega4809 (8-bit megaAVR) @ 20 MHz, 5V logic)"
+      "fallbackLabel": "Arduino Nano Every (ATmega4809 (8-bit megaAVR) @ 20 MHz, 5V logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/ABX00028_03.front_934x700.jpg?v=1727099488",
+      "sourcePageUrl": "https://store.arduino.cc/products/nano-every",
+      "attribution": "Official Arduino Nano Every photograph (Arduino Store / ABX00028)"
     },
     {
       "id": "nano-33-iot",
       "componentName": "Arduino Nano 33 IoT",
       "familyId": "arduino-nano",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-33-iot",
-      "fallbackLabel": "Arduino Nano 33 IoT (SAMD21G18A (32-bit Arm Cortex-M0+) @ 48 MHz + u-blox NINA-W102, 3.3V ONLY logic)"
+      "fallbackLabel": "Arduino Nano 33 IoT (SAMD21G18A (32-bit Arm Cortex-M0+) @ 48 MHz + u-blox NINA-W102, 3.3V ONLY logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/ABX00027_03.front_934x700.jpg?v=1727098292",
+      "sourcePageUrl": "https://store.arduino.cc/products/arduino-nano-33-iot",
+      "attribution": "Official Arduino Nano 33 IoT photograph (Arduino Store / ABX00027)"
     },
     {
       "id": "nano-33-ble",
       "componentName": "Arduino Nano 33 BLE / BLE Sense (Rev2)",
       "familyId": "arduino-nano",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-33-ble-rev2",
-      "fallbackLabel": "Arduino Nano 33 BLE / BLE Sense (Rev2) (Nordic nRF52840 (32-bit Arm Cortex-M4F) @ 64 MHz (Mbed OS), 3.3V ONLY logic)"
+      "fallbackLabel": "Arduino Nano 33 BLE / BLE Sense (Rev2) (Nordic nRF52840 (32-bit Arm Cortex-M4F) @ 64 MHz (Mbed OS), 3.3V ONLY logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/ABX00071_03.front_934x700.jpg?v=1727101765",
+      "sourcePageUrl": "https://store.arduino.cc/products/nano-33-ble-rev2",
+      "attribution": "Official Arduino Nano 33 BLE Rev2 photograph (Arduino Store / ABX00071)"
     },
     {
       "id": "nano-esp32",
       "componentName": "Arduino Nano ESP32",
       "familyId": "arduino-nano",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-esp32",
-      "fallbackLabel": "Arduino Nano ESP32 (u-blox NORA-W106 (ESP32-S3 dual-core Xtensa LX7 @ 240 MHz), 3.3V ONLY logic)"
+      "fallbackLabel": "Arduino Nano ESP32 (u-blox NORA-W106 (ESP32-S3 dual-core Xtensa LX7 @ 240 MHz), 3.3V ONLY logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/ABX00083_00.default_934x700.jpg?v=1727962622",
+      "sourcePageUrl": "https://store.arduino.cc/products/nano-esp32-with-headers",
+      "attribution": "Official Arduino Nano ESP32 photograph (Arduino Store / ABX00083)"
     },
     {
       "id": "nano-rp2040-connect",
       "componentName": "Arduino Nano RP2040 Connect",
       "familyId": "arduino-nano",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-rp2040-connect",
-      "fallbackLabel": "Arduino Nano RP2040 Connect (Raspberry Pi RP2040 (Dual-core Arm Cortex-M0+ @ 133 MHz) + u-blox NINA-W102, 3.3V ONLY logic)"
+      "fallbackLabel": "Arduino Nano RP2040 Connect (Raspberry Pi RP2040 (Dual-core Arm Cortex-M0+ @ 133 MHz) + u-blox NINA-W102, 3.3V ONLY logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/ABX00052_03.front_934x700.jpg?v=1727100079",
+      "sourcePageUrl": "https://store.arduino.cc/products/arduino-nano-rp2040-connect",
+      "attribution": "Official Arduino Nano RP2040 Connect photograph (Arduino Store / ABX00052)"
     },
     {
       "id": "mega-2560",
       "componentName": "Arduino Mega 2560 Rev3",
       "familyId": "arduino-mega",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.arduino.cc/hardware/mega-2560/",
-      "fallbackLabel": "Arduino Mega 2560 Rev3 (ATmega2560 (8-bit AVR) @ 16 MHz, 5V logic)"
+      "fallbackLabel": "Arduino Mega 2560 Rev3 (ATmega2560 (8-bit AVR) @ 16 MHz, 5V logic)",
+      "imageUrl": "https://store.arduino.cc/cdn/shop/files/A000067_00.front_934x700.jpg?v=1727098253",
+      "sourcePageUrl": "https://store.arduino.cc/products/arduino-mega-2560-rev3",
+      "attribution": "Official Arduino Mega 2560 Rev3 photograph (Arduino Store / A000067)"
     },
     {
       "id": "esp32-classic",
       "componentName": "ESP32 (Classic / WROOM-32 DevKit)",
       "familyId": "esp32",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/release-v5.0/esp32/hw-reference/chip-series-comparison.html",
-      "fallbackLabel": "ESP32 (Classic / WROOM-32 DevKit) (ESP32 Dual-core Xtensa LX6 @ up to 240 MHz (chip inside WROOM-32 module on DevKit board), 3.3V ONLY logic)"
+      "fallbackLabel": "ESP32 (Classic / WROOM-32 DevKit) (ESP32 Dual-core Xtensa LX6 @ up to 240 MHz (chip inside WROOM-32 module on DevKit board), 3.3V ONLY logic)",
+      "imageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
+      "sourcePageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "attribution": "Official Espressif ESP32-DevKitC V4 hardware image (Espressif Docs)"
     },
     {
       "id": "esp32-s2",
       "componentName": "ESP32-S2 (e.g. Saola / Feather S2)",
       "familyId": "esp32",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/release-v5.0/esp32/hw-reference/chip-series-comparison.html",
-      "fallbackLabel": "ESP32-S2 (e.g. Saola / Feather S2) (ESP32-S2 Single-core Xtensa LX7 @ 240 MHz, 3.3V ONLY logic)"
+      "fallbackLabel": "ESP32-S2 (e.g. Saola / Feather S2) (ESP32-S2 Single-core Xtensa LX7 @ 240 MHz, 3.3V ONLY logic)",
+      "imageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s2/_images/esp32-s2-devkitm-1-v1-isometric.png",
+      "sourcePageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s2/esp32-s2-devkitm-1/user_guide.html",
+      "attribution": "Official Espressif ESP32-S2-DevKitM-1 photograph (Espressif Docs)"
     },
     {
       "id": "esp32-s3",
       "componentName": "ESP32-S3 (e.g. DevKitC-1)",
       "familyId": "esp32",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.0/esp32s3/hw-reference/chip-series-comparison.html",
-      "fallbackLabel": "ESP32-S3 (e.g. DevKitC-1) (ESP32-S3 Dual-core Xtensa LX7 @ 240 MHz (w/ AI/Vector instructions), 3.3V ONLY logic)"
+      "fallbackLabel": "ESP32-S3 (e.g. DevKitC-1) (ESP32-S3 Dual-core Xtensa LX7 @ 240 MHz (w/ AI/Vector instructions), 3.3V ONLY logic)",
+      "imageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/_images/esp32-s3-devkitc-1-v1.1-isometric.png",
+      "sourcePageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html",
+      "attribution": "Official Espressif ESP32-S3-DevKitC-1 v1.1 photograph (Espressif Docs)"
     },
     {
       "id": "esp32-c3",
       "componentName": "ESP32-C3 (e.g. DevKitM-1 / SuperMini)",
       "familyId": "esp32",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.0/esp32/hw-reference/chip-series-comparison.html",
-      "fallbackLabel": "ESP32-C3 (e.g. DevKitM-1 / SuperMini) (ESP32-C3 Single-core 32-bit RISC-V @ 160 MHz, 3.3V ONLY logic)"
+      "fallbackLabel": "ESP32-C3 (e.g. DevKitM-1 / SuperMini) (ESP32-C3 Single-core 32-bit RISC-V @ 160 MHz, 3.3V ONLY logic)",
+      "imageUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c3/_images/esp32-c3-devkitm-1-v1-isometric.png",
+      "sourcePageUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html",
+      "attribution": "Official Espressif ESP32-C3-DevKitM-1 photograph (Espressif Docs)"
     },
     {
       "id": "esp32-c6",
       "componentName": "ESP32-C6 (e.g. DevKitC-1)",
       "familyId": "esp32",
       "localFile": null,
-      "status": "pending_verified_local_photo",
+      "status": "verified_official_remote_url",
       "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/get-started/workflow-overview.html",
-      "fallbackLabel": "ESP32-C6 (e.g. DevKitC-1) (ESP32-C6 Single-core 32-bit RISC-V @ 160 MHz + Low-Power RISC-V core, 3.3V ONLY logic)"
+      "fallbackLabel": "ESP32-C6 (e.g. DevKitC-1) (ESP32-C6 Single-core 32-bit RISC-V @ 160 MHz + Low-Power RISC-V core, 3.3V ONLY logic)",
+      "imageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/_images/esp32-c6-devkitc-1-isometric_v1.2.png",
+      "sourcePageUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitc-1/user_guide.html",
+      "attribution": "Official Espressif ESP32-C6-DevKitC-1 v1.2 photograph (Espressif Docs)"
     }
   ]
 }

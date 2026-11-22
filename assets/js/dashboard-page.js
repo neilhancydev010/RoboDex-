@@ -62,6 +62,7 @@
     // 2. Track Overview Cards
     document.getElementById('dash-tracks-grid').innerHTML = `
       <div class="card card-hover">
+        ${window.RoboDexVisuals ? window.RoboDexVisuals.getTrackThumbHtml("programming", "Conceptual Figure") : ""}
         <div class="card-header">
           <span class="badge badge-bloom">Track 1 · Active</span>
           <strong style="font-family:var(--font-display);">${metrics.programmingPercent}%</strong>
@@ -75,6 +76,7 @@
       </div>
 
       <div class="card card-hover">
+        ${window.RoboDexVisuals ? window.RoboDexVisuals.getTrackThumbHtml("boards-architecture", "Conceptual Figure") : ""}
         <div class="card-header">
           <span class="badge badge-bloom">Track 2 · Active</span>
           <strong style="font-family:var(--font-display);">${boardMetrics.startedVariants > 0 ? `${boardMetrics.overallBoardsPercent}%` : 'Not started'}</strong>
@@ -94,6 +96,7 @@
       </div>
 
       <div class="card">
+        ${window.RoboDexVisuals ? window.RoboDexVisuals.getTrackThumbHtml("robotics-applied", "Stage 3 Preview") : ""}
         <div class="card-header">
           <span class="badge">Track 3 · Stage 3</span>
           <span class="text-xs text-muted">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} in progress` : 'Not started'}</span>
@@ -250,6 +253,13 @@
         return `
           <div class="card card-hover flex" style="flex-direction:column; justify-content:space-between;">
             <div>
+              ${modObj.representativeBoardPhoto ? `
+                <div class="board-card-thumb" style="height:126px;">
+                  <img src="${window.RoboDexApp.escapeHtml(modObj.representativeBoardPhoto.url)}" alt="${window.RoboDexApp.escapeHtml(modObj.representativeBoardPhoto.credit)}" loading="lazy"
+                       onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                  <span class="board-photo-fallback" style="display:none;">${window.RoboDexApp.escapeHtml(stat.shortTitle)} Hardware</span>
+                </div>
+              ` : ''}
               <div class="card-header">
                 <span class="badge badge-bloom">${window.RoboDexApp.escapeHtml(stat.shortTitle)}</span>
                 <span class="badge ${stat.skill.cls}">${stat.skill.label}</span>

@@ -46,8 +46,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Uno R3 is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)",
+        "fallbackText": "Arduino Uno R3 (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -358,6 +361,11 @@
             "explanation": "Verified wireless specification: None onboard."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+        "credit": "Official Arduino UNO Rev3 photograph (Arduino Store / A000066)"
       }
     },
     {
@@ -379,8 +387,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Uno R4 Minima is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/ABX00080_00.default_934x700.jpg?v=1727967929",
+        "sourceUrl": "https://store.arduino.cc/products/uno-r4-minima",
+        "credit": "Official Arduino UNO R4 Minima photograph (Arduino Store / ABX00080)",
+        "fallbackText": "Arduino Uno R4 Minima (Renesas RA4M1 (32-bit Arm Cortex-M4 w/ FPU) @ 48 MHz, 5V logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -686,6 +697,11 @@
             "explanation": "Verified wireless specification: None onboard."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00080_00.default_934x700.jpg?v=1727967929",
+        "sourceUrl": "https://store.arduino.cc/products/uno-r4-minima",
+        "credit": "Official Arduino UNO R4 Minima photograph (Arduino Store / ABX00080)"
       }
     },
     {
@@ -707,8 +723,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Uno R4 WiFi is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/ABX00087_00.front_934x700.jpg?v=1749566714",
+        "sourceUrl": "https://store.arduino.cc/products/uno-r4-wifi",
+        "credit": "Official Arduino UNO R4 WiFi photograph (Arduino Store / ABX00087)",
+        "fallbackText": "Arduino Uno R4 WiFi (Renesas RA4M1 (48 MHz, 5V) + ESP32-S3-MINI-1-N8 (3.3V wireless co-processor), 5V on main headers (3.3V on Qwiic I2C) logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -1004,6 +1023,11 @@
             "explanation": "Verified wireless specification: Wi-Fi (802.11 b/g/n) & Bluetooth LE via ESP32-S3 co-processor."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00087_00.front_934x700.jpg?v=1749566714",
+        "sourceUrl": "https://store.arduino.cc/products/uno-r4-wifi",
+        "credit": "Official Arduino UNO R4 WiFi photograph (Arduino Store / ABX00087)"
       }
     },
     {
@@ -1021,8 +1045,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Classic Arduino Nano is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Arduino_Nano.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arduino_Nano.jpg",
+        "credit": "Arduino Nano photograph by David Mellis via Wikimedia Commons",
+        "fallbackText": "Classic Arduino Nano (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -1323,6 +1350,11 @@
             "explanation": "Verified wireless specification: None."
           }
         ]
+      },
+      "photo": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Arduino_Nano.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arduino_Nano.jpg",
+        "credit": "Arduino Nano photograph by David Mellis via Wikimedia Commons"
       }
     },
     {
@@ -1340,8 +1372,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Nano Every is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/ABX00028_03.front_934x700.jpg?v=1727099488",
+        "sourceUrl": "https://store.arduino.cc/products/nano-every",
+        "credit": "Official Arduino Nano Every photograph (Arduino Store / ABX00028)",
+        "fallbackText": "Arduino Nano Every (ATmega4809 (8-bit megaAVR) @ 20 MHz, 5V logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -1637,6 +1672,11 @@
             "explanation": "Verified wireless specification: None."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00028_03.front_934x700.jpg?v=1727099488",
+        "sourceUrl": "https://store.arduino.cc/products/nano-every",
+        "credit": "Official Arduino Nano Every photograph (Arduino Store / ABX00028)"
       }
     },
     {
@@ -1654,8 +1694,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Nano 33 IoT is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/ABX00027_03.front_934x700.jpg?v=1727098292",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-nano-33-iot",
+        "credit": "Official Arduino Nano 33 IoT photograph (Arduino Store / ABX00027)",
+        "fallbackText": "Arduino Nano 33 IoT (SAMD21G18A (32-bit Arm Cortex-M0+) @ 48 MHz + u-blox NINA-W102, 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -1951,6 +1994,11 @@
             "explanation": "Verified wireless specification: Wi-Fi (2.4 GHz) + Bluetooth LE via NINA-W102 (WiFiNINA / ArduinoBLE)."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00027_03.front_934x700.jpg?v=1727098292",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-nano-33-iot",
+        "credit": "Official Arduino Nano 33 IoT photograph (Arduino Store / ABX00027)"
       }
     },
     {
@@ -1968,8 +2016,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Nano 33 BLE / BLE Sense (Rev2) is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/ABX00071_03.front_934x700.jpg?v=1727101765",
+        "sourceUrl": "https://store.arduino.cc/products/nano-33-ble-rev2",
+        "credit": "Official Arduino Nano 33 BLE Rev2 photograph (Arduino Store / ABX00071)",
+        "fallbackText": "Arduino Nano 33 BLE / BLE Sense (Rev2) (Nordic nRF52840 (32-bit Arm Cortex-M4F) @ 64 MHz (Mbed OS), 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -2260,6 +2311,11 @@
             "explanation": "Verified wireless specification: Bluetooth 5 Low Energy (BLE) \u2014 NO Wi-Fi!."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00071_03.front_934x700.jpg?v=1727101765",
+        "sourceUrl": "https://store.arduino.cc/products/nano-33-ble-rev2",
+        "credit": "Official Arduino Nano 33 BLE Rev2 photograph (Arduino Store / ABX00071)"
       }
     },
     {
@@ -2277,8 +2333,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Nano ESP32 is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/ABX00083_00.default_934x700.jpg?v=1727962622",
+        "sourceUrl": "https://store.arduino.cc/products/nano-esp32-with-headers",
+        "credit": "Official Arduino Nano ESP32 photograph (Arduino Store / ABX00083)",
+        "fallbackText": "Arduino Nano ESP32 (u-blox NORA-W106 (ESP32-S3 dual-core Xtensa LX7 @ 240 MHz), 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -2569,6 +2628,11 @@
             "explanation": "Verified wireless specification: Wi-Fi (2.4 GHz) + Bluetooth 5 LE + ESP-NOW."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00083_00.default_934x700.jpg?v=1727962622",
+        "sourceUrl": "https://store.arduino.cc/products/nano-esp32-with-headers",
+        "credit": "Official Arduino Nano ESP32 photograph (Arduino Store / ABX00083)"
       }
     },
     {
@@ -2586,8 +2650,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Nano RP2040 Connect is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/ABX00052_03.front_934x700.jpg?v=1727100079",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-nano-rp2040-connect",
+        "credit": "Official Arduino Nano RP2040 Connect photograph (Arduino Store / ABX00052)",
+        "fallbackText": "Arduino Nano RP2040 Connect (Raspberry Pi RP2040 (Dual-core Arm Cortex-M0+ @ 133 MHz) + u-blox NINA-W102, 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -2878,6 +2945,11 @@
             "explanation": "Verified wireless specification: Wi-Fi + Bluetooth LE via NINA-W102."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/ABX00052_03.front_934x700.jpg?v=1727100079",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-nano-rp2040-connect",
+        "credit": "Official Arduino Nano RP2040 Connect photograph (Arduino Store / ABX00052)"
       }
     },
     {
@@ -2899,8 +2971,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for Arduino Mega 2560 Rev3 is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://store.arduino.cc/cdn/shop/files/A000067_00.front_934x700.jpg?v=1727098253",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-mega-2560-rev3",
+        "credit": "Official Arduino Mega 2560 Rev3 photograph (Arduino Store / A000067)",
+        "fallbackText": "Arduino Mega 2560 Rev3 (ATmega2560 (8-bit AVR) @ 16 MHz, 5V logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -3201,6 +3276,11 @@
             "explanation": "Verified wireless specification: None onboard."
           }
         ]
+      },
+      "photo": {
+        "url": "https://store.arduino.cc/cdn/shop/files/A000067_00.front_934x700.jpg?v=1727098253",
+        "sourceUrl": "https://store.arduino.cc/products/arduino-mega-2560-rev3",
+        "credit": "Official Arduino Mega 2560 Rev3 photograph (Arduino Store / A000067)"
       }
     },
     {
@@ -3218,8 +3298,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for ESP32 (Classic / WROOM-32 DevKit) is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+        "credit": "Official Espressif ESP32-DevKitC V4 hardware image (Espressif Docs)",
+        "fallbackText": "ESP32 (Classic / WROOM-32 DevKit) (ESP32 Dual-core Xtensa LX6 @ up to 240 MHz (chip inside WROOM-32 module on DevKit board), 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -3520,6 +3603,11 @@
             "explanation": "Verified wireless specification: Wi-Fi (2.4 GHz) + Bluetooth Classic + BLE."
           }
         ]
+      },
+      "photo": {
+        "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+        "credit": "Official Espressif ESP32-DevKitC V4 hardware image (Espressif Docs)"
       }
     },
     {
@@ -3537,8 +3625,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for ESP32-S2 (e.g. Saola / Feather S2) is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s2/_images/esp32-s2-devkitm-1-v1-isometric.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s2/esp32-s2-devkitm-1/user_guide.html",
+        "credit": "Official Espressif ESP32-S2-DevKitM-1 photograph (Espressif Docs)",
+        "fallbackText": "ESP32-S2 (e.g. Saola / Feather S2) (ESP32-S2 Single-core Xtensa LX7 @ 240 MHz, 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -3834,6 +3925,11 @@
             "explanation": "Verified wireless specification: Wi-Fi (2.4 GHz) ONLY \u2014 NO Bluetooth!."
           }
         ]
+      },
+      "photo": {
+        "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s2/_images/esp32-s2-devkitm-1-v1-isometric.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s2/esp32-s2-devkitm-1/user_guide.html",
+        "credit": "Official Espressif ESP32-S2-DevKitM-1 photograph (Espressif Docs)"
       }
     },
     {
@@ -3851,8 +3947,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for ESP32-S3 (e.g. DevKitC-1) is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/_images/esp32-s3-devkitc-1-v1.1-isometric.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html",
+        "credit": "Official Espressif ESP32-S3-DevKitC-1 v1.1 photograph (Espressif Docs)",
+        "fallbackText": "ESP32-S3 (e.g. DevKitC-1) (ESP32-S3 Dual-core Xtensa LX7 @ 240 MHz (w/ AI/Vector instructions), 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -4148,6 +4247,11 @@
             "explanation": "Verified wireless specification: Wi-Fi (2.4 GHz) + Bluetooth 5 LE (NO Bluetooth Classic!)."
           }
         ]
+      },
+      "photo": {
+        "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/_images/esp32-s3-devkitc-1-v1.1-isometric.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html",
+        "credit": "Official Espressif ESP32-S3-DevKitC-1 v1.1 photograph (Espressif Docs)"
       }
     },
     {
@@ -4165,8 +4269,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for ESP32-C3 (e.g. DevKitM-1 / SuperMini) is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c3/_images/esp32-c3-devkitm-1-v1-isometric.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html",
+        "credit": "Official Espressif ESP32-C3-DevKitM-1 photograph (Espressif Docs)",
+        "fallbackText": "ESP32-C3 (e.g. DevKitM-1 / SuperMini) (ESP32-C3 Single-core 32-bit RISC-V @ 160 MHz, 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -4462,6 +4569,11 @@
             "explanation": "Verified wireless specification: Wi-Fi (2.4 GHz) + Bluetooth 5 LE (NO Bluetooth Classic)."
           }
         ]
+      },
+      "photo": {
+        "url": "https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c3/_images/esp32-c3-devkitm-1-v1-isometric.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html",
+        "credit": "Official Espressif ESP32-C3-DevKitM-1 photograph (Espressif Docs)"
       }
     },
     {
@@ -4483,8 +4595,11 @@
         }
       ],
       "photoStatus": {
-        "hasLocalPhoto": false,
-        "fallbackText": "Verified local photograph for ESP32-C6 (e.g. DevKitC-1) is pending official licensing/bundling; see linked official manufacturer documentation."
+        "hasVerifiedPhoto": true,
+        "photoUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/_images/esp32-c6-devkitc-1-isometric_v1.2.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitc-1/user_guide.html",
+        "credit": "Official Espressif ESP32-C6-DevKitC-1 v1.2 photograph (Espressif Docs)",
+        "fallbackText": "ESP32-C6 (e.g. DevKitC-1) (ESP32-C6 Single-core 32-bit RISC-V @ 160 MHz + Low-Power RISC-V core, 3.3V ONLY logic) \u2014 real photograph loads when online."
       },
       "lessons": [
         {
@@ -4780,6 +4895,11 @@
             "explanation": "Verified wireless specification: Wi-Fi 6 (2.4 GHz 802.11ax) + Bluetooth 5 LE + IEEE 802.15.4 (Zigbee / Thread / Matter)."
           }
         ]
+      },
+      "photo": {
+        "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/_images/esp32-c6-devkitc-1-isometric_v1.2.png",
+        "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitc-1/user_guide.html",
+        "credit": "Official Espressif ESP32-C6-DevKitC-1 v1.2 photograph (Espressif Docs)"
       }
     }
   ]

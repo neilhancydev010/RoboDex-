@@ -33,6 +33,7 @@
 
       <main class="page-body">
         <div class="container">
+          <div id="stage3-visual-figure-host" class="mb-lg"></div>
           <div class="empty-state">
             <h3>Application-Based Learning Environment — Coming in Stage 3</h3>
             <p class="mb-md">
@@ -54,5 +55,15 @@
   <script src="./assets/js/db.js"></script>
   <script src="./assets/js/progress.js"></script>
   <script src="./assets/js/app.js"></script>
+  <script src="./assets/js/visual-figures.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.RoboDexVisuals) {
+        window.RoboDexVisuals.mountFigure("#stage3-visual-figure-host", "robotics-applied", {
+          badge: "Conceptual Visual Learning Figure · Stage 3 Preview"
+        });
+      }
+    });
+  </script>
 </body>
 </html>
