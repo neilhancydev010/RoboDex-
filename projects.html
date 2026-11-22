@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guided Project Pathways — RoboDex́</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./assets/css/tokens.css">
+  <link rel="stylesheet" href="./assets/css/base.css">
+  <link rel="stylesheet" href="./assets/css/layout.css">
+  <link rel="stylesheet" href="./assets/css/components.css">
+</head>
+<body data-page="projects">
+  <div id="site-header"></div>
+
+  <main class="page-main">
+    <div class="container">
+      <div class="mb-lg">
+        <span class="badge badge-cyan">Integrated Project-Based Learning</span>
+        <h1 class="mt-sm">Guided Robotics Project Pathways</h1>
+        <p>Select a project below to review its objective, required programming concepts, live prerequisite status, step-by-step logic design, hardware wiring notes, and Arduino IDE starter skeleton. RoboDex́ guides your thinking instead of handing out complete copy-paste solutions.</p>
+      </div>
+
+      <div id="projects-selector" class="grid grid-4 mb-lg"></div>
+      <div id="project-detail">
+        <p class="text-muted">Loading project pathway...</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="./assets/js/prefs.js"></script>
+  <script src="./assets/js/db.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/app.js"></script>
+  <script src="./assets/js/editor.js"></script>
+  <script src="./assets/js/projects-page.js"></script>
+</body>
+</html>

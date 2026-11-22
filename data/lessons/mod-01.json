@@ -1,0 +1,612 @@
+{
+  "id": "mod-01",
+  "lessons": [
+    {
+      "id": "m01-l01",
+      "title": "What Is Programming?",
+      "estimatedMinutes": 12,
+      "introduction": "Programming is the craft of writing clear, unambiguous step-by-step instructions that tell a computer or microcontroller exactly how to solve a problem.",
+      "objectives": [
+        "Explain what programming means in plain engineering terms.",
+        "Distinguish human natural language from precise machine instructions.",
+        "Identify how a program turns sensor inputs into physical actions on an Arduino."
+      ],
+      "conceptExplanation": [
+        "Computers and microcontrollers cannot guess your intentions. Even a tiny chip like the ATmega328P inside an Arduino Uno R3 can execute millions of operations per second, yet it has zero common sense on its own.",
+        "Programming bridges human goals and electronic hardware. Instead of saying 'turn on the fan when it feels hot', a programmer writes exact rules: read the temperature sensor, compare the value against 30 degrees Celsius, and set the motor control pin HIGH."
+      ],
+      "analogy": "Think of programming like writing a recipe for a kitchen robot that takes every word literally. If you forget to say 'remove the egg shell', it will drop the whole egg into the bowl.",
+      "syntaxExplanation": {
+        "summary": "Every Arduino program is written as a sequence of exact statements grouped inside functions.",
+        "pattern": "// Step 1: Configure hardware\nvoid setup() {\n  pinMode(13, OUTPUT);\n}\n// Step 2: Repeat instructions\nvoid loop() {\n  digitalWrite(13, HIGH);\n}",
+        "rules": [
+          "Every instruction must follow exact spelling and capitalization.",
+          "Most individual instructions end with a semicolon (;).",
+          "Curly braces { } group related instructions together."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Turning On the Built-in LED",
+          "description": "This minimal Arduino sketch tells the microcontroller to prepare pin 13 and send voltage to light its onboard LED.",
+          "filename": "m01_first_instruction.ino",
+          "code": "void setup() {\n  pinMode(13, OUTPUT);\n  digitalWrite(13, HIGH);\n}\n\nvoid loop() {\n  // Nothing repeated yet\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Starts the one-time startup block that runs when the board powers on."
+        },
+        {
+          "code": "pinMode(13, OUTPUT);",
+          "explanation": "Tells the microcontroller that digital pin 13 will send electrical signals out."
+        },
+        {
+          "code": "digitalWrite(13, HIGH);",
+          "explanation": "Sets pin 13 to HIGH voltage (5V on Uno R3), turning the onboard LED on."
+        },
+        {
+          "code": "void loop() { }",
+          "explanation": "Required repeating block; currently empty because the LED stays on."
+        }
+      ],
+      "realWorldApplication": "Every automated device \u2014 from a smart greenhouse watering pump to a line-following robot \u2014 relies on small, exact programmed instructions executing continuously.",
+      "commonMistakes": [
+        {
+          "mistake": "Assuming the board understands vague intent",
+          "fix": "Break every goal into explicit, testable steps with exact pin numbers and thresholds."
+        },
+        {
+          "mistake": "Forgetting the semicolon at the end of a statement",
+          "fix": "Check the end of each line inside { } for a missing ';'."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m01_first_instruction.ino",
+        "challengePrompt": "Change HIGH to LOW inside setup() to see how a single word changes the hardware instruction.",
+        "starterCode": "void setup() {\n  pinMode(13, OUTPUT);\n  digitalWrite(13, HIGH); // Try changing HIGH to LOW\n}\n\nvoid loop() {\n}",
+        "expectedBehavior": "With HIGH, the onboard LED on pin 13 turns on and stays lit after uploading in Arduino IDE. With LOW, the LED remains off."
+      },
+      "exercises": [
+        {
+          "id": "m01-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "Why must programming instructions be written with strict precision?",
+          "options": [
+            "Microcontrollers execute instructions literally and cannot guess human intent.",
+            "Arduino boards only accept instructions written in all capital letters.",
+            "Shorter programs automatically use less electricity.",
+            "Computers randomly skip unclear instructions."
+          ],
+          "correctIndex": 0,
+          "explanation": "Hardware processors follow instructions literally; ambiguous or malformed instructions either fail to compile or produce unintended behavior."
+        },
+        {
+          "id": "m01-l01-e2",
+          "type": "fill-blank",
+          "prompt": "Complete the statement that turns digital pin 13 ON.",
+          "template": "digitalWrite(13, ___1___);",
+          "answers": [
+            "HIGH"
+          ],
+          "explanation": "HIGH sets a digital output pin to its active voltage (5V on Uno R3, 3.3V on ESP32)."
+        }
+      ],
+      "summary": [
+        "Programming means writing exact, step-by-step instructions for a computer or microcontroller.",
+        "Microcontrollers execute commands fast and reliably, but literally.",
+        "In Arduino C++, setup() configures hardware once and loop() runs continuously."
+      ],
+      "relatedProjectId": "led-blinking"
+    },
+    {
+      "id": "m01-l02",
+      "title": "What Is a Program?",
+      "estimatedMinutes": 12,
+      "introduction": "A program is a complete, organized collection of instructions and data stored together to accomplish a defined task.",
+      "objectives": [
+        "Define the parts of a program: data, instructions, and control flow.",
+        "Recognize why Arduino programs are called 'sketches' saved with the .ino extension.",
+        "Trace a simple two-step blinking program from top to bottom."
+      ],
+      "conceptExplanation": [
+        "A single instruction like digitalWrite(13, HIGH); only does one tiny action. A program combines many instructions, named values (data), and timing or decision rules into a working system.",
+        "In the Arduino ecosystem, a program is called a sketch and saved in a folder with a .ino file. Behind the scenes, Arduino IDE compiles your sketch into binary machine code and flashes it into the board's flash memory."
+      ],
+      "analogy": "If a single line of code is one musical note, a program is the complete sheet music that tells the orchestra what to play and when to pause.",
+      "syntaxExplanation": {
+        "summary": "An Arduino program combines declarations at the top with setup() and loop().",
+        "pattern": "const int LED_PIN = 13;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(LED_PIN, HIGH);\n  delay(500);\n  digitalWrite(LED_PIN, LOW);\n  delay(500);\n}",
+        "rules": [
+          "Data declarations (like pin numbers) sit cleanly near the top of the program.",
+          "setup() prepares pins and communication once.",
+          "loop() repeats the main behavior indefinitely while powered."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Complete Blink Program",
+          "description": "A full Arduino program that alternates pin 13 between HIGH and LOW every half second.",
+          "filename": "m01_blink_program.ino",
+          "code": "const int LED_PIN = 13;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(LED_PIN, HIGH);\n  delay(500);\n  digitalWrite(LED_PIN, LOW);\n  delay(500);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LED_PIN = 13;",
+          "explanation": "Stores the pin number 13 under a readable name so the program is easy to update."
+        },
+        {
+          "code": "pinMode(LED_PIN, OUTPUT);",
+          "explanation": "Configures pin 13 for output inside setup()."
+        },
+        {
+          "code": "delay(500);",
+          "explanation": "Pauses program execution for 500 milliseconds (0.5 seconds)."
+        },
+        {
+          "code": "digitalWrite(LED_PIN, LOW);",
+          "explanation": "Turns the LED off before waiting another 500 ms and repeating."
+        }
+      ],
+      "realWorldApplication": "Status beacons on autonomous rovers use simple repeating programs to indicate battery health or active telemetry.",
+      "commonMistakes": [
+        {
+          "mistake": "Omitting the second delay(500)",
+          "fix": "Without the pause after LOW, loop() immediately jumps back to HIGH in microseconds, so the LED appears constantly on."
+        },
+        {
+          "mistake": "Putting repeating actions inside setup()",
+          "fix": "setup() runs only once on reset; repeating tasks belong in loop()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m01_blink_program.ino",
+        "challengePrompt": "Change both delay values from 500 to 250 to double the blinking speed.",
+        "starterCode": "const int LED_PIN = 13;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(LED_PIN, HIGH);\n  delay(500);\n  digitalWrite(LED_PIN, LOW);\n  delay(500);\n}",
+        "expectedBehavior": "The LED blinks on for 0.25 s and off for 0.25 s (2 blinks per second) after uploading via Arduino IDE."
+      },
+      "exercises": [
+        {
+          "id": "m01-l02-e1",
+          "type": "predict-behavior",
+          "prompt": "What happens if you delete the second delay(500); at the bottom of loop()?",
+          "codeSnippet": "void loop() {\n  digitalWrite(13, HIGH);\n  delay(500);\n  digitalWrite(13, LOW);\n}",
+          "options": [
+            "The LED turns off for only a few microseconds and looks permanently ON to human eyes.",
+            "The LED blinks twice as slowly.",
+            "The Arduino refuses to compile the program.",
+            "The LED stays permanently OFF."
+          ],
+          "correctIndex": 0,
+          "explanation": "Right after setting pin 13 LOW, loop() restarts immediately and sets it HIGH again in microseconds."
+        },
+        {
+          "id": "m01-l02-e2",
+          "type": "arrange-steps",
+          "prompt": "Arrange the lines to form a clean blinking cycle inside loop().",
+          "shuffledSteps": [
+            "delay(500); // stay off",
+            "digitalWrite(LED_PIN, HIGH);",
+            "digitalWrite(LED_PIN, LOW);",
+            "delay(500); // stay on"
+          ],
+          "correctOrder": [
+            "digitalWrite(LED_PIN, HIGH);",
+            "delay(500); // stay on",
+            "digitalWrite(LED_PIN, LOW);",
+            "delay(500); // stay off"
+          ],
+          "explanation": "You must turn the LED ON, pause so it is visible, turn it OFF, and pause again before repeating."
+        }
+      ],
+      "summary": [
+        "A program combines named data with ordered instructions to achieve a goal.",
+        "Arduino programs are saved as .ino sketches and compiled into machine code.",
+        "Every transition in a repeating cycle needs appropriate timing."
+      ],
+      "diagram": {
+        "file": "arduino-loop.svg",
+        "caption": "How an Arduino microcontroller runs setup() once and repeats loop() continuously."
+      }
+    },
+    {
+      "id": "m01-l03",
+      "title": "How Computers Execute Instructions",
+      "estimatedMinutes": 12,
+      "introduction": "Understanding sequential execution and the fetch-decode-execute cycle helps you predict exactly what your microcontroller will do at every millisecond.",
+      "objectives": [
+        "Trace top-to-bottom sequential execution inside a function.",
+        "Explain the role of the CPU clock, Flash memory, and SRAM on an Arduino.",
+        "Predict how changing instruction order changes program output."
+      ],
+      "conceptExplanation": [
+        "A microcontroller reads instructions from Flash memory one by one in order, decodes each instruction, and executes it using its CPU and temporary SRAM memory. Unless a branch (if), loop, or function call redirects it, execution always moves strictly top to bottom.",
+        "On an Arduino Uno R3 running at 16 MHz, the processor performs up to 16 million clock cycles per second. That speed is why a tiny missing delay or wrong line order happens faster than you can blink."
+      ],
+      "analogy": "Execution is like a finger sliding down a checklist one line at a time \u2014 it never skips ahead unless a rule explicitly tells it to jump.",
+      "syntaxExplanation": {
+        "summary": "Statements inside a block run in exact top-to-bottom order.",
+        "pattern": "int count = 1;       // 1st\ncount = count + 2;   // 2nd -> count is now 3\nSerial.println(count); // 3rd -> prints 3",
+        "rules": [
+          "Order matters: printing a variable before updating it shows the old value.",
+          "Flash memory stores your compiled program even when power is removed.",
+          "SRAM holds temporary variables and resets every time the board loses power."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Tracing Sequential Execution with Serial",
+          "description": "Prints numbered steps to the Arduino Serial Monitor to prove top-to-bottom execution.",
+          "filename": "m01_execution_order.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int steps = 0;\n  Serial.println(steps);\n  steps = steps + 5;\n  Serial.println(steps);\n}\n\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "Serial.begin(9600);",
+          "explanation": "Opens USB serial communication at 9600 bits per second."
+        },
+        {
+          "code": "int steps = 0;",
+          "explanation": "Creates an integer variable in SRAM initialized to 0."
+        },
+        {
+          "code": "Serial.println(steps);",
+          "explanation": "Prints 0 first because steps has not been increased yet."
+        },
+        {
+          "code": "steps = steps + 5;",
+          "explanation": "Adds 5 to steps and stores 5 back into SRAM before the second print."
+        }
+      ],
+      "realWorldApplication": "Robotics startup sequences depend on strict order: you must initialize the IMU sensor and calibrate zero-drift before enabling drive motors.",
+      "commonMistakes": [
+        {
+          "mistake": "Printing a result before computing it",
+          "fix": "Ensure calculations run before Serial.println() or digitalWrite()."
+        },
+        {
+          "mistake": "Confusing Flash and SRAM",
+          "fix": "Code lives in Flash (non-volatile); live sensor variables live in SRAM (cleared on reset)."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m01_execution_order.ino",
+        "challengePrompt": "Add one more line that adds 10 to steps and prints the new value.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int steps = 0;\n  Serial.println(steps);\n  steps = steps + 5;\n  Serial.println(steps);\n  // Add +10 and print here\n}\n\nvoid loop() {}",
+        "expectedBehavior": "Serial Monitor displays 0, then 5, then 15 on separate lines once uploaded and opened at 9600 baud."
+      },
+      "exercises": [
+        {
+          "id": "m01-l03-e1",
+          "type": "predict-behavior",
+          "prompt": "What two numbers are printed to Serial Monitor?",
+          "codeSnippet": "int x = 4;\nx = x + 3;\nSerial.println(x);\nx = x * 2;\nSerial.println(x);",
+          "options": [
+            "7 and 14",
+            "4 and 8",
+            "4 and 7",
+            "7 and 9"
+          ],
+          "correctIndex": 0,
+          "explanation": "x starts at 4, becomes 7 before the first print, then doubles to 14 before the second print."
+        },
+        {
+          "id": "m01-l03-e2",
+          "type": "multiple-choice",
+          "prompt": "Where does an Arduino store your compiled program so it survives when unplugged?",
+          "options": [
+            "Flash memory",
+            "SRAM",
+            "USB cable",
+            "Serial Monitor"
+          ],
+          "correctIndex": 0,
+          "explanation": "Compiled machine instructions are written to non-volatile Flash memory; variables live in volatile SRAM."
+        }
+      ],
+      "summary": [
+        "Microcontrollers execute instructions sequentially from top to bottom.",
+        "Changing the order of statements changes the resulting state and output.",
+        "Program code persists in Flash memory while variables reset in SRAM on power loss."
+      ]
+    },
+    {
+      "id": "m01-l04",
+      "title": "What Is C++?",
+      "estimatedMinutes": 12,
+      "introduction": "Arduino sketches are written in C++, one of the world's most widely used systems and robotics languages.",
+      "objectives": [
+        "Explain why C++ is used for microcontrollers and robotics.",
+        "Recognize that Arduino adds helpful hardware functions on top of standard C++.",
+        "Identify basic C++ building blocks inside an Arduino sketch."
+      ],
+      "conceptExplanation": [
+        "C++ is a compiled, high-performance programming language that gives engineers direct control over memory and hardware timing while still supporting clean abstractions like functions and classes.",
+        "Many beginners think 'Arduino' is a completely separate language. In reality, Arduino sketches are standard C++ compiled with GCC/Clang, plus a convenient core library that provides pinMode(), digitalWrite(), millis(), and Serial."
+      ],
+      "analogy": "C++ is the engine under the hood; the Arduino core library is the steering wheel and dashboard that makes driving hardware approachable.",
+      "syntaxExplanation": {
+        "summary": "Standard C++ data types, math, and control structures work natively inside Arduino sketches.",
+        "pattern": "int speed = 120;           // Standard C++ variable\nif (speed > 100) {         // Standard C++ decision\n  analogWrite(9, speed);   // Arduino hardware function\n}",
+        "rules": [
+          "C++ is case-sensitive: speed and Speed are two different identifiers.",
+          "C++ is statically typed: every variable must declare its data type (e.g., int, float, bool).",
+          "Code is compiled before running, catching syntax errors early."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Standard C++ Inside an Arduino Sketch",
+          "description": "Combines standard C++ arithmetic and a conditional check with Arduino Serial output.",
+          "filename": "m01_cpp_basics.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int voltageMv = 4850;\n  if (voltageMv >= 4500) {\n    Serial.println(\"Power rail healthy\");\n  }\n}\n\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int voltageMv = 4850;",
+          "explanation": "Standard C++ integer variable declaration."
+        },
+        {
+          "code": "if (voltageMv >= 4500)",
+          "explanation": "Standard C++ conditional expression evaluating true or false."
+        },
+        {
+          "code": "Serial.println(...);",
+          "explanation": "Arduino Serial object method that sends text over USB."
+        }
+      ],
+      "realWorldApplication": "Learning C++ through Arduino transfers directly to ROS2 robotics, embedded firmware, game engines, and aerospace control software.",
+      "commonMistakes": [
+        {
+          "mistake": "Treating C++ as case-insensitive",
+          "fix": "Always match exact casing: pinMode works, PinMode fails to compile."
+        },
+        {
+          "mistake": "Omitting variable types",
+          "fix": "Unlike Python or JavaScript, C++ requires a type such as int or float when creating a variable."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m01_cpp_basics.ino",
+        "challengePrompt": "Change voltageMv to 4100 and add an else block that prints \"Low battery\".",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int voltageMv = 4850;\n  if (voltageMv >= 4500) {\n    Serial.println(\"Power rail healthy\");\n  }\n}\n\nvoid loop() {}",
+        "expectedBehavior": "When voltageMv is 4100 and an else branch is added, Serial Monitor prints 'Low battery'."
+      },
+      "exercises": [
+        {
+          "id": "m01-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the relationship between C++ and Arduino programming?",
+          "options": [
+            "Arduino sketches are written in C++ using an added library of hardware functions.",
+            "Arduino replaces C++ with JavaScript.",
+            "C++ only runs on desktop computers, never on microcontrollers.",
+            "Arduino code is interpreted line-by-line without compiling."
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino uses a real C++ compiler along with a hardware abstraction library (pinMode, digitalWrite, Serial, etc.)."
+        },
+        {
+          "id": "m01-l04-e2",
+          "type": "find-error",
+          "prompt": "Find the C++ error in this snippet.",
+          "codeSnippet": "void setup() {\n  sensorValue = 512;\n  Serial.begin(9600);\n}",
+          "options": [
+            "sensorValue is missing its C++ data type (e.g., int sensorValue = 512;).",
+            "Serial.begin(9600) must always be on line 1.",
+            "512 is too large for an Arduino.",
+            "void setup() should be named void start()."
+          ],
+          "correctIndex": 0,
+          "explanation": "C++ is statically typed, so every new variable must declare its type before or when assigned."
+        }
+      ],
+      "summary": [
+        "Arduino programming is built directly on standard compiled C++.",
+        "C++ requires explicit data types and exact capitalization.",
+        "Mastering C++ fundamentals first makes every Arduino library easier to understand."
+      ]
+    },
+    {
+      "id": "m01-l05",
+      "title": "Introduction to Arduino Programming",
+      "estimatedMinutes": 12,
+      "introduction": "Arduino boards connect software logic directly to real-world voltages, sensors, lights, and motors through physical I/O pins.",
+      "objectives": [
+        "Identify digital pins, analog pins, power pins, and GND on an Arduino board.",
+        "Explain why every circuit needs a shared Ground (GND) reference.",
+        "Understand the difference between reading an input and driving an output."
+      ],
+      "conceptExplanation": [
+        "Unlike a laptop that interacts mainly with a screen and keyboard, an Arduino interacts with the physical world through General-Purpose Input/Output (GPIO) pins.",
+        "Digital pins read or write two binary states: LOW (0V) or HIGH (typically 5V on Uno/Mega or 3.3V on ESP32). Analog input pins measure continuous voltages across a range of numbers so you can read light levels, temperature, or knob positions."
+      ],
+      "analogy": "Think of GND as sea level: voltage is like altitude. Without a common sea level (shared GND), two devices cannot agree on how high a signal is.",
+      "syntaxExplanation": {
+        "summary": "Arduino hardware control follows two steps: configure pin direction, then read or write.",
+        "pattern": "pinMode(pinNumber, MODE);          // INPUT, OUTPUT, or INPUT_PULLUP\ndigitalWrite(pinNumber, HIGH);     // Send voltage out\nint state = digitalRead(pinNumber);// Read voltage in",
+        "rules": [
+          "Always connect GND between your Arduino and external sensors or power supplies.",
+          "Use a 220\u2013330 ohm resistor in series with LEDs to protect both the LED and the pin.",
+          "Never power heavy DC motors directly from a GPIO pin."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Input and Output Together",
+          "description": "Configures pin 2 as a button input and pin 13 as an LED output.",
+          "filename": "m01_arduino_intro.ino",
+          "code": "const int BTN_PIN = 2;\nconst int LED_PIN = 13;\n\nvoid setup() {\n  pinMode(BTN_PIN, INPUT_PULLUP);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  int pressed = (digitalRead(BTN_PIN) == LOW);\n  digitalWrite(LED_PIN, pressed ? HIGH : LOW);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "pinMode(BTN_PIN, INPUT_PULLUP);",
+          "explanation": "Activates an internal resistor so pin 2 reads HIGH when idle and LOW when pressed to GND."
+        },
+        {
+          "code": "pinMode(LED_PIN, OUTPUT);",
+          "explanation": "Allows pin 13 to drive an LED."
+        },
+        {
+          "code": "digitalRead(BTN_PIN) == LOW",
+          "explanation": "Checks whether the button is currently connecting pin 2 to GND."
+        }
+      ],
+      "realWorldApplication": "Limit switches on 3D printers and robotic arms use this exact INPUT_PULLUP pattern to detect when an axis reaches its home position safely.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting to connect a common GND",
+          "fix": "Always tie GND rails together across breadboard, sensors, and board."
+        },
+        {
+          "mistake": "Connecting an LED without a resistor",
+          "fix": "Always add a 220\u2013330 ohm resistor in series with standard 5mm LEDs."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m01_arduino_intro.ino",
+        "challengePrompt": "Invert the logic so the LED stays ON when the button is NOT pressed and turns OFF when pressed.",
+        "starterCode": "const int BTN_PIN = 2;\nconst int LED_PIN = 13;\n\nvoid setup() {\n  pinMode(BTN_PIN, INPUT_PULLUP);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  bool pressed = (digitalRead(BTN_PIN) == LOW);\n  digitalWrite(LED_PIN, pressed ? HIGH : LOW);\n}",
+        "expectedBehavior": "When inverted, the LED stays lit by default and turns off whenever the button connected to pin 2 and GND is held down."
+      },
+      "exercises": [
+        {
+          "id": "m01-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "Why do we put a 220-ohm resistor in series with an LED on an Arduino output pin?",
+          "options": [
+            "To limit electrical current so neither the LED nor the microcontroller pin burns out.",
+            "To make the LED blink automatically.",
+            "To convert analog signals into digital signals.",
+            "To increase the voltage from 5V to 12V."
+          ],
+          "correctIndex": 0,
+          "explanation": "An LED has very low resistance once lit; without a current-limiting resistor, excess current can damage both the LED and GPIO pin."
+        },
+        {
+          "id": "m01-l05-e2",
+          "type": "select-code",
+          "prompt": "Select the line that configures pin 7 as a digital output.",
+          "options": [
+            "pinMode(7, OUTPUT);",
+            "digitalWrite(7, OUTPUT);",
+            "pinMode(OUTPUT, 7);",
+            "setPin(7, OUT);"
+          ],
+          "correctIndex": 0,
+          "explanation": "pinMode takes the pin number first and the mode (INPUT, OUTPUT, or INPUT_PULLUP) second."
+        }
+      ],
+      "summary": [
+        "Arduino GPIO pins bridge software logic to physical circuits.",
+        "Digital pins handle HIGH/LOW binary signals; analog pins measure continuous voltage ranges.",
+        "Always protect LEDs with resistors and share a common GND."
+      ]
+    },
+    {
+      "id": "m01-l06",
+      "title": "Understanding Source Code",
+      "estimatedMinutes": 12,
+      "introduction": "Source code is the human-readable text you write, whereas machine code is the binary instructions the microcontroller actually executes.",
+      "objectives": [
+        "Differentiate human-readable source code from compiled machine code.",
+        "Read indentation, comments, identifiers, and braces to understand unfamiliar sketches.",
+        "Recognize how the compiler checks your source code before upload."
+      ],
+      "conceptExplanation": [
+        "You write source code in plain text using English-like keywords such as if, while, int, and return. Microcontrollers cannot directly read English words; they execute binary patterns (0s and 1s).",
+        "When you click Verify in Arduino IDE, a C++ compiler translates your source code into machine code (.hex or .bin). If you make a syntax mistake \u2014 like a missing brace or typo \u2014 the compiler stops and reports the exact line number so you can fix it."
+      ],
+      "analogy": "Source code is like an architect's blueprint that humans can read and edit; the compiler is the factory that turns that blueprint into the finished physical chip instructions.",
+      "syntaxExplanation": {
+        "summary": "Clean source code uses meaningful names, consistent indentation, and brief comments.",
+        "pattern": "// Meaningful constant + clean indentation\nconst int STATUS_LED = 13;\n\nvoid setup() {\n  pinMode(STATUS_LED, OUTPUT);\n}",
+        "rules": [
+          "Indentation does not change how C++ runs, but it makes nesting immediately clear to humans.",
+          "Comments (// ...) are ignored by the compiler and use zero memory on the Arduino.",
+          "Compiler error messages point near the first syntax mistake \u2014 always read the first error first."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Clean, Well-Documented Source Code",
+          "description": "Demonstrates readable naming, indentation, and concise comments.",
+          "filename": "m01_source_code.ino",
+          "code": "// Blink status indicator for Rover Power Module\nconst int POWER_LED_PIN = 13;\nconst int BLINK_MS = 400;\n\nvoid setup() {\n  pinMode(POWER_LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(POWER_LED_PIN, HIGH);\n  delay(BLINK_MS);\n  digitalWrite(POWER_LED_PIN, LOW);\n  delay(BLINK_MS);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "// Blink status indicator...",
+          "explanation": "Single-line comment explaining intent; stripped out during compilation."
+        },
+        {
+          "code": "const int BLINK_MS = 400;",
+          "explanation": "Replaces a 'magic number' with a descriptive constant."
+        },
+        {
+          "code": "Two-space indentation",
+          "explanation": "Visually separates lines belonging inside setup() and loop()."
+        }
+      ],
+      "realWorldApplication": "In real engineering teams, source code is read ten times more often than it is written \u2014 readable code makes debugging hardware faults dramatically faster.",
+      "commonMistakes": [
+        {
+          "mistake": "Using cryptic names like a, b, x1",
+          "fix": "Use descriptive names like MOTOR_LEFT_PIN or distanceCm."
+        },
+        {
+          "mistake": "Ignoring compiler errors after the first one",
+          "fix": "Fix the very first error reported; later errors are often cascade effects."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m01_source_code.ino",
+        "challengePrompt": "Rename BLINK_MS to HEARTBEAT_MS everywhere in the sketch and set it to 300.",
+        "starterCode": "const int POWER_LED_PIN = 13;\nconst int BLINK_MS = 400;\n\nvoid setup() {\n  pinMode(POWER_LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(POWER_LED_PIN, HIGH);\n  delay(BLINK_MS);\n  digitalWrite(POWER_LED_PIN, LOW);\n  delay(BLINK_MS);\n}",
+        "expectedBehavior": "After renaming consistently and uploading in Arduino IDE, the LED blinks every 300 ms with cleaner self-documenting code."
+      },
+      "exercises": [
+        {
+          "id": "m01-l06-e1",
+          "type": "multiple-choice",
+          "prompt": "Do comments (// ...) take up Flash memory or slow down your Arduino?",
+          "options": [
+            "No \u2014 the compiler strips comments completely before generating machine code.",
+            "Yes \u2014 every comment slows down loop() by 1 millisecond.",
+            "Yes \u2014 comments fill up SRAM.",
+            "Comments are only allowed in setup()."
+          ],
+          "correctIndex": 0,
+          "explanation": "Comments exist solely for human readers and are completely discarded by the C++ compiler."
+        },
+        {
+          "id": "m01-l06-e2",
+          "type": "write-code",
+          "prompt": "Write a single C++ constant declaration named SENSOR_PIN with the integer value 4.",
+          "starter": "",
+          "requiredTokens": [
+            "const",
+            "int",
+            "SENSOR_PIN",
+            "=",
+            "4",
+            ";"
+          ],
+          "sampleSolution": "const int SENSOR_PIN = 4;",
+          "explanation": "const int SENSOR_PIN = 4; declares an unchangeable integer constant with a clear name."
+        }
+      ],
+      "summary": [
+        "Source code is human-readable text; the compiler translates it into binary machine code.",
+        "Comments and indentation cost zero microcontroller memory.",
+        "Always read and fix the first compiler error message first."
+      ]
+    }
+  ]
+}

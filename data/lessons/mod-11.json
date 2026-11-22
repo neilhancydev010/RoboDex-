@@ -1,0 +1,495 @@
+{
+  "id": "mod-11",
+  "lessons": [
+    {
+      "id": "m11-l01",
+      "title": "Arduino Uno R3 Development",
+      "estimatedMinutes": 12,
+      "introduction": "The classic 5V teaching board. Simple, predictable, and forgiving for beginners learning digital I/O, analogRead(), PWM, and basic robotics without complex voltage shifting.",
+      "objectives": [
+        "Identify the MCU, architecture (8-bit AVR (ATmega328P)), and logic voltage (5V Logic) of Arduino Uno R3.",
+        "Configure Arduino IDE Boards Manager correctly for Arduino Uno R3.",
+        "Respect board-specific pin limits, ADC resolution, and variant differences."
+      ],
+      "conceptExplanation": [
+        "The classic 5V teaching board. Simple, predictable, and forgiving for beginners learning digital I/O, analogRead(), PWM, and basic robotics without complex voltage shifting.",
+        "I/O pins operate at 5V (max ~20 mA recommended per pin, 40 mA absolute max). Do not connect 3.3V-only sensor logic lines directly without a level shifter.",
+        "Pin & Peripheral Highlights: 14 digital I/O pins (D0/D1 are shared with USB Serial \u2014 avoid using D0/D1 for LEDs/buttons while debugging). 6 hardware PWM pins marked with ~ (D3, D5, D6, D9, D10, D11). 6 analog inputs A0\u2013A5 with 10-bit resolution (0 to 1023 representing 0V to 5V). External interrupts on D2 and D3; I2C on A4 (SDA) / A5 (SCL); SPI on D10\u2013D13."
+      ],
+      "analogy": "Just as diesel and electric vehicles share a steering wheel but have completely different drivetrains and voltages, different Arduino/ESP32 boards share C++ syntax while differing sharply in hardware specs.",
+      "syntaxExplanation": {
+        "summary": "On Uno R3, analogRead() returns 0\u20131023 (10-bit) and analogWrite() accepts 0\u2013255 on PWM pins (~).",
+        "pattern": "// Arduino Uno R3: 10-bit ADC (0-1023) to 8-bit PWM (0-255)\nconst int POT_PIN = A0;",
+        "rules": [
+          "14 digital I/O pins (D0/D1 are shared with USB Serial \u2014 avoid using D0/D1 for LEDs/buttons while debugging).",
+          "6 hardware PWM pins marked with ~ (D3, D5, D6, D9, D10, D11).",
+          "6 analog inputs A0\u2013A5 with 10-bit resolution (0 to 1023 representing 0V to 5V)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Arduino Uno R3 Starter Sketch",
+          "description": "On Uno R3, analogRead() returns 0\u20131023 (10-bit) and analogWrite() accepts 0\u2013255 on PWM pins (~).",
+          "filename": "m11_uno_r3.ino",
+          "code": "// Arduino Uno R3: 10-bit ADC (0-1023) to 8-bit PWM (0-255)\nconst int POT_PIN = A0;\nconst int LED_PWM_PIN = 9; // ~PWM pin on Uno R3\n\nvoid setup() {\n  pinMode(LED_PWM_PIN, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int raw = analogRead(POT_PIN);         // 0..1023\n  int brightness = map(raw, 0, 1023, 0, 255);\n  analogWrite(LED_PWM_PIN, brightness);\n  Serial.println(brightness);\n  delay(50);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int POT_PIN = A0;",
+          "explanation": "Board-appropriate pin declaration respecting hardware capabilities."
+        },
+        {
+          "code": "const int LED_PWM_PIN = 9; // ~PWM pin on Uno R3",
+          "explanation": "Pin/peripheral configuration for this board family."
+        }
+      ],
+      "realWorldApplication": "Best suited for: Absolute beginners, 5V sensors, breadboard & shield learning.",
+      "commonMistakes": [
+        {
+          "mistake": "Assuming all boards use 5V logic and identical pin numbers",
+          "fix": "I/O pins operate at 5V (max ~20 mA recommended per pin, 40 mA absolute max). Do not connect 3.3V-only sensor logic lines directly without a level shifter."
+        },
+        {
+          "mistake": "Selecting the wrong board or variant in Arduino IDE",
+          "fix": "Select the detected COM / tty port under Tools -> Port."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m11_uno_r3.ino",
+        "challengePrompt": "Review the pin numbers and ADC/voltage scaling for Arduino Uno R3, then download .ino for Arduino IDE.",
+        "starterCode": "// Arduino Uno R3: 10-bit ADC (0-1023) to 8-bit PWM (0-255)\nconst int POT_PIN = A0;\nconst int LED_PWM_PIN = 9; // ~PWM pin on Uno R3\n\nvoid setup() {\n  pinMode(LED_PWM_PIN, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int raw = analogRead(POT_PIN);         // 0..1023\n  int brightness = map(raw, 0, 1023, 0, 255);\n  analogWrite(LED_PWM_PIN, brightness);\n  Serial.println(brightness);\n  delay(50);\n}",
+        "expectedBehavior": "Runs cleanly on Arduino Uno R3 once the matching board package and port are selected in Arduino IDE."
+      },
+      "exercises": [
+        {
+          "id": "m11-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the GPIO logic voltage of Arduino Uno R3?",
+          "options": [
+            "5V Logic",
+            "12V Logic",
+            "24V AC",
+            "1.2V Logic"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Uno R3 operates at 5V Logic. Always match sensor logic voltage safely."
+        },
+        {
+          "id": "m11-l01-e2",
+          "type": "multiple-choice",
+          "prompt": "Which primary MCU / architecture powers Arduino Uno R3?",
+          "options": [
+            "ATmega328P @ 16 MHz",
+            "Intel Core i7",
+            "6502 1 MHz",
+            "No microcontroller"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Uno R3 is built around ATmega328P @ 16 MHz (8-bit AVR (ATmega328P))."
+        }
+      ],
+      "summary": [
+        "Architecture: 8-bit AVR (ATmega328P) (ATmega328P @ 16 MHz).",
+        "Logic Voltage: 5V Logic.",
+        "On Uno R3, analogRead() returns 0\u20131023 (10-bit) and analogWrite() accepts 0\u2013255 on PWM pins (~)."
+      ],
+      "diagram": {
+        "file": "boards-overview.svg",
+        "caption": "Compare Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants."
+      }
+    },
+    {
+      "id": "m11-l02",
+      "title": "Arduino Uno R4 Development",
+      "estimatedMinutes": 12,
+      "introduction": "Keeps the familiar 5V Uno form factor while upgrading to a 32-bit 48 MHz ARM processor, 256 KB Flash, 32 KB SRAM, hardware CAN bus, and a true 12-bit DAC.",
+      "objectives": [
+        "Identify the MCU, architecture (32-bit ARM Cortex-M4 (Renesas RA4M1)), and logic voltage (5V Logic) of Arduino Uno R4.",
+        "Configure Arduino IDE Boards Manager correctly for Arduino Uno R4.",
+        "Respect board-specific pin limits, ADC resolution, and variant differences."
+      ],
+      "conceptExplanation": [
+        "Keeps the familiar 5V Uno form factor while upgrading to a 32-bit 48 MHz ARM processor, 256 KB Flash, 32 KB SRAM, hardware CAN bus, and a true 12-bit DAC.",
+        "Still 5V logic on GPIO pins, but per-pin current sourcing/sinking is lower (~8 mA recommended on RA4M1) than the older ATmega328P! Always use resistors and transistors/drivers for loads.",
+        "Pin & Peripheral Highlights: Available in two official editions: Uno R4 Minima (USB-C, SWD) and Uno R4 WiFi (adds ESP32-S3 co-processor + 12x8 LED Matrix + Qwiic I2C). Supports 10-bit default ADC or higher resolution via analogReadResolution(14). Pin A0 doubles as a true 12-bit Digital-to-Analog Converter (DAC). AVR-specific register code (like TCCR1A or PORTB) will NOT compile on Uno R4."
+      ],
+      "analogy": "Just as diesel and electric vehicles share a steering wheel but have completely different drivetrains and voltages, different Arduino/ESP32 boards share C++ syntax while differing sharply in hardware specs.",
+      "syntaxExplanation": {
+        "summary": "Uno R4 supports analogReadResolution(12) or (14) for finer sensor precision than Uno R3.",
+        "pattern": "// Arduino Uno R4: 12-bit ADC resolution example\nconst int SENSOR_PIN = A1;",
+        "rules": [
+          "Available in two official editions: Uno R4 Minima (USB-C, SWD) and Uno R4 WiFi (adds ESP32-S3 co-processor + 12x8 LED Matrix + Qwiic I2C).",
+          "Supports 10-bit default ADC or higher resolution via analogReadResolution(14).",
+          "Pin A0 doubles as a true 12-bit Digital-to-Analog Converter (DAC)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Arduino Uno R4 Starter Sketch",
+          "description": "Uno R4 supports analogReadResolution(12) or (14) for finer sensor precision than Uno R3.",
+          "filename": "m11_uno_r4.ino",
+          "code": "// Arduino Uno R4: 12-bit ADC resolution example\nconst int SENSOR_PIN = A1;\n\nvoid setup() {\n  Serial.begin(115200);\n  analogReadResolution(12); // 0..4095 on Uno R4\n}\n\nvoid loop() {\n  int reading = analogRead(SENSOR_PIN);\n  float volts = (reading * 5.0f) / 4095.0f;\n  Serial.print(\"Voltage: \");\n  Serial.println(volts, 3);\n  delay(250);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int SENSOR_PIN = A1;",
+          "explanation": "Board-appropriate pin declaration respecting hardware capabilities."
+        },
+        {
+          "code": "",
+          "explanation": "Pin/peripheral configuration for this board family."
+        }
+      ],
+      "realWorldApplication": "Best suited for: Higher-speed 5V robotics, CAN bus, Wi-Fi/LED Matrix (R4 WiFi).",
+      "commonMistakes": [
+        {
+          "mistake": "Assuming all boards use 5V logic and identical pin numbers",
+          "fix": "Still 5V logic on GPIO pins, but per-pin current sourcing/sinking is lower (~8 mA recommended on RA4M1) than the older ATmega328P! Always use resistors and transistors/drivers for loads."
+        },
+        {
+          "mistake": "Selecting the wrong board or variant in Arduino IDE",
+          "fix": "Choose the active serial port and verify with Blink."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m11_uno_r4.ino",
+        "challengePrompt": "Review the pin numbers and ADC/voltage scaling for Arduino Uno R4, then download .ino for Arduino IDE.",
+        "starterCode": "// Arduino Uno R4: 12-bit ADC resolution example\nconst int SENSOR_PIN = A1;\n\nvoid setup() {\n  Serial.begin(115200);\n  analogReadResolution(12); // 0..4095 on Uno R4\n}\n\nvoid loop() {\n  int reading = analogRead(SENSOR_PIN);\n  float volts = (reading * 5.0f) / 4095.0f;\n  Serial.print(\"Voltage: \");\n  Serial.println(volts, 3);\n  delay(250);\n}",
+        "expectedBehavior": "Runs cleanly on Arduino Uno R4 once the matching board package and port are selected in Arduino IDE."
+      },
+      "exercises": [
+        {
+          "id": "m11-l02-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the GPIO logic voltage of Arduino Uno R4?",
+          "options": [
+            "5V Logic",
+            "12V Logic",
+            "24V AC",
+            "1.2V Logic"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Uno R4 operates at 5V Logic. Always match sensor logic voltage safely."
+        },
+        {
+          "id": "m11-l02-e2",
+          "type": "multiple-choice",
+          "prompt": "Which primary MCU / architecture powers Arduino Uno R4?",
+          "options": [
+            "Renesas RA4M1 @ 48 MHz",
+            "Intel Core i7",
+            "6502 1 MHz",
+            "No microcontroller"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Uno R4 is built around Renesas RA4M1 @ 48 MHz (32-bit ARM Cortex-M4 (Renesas RA4M1))."
+        }
+      ],
+      "summary": [
+        "Architecture: 32-bit ARM Cortex-M4 (Renesas RA4M1) (Renesas RA4M1 @ 48 MHz).",
+        "Logic Voltage: 5V Logic.",
+        "Uno R4 supports analogReadResolution(12) or (14) for finer sensor precision than Uno R3."
+      ],
+      "diagram": {
+        "file": "boards-overview.svg",
+        "caption": "Compare Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants."
+      }
+    },
+    {
+      "id": "m11-l03",
+      "title": "Arduino Nano Family Development",
+      "estimatedMinutes": 12,
+      "introduction": "The Arduino Nano name covers a breadboard-friendly form factor spanning very different microcontrollers. Never assume two Nano boards share the same voltage, core, or bootloader.",
+      "objectives": [
+        "Identify the MCU, architecture (Multiple MCUs across Nano variants), and logic voltage (5V (Classic/Every) or 3.3V (Nano 33/ESP32)) of Arduino Nano Family.",
+        "Configure Arduino IDE Boards Manager correctly for Arduino Nano Family.",
+        "Respect board-specific pin limits, ADC resolution, and variant differences."
+      ],
+      "conceptExplanation": [
+        "The Arduino Nano name covers a breadboard-friendly form factor spanning very different microcontrollers. Never assume two Nano boards share the same voltage, core, or bootloader.",
+        "CRITICAL: Nano Classic and Nano Every use 5V logic, whereas Nano 33 IoT, Nano 33 BLE, and Nano ESP32 use STRICT 3.3V logic. Applying 5V to a 3.3V Nano pin can permanently destroy the chip.",
+        "Pin & Peripheral Highlights: Nano Classic (ATmega328P) has A6 and A7 as analog-input-only pins \u2014 they cannot be used with digitalWrite(). Many clone Nano Classic boards use a CH340 USB-to-Serial chip and the 'ATmega328P (Old Bootloader)' option. Nano Every (ATmega4809) offers 48 KB Flash and 6 KB SRAM at 5V with a separate hardware Serial1 on D0/D1. Nano ESP32 uses 3.3V logic, USB-C, and Arduino pin numbering vs GPIO numbering options."
+      ],
+      "analogy": "Just as diesel and electric vehicles share a steering wheel but have completely different drivetrains and voltages, different Arduino/ESP32 boards share C++ syntax while differing sharply in hardware specs.",
+      "syntaxExplanation": {
+        "summary": "Remember that on Nano Classic, pins A6 and A7 only work with analogRead(), never digitalWrite().",
+        "pattern": "// Arduino Nano Classic: Reading analog-only pin A6\nconst int LIGHT_PIN = A6; // Analog-only on Nano Classic",
+        "rules": [
+          "Nano Classic (ATmega328P) has A6 and A7 as analog-input-only pins \u2014 they cannot be used with digitalWrite().",
+          "Many clone Nano Classic boards use a CH340 USB-to-Serial chip and the 'ATmega328P (Old Bootloader)' option.",
+          "Nano Every (ATmega4809) offers 48 KB Flash and 6 KB SRAM at 5V with a separate hardware Serial1 on D0/D1."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Arduino Nano Family Starter Sketch",
+          "description": "Remember that on Nano Classic, pins A6 and A7 only work with analogRead(), never digitalWrite().",
+          "filename": "m11_nano.ino",
+          "code": "// Arduino Nano Classic: Reading analog-only pin A6\nconst int LIGHT_PIN = A6; // Analog-only on Nano Classic\nconst int STATUS_LED = 13;\n\nvoid setup() {\n  pinMode(STATUS_LED, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int lightVal = analogRead(LIGHT_PIN);\n  digitalWrite(STATUS_LED, lightVal < 400 ? HIGH : LOW);\n  Serial.println(lightVal);\n  delay(200);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LIGHT_PIN = A6; // Analog-only on Nano Classic",
+          "explanation": "Board-appropriate pin declaration respecting hardware capabilities."
+        },
+        {
+          "code": "const int STATUS_LED = 13;",
+          "explanation": "Pin/peripheral configuration for this board family."
+        }
+      ],
+      "realWorldApplication": "Best suited for: Compact breadboard prototypes, wearable & small mobile robots.",
+      "commonMistakes": [
+        {
+          "mistake": "Assuming all boards use 5V logic and identical pin numbers",
+          "fix": "CRITICAL: Nano Classic and Nano Every use 5V logic, whereas Nano 33 IoT, Nano 33 BLE, and Nano ESP32 use STRICT 3.3V logic. Applying 5V to a 3.3V Nano pin can permanently destroy the chip."
+        },
+        {
+          "mistake": "Selecting the wrong board or variant in Arduino IDE",
+          "fix": "For Nano ESP32: install 'Arduino ESP32 Boards' -> select Arduino Nano ESP32."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m11_nano.ino",
+        "challengePrompt": "Review the pin numbers and ADC/voltage scaling for Arduino Nano Family, then download .ino for Arduino IDE.",
+        "starterCode": "// Arduino Nano Classic: Reading analog-only pin A6\nconst int LIGHT_PIN = A6; // Analog-only on Nano Classic\nconst int STATUS_LED = 13;\n\nvoid setup() {\n  pinMode(STATUS_LED, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int lightVal = analogRead(LIGHT_PIN);\n  digitalWrite(STATUS_LED, lightVal < 400 ? HIGH : LOW);\n  Serial.println(lightVal);\n  delay(200);\n}",
+        "expectedBehavior": "Runs cleanly on Arduino Nano Family once the matching board package and port are selected in Arduino IDE."
+      },
+      "exercises": [
+        {
+          "id": "m11-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the GPIO logic voltage of Arduino Nano Family?",
+          "options": [
+            "5V (Classic/Every) or 3.3V (Nano 33/ESP32)",
+            "12V Logic",
+            "24V AC",
+            "1.2V Logic"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Nano Family operates at 5V (Classic/Every) or 3.3V (Nano 33/ESP32). Always match sensor logic voltage safely."
+        },
+        {
+          "id": "m11-l03-e2",
+          "type": "multiple-choice",
+          "prompt": "Which primary MCU / architecture powers Arduino Nano Family?",
+          "options": [
+            "ATmega328P / ATmega4809 / ESP32-S3 (variant-dependent)",
+            "Intel Core i7",
+            "6502 1 MHz",
+            "No microcontroller"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Nano Family is built around ATmega328P / ATmega4809 / ESP32-S3 (variant-dependent) (Multiple MCUs across Nano variants)."
+        }
+      ],
+      "summary": [
+        "Architecture: Multiple MCUs across Nano variants (ATmega328P / ATmega4809 / ESP32-S3 (variant-dependent)).",
+        "Logic Voltage: 5V (Classic/Every) or 3.3V (Nano 33/ESP32).",
+        "Remember that on Nano Classic, pins A6 and A7 only work with analogRead(), never digitalWrite()."
+      ],
+      "diagram": {
+        "file": "boards-overview.svg",
+        "caption": "Compare Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants."
+      }
+    },
+    {
+      "id": "m11-l04",
+      "title": "Arduino Mega 2560 Development",
+      "estimatedMinutes": 12,
+      "introduction": "Built for large-scale 5V robotics projects that outgrow the Uno's pin count and memory. Offers 256 KB Flash, 8 KB SRAM, 54 digital pins, 16 analog inputs, and 4 hardware serial ports.",
+      "objectives": [
+        "Identify the MCU, architecture (8-bit AVR (ATmega2560)), and logic voltage (5V Logic) of Arduino Mega 2560.",
+        "Configure Arduino IDE Boards Manager correctly for Arduino Mega 2560.",
+        "Respect board-specific pin limits, ADC resolution, and variant differences."
+      ],
+      "conceptExplanation": [
+        "Built for large-scale 5V robotics projects that outgrow the Uno's pin count and memory. Offers 256 KB Flash, 8 KB SRAM, 54 digital pins, 16 analog inputs, and 4 hardware serial ports.",
+        "5V logic like the Uno R3, but do not draw high total current across all 54 pins simultaneously (respect total port and Vcc/GND current limits; power motors and servos from an external supply with shared GND).",
+        "Pin & Peripheral Highlights: 4 independent hardware UARTs: Serial (USB), Serial1 (18/19), Serial2 (16/17), Serial3 (14/15) \u2014 eliminates fragile SoftwareSerial. 15 PWM pins (D2\u2013D13 and D44\u2013D46) for controlling multiple servos and motor drivers. SPI pins differ from Uno R3: MISO=50, MOSI=51, SCK=52, SS=53. I2C pins are D20 (SDA) and D21 (SCL)."
+      ],
+      "analogy": "Just as diesel and electric vehicles share a steering wheel but have completely different drivetrains and voltages, different Arduino/ESP32 boards share C++ syntax while differing sharply in hardware specs.",
+      "syntaxExplanation": {
+        "summary": "Mega 2560 lets you talk to GPS/Bluetooth modules on Serial1 while keeping USB Serial free for debugging.",
+        "pattern": "// Arduino Mega 2560: Using hardware Serial1 alongside USB Serial\nvoid setup() {",
+        "rules": [
+          "4 independent hardware UARTs: Serial (USB), Serial1 (18/19), Serial2 (16/17), Serial3 (14/15) \u2014 eliminates fragile SoftwareSerial.",
+          "15 PWM pins (D2\u2013D13 and D44\u2013D46) for controlling multiple servos and motor drivers.",
+          "SPI pins differ from Uno R3: MISO=50, MOSI=51, SCK=52, SS=53."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Arduino Mega 2560 Starter Sketch",
+          "description": "Mega 2560 lets you talk to GPS/Bluetooth modules on Serial1 while keeping USB Serial free for debugging.",
+          "filename": "m11_mega_2560.ino",
+          "code": "// Arduino Mega 2560: Using hardware Serial1 alongside USB Serial\nvoid setup() {\n  Serial.begin(9600);   // USB Monitor\n  Serial1.begin(9600);  // Hardware UART on pins 18 (TX1) & 19 (RX1)\n  Serial.println(\"Mega 2560 Multi-UART Ready\");\n}\n\nvoid loop() {\n  if (Serial1.available()) {\n    char incoming = Serial1.read();\n    Serial.print(\"From Serial1: \");\n    Serial.println(incoming);\n  }\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Board-appropriate pin declaration respecting hardware capabilities."
+        },
+        {
+          "code": "  Serial.begin(9600);   // USB Monitor",
+          "explanation": "Pin/peripheral configuration for this board family."
+        }
+      ],
+      "realWorldApplication": "Best suited for: Multi-sensor robots, 3D printers, robotic arms, multi-UART systems.",
+      "commonMistakes": [
+        {
+          "mistake": "Assuming all boards use 5V logic and identical pin numbers",
+          "fix": "5V logic like the Uno R3, but do not draw high total current across all 54 pins simultaneously (respect total port and Vcc/GND current limits; power motors and servos from an external supply with shared GND)."
+        },
+        {
+          "mistake": "Selecting the wrong board or variant in Arduino IDE",
+          "fix": "Select the serial port and upload."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m11_mega_2560.ino",
+        "challengePrompt": "Review the pin numbers and ADC/voltage scaling for Arduino Mega 2560, then download .ino for Arduino IDE.",
+        "starterCode": "// Arduino Mega 2560: Using hardware Serial1 alongside USB Serial\nvoid setup() {\n  Serial.begin(9600);   // USB Monitor\n  Serial1.begin(9600);  // Hardware UART on pins 18 (TX1) & 19 (RX1)\n  Serial.println(\"Mega 2560 Multi-UART Ready\");\n}\n\nvoid loop() {\n  if (Serial1.available()) {\n    char incoming = Serial1.read();\n    Serial.print(\"From Serial1: \");\n    Serial.println(incoming);\n  }\n}",
+        "expectedBehavior": "Runs cleanly on Arduino Mega 2560 once the matching board package and port are selected in Arduino IDE."
+      },
+      "exercises": [
+        {
+          "id": "m11-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the GPIO logic voltage of Arduino Mega 2560?",
+          "options": [
+            "5V Logic",
+            "12V Logic",
+            "24V AC",
+            "1.2V Logic"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Mega 2560 operates at 5V Logic. Always match sensor logic voltage safely."
+        },
+        {
+          "id": "m11-l04-e2",
+          "type": "multiple-choice",
+          "prompt": "Which primary MCU / architecture powers Arduino Mega 2560?",
+          "options": [
+            "ATmega2560 @ 16 MHz",
+            "Intel Core i7",
+            "6502 1 MHz",
+            "No microcontroller"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino Mega 2560 is built around ATmega2560 @ 16 MHz (8-bit AVR (ATmega2560))."
+        }
+      ],
+      "summary": [
+        "Architecture: 8-bit AVR (ATmega2560) (ATmega2560 @ 16 MHz).",
+        "Logic Voltage: 5V Logic.",
+        "Mega 2560 lets you talk to GPS/Bluetooth modules on Serial1 while keeping USB Serial free for debugging."
+      ],
+      "diagram": {
+        "file": "boards-overview.svg",
+        "caption": "Compare Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants."
+      }
+    },
+    {
+      "id": "m11-l05",
+      "title": "ESP32 Family Development",
+      "estimatedMinutes": 12,
+      "introduction": "A high-performance 3.3V microcontroller family with integrated Wi-Fi and Bluetooth. Different ESP32 silicon variants have distinct CPU cores, pinouts, USB peripherals, and ADC rules.",
+      "objectives": [
+        "Identify the MCU, architecture (32-bit Xtensa LX6/LX7 or RISC-V (variant-dependent)), and logic voltage (3.3V Logic ONLY) of ESP32 Family.",
+        "Configure Arduino IDE Boards Manager correctly for ESP32 Family.",
+        "Respect board-specific pin limits, ADC resolution, and variant differences."
+      ],
+      "conceptExplanation": [
+        "A high-performance 3.3V microcontroller family with integrated Wi-Fi and Bluetooth. Different ESP32 silicon variants have distinct CPU cores, pinouts, USB peripherals, and ADC rules.",
+        "STRICT 3.3V LOGIC ONLY. Never connect 5V sensor outputs (such as an HC-SR04 Echo pin powered at 5V) directly to an ESP32 GPIO without a voltage divider or logic level shifter.",
+        "Pin & Peripheral Highlights: On classic ESP32-WROOM-32, GPIO 34, 35, 36, and 39 are INPUT-ONLY and have no internal pull-up resistors. Avoid pulling boot strapping pins (e.g., GPIO 0, 2, 12, 15 on classic ESP32) to the wrong state at reset. 12-bit ADC returns 0\u20134095 instead of Arduino Uno's 0\u20131023. Use analogWrite() in Arduino-ESP32 v3.x or LEDC APIs; note that ESP32-C3 is single-core RISC-V while ESP32-S3 is dual-core Xtensa LX7 with native USB."
+      ],
+      "analogy": "Just as diesel and electric vehicles share a steering wheel but have completely different drivetrains and voltages, different Arduino/ESP32 boards share C++ syntax while differing sharply in hardware specs.",
+      "syntaxExplanation": {
+        "summary": "ESP32 analogRead() uses 12-bit resolution (0\u20134095) and 3.3V reference; stick to ADC1 pins (e.g., GPIO 32\u201335 on WROOM-32) when using Wi-Fi.",
+        "pattern": "// ESP32-WROOM-32: 12-bit ADC on ADC1 pin (GPIO 34, input-only)\nconst int SENSOR_PIN = 34; // ADC1 channel (safe with Wi-Fi)",
+        "rules": [
+          "On classic ESP32-WROOM-32, GPIO 34, 35, 36, and 39 are INPUT-ONLY and have no internal pull-up resistors.",
+          "Avoid pulling boot strapping pins (e.g., GPIO 0, 2, 12, 15 on classic ESP32) to the wrong state at reset.",
+          "12-bit ADC returns 0\u20134095 instead of Arduino Uno's 0\u20131023."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "ESP32 Family Starter Sketch",
+          "description": "ESP32 analogRead() uses 12-bit resolution (0\u20134095) and 3.3V reference; stick to ADC1 pins (e.g., GPIO 32\u201335 on WROOM-32) when using Wi-Fi.",
+          "filename": "m11_esp32.ino",
+          "code": "// ESP32-WROOM-32: 12-bit ADC on ADC1 pin (GPIO 34, input-only)\nconst int SENSOR_PIN = 34; // ADC1 channel (safe with Wi-Fi)\nconst int LED_PIN = 2;     // Onboard LED on many DevKit boards\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int raw = analogRead(SENSOR_PIN); // 0..4095 (3.3V max!)\n  digitalWrite(LED_PIN, raw > 2048 ? HIGH : LOW);\n  Serial.println(raw);\n  delay(200);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int SENSOR_PIN = 34; // ADC1 channel (safe with Wi-Fi)",
+          "explanation": "Board-appropriate pin declaration respecting hardware capabilities."
+        },
+        {
+          "code": "const int LED_PIN = 2;     // Onboard LED on many DevKit boards",
+          "explanation": "Pin/peripheral configuration for this board family."
+        }
+      ],
+      "realWorldApplication": "Best suited for: Connected robotics, Wi-Fi/BLE telemetry, fast multi-tasking control.",
+      "commonMistakes": [
+        {
+          "mistake": "Assuming all boards use 5V logic and identical pin numbers",
+          "fix": "STRICT 3.3V LOGIC ONLY. Never connect 5V sensor outputs (such as an HC-SR04 Echo pin powered at 5V) directly to an ESP32 GPIO without a voltage divider or logic level shifter."
+        },
+        {
+          "mistake": "Selecting the wrong board or variant in Arduino IDE",
+          "fix": "If upload stalls at 'Connecting...', hold the BOOT button briefly when prompted by the IDE."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m11_esp32.ino",
+        "challengePrompt": "Review the pin numbers and ADC/voltage scaling for ESP32 Family, then download .ino for Arduino IDE.",
+        "starterCode": "// ESP32-WROOM-32: 12-bit ADC on ADC1 pin (GPIO 34, input-only)\nconst int SENSOR_PIN = 34; // ADC1 channel (safe with Wi-Fi)\nconst int LED_PIN = 2;     // Onboard LED on many DevKit boards\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int raw = analogRead(SENSOR_PIN); // 0..4095 (3.3V max!)\n  digitalWrite(LED_PIN, raw > 2048 ? HIGH : LOW);\n  Serial.println(raw);\n  delay(200);\n}",
+        "expectedBehavior": "Runs cleanly on ESP32 Family once the matching board package and port are selected in Arduino IDE."
+      },
+      "exercises": [
+        {
+          "id": "m11-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the GPIO logic voltage of ESP32 Family?",
+          "options": [
+            "3.3V Logic ONLY",
+            "12V Logic",
+            "24V AC",
+            "1.2V Logic"
+          ],
+          "correctIndex": 0,
+          "explanation": "ESP32 Family operates at 3.3V Logic ONLY. Always match sensor logic voltage safely."
+        },
+        {
+          "id": "m11-l05-e2",
+          "type": "multiple-choice",
+          "prompt": "Which primary MCU / architecture powers ESP32 Family?",
+          "options": [
+            "ESP32-WROOM / ESP32-S3 / ESP32-C3",
+            "Intel Core i7",
+            "6502 1 MHz",
+            "No microcontroller"
+          ],
+          "correctIndex": 0,
+          "explanation": "ESP32 Family is built around ESP32-WROOM / ESP32-S3 / ESP32-C3 (32-bit Xtensa LX6/LX7 or RISC-V (variant-dependent))."
+        }
+      ],
+      "summary": [
+        "Architecture: 32-bit Xtensa LX6/LX7 or RISC-V (variant-dependent) (ESP32-WROOM / ESP32-S3 / ESP32-C3).",
+        "Logic Voltage: 3.3V Logic ONLY.",
+        "ESP32 analogRead() uses 12-bit resolution (0\u20134095) and 3.3V reference; stick to ADC1 pins (e.g., GPIO 32\u201335 on WROOM-32) when using Wi-Fi."
+      ],
+      "diagram": {
+        "file": "boards-overview.svg",
+        "caption": "Compare Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants."
+      }
+    }
+  ]
+}

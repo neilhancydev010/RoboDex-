@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" fill="none" role="img" aria-label="Arduino setup and loop lifecycle">
+  <rect width="720" height="260" rx="12" fill="#0C1729"/>
+  <rect x="28" y="96" width="128" height="58" rx="29" fill="#13223B" stroke="#22D3EE" stroke-width="2"/>
+  <text x="92" y="130" text-anchor="middle" fill="#22D3EE" font-family="sans-serif" font-size="14" font-weight="700">Power / Reset</text>
+
+  <path d="M156 125H204" stroke="#22D3EE" stroke-width="2.5"/>
+  <path d="M196 118L207 125L196 132" fill="none" stroke="#22D3EE" stroke-width="2.5"/>
+
+  <rect x="210" y="78" width="180" height="94" rx="10" fill="#13223B" stroke="#2B82FF" stroke-width="2"/>
+  <text x="300" y="108" text-anchor="middle" fill="#5EA3FF" font-family="monospace" font-size="15" font-weight="700">setup()</text>
+  <text x="300" y="132" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">Runs ONCE at boot</text>
+  <text x="300" y="152" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="11">pinMode, Serial.begin</text>
+
+  <path d="M390 125H442" stroke="#2B82FF" stroke-width="2.5"/>
+  <path d="M434 118L445 125L434 132" fill="none" stroke="#2B82FF" stroke-width="2.5"/>
+
+  <rect x="448" y="78" width="220" height="94" rx="10" fill="#13223B" stroke="#4ADE80" stroke-width="2"/>
+  <text x="558" y="108" text-anchor="middle" fill="#4ADE80" font-family="monospace" font-size="15" font-weight="700">loop()</text>
+  <text x="558" y="132" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">Repeats FOREVER</text>
+  <text x="558" y="152" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="11">Read -&gt; Decide -&gt; Act</text>
+
+  <path d="M668 125H692V214H558V178" stroke="#4ADE80" stroke-width="2.5" fill="none"/>
+  <path d="M551 186L558 175L565 186" fill="none" stroke="#4ADE80" stroke-width="2.5"/>
+  <text x="625" y="234" text-anchor="middle" fill="#86EFAC" font-family="sans-serif" font-size="12">Continuous execution until power off</text>
+</svg>

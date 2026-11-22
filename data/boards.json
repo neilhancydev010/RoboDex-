@@ -1,0 +1,201 @@
+{
+  "boards": [
+    {
+      "id": "uno-r3",
+      "name": "Arduino Uno R3",
+      "architecture": "8-bit AVR (ATmega328P)",
+      "mcu": "ATmega328P @ 16 MHz",
+      "logicVoltage": "5V Logic",
+      "digitalPins": "14 (6 PWM: D3, D5, D6, D9, D10, D11)",
+      "analogInputs": "6 (A0–A5, 10-bit ADC: 0–1023)",
+      "pwmSummary": "6 PWM pins (~490/980 Hz), no hardware DAC",
+      "bestFor": "Absolute beginners, 5V sensors, breadboard & shield learning",
+      "lessonId": "m11-l01",
+      "overview": "The classic 5V teaching board. Simple, predictable, and forgiving for beginners learning digital I/O, analogRead(), PWM, and basic robotics without complex voltage shifting.",
+      "voltageWarning": "I/O pins operate at 5V (max ~20 mA recommended per pin, 40 mA absolute max). Do not connect 3.3V-only sensor logic lines directly without a level shifter.",
+      "pinHighlights": [
+        "14 digital I/O pins (D0/D1 are shared with USB Serial — avoid using D0/D1 for LEDs/buttons while debugging).",
+        "6 hardware PWM pins marked with ~ (D3, D5, D6, D9, D10, D11).",
+        "6 analog inputs A0–A5 with 10-bit resolution (0 to 1023 representing 0V to 5V).",
+        "External interrupts on D2 and D3; I2C on A4 (SDA) / A5 (SCL); SPI on D10–D13."
+      ],
+      "ideSetupSteps": [
+        "Install Arduino IDE 2.x from arduino.cc.",
+        "Open Tools -> Board -> Boards Manager and confirm 'Arduino AVR Boards' is installed.",
+        "Connect the Uno R3 via USB-B cable.",
+        "Select Tools -> Board -> Arduino AVR Boards -> Arduino Uno.",
+        "Select the detected COM / tty port under Tools -> Port."
+      ],
+      "codeNote": "On Uno R3, analogRead() returns 0–1023 (10-bit) and analogWrite() accepts 0–255 on PWM pins (~).",
+      "starterCode": "// Arduino Uno R3: 10-bit ADC (0-1023) to 8-bit PWM (0-255)\nconst int POT_PIN = A0;\nconst int LED_PWM_PIN = 9; // ~PWM pin on Uno R3\n\nvoid setup() {\n  pinMode(LED_PWM_PIN, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int raw = analogRead(POT_PIN);         // 0..1023\n  int brightness = map(raw, 0, 1023, 0, 255);\n  analogWrite(LED_PWM_PIN, brightness);\n  Serial.println(brightness);\n  delay(50);\n}"
+    },
+    {
+      "id": "uno-r4",
+      "name": "Arduino Uno R4",
+      "architecture": "32-bit ARM Cortex-M4 (Renesas RA4M1)",
+      "mcu": "Renesas RA4M1 @ 48 MHz",
+      "logicVoltage": "5V Logic",
+      "digitalPins": "14 (6 PWM, plus true 12-bit DAC on A0)",
+      "analogInputs": "6 (A0–A5, up to 14-bit ADC)",
+      "pwmSummary": "6 PWM pins + 12-bit hardware DAC (A0)",
+      "bestFor": "Higher-speed 5V robotics, CAN bus, Wi-Fi/LED Matrix (R4 WiFi)",
+      "lessonId": "m11-l02",
+      "overview": "Keeps the familiar 5V Uno form factor while upgrading to a 32-bit 48 MHz ARM processor, 256 KB Flash, 32 KB SRAM, hardware CAN bus, and a true 12-bit DAC.",
+      "voltageWarning": "Still 5V logic on GPIO pins, but per-pin current sourcing/sinking is lower (~8 mA recommended on RA4M1) than the older ATmega328P! Always use resistors and transistors/drivers for loads.",
+      "pinHighlights": [
+        "Available in two official editions: Uno R4 Minima (USB-C, SWD) and Uno R4 WiFi (adds ESP32-S3 co-processor + 12x8 LED Matrix + Qwiic I2C).",
+        "Supports 10-bit default ADC or higher resolution via analogReadResolution(14).",
+        "Pin A0 doubles as a true 12-bit Digital-to-Analog Converter (DAC).",
+        "AVR-specific register code (like TCCR1A or PORTB) will NOT compile on Uno R4."
+      ],
+      "ideSetupSteps": [
+        "Open Arduino IDE -> Boards Manager.",
+        "Search for and install 'Arduino UNO R4 Boards'.",
+        "Connect the board using a USB-C data cable.",
+        "Select either 'Arduino UNO R4 Minima' or 'Arduino UNO R4 WiFi' under Tools -> Board.",
+        "Choose the active serial port and verify with Blink."
+      ],
+      "variants": [
+        {
+          "name": "Uno R4 Minima",
+          "mcu": "Renesas RA4M1 (48 MHz)",
+          "voltage": "5V GPIO",
+          "notes": "No Wi-Fi/Bluetooth and no LED Matrix; includes SWD debug connector."
+        },
+        {
+          "name": "Uno R4 WiFi",
+          "mcu": "RA4M1 + ESP32-S3 co-processor",
+          "voltage": "5V GPIO (3.3V Qwiic)",
+          "notes": "Adds Wi-Fi/BLE, built-in 12x8 red LED matrix, and 3.3V Qwiic I2C port."
+        }
+      ],
+      "codeNote": "Uno R4 supports analogReadResolution(12) or (14) for finer sensor precision than Uno R3.",
+      "starterCode": "// Arduino Uno R4: 12-bit ADC resolution example\nconst int SENSOR_PIN = A1;\n\nvoid setup() {\n  Serial.begin(115200);\n  analogReadResolution(12); // 0..4095 on Uno R4\n}\n\nvoid loop() {\n  int reading = analogRead(SENSOR_PIN);\n  float volts = (reading * 5.0f) / 4095.0f;\n  Serial.print(\"Voltage: \");\n  Serial.println(volts, 3);\n  delay(250);\n}"
+    },
+    {
+      "id": "nano",
+      "name": "Arduino Nano Family",
+      "architecture": "Multiple MCUs across Nano variants",
+      "mcu": "ATmega328P / ATmega4809 / ESP32-S3 (variant-dependent)",
+      "logicVoltage": "5V (Classic/Every) or 3.3V (Nano 33/ESP32)",
+      "digitalPins": "14–22 (variant-dependent)",
+      "analogInputs": "8 (A0–A7 on Classic/Every; A6 & A7 analog-only)",
+      "pwmSummary": "5–6 PWM (Classic/Every) or LEDC PWM (Nano ESP32)",
+      "bestFor": "Compact breadboard prototypes, wearable & small mobile robots",
+      "lessonId": "m11-l03",
+      "overview": "The Arduino Nano name covers a breadboard-friendly form factor spanning very different microcontrollers. Never assume two Nano boards share the same voltage, core, or bootloader.",
+      "voltageWarning": "CRITICAL: Nano Classic and Nano Every use 5V logic, whereas Nano 33 IoT, Nano 33 BLE, and Nano ESP32 use STRICT 3.3V logic. Applying 5V to a 3.3V Nano pin can permanently destroy the chip.",
+      "pinHighlights": [
+        "Nano Classic (ATmega328P) has A6 and A7 as analog-input-only pins — they cannot be used with digitalWrite().",
+        "Many clone Nano Classic boards use a CH340 USB-to-Serial chip and the 'ATmega328P (Old Bootloader)' option.",
+        "Nano Every (ATmega4809) offers 48 KB Flash and 6 KB SRAM at 5V with a separate hardware Serial1 on D0/D1.",
+        "Nano ESP32 uses 3.3V logic, USB-C, and Arduino pin numbering vs GPIO numbering options."
+      ],
+      "ideSetupSteps": [
+        "Identify your exact Nano board label before plugging in sensors.",
+        "For Nano Classic: install 'Arduino AVR Boards' -> select Arduino Nano -> check Processor (ATmega328P vs Old Bootloader).",
+        "For Nano Every: install 'Arduino megaAVR Boards' -> select Arduino Nano Every.",
+        "For Nano ESP32: install 'Arduino ESP32 Boards' -> select Arduino Nano ESP32."
+      ],
+      "variants": [
+        {
+          "name": "Arduino Nano (Classic)",
+          "mcu": "ATmega328P @ 16 MHz",
+          "voltage": "5V Logic",
+          "notes": "Mini-USB; A6/A7 analog-only; watch for Old Bootloader option on older/clone boards."
+        },
+        {
+          "name": "Arduino Nano Every",
+          "mcu": "ATmega4809 @ 20 MHz",
+          "voltage": "5V Logic",
+          "notes": "Micro-USB; 3x SRAM of Classic (6 KB); Serial1 on D0/D1 is independent of USB Serial."
+        },
+        {
+          "name": "Arduino Nano ESP32",
+          "mcu": "ESP32-S3 @ 240 MHz",
+          "voltage": "3.3V Logic ONLY",
+          "notes": "USB-C; Wi-Fi + BLE; NEVER feed 5V into GPIO pins."
+        }
+      ],
+      "codeNote": "Remember that on Nano Classic, pins A6 and A7 only work with analogRead(), never digitalWrite().",
+      "starterCode": "// Arduino Nano Classic: Reading analog-only pin A6\nconst int LIGHT_PIN = A6; // Analog-only on Nano Classic\nconst int STATUS_LED = 13;\n\nvoid setup() {\n  pinMode(STATUS_LED, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int lightVal = analogRead(LIGHT_PIN);\n  digitalWrite(STATUS_LED, lightVal < 400 ? HIGH : LOW);\n  Serial.println(lightVal);\n  delay(200);\n}"
+    },
+    {
+      "id": "mega-2560",
+      "name": "Arduino Mega 2560",
+      "architecture": "8-bit AVR (ATmega2560)",
+      "mcu": "ATmega2560 @ 16 MHz",
+      "logicVoltage": "5V Logic",
+      "digitalPins": "54 (15 PWM: D2–D13, D44–D46)",
+      "analogInputs": "16 (A0–A15, 10-bit ADC)",
+      "pwmSummary": "15 hardware PWM pins",
+      "bestFor": "Multi-sensor robots, 3D printers, robotic arms, multi-UART systems",
+      "lessonId": "m11-l04",
+      "overview": "Built for large-scale 5V robotics projects that outgrow the Uno's pin count and memory. Offers 256 KB Flash, 8 KB SRAM, 54 digital pins, 16 analog inputs, and 4 hardware serial ports.",
+      "voltageWarning": "5V logic like the Uno R3, but do not draw high total current across all 54 pins simultaneously (respect total port and Vcc/GND current limits; power motors and servos from an external supply with shared GND).",
+      "pinHighlights": [
+        "4 independent hardware UARTs: Serial (USB), Serial1 (18/19), Serial2 (16/17), Serial3 (14/15) — eliminates fragile SoftwareSerial.",
+        "15 PWM pins (D2–D13 and D44–D46) for controlling multiple servos and motor drivers.",
+        "SPI pins differ from Uno R3: MISO=50, MOSI=51, SCK=52, SS=53.",
+        "I2C pins are D20 (SDA) and D21 (SCL)."
+      ],
+      "ideSetupSteps": [
+        "Ensure 'Arduino AVR Boards' is installed in Boards Manager.",
+        "Connect the Mega 2560 via USB-B cable.",
+        "Select Tools -> Board -> Arduino Mega or Mega 2560.",
+        "Confirm Tools -> Processor -> ATmega2560 (Mega 2560).",
+        "Select the serial port and upload."
+      ],
+      "codeNote": "Mega 2560 lets you talk to GPS/Bluetooth modules on Serial1 while keeping USB Serial free for debugging.",
+      "starterCode": "// Arduino Mega 2560: Using hardware Serial1 alongside USB Serial\nvoid setup() {\n  Serial.begin(9600);   // USB Monitor\n  Serial1.begin(9600);  // Hardware UART on pins 18 (TX1) & 19 (RX1)\n  Serial.println(\"Mega 2560 Multi-UART Ready\");\n}\n\nvoid loop() {\n  if (Serial1.available()) {\n    char incoming = Serial1.read();\n    Serial.print(\"From Serial1: \");\n    Serial.println(incoming);\n  }\n}"
+    },
+    {
+      "id": "esp32",
+      "name": "ESP32 Family",
+      "architecture": "32-bit Xtensa LX6/LX7 or RISC-V (variant-dependent)",
+      "mcu": "ESP32-WROOM / ESP32-S3 / ESP32-C3",
+      "logicVoltage": "3.3V Logic ONLY",
+      "digitalPins": "22–45 GPIOs (variant-dependent; check strapping pins)",
+      "analogInputs": "12-bit ADC (0–4095; ADC2 conflicts with Wi-Fi on classic ESP32)",
+      "pwmSummary": "LEDC hardware PWM on most output-capable GPIOs",
+      "bestFor": "Connected robotics, Wi-Fi/BLE telemetry, fast multi-tasking control",
+      "lessonId": "m11-l05",
+      "overview": "A high-performance 3.3V microcontroller family with integrated Wi-Fi and Bluetooth. Different ESP32 silicon variants have distinct CPU cores, pinouts, USB peripherals, and ADC rules.",
+      "voltageWarning": "STRICT 3.3V LOGIC ONLY. Never connect 5V sensor outputs (such as an HC-SR04 Echo pin powered at 5V) directly to an ESP32 GPIO without a voltage divider or logic level shifter.",
+      "pinHighlights": [
+        "On classic ESP32-WROOM-32, GPIO 34, 35, 36, and 39 are INPUT-ONLY and have no internal pull-up resistors.",
+        "Avoid pulling boot strapping pins (e.g., GPIO 0, 2, 12, 15 on classic ESP32) to the wrong state at reset.",
+        "12-bit ADC returns 0–4095 instead of Arduino Uno's 0–1023.",
+        "Use analogWrite() in Arduino-ESP32 v3.x or LEDC APIs; note that ESP32-C3 is single-core RISC-V while ESP32-S3 is dual-core Xtensa LX7 with native USB."
+      ],
+      "ideSetupSteps": [
+        "Open Arduino IDE -> Preferences -> Additional Boards Manager URLs and add Espressif's official ESP32 package index URL.",
+        "Open Boards Manager, search 'esp32 by Espressif Systems', and install.",
+        "Select your exact board variant (e.g., ESP32 Dev Module, ESP32S3 Dev Module, or ESP32C3 Dev Module).",
+        "If upload stalls at 'Connecting...', hold the BOOT button briefly when prompted by the IDE."
+      ],
+      "variants": [
+        {
+          "name": "ESP32-WROOM-32 (Classic)",
+          "mcu": "Dual-core Xtensa LX6 @ 240 MHz",
+          "voltage": "3.3V Logic",
+          "notes": "Wi-Fi + Classic BT + BLE; GPIO 34–39 are input-only; ADC2 cannot be used while Wi-Fi is active; external USB-UART bridge."
+        },
+        {
+          "name": "ESP32-S3",
+          "mcu": "Dual-core Xtensa LX7 @ 240 MHz",
+          "voltage": "3.3V Logic",
+          "notes": "Wi-Fi + BLE 5 (no Classic BT); native USB-OTG; extra GPIOs and vector instructions for DSP/tinyML."
+        },
+        {
+          "name": "ESP32-C3",
+          "mcu": "Single-core RISC-V @ 160 MHz",
+          "voltage": "3.3V Logic",
+          "notes": "Low-power compact variant; Wi-Fi + BLE 5; fewer GPIOs; built-in USB Serial/JTAG controller."
+        }
+      ],
+      "codeNote": "ESP32 analogRead() uses 12-bit resolution (0–4095) and 3.3V reference; stick to ADC1 pins (e.g., GPIO 32–35 on WROOM-32) when using Wi-Fi.",
+      "starterCode": "// ESP32-WROOM-32: 12-bit ADC on ADC1 pin (GPIO 34, input-only)\nconst int SENSOR_PIN = 34; // ADC1 channel (safe with Wi-Fi)\nconst int LED_PIN = 2;     // Onboard LED on many DevKit boards\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int raw = analogRead(SENSOR_PIN); // 0..4095 (3.3V max!)\n  digitalWrite(LED_PIN, raw > 2048 ? HIGH : LOW);\n  Serial.println(raw);\n  delay(200);\n}"
+    }
+  ]
+}

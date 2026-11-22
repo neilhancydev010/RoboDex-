@@ -1,0 +1,820 @@
+{
+  "id": "mod-09",
+  "lessons": [
+    {
+      "id": "m09-l01",
+      "title": "Installing Arduino IDE",
+      "estimatedMinutes": 12,
+      "introduction": "Install the official Arduino IDE 2.x on Windows, macOS, or Linux so you can compile and upload real firmware to physical boards.",
+      "objectives": [
+        "Understand installing arduino ide in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Install the official Arduino IDE 2.x on Windows, macOS, or Linux so you can compile and upload real firmware to physical boards.",
+        "Download Arduino IDE 2.x strictly from arduino.cc, allow USB driver installation during setup, and confirm the editor opens cleanly."
+      ],
+      "analogy": "Think of Arduino IDE as your real electronics workshop bench \u2014 the browser teaches you the blueprint, while Arduino IDE builds and flashes the real hardware.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Installing Arduino IDE:",
+        "pattern": "// First test after installing Arduino IDE",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Installing Arduino IDE Verification Sketch",
+          "description": "Minimal sketch used to test installing arduino ide in Arduino IDE.",
+          "filename": "m09_install_test.ino",
+          "code": "// First test after installing Arduino IDE\nvoid setup() { Serial.begin(9600); Serial.println(\"IDE Ready!\"); }\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "// First test after installing Arduino IDE",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_install_test.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "// First test after installing Arduino IDE\nvoid setup() { Serial.begin(9600); Serial.println(\"IDE Ready!\"); }\nvoid loop() {}",
+        "expectedBehavior": "Verify that Arduino IDE launches cleanly and recognizes your USB port."
+      },
+      "exercises": [
+        {
+          "id": "m09-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Installing Arduino IDE?",
+          "options": [
+            "Download Arduino IDE 2.x strictly from arduino.cc, allow USB driver installation during setup, and confirm the editor opens cleanly.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Download Arduino IDE 2.x strictly from arduino.cc, allow USB driver installation during setup, and confirm the editor opens cleanly."
+        }
+      ],
+      "summary": [
+        "Install the official Arduino IDE 2.x on Windows, macOS, or Linux so you can compile and upload real firmware to physical boards.",
+        "Download Arduino IDE 2.x strictly from arduino.cc, allow USB driver installation during setup, and confirm the editor opens cleanly."
+      ]
+    },
+    {
+      "id": "m09-l02",
+      "title": "Understanding the Interface",
+      "estimatedMinutes": 12,
+      "introduction": "Navigate the Arduino IDE toolbar: Verify (checkmark), Upload (arrow), Board/Port selector, Sidebar (Sketchbook, Boards Manager, Library Manager), and Output Console.",
+      "objectives": [
+        "Understand understanding the interface in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Navigate the Arduino IDE toolbar: Verify (checkmark), Upload (arrow), Board/Port selector, Sidebar (Sketchbook, Boards Manager, Library Manager), and Output Console.",
+        "Knowing where the Output Console, Serial Monitor, and Boards Manager live lets you diagnose errors in seconds instead of guessing."
+      ],
+      "analogy": "Just like learning an airplane cockpit before takeoff, knowing each button in Arduino IDE makes every build smooth.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Understanding the Interface:",
+        "pattern": "void setup() {",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Understanding the Interface Verification Sketch",
+          "description": "Minimal sketch used to test understanding the interface in Arduino IDE.",
+          "filename": "m09_ide_interface.ino",
+          "code": "void setup() {\n  pinMode(LED_BUILTIN, OUTPUT);\n}\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH); delay(500);\n  digitalWrite(LED_BUILTIN, LOW);  delay(500);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_ide_interface.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "void setup() {\n  pinMode(LED_BUILTIN, OUTPUT);\n}\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH); delay(500);\n  digitalWrite(LED_BUILTIN, LOW);  delay(500);\n}",
+        "expectedBehavior": "LED_BUILTIN automatically maps to the onboard LED pin on most official Arduino boards."
+      },
+      "exercises": [
+        {
+          "id": "m09-l02-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Understanding the Interface?",
+          "options": [
+            "Knowing where the Output Console, Serial Monitor, and Boards Manager live lets you diagnose errors in seconds instead of guessing.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Knowing where the Output Console, Serial Monitor, and Boards Manager live lets you diagnose errors in seconds instead of guessing."
+        }
+      ],
+      "summary": [
+        "Navigate the Arduino IDE toolbar: Verify (checkmark), Upload (arrow), Board/Port selector, Sidebar (Sketchbook, Boards Manager, Library Manager), and Output Console.",
+        "Knowing where the Output Console, Serial Monitor, and Boards Manager live lets you diagnose errors in seconds instead of guessing."
+      ]
+    },
+    {
+      "id": "m09-l03",
+      "title": "Creating Sketches",
+      "estimatedMinutes": 12,
+      "introduction": "Create, save, and organize Arduino sketches cleanly in your Sketchbook folder using File -> New Sketch and Save As.",
+      "objectives": [
+        "Understand creating sketches in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Create, save, and organize Arduino sketches cleanly in your Sketchbook folder using File -> New Sketch and Save As.",
+        "Every Arduino sketch lives in its own folder with a matching .ino filename. Use descriptive names like TrafficLight_v1 instead of sketch_nov22a."
+      ],
+      "analogy": "Each sketch folder is a dedicated project box keeping your .ino, .h, and .cpp files neatly together.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Creating Sketches:",
+        "pattern": "// Saved as: MyFirstRobot/MyFirstRobot.ino",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Creating Sketches Verification Sketch",
+          "description": "Minimal sketch used to test creating sketches in Arduino IDE.",
+          "filename": "m09_create_sketch.ino",
+          "code": "// Saved as: MyFirstRobot/MyFirstRobot.ino\nvoid setup() { Serial.begin(9600); }\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "// Saved as: MyFirstRobot/MyFirstRobot.ino",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_create_sketch.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "// Saved as: MyFirstRobot/MyFirstRobot.ino\nvoid setup() { Serial.begin(9600); }\nvoid loop() {}",
+        "expectedBehavior": "Save sketches with clear names without spaces or special symbols."
+      },
+      "exercises": [
+        {
+          "id": "m09-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Creating Sketches?",
+          "options": [
+            "Every Arduino sketch lives in its own folder with a matching .ino filename. Use descriptive names like TrafficLight_v1 instead of sketch_nov22a.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Every Arduino sketch lives in its own folder with a matching .ino filename. Use descriptive names like TrafficLight_v1 instead of sketch_nov22a."
+        }
+      ],
+      "summary": [
+        "Create, save, and organize Arduino sketches cleanly in your Sketchbook folder using File -> New Sketch and Save As.",
+        "Every Arduino sketch lives in its own folder with a matching .ino filename. Use descriptive names like TrafficLight_v1 instead of sketch_nov22a."
+      ]
+    },
+    {
+      "id": "m09-l04",
+      "title": "Understanding Boards and Ports",
+      "estimatedMinutes": 12,
+      "introduction": "Select the exact Board package and USB Serial Port (COMx on Windows, /dev/cu.* on macOS, /dev/ttyUSB0 or /dev/ttyACM0 on Linux) before uploading.",
+      "objectives": [
+        "Understand understanding boards and ports in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Select the exact Board package and USB Serial Port (COMx on Windows, /dev/cu.* on macOS, /dev/ttyUSB0 or /dev/ttyACM0 on Linux) before uploading.",
+        "Choosing the wrong Board compiles machine code for the wrong CPU! Always double-check both Tools -> Board and Tools -> Port."
+      ],
+      "analogy": "Selecting the right Board is speaking the chip's native language; selecting the right Port is plugging into the right phone line.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Understanding Boards and Ports:",
+        "pattern": "// Works across Uno, Nano, Mega, and ESP32 once the correct board is selected",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Understanding Boards and Ports Verification Sketch",
+          "description": "Minimal sketch used to test understanding boards and ports in Arduino IDE.",
+          "filename": "m09_boards_ports.ino",
+          "code": "// Works across Uno, Nano, Mega, and ESP32 once the correct board is selected\nvoid setup() { Serial.begin(115200); Serial.println(\"Board & Port OK\"); }\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "// Works across Uno, Nano, Mega, and ESP32 once the correct board is selected",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_boards_ports.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "// Works across Uno, Nano, Mega, and ESP32 once the correct board is selected\nvoid setup() { Serial.begin(115200); Serial.println(\"Board & Port OK\"); }\nvoid loop() {}",
+        "expectedBehavior": "Unplug and replug USB while watching Tools -> Port to identify which port belongs to your board."
+      },
+      "exercises": [
+        {
+          "id": "m09-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Understanding Boards and Ports?",
+          "options": [
+            "Choosing the wrong Board compiles machine code for the wrong CPU! Always double-check both Tools -> Board and Tools -> Port.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Choosing the wrong Board compiles machine code for the wrong CPU! Always double-check both Tools -> Board and Tools -> Port."
+        }
+      ],
+      "summary": [
+        "Select the exact Board package and USB Serial Port (COMx on Windows, /dev/cu.* on macOS, /dev/ttyUSB0 or /dev/ttyACM0 on Linux) before uploading.",
+        "Choosing the wrong Board compiles machine code for the wrong CPU! Always double-check both Tools -> Board and Tools -> Port."
+      ]
+    },
+    {
+      "id": "m09-l05",
+      "title": "Verifying Code",
+      "estimatedMinutes": 12,
+      "introduction": "Use the Verify (\u2713) button to run the C++ compiler and check syntax, types, and memory usage WITHOUT even needing a board plugged in.",
+      "objectives": [
+        "Understand verifying code in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Use the Verify (\u2713) button to run the C++ compiler and check syntax, types, and memory usage WITHOUT even needing a board plugged in.",
+        "Verify compiles your sketch and reports exact Flash and SRAM percentages at the bottom console. Always Verify before Uploading."
+      ],
+      "analogy": "Verify is like a spell-checker and structural engineer inspecting your blueprint before you pour concrete.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Verifying Code:",
+        "pattern": "const int PIN_LED = 13;",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Verifying Code Verification Sketch",
+          "description": "Minimal sketch used to test verifying code in Arduino IDE.",
+          "filename": "m09_verify.ino",
+          "code": "const int PIN_LED = 13;\nvoid setup() { pinMode(PIN_LED, OUTPUT); }\nvoid loop() { digitalWrite(PIN_LED, HIGH); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int PIN_LED = 13;",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_verify.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "const int PIN_LED = 13;\nvoid setup() { pinMode(PIN_LED, OUTPUT); }\nvoid loop() { digitalWrite(PIN_LED, HIGH); }",
+        "expectedBehavior": "Click Verify in Arduino IDE and inspect the Flash/SRAM usage summary in the console."
+      },
+      "exercises": [
+        {
+          "id": "m09-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Verifying Code?",
+          "options": [
+            "Verify compiles your sketch and reports exact Flash and SRAM percentages at the bottom console. Always Verify before Uploading.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Verify compiles your sketch and reports exact Flash and SRAM percentages at the bottom console. Always Verify before Uploading."
+        }
+      ],
+      "summary": [
+        "Use the Verify (\u2713) button to run the C++ compiler and check syntax, types, and memory usage WITHOUT even needing a board plugged in.",
+        "Verify compiles your sketch and reports exact Flash and SRAM percentages at the bottom console. Always Verify before Uploading."
+      ]
+    },
+    {
+      "id": "m09-l06",
+      "title": "Compiling Sketches",
+      "estimatedMinutes": 12,
+      "introduction": "Understand what happens during compilation: preprocessing (.ino -> .cpp), compiling to object files, linking libraries, and producing a .hex/.bin binary.",
+      "objectives": [
+        "Understand compiling sketches in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Understand what happens during compilation: preprocessing (.ino -> .cpp), compiling to object files, linking libraries, and producing a .hex/.bin binary.",
+        "Compiler errors point to syntax/type issues; linker errors ('undefined reference') mean a declared function or library was never implemented or included."
+      ],
+      "analogy": "Compilation is an assembly line that translates human C++ into pure 0s and 1s tailored for your specific microcontroller.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Compiling Sketches:",
+        "pattern": "int addTwo(int a, int b);",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Compiling Sketches Verification Sketch",
+          "description": "Minimal sketch used to test compiling sketches in Arduino IDE.",
+          "filename": "m09_compile.ino",
+          "code": "int addTwo(int a, int b);\nvoid setup() { Serial.begin(9600); Serial.println(addTwo(3, 4)); }\nvoid loop() {}\nint addTwo(int a, int b) { return a + b; }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int addTwo(int a, int b);",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_compile.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "int addTwo(int a, int b);\nvoid setup() { Serial.begin(9600); Serial.println(addTwo(3, 4)); }\nvoid loop() {}\nint addTwo(int a, int b) { return a + b; }",
+        "expectedBehavior": "Compiles cleanly and prints 7 once uploaded."
+      },
+      "exercises": [
+        {
+          "id": "m09-l06-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Compiling Sketches?",
+          "options": [
+            "Compiler errors point to syntax/type issues; linker errors ('undefined reference') mean a declared function or library was never implemented or included.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Compiler errors point to syntax/type issues; linker errors ('undefined reference') mean a declared function or library was never implemented or included."
+        }
+      ],
+      "summary": [
+        "Understand what happens during compilation: preprocessing (.ino -> .cpp), compiling to object files, linking libraries, and producing a .hex/.bin binary.",
+        "Compiler errors point to syntax/type issues; linker errors ('undefined reference') mean a declared function or library was never implemented or included."
+      ]
+    },
+    {
+      "id": "m09-l07",
+      "title": "Uploading Programs",
+      "estimatedMinutes": 12,
+      "introduction": "Upload compiled machine code over USB to your microcontroller's Flash memory via the onboard bootloader.",
+      "objectives": [
+        "Understand uploading programs in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Upload compiled machine code over USB to your microcontroller's Flash memory via the onboard bootloader.",
+        "Uploading first runs Verify, resets the board into bootloader mode, transfers the binary, and immediately starts executing setup()."
+      ],
+      "analogy": "Uploading flashes your finished instructions permanently into the chip's Flash memory so it runs even on battery power.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Uploading Programs:",
+        "pattern": "void setup() {",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Uploading Programs Verification Sketch",
+          "description": "Minimal sketch used to test uploading programs in Arduino IDE.",
+          "filename": "m09_upload.ino",
+          "code": "void setup() {\n  pinMode(LED_BUILTIN, OUTPUT);\n}\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH); delay(250);\n  digitalWrite(LED_BUILTIN, LOW);  delay(250);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_upload.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "void setup() {\n  pinMode(LED_BUILTIN, OUTPUT);\n}\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH); delay(250);\n  digitalWrite(LED_BUILTIN, LOW);  delay(250);\n}",
+        "expectedBehavior": "After uploading in Arduino IDE, the onboard LED blinks twice per second."
+      },
+      "exercises": [
+        {
+          "id": "m09-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Uploading Programs?",
+          "options": [
+            "Uploading first runs Verify, resets the board into bootloader mode, transfers the binary, and immediately starts executing setup().",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Uploading first runs Verify, resets the board into bootloader mode, transfers the binary, and immediately starts executing setup()."
+        }
+      ],
+      "summary": [
+        "Upload compiled machine code over USB to your microcontroller's Flash memory via the onboard bootloader.",
+        "Uploading first runs Verify, resets the board into bootloader mode, transfers the binary, and immediately starts executing setup()."
+      ],
+      "relatedProjectId": "led-blinking"
+    },
+    {
+      "id": "m09-l08",
+      "title": "Serial Monitor",
+      "estimatedMinutes": 12,
+      "introduction": "Use Arduino IDE's Serial Monitor to inspect live sensor numbers, trace variable values, and debug logic in real time.",
+      "objectives": [
+        "Understand serial monitor in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Use Arduino IDE's Serial Monitor to inspect live sensor numbers, trace variable values, and debug logic in real time.",
+        "Always match the baud rate dropdown in Serial Monitor (e.g., 9600 or 115200) to the exact number inside Serial.begin(...), or you will see garbled characters."
+      ],
+      "analogy": "Serial Monitor is your microcontroller's diagnostic dashboard \u2014 without it, you are debugging blindfolded.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Serial Monitor:",
+        "pattern": "void setup() {",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Serial Monitor Verification Sketch",
+          "description": "Minimal sketch used to test serial monitor in Arduino IDE.",
+          "filename": "m09_serial_monitor.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n}\nvoid loop() {\n  Serial.print(\"Uptime ms: \");\n  Serial.println(millis());\n  delay(1000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_serial_monitor.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n}\nvoid loop() {\n  Serial.print(\"Uptime ms: \");\n  Serial.println(millis());\n  delay(1000);\n}",
+        "expectedBehavior": "Prints elapsed milliseconds every second when Serial Monitor is set to 9600 baud."
+      },
+      "exercises": [
+        {
+          "id": "m09-l08-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Serial Monitor?",
+          "options": [
+            "Always match the baud rate dropdown in Serial Monitor (e.g., 9600 or 115200) to the exact number inside Serial.begin(...), or you will see garbled characters.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Always match the baud rate dropdown in Serial Monitor (e.g., 9600 or 115200) to the exact number inside Serial.begin(...), or you will see garbled characters."
+        }
+      ],
+      "summary": [
+        "Use Arduino IDE's Serial Monitor to inspect live sensor numbers, trace variable values, and debug logic in real time.",
+        "Always match the baud rate dropdown in Serial Monitor (e.g., 9600 or 115200) to the exact number inside Serial.begin(...), or you will see garbled characters."
+      ]
+    },
+    {
+      "id": "m09-l09",
+      "title": "Serial Plotter",
+      "estimatedMinutes": 12,
+      "introduction": "Visualize live analog sensors and PID curves as real-time graphs using Arduino IDE's built-in Serial Plotter.",
+      "objectives": [
+        "Understand serial plotter in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Visualize live analog sensors and PID curves as real-time graphs using Arduino IDE's built-in Serial Plotter.",
+        "Print comma-separated numbers (or labeled pairs like Light:420,Threshold:400) ending with Serial.println() and open Tools -> Serial Plotter."
+      ],
+      "analogy": "Serial Plotter turns a wall of fast numbers into an oscilloscope-style live graph.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Serial Plotter:",
+        "pattern": "void setup() { Serial.begin(9600); }",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Serial Plotter Verification Sketch",
+          "description": "Minimal sketch used to test serial plotter in Arduino IDE.",
+          "filename": "m09_serial_plotter.ino",
+          "code": "void setup() { Serial.begin(9600); }\nvoid loop() {\n  int val = analogRead(A0);\n  Serial.print(\"Sensor:\"); Serial.print(val);\n  Serial.print(\",Limit:\"); Serial.println(500);\n  delay(50);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() { Serial.begin(9600); }",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_serial_plotter.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "void setup() { Serial.begin(9600); }\nvoid loop() {\n  int val = analogRead(A0);\n  Serial.print(\"Sensor:\"); Serial.print(val);\n  Serial.print(\",Limit:\"); Serial.println(500);\n  delay(50);\n}",
+        "expectedBehavior": "Plots two live lines (Sensor vs Limit) in Arduino IDE's Serial Plotter."
+      },
+      "exercises": [
+        {
+          "id": "m09-l09-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Serial Plotter?",
+          "options": [
+            "Print comma-separated numbers (or labeled pairs like Light:420,Threshold:400) ending with Serial.println() and open Tools -> Serial Plotter.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Print comma-separated numbers (or labeled pairs like Light:420,Threshold:400) ending with Serial.println() and open Tools -> Serial Plotter."
+        }
+      ],
+      "summary": [
+        "Visualize live analog sensors and PID curves as real-time graphs using Arduino IDE's built-in Serial Plotter.",
+        "Print comma-separated numbers (or labeled pairs like Light:420,Threshold:400) ending with Serial.println() and open Tools -> Serial Plotter."
+      ]
+    },
+    {
+      "id": "m09-l10",
+      "title": "Installing Libraries",
+      "estimatedMinutes": 12,
+      "introduction": "Install trusted hardware libraries safely through Arduino IDE's Library Manager instead of manually copying random ZIPs.",
+      "objectives": [
+        "Understand installing libraries in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Install trusted hardware libraries safely through Arduino IDE's Library Manager instead of manually copying random ZIPs.",
+        "Open the Bookshelf icon (Library Manager), search by sensor chip name (e.g., DHT, SSD1306, Servo), install the official library and its dependencies, and check File -> Examples."
+      ],
+      "analogy": "Library Manager is an organized parts catalog that automatically installs matching dependencies.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Installing Libraries:",
+        "pattern": "#include <Servo.h>",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Installing Libraries Verification Sketch",
+          "description": "Minimal sketch used to test installing libraries in Arduino IDE.",
+          "filename": "m09_libraries_ide.ino",
+          "code": "#include <Servo.h>\nServo demoServo;\nvoid setup() { demoServo.attach(9); demoServo.write(90); }\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "#include <Servo.h>",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_libraries_ide.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "#include <Servo.h>\nServo demoServo;\nvoid setup() { demoServo.attach(9); demoServo.write(90); }\nvoid loop() {}",
+        "expectedBehavior": "Confirms the built-in Servo library compiles and centers a servo on pin 9."
+      },
+      "exercises": [
+        {
+          "id": "m09-l10-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Installing Libraries?",
+          "options": [
+            "Open the Bookshelf icon (Library Manager), search by sensor chip name (e.g., DHT, SSD1306, Servo), install the official library and its dependencies, and check File -> Examples.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Open the Bookshelf icon (Library Manager), search by sensor chip name (e.g., DHT, SSD1306, Servo), install the official library and its dependencies, and check File -> Examples."
+        }
+      ],
+      "summary": [
+        "Install trusted hardware libraries safely through Arduino IDE's Library Manager instead of manually copying random ZIPs.",
+        "Open the Bookshelf icon (Library Manager), search by sensor chip name (e.g., DHT, SSD1306, Servo), install the official library and its dependencies, and check File -> Examples."
+      ]
+    },
+    {
+      "id": "m09-l11",
+      "title": "Troubleshooting",
+      "estimatedMinutes": 12,
+      "introduction": "Diagnose the 5 most common Arduino IDE issues systematically: charge-only USB cables, missing CH340/CP2102 drivers, wrong Board/Port, Old Bootloader on Nano clones, and busy COM ports.",
+      "objectives": [
+        "Understand troubleshooting in Arduino IDE 2.x.",
+        "Follow reliable verification and hardware safety habits.",
+        "Diagnose common beginner IDE issues independently."
+      ],
+      "conceptExplanation": [
+        "Diagnose the 5 most common Arduino IDE issues systematically: charge-only USB cables, missing CH340/CP2102 drivers, wrong Board/Port, Old Bootloader on Nano clones, and busy COM ports.",
+        "Never panic when upload fails! Check in order: (1) Data-capable USB cable, (2) Board & Processor selection, (3) Active Port, (4) Close any other app using the serial port, (5) Disconnect wires from D0/D1 on Uno/Nano."
+      ],
+      "analogy": "Troubleshooting is a checklist, not guesswork \u2014 rule out physical cable and port issues before blaming your code.",
+      "syntaxExplanation": {
+        "summary": "Key workflow pattern for Troubleshooting:",
+        "pattern": "// Known-good minimal sanity sketch for troubleshooting uploads",
+        "rules": [
+          "Always Verify before Upload.",
+          "Match Serial Monitor baud rate to Serial.begin()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Troubleshooting Verification Sketch",
+          "description": "Minimal sketch used to test troubleshooting in Arduino IDE.",
+          "filename": "m09_troubleshoot.ino",
+          "code": "// Known-good minimal sanity sketch for troubleshooting uploads\nvoid setup() { pinMode(LED_BUILTIN, OUTPUT); }\nvoid loop() { digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); delay(500); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "// Known-good minimal sanity sketch for troubleshooting uploads",
+          "explanation": "Primary line demonstrating this IDE workflow."
+        }
+      ],
+      "realWorldApplication": "Every physical Arduino project \u2014 from a single LED to an autonomous rover \u2014 relies on this exact IDE workflow.",
+      "commonMistakes": [
+        {
+          "mistake": "Using a power-only USB charging cable",
+          "fix": "Always test with a known data-transfer USB cable if no port appears."
+        },
+        {
+          "mistake": "Mismatched Serial Monitor baud rate",
+          "fix": "Ensure the dropdown in Serial Monitor matches Serial.begin(...) exactly."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m09_troubleshoot.ino",
+        "challengePrompt": "Download this .ino file and test verifying and uploading it in your local Arduino IDE.",
+        "starterCode": "// Known-good minimal sanity sketch for troubleshooting uploads\nvoid setup() { pinMode(LED_BUILTIN, OUTPUT); }\nvoid loop() { digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); delay(500); }",
+        "expectedBehavior": "A minimal Blink test confirms whether an issue is hardware/USB or inside a larger sketch."
+      },
+      "exercises": [
+        {
+          "id": "m09-l11-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement is true regarding Troubleshooting?",
+          "options": [
+            "Never panic when upload fails! Check in order: (1) Data-capable USB cable, (2) Board & Processor selection, (3) Active Port, (4) Close any other app using the serial port, (5) Disconnect wires from D0/D1 on Uno/Nano.",
+            "Browser editors can upload directly to USB without Arduino IDE.",
+            "Serial baud rate does not need to match.",
+            "Charge-only USB cables work for uploading."
+          ],
+          "correctIndex": 0,
+          "explanation": "Never panic when upload fails! Check in order: (1) Data-capable USB cable, (2) Board & Processor selection, (3) Active Port, (4) Close any other app using the serial port, (5) Disconnect wires from D0/D1 on Uno/Nano."
+        }
+      ],
+      "summary": [
+        "Diagnose the 5 most common Arduino IDE issues systematically: charge-only USB cables, missing CH340/CP2102 drivers, wrong Board/Port, Old Bootloader on Nano clones, and busy COM ports.",
+        "Never panic when upload fails! Check in order: (1) Data-capable USB cable, (2) Board & Processor selection, (3) Active Port, (4) Close any other app using the serial port, (5) Disconnect wires from D0/D1 on Uno/Nano."
+      ]
+    }
+  ]
+}

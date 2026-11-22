@@ -1,0 +1,639 @@
+{
+  "id": "mod-04",
+  "lessons": [
+    {
+      "id": "m04-l01",
+      "title": "Boolean Values",
+      "estimatedMinutes": 12,
+      "introduction": "Boolean variables store true or false \u2014 the binary foundation of every decision in C++ and Arduino.",
+      "objectives": [
+        "Declare and use bool variables.",
+        "Understand how Arduino maps false/0 and true/non-zero.",
+        "Store sensor states in readable boolean flags."
+      ],
+      "conceptExplanation": [
+        "A bool variable occupies 1 byte and holds either true or false. Naming booleans as yes/no questions \u2014 such as isButtonPressed, hasObstacle, or motorRunning \u2014 makes your if statements read like plain English.",
+        "When printed via Serial.println(), false prints as 0 and true prints as 1."
+      ],
+      "analogy": "A boolean is a light switch with only two positions: ON (true) or OFF (false) \u2014 never 'maybe'.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Boolean Values:",
+        "pattern": "bool isObstacleNear = (distanceCm < 20);",
+        "rules": [
+          "Use descriptive yes/no names like isReady or hasError.",
+          "Avoid writing if (isReady == true) \u2014 simply write if (isReady)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Readable Boolean Flags",
+          "description": "Stores button press state in a clear boolean variable.",
+          "filename": "m04_booleans.ino",
+          "code": "const int BTN_PIN = 2;\nvoid setup() {\n  pinMode(BTN_PIN, INPUT_PULLUP);\n  Serial.begin(9600);\n}\nvoid loop() {\n  bool isPressed = (digitalRead(BTN_PIN) == LOW);\n  Serial.println(isPressed ? \"PRESSED\" : \"RELEASED\");\n  delay(200);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "bool isPressed = (digitalRead(BTN_PIN) == LOW);",
+          "explanation": "Converts active-LOW hardware reading into an intuitive true/false flag."
+        }
+      ],
+      "realWorldApplication": "Boolean flags track robot states such as isCalibrated, emergencyStopActive, and targetReached.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting INPUT_PULLUP makes pressed == LOW",
+          "fix": "Translate hardware polarity once into a clear bool variable like isPressed."
+        },
+        {
+          "mistake": "Using int when only true/false is needed",
+          "fix": "bool communicates intent clearly and prevents invalid states like 2 or -1."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m04_booleans.ino",
+        "challengePrompt": "Add a second boolean isReleased = !isPressed; and print it.",
+        "starterCode": "const int BTN_PIN = 2;\nvoid setup() { pinMode(BTN_PIN, INPUT_PULLUP); Serial.begin(9600); }\nvoid loop() {\n  bool isPressed = (digitalRead(BTN_PIN) == LOW);\n  Serial.println(isPressed);\n  delay(250);\n}",
+        "expectedBehavior": "Serial Monitor prints 1 when pressed and 0 when released."
+      },
+      "exercises": [
+        {
+          "id": "m04-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "What does Serial.println(true); output in Arduino?",
+          "options": [
+            "1",
+            "true",
+            "HIGH",
+            "0"
+          ],
+          "correctIndex": 0,
+          "explanation": "Serial.println() prints boolean true as 1 and false as 0."
+        },
+        {
+          "id": "m04-l01-e2",
+          "type": "fill-blank",
+          "prompt": "Declare a boolean variable named alarmActive initialized to false.",
+          "template": "___1___ alarmActive = false;",
+          "answers": [
+            "bool"
+          ],
+          "explanation": "bool is the C++ boolean data type."
+        }
+      ],
+      "summary": [
+        "bool stores strictly true or false.",
+        "Convert active-LOW hardware signals into clear boolean flags.",
+        "Serial prints true as 1 and false as 0."
+      ],
+      "relatedProjectId": "button-controlled-led"
+    },
+    {
+      "id": "m04-l02",
+      "title": "If Statements",
+      "estimatedMinutes": 12,
+      "introduction": "An if statement runs a block of code only when its condition evaluates to true.",
+      "objectives": [
+        "Write clean single-branch if statements with curly braces.",
+        "Trace what happens when the condition is true vs false.",
+        "Trigger alerts or outputs based on sensor thresholds."
+      ],
+      "conceptExplanation": [
+        "Without decisions, a program runs the exact same instructions forever. An if statement checks a condition inside parentheses ( ); if true, it executes the statements inside { }; if false, it skips the block completely."
+      ],
+      "analogy": "Think of an if statement like an automatic umbrella: IF it is raining, open the umbrella. Otherwise, keep walking.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for If Statements:",
+        "pattern": "if (condition) {\n  // Runs only when condition is true\n}",
+        "rules": [
+          "Always wrap the body in { } even for one line to prevent accidental bugs later.",
+          "Never put a semicolon right after if (condition)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Over-Temperature Warning",
+          "description": "Prints an alert only when temperature exceeds 40 C.",
+          "filename": "m04_if.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int motorTempC = 45;\n  if (motorTempC > 40) {\n    Serial.println(\"WARNING: Motor hot!\");\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "if (motorTempC > 40)",
+          "explanation": "Evaluates 45 > 40 -> true."
+        },
+        {
+          "code": "Serial.println(...);",
+          "explanation": "Executes because the condition is true."
+        }
+      ],
+      "realWorldApplication": "Thermal cutoffs in 3D printers and motor drivers use if statements to shut down power before components overheat.",
+      "commonMistakes": [
+        {
+          "mistake": "Adding a semicolon after if (temp > 40);",
+          "fix": "Remove the semicolon so the { } block actually belongs to the if."
+        },
+        {
+          "mistake": "Omitting braces on multi-line blocks",
+          "fix": "Always use { } to keep all intended lines inside the branch."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m04_if.ino",
+        "challengePrompt": "Change motorTempC to 35 and observe that the warning does not print.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int motorTempC = 45;\n  if (motorTempC > 40) {\n    Serial.println(\"WARNING: Motor hot!\");\n  }\n  Serial.println(\"Check complete.\");\n}\nvoid loop() {}",
+        "expectedBehavior": "At 35, only 'Check complete.' prints."
+      },
+      "exercises": [
+        {
+          "id": "m04-l02-e1",
+          "type": "predict-behavior",
+          "prompt": "What prints when voltage is 3?",
+          "codeSnippet": "int voltage = 3;\nif (voltage > 4) {\n  Serial.println(\"High\");\n}\nSerial.println(\"Done\");",
+          "options": [
+            "Only Done",
+            "High and Done",
+            "Only High",
+            "Nothing"
+          ],
+          "correctIndex": 0,
+          "explanation": "3 > 4 is false, so the if block is skipped, and execution continues to Serial.println(\"Done\")."
+        },
+        {
+          "id": "m04-l02-e2",
+          "type": "write-code",
+          "prompt": "Write an if statement that turns LED_PIN HIGH when dist < 15.",
+          "starter": "",
+          "requiredTokens": [
+            "if",
+            "dist",
+            "<",
+            "15",
+            "digitalWrite",
+            "LED_PIN",
+            "HIGH"
+          ],
+          "sampleSolution": "if (dist < 15) {\n  digitalWrite(LED_PIN, HIGH);\n}",
+          "explanation": "Checks dist < 15 and writes HIGH inside braces."
+        }
+      ],
+      "summary": [
+        "if (condition) { ... } runs code only when the condition is true.",
+        "Always include curly braces { } and omit trailing semicolons on the if header.",
+        "Execution resumes immediately after the closing brace."
+      ]
+    },
+    {
+      "id": "m04-l03",
+      "title": "If-Else Statements",
+      "estimatedMinutes": 12,
+      "introduction": "An if-else statement guarantees that exactly one of two mutually exclusive branches runs.",
+      "objectives": [
+        "Write two-way decisions with if and else.",
+        "Ensure outputs are explicitly turned OFF in the else branch.",
+        "Trace binary hardware control cleanly."
+      ],
+      "conceptExplanation": [
+        "When controlling physical hardware like an LED or relay, turning it ON in an if statement is only half the job \u2014 you also need to turn it OFF when the condition becomes false! if-else guarantees one branch always executes."
+      ],
+      "analogy": "A fork in a road: if the bridge is open, go straight; else, take the detour. You always take exactly one path.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for If-Else Statements:",
+        "pattern": "if (condition) {\n  // True path\n} else {\n  // False path\n}",
+        "rules": [
+          "else never takes a condition of its own.",
+          "Exactly one of the two blocks executes every time."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Button-Controlled LED with if-else",
+          "description": "Turns LED ON when button is pressed and explicitly OFF when released.",
+          "filename": "m04_if_else.ino",
+          "code": "const int BTN_PIN = 2;\nconst int LED_PIN = 8;\nvoid setup() {\n  pinMode(BTN_PIN, INPUT_PULLUP);\n  pinMode(LED_PIN, OUTPUT);\n}\nvoid loop() {\n  if (digitalRead(BTN_PIN) == LOW) {\n    digitalWrite(LED_PIN, HIGH);\n  } else {\n    digitalWrite(LED_PIN, LOW);\n  }\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "if (digitalRead(BTN_PIN) == LOW)",
+          "explanation": "Checks active-LOW button press."
+        },
+        {
+          "code": "else { digitalWrite(LED_PIN, LOW); }",
+          "explanation": "Guarantees the LED turns back OFF on release."
+        }
+      ],
+      "realWorldApplication": "Door sensors, water-level switches, and limit switches rely on if-else to keep actuators deterministic.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting the else branch on an LED",
+          "fix": "Without turning the pin LOW in else, the LED stays stuck ON forever once triggered."
+        },
+        {
+          "mistake": "Writing else (condition)",
+          "fix": "Use else if (condition) when adding another condition; plain else has no parentheses."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m04_if_else.ino",
+        "challengePrompt": "Add Serial.println(\"ON\") and Serial.println(\"OFF\") inside the two branches with a 200 ms delay.",
+        "starterCode": "const int BTN_PIN = 2;\nconst int LED_PIN = 8;\nvoid setup() { pinMode(BTN_PIN, INPUT_PULLUP); pinMode(LED_PIN, OUTPUT); Serial.begin(9600); }\nvoid loop() {\n  if (digitalRead(BTN_PIN) == LOW) { digitalWrite(LED_PIN, HIGH); }\n  else { digitalWrite(LED_PIN, LOW); }\n}",
+        "expectedBehavior": "Pin 8 follows the button cleanly and reports ON/OFF in Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m04-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "In an if-else statement, how many branches execute on a single pass?",
+          "options": [
+            "Exactly one branch",
+            "Both branches",
+            "Zero branches",
+            "It depends on the board voltage"
+          ],
+          "correctIndex": 0,
+          "explanation": "Either the if block runs (when true) or the else block runs (when false) \u2014 never both."
+        },
+        {
+          "id": "m04-l03-e2",
+          "type": "fill-blank",
+          "prompt": "Complete the fallback keyword.",
+          "template": "if (val > 500) {\n  digitalWrite(8, HIGH);\n} ___1___ {\n  digitalWrite(8, LOW);\n}",
+          "answers": [
+            "else"
+          ],
+          "explanation": "else defines the block executed when the if condition is false."
+        }
+      ],
+      "summary": [
+        "if-else handles both true and false outcomes cleanly.",
+        "Always turn hardware outputs back OFF in the else branch when appropriate.",
+        "Plain else never includes a condition."
+      ],
+      "relatedProjectId": "button-controlled-led"
+    },
+    {
+      "id": "m04-l04",
+      "title": "Else-If Chains",
+      "estimatedMinutes": 12,
+      "introduction": "An else-if chain evaluates multiple ordered conditions and runs only the first matching branch.",
+      "objectives": [
+        "Build multi-tier thresholds using if / else if / else.",
+        "Order conditions from strictest to broadest so no branch is shadowed.",
+        "Design a 3-zone distance warning system."
+      ],
+      "conceptExplanation": [
+        "Many robotics decisions have more than two outcomes: for instance, an ultrasonic parking sensor has Danger (<15 cm), Caution (<35 cm), and Safe (>=35 cm). An else-if chain checks each condition in order and stops as soon as one matches."
+      ],
+      "analogy": "Think of sorting packages by weight: check 'under 1 kg' first, else check 'under 5 kg', else 'heavy freight'.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Else-If Chains:",
+        "pattern": "if (dist < 15) {\n  // Danger\n} else if (dist < 35) {\n  // Caution\n} else {\n  // Safe\n}",
+        "rules": [
+          "Order matters! Checking dist < 35 before dist < 15 would swallow the < 15 case.",
+          "Include a final else as a safe catch-all."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "3-Zone Distance Indicator",
+          "description": "Categorizes distance into Danger, Caution, and Safe zones.",
+          "filename": "m04_else_if.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int distCm = 22;\n  if (distCm < 15) {\n    Serial.println(\"DANGER: STOP\");\n  } else if (distCm < 35) {\n    Serial.println(\"CAUTION: SLOW\");\n  } else {\n    Serial.println(\"SAFE: CRUISE\");\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "if (distCm < 15)",
+          "explanation": "Checked first: 22 < 15 is false."
+        },
+        {
+          "code": "else if (distCm < 35)",
+          "explanation": "Checked second: 22 < 35 is true -> prints CAUTION: SLOW and skips else."
+        }
+      ],
+      "realWorldApplication": "Battery gauges (Full / Medium / Low / Critical) and multi-speed fan controllers use else-if ladders.",
+      "commonMistakes": [
+        {
+          "mistake": "Putting a broader condition first",
+          "fix": "Always order numeric ranges consistently (smallest to largest with <, or largest to smallest with >)."
+        },
+        {
+          "mistake": "Using separate independent ifs when outcomes are mutually exclusive",
+          "fix": "Independent ifs can trigger multiple conflicting outputs at once."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m04_else_if.ino",
+        "challengePrompt": "Change distCm to 10 and then to 50 to trace all three zones.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int distCm = 22;\n  if (distCm < 15) Serial.println(\"DANGER\");\n  else if (distCm < 35) Serial.println(\"CAUTION\");\n  else Serial.println(\"SAFE\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints DANGER at 10, CAUTION at 22, and SAFE at 50."
+      },
+      "exercises": [
+        {
+          "id": "m04-l04-e1",
+          "type": "predict-behavior",
+          "prompt": "What prints if distCm = 12 in this BUGGY order?",
+          "codeSnippet": "if (distCm < 35) Serial.println(\"CAUTION\");\nelse if (distCm < 15) Serial.println(\"DANGER\");",
+          "options": [
+            "CAUTION (the DANGER branch is unreachable!)",
+            "DANGER",
+            "Both CAUTION and DANGER",
+            "Nothing"
+          ],
+          "correctIndex": 0,
+          "explanation": "Because 12 < 35 is true first, the else-if chain exits before ever testing < 15."
+        },
+        {
+          "id": "m04-l04-e2",
+          "type": "fill-blank",
+          "prompt": "Add the two-word keyword for a second conditional branch.",
+          "template": "if (x < 10) {\n  // A\n} ___1___ (x < 20) {\n  // B\n}",
+          "answers": [
+            "else if"
+          ],
+          "explanation": "else if tests an additional condition only when earlier branches were false."
+        }
+      ],
+      "summary": [
+        "else-if chains select one branch from multiple ordered options.",
+        "Always order thresholds carefully so earlier branches don't shadow later ones.",
+        "End with a catch-all else for safety."
+      ],
+      "relatedProjectId": "obstacle-detection"
+    },
+    {
+      "id": "m04-l05",
+      "title": "Nested Conditions",
+      "estimatedMinutes": 12,
+      "introduction": "A nested condition places one if statement inside another to express multi-stage checks.",
+      "objectives": [
+        "Read and write nested if statements cleanly.",
+        "Know when to flatten deep nesting using && for readability.",
+        "Apply two-stage guard checks (e.g., system armed -> sensor tripped)."
+      ],
+      "conceptExplanation": [
+        "Sometimes a second check only makes sense if a first condition is already true \u2014 for example, only check the motion sensor if the security system is armed.",
+        "Keep nesting shallow (at most 2 levels). If you find yourself 4 levels deep, refactor using && or helper functions."
+      ],
+      "analogy": "Entering a vault requires unlocking the outer door first; only then can you check the inner safe keypad.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Nested Conditions:",
+        "pattern": "if (systemArmed) {\n  if (motionDetected) {\n    soundAlarm();\n  }\n}",
+        "rules": [
+          "Indent each nested level cleanly so matching braces stay obvious.",
+          "Consider combining simple nested ifs with && when there is no outer else."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Armed Security Check",
+          "description": "Checks motion only when the alarm system is armed.",
+          "filename": "m04_nested.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  bool isArmed = true;\n  bool motion = true;\n  if (isArmed) {\n    if (motion) {\n      Serial.println(\"INTRUSION ALERT!\");\n    } else {\n      Serial.println(\"Armed - Area clear\");\n    }\n  } else {\n    Serial.println(\"System disarmed\");\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "if (isArmed)",
+          "explanation": "Outer guard checking whether monitoring is enabled."
+        },
+        {
+          "code": "if (motion) ... else ...",
+          "explanation": "Inner decision that runs only while armed."
+        }
+      ],
+      "realWorldApplication": "Autonomous vehicles check whether autonomous mode is enabled (outer) before evaluating lane or obstacle actions (inner).",
+      "commonMistakes": [
+        {
+          "mistake": "Misaligned braces causing 'dangling else' confusion",
+          "fix": "Always use { } around both outer and inner blocks and press Ctrl+T in Arduino IDE."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m04_nested.ino",
+        "challengePrompt": "Set isArmed to false while keeping motion = true and confirm the alert does not fire.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  bool isArmed = true;\n  bool motion = true;\n  if (isArmed) {\n    if (motion) Serial.println(\"ALERT\");\n    else Serial.println(\"CLEAR\");\n  } else {\n    Serial.println(\"DISARMED\");\n  }\n}\nvoid loop() {}",
+        "expectedBehavior": "When isArmed is false, Serial Monitor prints DISARMED regardless of motion."
+      },
+      "exercises": [
+        {
+          "id": "m04-l05-e1",
+          "type": "predict-behavior",
+          "prompt": "What prints if isArmed = false and motion = true?",
+          "codeSnippet": "if (isArmed) {\n  if (motion) Serial.println(\"ALARM\");\n} else {\n  Serial.println(\"OFF\");\n}",
+          "options": [
+            "OFF",
+            "ALARM",
+            "Both",
+            "Nothing"
+          ],
+          "correctIndex": 0,
+          "explanation": "Because isArmed is false, the inner if is skipped and the outer else prints OFF."
+        },
+        {
+          "id": "m04-l05-e2",
+          "type": "multiple-choice",
+          "prompt": "When a nested if has no else branches, how can you simplify `if (a) { if (b) { run(); } }`?",
+          "options": [
+            "if (a && b) { run(); }",
+            "if (a || b) { run(); }",
+            "if (a != b) { run(); }",
+            "Cannot be simplified"
+          ],
+          "correctIndex": 0,
+          "explanation": "Combining two simple guards with && flattens nesting and improves readability."
+        }
+      ],
+      "summary": [
+        "Nested ifs evaluate a second condition inside an outer condition.",
+        "Always use explicit { } braces to avoid dangling-else bugs.",
+        "Flatten excessive nesting using && or helper functions."
+      ]
+    },
+    {
+      "id": "m04-l06",
+      "title": "Switch Statements",
+      "estimatedMinutes": 12,
+      "introduction": "A switch statement cleanly selects one action from many exact integer or character values, ideal for robot modes and Serial commands.",
+      "objectives": [
+        "Write switch-case-break-default blocks.",
+        "Explain why omitting break causes fall-through.",
+        "Use switch to parse single-letter Serial commands ('F', 'B', 'S')."
+      ],
+      "conceptExplanation": [
+        "When checking one variable against 4 or more exact values (like mode 0, 1, 2, 3 or Serial commands 'F', 'L', 'R', 'S'), a switch statement is cleaner and easier to read than a long else-if chain.",
+        "Every case normally ends with break; so execution exits the switch immediately."
+      ],
+      "analogy": "A switch statement is like a rotary dial on a washing machine: turn it to a specific mode number and only that cycle runs.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Switch Statements:",
+        "pattern": "switch (cmd) {\n  case 'F': driveForward(); break;\n  case 'S': stopMotors(); break;\n  default:  Serial.println(\"Unknown\"); break;\n}",
+        "rules": [
+          "switch works on integer and char types (not float or String).",
+          "Always include break; at the end of each case unless fall-through is intentional.",
+          "Include a default: case to handle unexpected values safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Serial Robot Command Parser",
+          "description": "Uses switch to respond to single-character commands.",
+          "filename": "m04_switch.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  char cmd = 'F';\n  switch (cmd) {\n    case 'F': Serial.println(\"Forward\"); break;\n    case 'B': Serial.println(\"Backward\"); break;\n    case 'S': Serial.println(\"Stop\"); break;\n    default:  Serial.println(\"Invalid cmd\"); break;\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "switch (cmd)",
+          "explanation": "Inspects the exact character inside cmd."
+        },
+        {
+          "code": "case 'F': ... break;",
+          "explanation": "Matches 'F', prints Forward, and exits the switch."
+        },
+        {
+          "code": "default:",
+          "explanation": "Handles any unexpected character safely."
+        }
+      ],
+      "realWorldApplication": "Bluetooth-controlled RC robots and menu-driven LCD interfaces use switch statements to dispatch commands cleanly.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting break; at the end of a case",
+          "fix": "Without break;, execution falls right into the next case and runs it too!"
+        },
+        {
+          "mistake": "Trying to switch on a float or String",
+          "fix": "Use if/else-if for ranges and Strings; use switch for int, char, or enum."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m04_switch.ino",
+        "challengePrompt": "Add a case 'L': that prints \"Turn Left\" and test cmd = 'L'.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  char cmd = 'F';\n  switch (cmd) {\n    case 'F': Serial.println(\"Forward\"); break;\n    case 'S': Serial.println(\"Stop\"); break;\n    default: Serial.println(\"Unknown\"); break;\n  }\n}\nvoid loop() {}",
+        "expectedBehavior": "With cmd = 'L', Serial Monitor prints 'Turn Left'."
+      },
+      "exercises": [
+        {
+          "id": "m04-l06-e1",
+          "type": "predict-behavior",
+          "prompt": "What prints if break; is forgotten after case 1?",
+          "codeSnippet": "int m = 1;\nswitch (m) {\n  case 1: Serial.println(\"A\");\n  case 2: Serial.println(\"B\"); break;\n}",
+          "options": [
+            "Both A and B (fall-through)",
+            "Only A",
+            "Only B",
+            "Compile error"
+          ],
+          "correctIndex": 0,
+          "explanation": "Without break;, execution falls directly through into case 2."
+        },
+        {
+          "id": "m04-l06-e2",
+          "type": "fill-blank",
+          "prompt": "Add the keyword that handles unmatched values in a switch.",
+          "template": "switch (mode) {\n  case 1: run(); break;\n  ___1___: stop(); break;\n}",
+          "answers": [
+            "default"
+          ],
+          "explanation": "default: catches any value that does not match an earlier case."
+        }
+      ],
+      "summary": [
+        "switch cleanly branches on exact int, char, or enum values.",
+        "Always end each case with break; unless fall-through is intentional.",
+        "Provide a default: case for unexpected inputs."
+      ]
+    },
+    {
+      "id": "m04-l07",
+      "title": "Compound Conditions",
+      "estimatedMinutes": 12,
+      "introduction": "Compound conditions combine multiple comparisons with && and || to model realistic multi-sensor robotics logic.",
+      "objectives": [
+        "Write clear compound conditions with explicit parentheses.",
+        "Understand short-circuit evaluation in C++.",
+        "Guard invalid sensor readings (like timeout -1) before comparing thresholds."
+      ],
+      "conceptExplanation": [
+        "In real robotics, sensors sometimes return error codes (like -1 when an ultrasonic pulse times out). A compound condition like if (dist > 0 && dist < 20) first verifies the reading is valid, and only then checks whether an obstacle is close.",
+        "C++ uses short-circuit evaluation: in (A && B), if A is false, B is never even evaluated. In (A || B), if A is true, B is skipped."
+      ],
+      "analogy": "Think of a theme park ride check: (height >= 120 cm) AND (lapBarLocked == true) AND (NOT emergencyStop).",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Compound Conditions:",
+        "pattern": "if (dist > 0 && dist < 20) {\n  stopMotors();\n}",
+        "rules": [
+          "Always guard invalid values (like dist > 0) on the left side of &&.",
+          "Use parentheses whenever mixing && and || in the same expression."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Guarded Obstacle Check",
+          "description": "Ignores timeout (-1.0) while stopping on real close obstacles.",
+          "filename": "m04_compound.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  float distCm = -1.0; // Sensor timeout\n  if (distCm > 0.0 && distCm < 20.0) {\n    Serial.println(\"STOP: Obstacle!\");\n  } else {\n    Serial.println(\"Path clear or out of range\");\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "distCm > 0.0 && distCm < 20.0",
+          "explanation": "Prevents -1.0 from falsely satisfying < 20.0."
+        }
+      ],
+      "realWorldApplication": "Every reliable ultrasonic or LiDAR obstacle detector uses compound guards so out-of-range timeouts never cause phantom emergency stops.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing only if (distCm < 20.0) when timeout returns -1",
+          "fix": "-1 is less than 20, causing false stops! Always require distCm > 0.0 && distCm < 20.0."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m04_compound.ino",
+        "challengePrompt": "Test distCm = 14.5 and verify STOP prints, then test distCm = -1.0.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  float distCm = -1.0;\n  if (distCm > 0.0 && distCm < 20.0) Serial.println(\"STOP\");\n  else Serial.println(\"DRIVE\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints DRIVE for -1.0 and STOP for 14.5."
+      },
+      "exercises": [
+        {
+          "id": "m04-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "Why does `if (dist > 0 && dist < 20)` protect an ultrasonic robot?",
+          "options": [
+            "It stops a timeout value of 0 or -1 from being misread as a close obstacle.",
+            "It doubles the sensor range.",
+            "It converts centimeters to inches.",
+            "It speeds up pulseIn()."
+          ],
+          "correctIndex": 0,
+          "explanation": "Without dist > 0, an error code of 0 or -1 would satisfy dist < 20 and trigger false stops."
+        },
+        {
+          "id": "m04-l07-e2",
+          "type": "write-code",
+          "prompt": "Write an if condition checking that temp >= 20 AND temp <= 30.",
+          "starter": "",
+          "requiredTokens": [
+            "if",
+            "temp",
+            ">=",
+            "20",
+            "&&",
+            "<=",
+            "30"
+          ],
+          "sampleSolution": "if (temp >= 20 && temp <= 30) {\n}",
+          "explanation": "Both bounds are joined with &&."
+        }
+      ],
+      "summary": [
+        "Compound conditions combine multiple checks using &&, ||, and !.",
+        "Always guard invalid sensor values on the left side of &&.",
+        "Use parentheses to make mixed compound logic unmistakable."
+      ],
+      "relatedProjectId": "obstacle-detection"
+    }
+  ]
+}

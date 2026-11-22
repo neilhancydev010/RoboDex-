@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Data &amp; Backups — RoboDex́</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./assets/css/tokens.css">
+  <link rel="stylesheet" href="./assets/css/base.css">
+  <link rel="stylesheet" href="./assets/css/layout.css">
+  <link rel="stylesheet" href="./assets/css/components.css">
+</head>
+<body data-page="my-data">
+  <div id="site-header"></div>
+
+  <main class="page-main">
+    <div class="container">
+      <div class="mb-lg">
+        <span class="badge badge-cyan">IndexedDB &amp; Local Backup</span>
+        <h1 class="mt-sm">My Data &amp; Local Storage Management</h1>
+        <p>You own 100% of your learning data. Export summaries, download versioned backups, restore progress on another browser, or erase a local profile anytime.</p>
+      </div>
+
+      <div class="callout callout-warning mb-lg">
+        <div class="callout-title">⚠ Why Regular Backups Matter</div>
+        <p style="margin:0;">RoboDex́ stores your structured learning records in <strong>IndexedDB</strong> and simple UI preferences in <strong>localStorage</strong>. Because there is no remote server, clearing browser site data, using incognito mode, or switching devices will erase local progress unless you save a <strong>Download Backup</strong> file first.</p>
+      </div>
+
+      <div id="mydata-summary" class="mb-lg"></div>
+
+      <div class="grid grid-3 mb-lg">
+        <div class="card">
+          <h3>Export My Progress</h3>
+          <p class="text-sm">Download a clean JSON summary of your overall weighted progress, skill levels, and module quiz scores.</p>
+          <button type="button" id="btn-export-progress" class="btn btn-secondary">Export Progress (.json)</button>
+        </div>
+
+        <div class="card">
+          <h3>Export Learning Records</h3>
+          <p class="text-sm">Download a flat CSV table of all lesson checkpoints, exercise attempts, and quiz attempts for personal tracking.</p>
+          <button type="button" id="btn-export-records" class="btn btn-secondary">Export Records (.csv)</button>
+        </div>
+
+        <div class="card">
+          <h3>Download Full Backup</h3>
+          <p class="text-sm">Download a versioned RoboDex́ backup JSON file containing your entire profile, checkpoints, exercises, quizzes, and project steps.</p>
+          <button type="button" id="btn-download-backup" class="btn btn-primary">Download Backup (.json)</button>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <section class="card">
+          <h2>Restore Backup</h2>
+          <p class="text-sm">Import a previously downloaded RoboDex́ versioned backup JSON file to restore or transfer a student profile.</p>
+          <form id="restore-backup-form" class="mt-md">
+            <div class="form-group">
+              <label class="form-label" for="restore-file-input">Select Backup File (.json)</label>
+              <input class="form-input" id="restore-file-input" type="file" accept=".json,application/json">
+            </div>
+            <button type="submit" class="btn btn-accent">Restore Backup</button>
+          </form>
+          <div id="restore-status" class="mt-md"></div>
+        </section>
+
+        <section class="card" style="border-color:var(--danger-border);">
+          <h2 style="color:var(--danger-600);">Delete Local Profile</h2>
+          <p class="text-sm">Permanently remove the currently active student profile and all of its IndexedDB records from this browser. Other local profiles remain untouched.</p>
+          <button type="button" id="btn-delete-profile" class="btn btn-danger mt-sm">Delete Active Local Profile</button>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="./assets/js/prefs.js"></script>
+  <script src="./assets/js/db.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/app.js"></script>
+  <script src="./assets/js/my-data-page.js"></script>
+</body>
+</html>

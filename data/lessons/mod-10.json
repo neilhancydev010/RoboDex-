@@ -1,0 +1,1168 @@
+{
+  "id": "mod-10",
+  "lessons": [
+    {
+      "id": "m10-l01",
+      "title": "setup()",
+      "estimatedMinutes": 12,
+      "introduction": "setup() runs exactly once when your Arduino powers on or resets \u2014 the right place for pinMode() and Serial.begin().",
+      "objectives": [
+        "Use setup() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "setup() runs exactly once when your Arduino powers on or resets \u2014 the right place for pinMode() and Serial.begin().",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of setup() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for setup():",
+        "pattern": "const int LED = 13;",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical setup() Example",
+          "description": "Demonstrates setup() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_setup.ino",
+          "code": "const int LED = 13;\nvoid setup() {\n  pinMode(LED, OUTPUT);\n  Serial.begin(9600);\n  Serial.println(\"Boot complete\");\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LED = 13;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void setup() {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "pinMode(LED, OUTPUT);",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses setup() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_setup.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "const int LED = 13;\nvoid setup() {\n  pinMode(LED, OUTPUT);\n  Serial.begin(9600);\n  Serial.println(\"Boot complete\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 'Boot complete' once on reset and sets pin 13 as OUTPUT."
+      },
+      "exercises": [
+        {
+          "id": "m10-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of setup() in an Arduino sketch?",
+          "options": [
+            "setup() runs exactly once when your Arduino powers on or resets \u2014 the right place for pinMode() and Serial.begin().",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "setup() runs exactly once when your Arduino powers on or resets \u2014 the right place for pinMode() and Serial.begin()."
+        }
+      ],
+      "summary": [
+        "setup() runs exactly once when your Arduino powers on or resets \u2014 the right place for pinMode() and Serial.begin().",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "diagram": {
+        "file": "arduino-loop.svg",
+        "caption": "Arduino setup() and loop() lifecycle."
+      },
+      "relatedProjectId": "led-blinking"
+    },
+    {
+      "id": "m10-l02",
+      "title": "loop()",
+      "estimatedMinutes": 12,
+      "introduction": "loop() repeats continuously as long as the board has power, running thousands of cycles per second unless delayed.",
+      "objectives": [
+        "Use loop() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "loop() repeats continuously as long as the board has power, running thousands of cycles per second unless delayed.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of loop() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for loop():",
+        "pattern": "int tick = 0;",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical loop() Example",
+          "description": "Demonstrates loop() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_loop.ino",
+          "code": "int tick = 0;\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  tick++;\n  Serial.println(tick);\n  delay(500);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int tick = 0;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void setup() { Serial.begin(9600); }",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void loop() {",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses loop() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_loop.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "int tick = 0;\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  tick++;\n  Serial.println(tick);\n  delay(500);\n}",
+        "expectedBehavior": "Counts upward 1, 2, 3... every 500 ms continuously."
+      },
+      "exercises": [
+        {
+          "id": "m10-l02-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of loop() in an Arduino sketch?",
+          "options": [
+            "loop() repeats continuously as long as the board has power, running thousands of cycles per second unless delayed.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "loop() repeats continuously as long as the board has power, running thousands of cycles per second unless delayed."
+        }
+      ],
+      "summary": [
+        "loop() repeats continuously as long as the board has power, running thousands of cycles per second unless delayed.",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "diagram": {
+        "file": "arduino-loop.svg",
+        "caption": "Arduino setup() and loop() lifecycle."
+      }
+    },
+    {
+      "id": "m10-l03",
+      "title": "pinMode()",
+      "estimatedMinutes": 12,
+      "introduction": "pinMode(pin, mode) configures a GPIO pin as OUTPUT, INPUT, or INPUT_PULLUP before reading or driving it.",
+      "objectives": [
+        "Use pinMode() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "pinMode(pin, mode) configures a GPIO pin as OUTPUT, INPUT, or INPUT_PULLUP before reading or driving it.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of pinMode() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for pinMode():",
+        "pattern": "const int BTN = 2;",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical pinMode() Example",
+          "description": "Demonstrates pinMode() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_pinmode.ino",
+          "code": "const int BTN = 2;\nconst int LED = 8;\nvoid setup() {\n  pinMode(BTN, INPUT_PULLUP);\n  pinMode(LED, OUTPUT);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int BTN = 2;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "const int LED = 8;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void setup() {",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses pinMode() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_pinmode.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "const int BTN = 2;\nconst int LED = 8;\nvoid setup() {\n  pinMode(BTN, INPUT_PULLUP);\n  pinMode(LED, OUTPUT);\n}\nvoid loop() {}",
+        "expectedBehavior": "Safely configures pin 2 with an internal pull-up resistor and pin 8 as output."
+      },
+      "exercises": [
+        {
+          "id": "m10-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of pinMode() in an Arduino sketch?",
+          "options": [
+            "pinMode(pin, mode) configures a GPIO pin as OUTPUT, INPUT, or INPUT_PULLUP before reading or driving it.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "pinMode(pin, mode) configures a GPIO pin as OUTPUT, INPUT, or INPUT_PULLUP before reading or driving it."
+        }
+      ],
+      "summary": [
+        "pinMode(pin, mode) configures a GPIO pin as OUTPUT, INPUT, or INPUT_PULLUP before reading or driving it.",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "relatedProjectId": "led-blinking"
+    },
+    {
+      "id": "m10-l04",
+      "title": "digitalWrite()",
+      "estimatedMinutes": 12,
+      "introduction": "digitalWrite(pin, state) sets an OUTPUT pin to HIGH (5V on Uno, 3.3V on ESP32) or LOW (0V).",
+      "objectives": [
+        "Use digitalWrite() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "digitalWrite(pin, state) sets an OUTPUT pin to HIGH (5V on Uno, 3.3V on ESP32) or LOW (0V).",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of digitalWrite() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for digitalWrite():",
+        "pattern": "const int LED = 8;",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical digitalWrite() Example",
+          "description": "Demonstrates digitalWrite() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_digitalwrite.ino",
+          "code": "const int LED = 8;\nvoid setup() { pinMode(LED, OUTPUT); }\nvoid loop() {\n  digitalWrite(LED, HIGH); delay(400);\n  digitalWrite(LED, LOW);  delay(400);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LED = 8;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void setup() { pinMode(LED, OUTPUT); }",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void loop() {",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses digitalWrite() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_digitalwrite.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "const int LED = 8;\nvoid setup() { pinMode(LED, OUTPUT); }\nvoid loop() {\n  digitalWrite(LED, HIGH); delay(400);\n  digitalWrite(LED, LOW);  delay(400);\n}",
+        "expectedBehavior": "Alternates pin 8 between active voltage and 0V every 400 ms."
+      },
+      "exercises": [
+        {
+          "id": "m10-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of digitalWrite() in an Arduino sketch?",
+          "options": [
+            "digitalWrite(pin, state) sets an OUTPUT pin to HIGH (5V on Uno, 3.3V on ESP32) or LOW (0V).",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "digitalWrite(pin, state) sets an OUTPUT pin to HIGH (5V on Uno, 3.3V on ESP32) or LOW (0V)."
+        }
+      ],
+      "summary": [
+        "digitalWrite(pin, state) sets an OUTPUT pin to HIGH (5V on Uno, 3.3V on ESP32) or LOW (0V).",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "relatedProjectId": "led-blinking"
+    },
+    {
+      "id": "m10-l05",
+      "title": "digitalRead()",
+      "estimatedMinutes": 12,
+      "introduction": "digitalRead(pin) reads a digital input pin and returns HIGH or LOW \u2014 essential for buttons, limit switches, and IR sensors.",
+      "objectives": [
+        "Use digitalRead() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "digitalRead(pin) reads a digital input pin and returns HIGH or LOW \u2014 essential for buttons, limit switches, and IR sensors.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of digitalRead() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for digitalRead():",
+        "pattern": "const int BTN = 2;",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical digitalRead() Example",
+          "description": "Demonstrates digitalRead() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_digitalread.ino",
+          "code": "const int BTN = 2;\nconst int LED = 8;\nvoid setup() { pinMode(BTN, INPUT_PULLUP); pinMode(LED, OUTPUT); }\nvoid loop() {\n  bool pressed = (digitalRead(BTN) == LOW);\n  digitalWrite(LED, pressed ? HIGH : LOW);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int BTN = 2;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "const int LED = 8;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void setup() { pinMode(BTN, INPUT_PULLUP); pinMode(LED, OUTPUT); }",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses digitalRead() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_digitalread.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "const int BTN = 2;\nconst int LED = 8;\nvoid setup() { pinMode(BTN, INPUT_PULLUP); pinMode(LED, OUTPUT); }\nvoid loop() {\n  bool pressed = (digitalRead(BTN) == LOW);\n  digitalWrite(LED, pressed ? HIGH : LOW);\n}",
+        "expectedBehavior": "Lights pin 8 whenever the button wired to pin 2 and GND is held down."
+      },
+      "exercises": [
+        {
+          "id": "m10-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of digitalRead() in an Arduino sketch?",
+          "options": [
+            "digitalRead(pin) reads a digital input pin and returns HIGH or LOW \u2014 essential for buttons, limit switches, and IR sensors.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "digitalRead(pin) reads a digital input pin and returns HIGH or LOW \u2014 essential for buttons, limit switches, and IR sensors."
+        }
+      ],
+      "summary": [
+        "digitalRead(pin) reads a digital input pin and returns HIGH or LOW \u2014 essential for buttons, limit switches, and IR sensors.",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "relatedProjectId": "button-controlled-led"
+    },
+    {
+      "id": "m10-l06",
+      "title": "analogRead()",
+      "estimatedMinutes": 12,
+      "introduction": "analogRead(pin) converts a continuous sensor voltage into an integer (0\u20131023 on 10-bit Uno R3; 0\u20134095 on 12-bit ESP32).",
+      "objectives": [
+        "Use analogRead() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "analogRead(pin) converts a continuous sensor voltage into an integer (0\u20131023 on 10-bit Uno R3; 0\u20134095 on 12-bit ESP32).",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of analogRead() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for analogRead():",
+        "pattern": "void setup() { Serial.begin(9600); }",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical analogRead() Example",
+          "description": "Demonstrates analogRead() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_analogread.ino",
+          "code": "void setup() { Serial.begin(9600); }\nvoid loop() {\n  int raw = analogRead(A0);\n  Serial.println(raw);\n  delay(200);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() { Serial.begin(9600); }",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void loop() {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "int raw = analogRead(A0);",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses analogRead() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_analogread.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "void setup() { Serial.begin(9600); }\nvoid loop() {\n  int raw = analogRead(A0);\n  Serial.println(raw);\n  delay(200);\n}",
+        "expectedBehavior": "Prints live analog sensor counts from A0 every 200 ms."
+      },
+      "exercises": [
+        {
+          "id": "m10-l06-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of analogRead() in an Arduino sketch?",
+          "options": [
+            "analogRead(pin) converts a continuous sensor voltage into an integer (0\u20131023 on 10-bit Uno R3; 0\u20134095 on 12-bit ESP32).",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "analogRead(pin) converts a continuous sensor voltage into an integer (0\u20131023 on 10-bit Uno R3; 0\u20134095 on 12-bit ESP32)."
+        }
+      ],
+      "summary": [
+        "analogRead(pin) converts a continuous sensor voltage into an integer (0\u20131023 on 10-bit Uno R3; 0\u20134095 on 12-bit ESP32).",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "relatedProjectId": "automatic-streetlight"
+    },
+    {
+      "id": "m10-l07",
+      "title": "PWM and analogWrite()",
+      "estimatedMinutes": 12,
+      "introduction": "PWM rapidly switches a pin HIGH and LOW to control LED brightness or motor speed using analogWrite(pin, 0..255) on PWM-capable (~) pins.",
+      "objectives": [
+        "Use PWM and analogWrite() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "PWM rapidly switches a pin HIGH and LOW to control LED brightness or motor speed using analogWrite(pin, 0..255) on PWM-capable (~) pins.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of PWM and analogWrite() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for PWM and analogWrite():",
+        "pattern": "const int PWM_LED = 9; // ~PWM pin on Uno R3",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical PWM and analogWrite() Example",
+          "description": "Demonstrates PWM and analogWrite() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_pwm.ino",
+          "code": "const int PWM_LED = 9; // ~PWM pin on Uno R3\nvoid setup() { pinMode(PWM_LED, OUTPUT); }\nvoid loop() {\n  analogWrite(PWM_LED, 64);  delay(500); // 25% duty\n  analogWrite(PWM_LED, 255); delay(500); // 100% duty\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int PWM_LED = 9; // ~PWM pin on Uno R3",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void setup() { pinMode(PWM_LED, OUTPUT); }",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void loop() {",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses PWM and analogWrite() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_pwm.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "const int PWM_LED = 9; // ~PWM pin on Uno R3\nvoid setup() { pinMode(PWM_LED, OUTPUT); }\nvoid loop() {\n  analogWrite(PWM_LED, 64);  delay(500); // 25% duty\n  analogWrite(PWM_LED, 255); delay(500); // 100% duty\n}",
+        "expectedBehavior": "Alternates LED brightness on pin 9 between 25% and 100%."
+      },
+      "exercises": [
+        {
+          "id": "m10-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of PWM and analogWrite() in an Arduino sketch?",
+          "options": [
+            "PWM rapidly switches a pin HIGH and LOW to control LED brightness or motor speed using analogWrite(pin, 0..255) on PWM-capable (~) pins.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "PWM rapidly switches a pin HIGH and LOW to control LED brightness or motor speed using analogWrite(pin, 0..255) on PWM-capable (~) pins."
+        }
+      ],
+      "summary": [
+        "PWM rapidly switches a pin HIGH and LOW to control LED brightness or motor speed using analogWrite(pin, 0..255) on PWM-capable (~) pins.",
+        "Always verify pin capabilities and data types for your target board."
+      ]
+    },
+    {
+      "id": "m10-l08",
+      "title": "delay()",
+      "estimatedMinutes": 12,
+      "introduction": "delay(ms) pauses the entire sketch for a specified number of milliseconds \u2014 simple for beginners, but blocks reading buttons while waiting.",
+      "objectives": [
+        "Use delay() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "delay(ms) pauses the entire sketch for a specified number of milliseconds \u2014 simple for beginners, but blocks reading buttons while waiting.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of delay() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for delay():",
+        "pattern": "void setup() { pinMode(13, OUTPUT); }",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical delay() Example",
+          "description": "Demonstrates delay() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_delay.ino",
+          "code": "void setup() { pinMode(13, OUTPUT); }\nvoid loop() {\n  digitalWrite(13, HIGH); delay(1000);\n  digitalWrite(13, LOW);  delay(1000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() { pinMode(13, OUTPUT); }",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void loop() {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "digitalWrite(13, HIGH); delay(1000);",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses delay() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_delay.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "void setup() { pinMode(13, OUTPUT); }\nvoid loop() {\n  digitalWrite(13, HIGH); delay(1000);\n  digitalWrite(13, LOW);  delay(1000);\n}",
+        "expectedBehavior": "Blinks pin 13 once every 2 seconds (blocking during each 1000 ms wait)."
+      },
+      "exercises": [
+        {
+          "id": "m10-l08-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of delay() in an Arduino sketch?",
+          "options": [
+            "delay(ms) pauses the entire sketch for a specified number of milliseconds \u2014 simple for beginners, but blocks reading buttons while waiting.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "delay(ms) pauses the entire sketch for a specified number of milliseconds \u2014 simple for beginners, but blocks reading buttons while waiting."
+        }
+      ],
+      "summary": [
+        "delay(ms) pauses the entire sketch for a specified number of milliseconds \u2014 simple for beginners, but blocks reading buttons while waiting.",
+        "Always verify pin capabilities and data types for your target board."
+      ]
+    },
+    {
+      "id": "m10-l09",
+      "title": "millis()",
+      "estimatedMinutes": 12,
+      "introduction": "millis() returns elapsed milliseconds since boot as an unsigned long, enabling non-blocking multitasking without freezing buttons or sensors.",
+      "objectives": [
+        "Use millis() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "millis() returns elapsed milliseconds since boot as an unsigned long, enabling non-blocking multitasking without freezing buttons or sensors.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of millis() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for millis():",
+        "pattern": "const int LED = 13;",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical millis() Example",
+          "description": "Demonstrates millis() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_millis.ino",
+          "code": "const int LED = 13;\nunsigned long prevMs = 0;\nconst unsigned long INTERVAL = 500;\nbool ledOn = false;\nvoid setup() { pinMode(LED, OUTPUT); }\nvoid loop() {\n  unsigned long now = millis();\n  if (now - prevMs >= INTERVAL) {\n    prevMs = now;\n    ledOn = !ledOn;\n    digitalWrite(LED, ledOn ? HIGH : LOW);\n  }\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LED = 13;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "unsigned long prevMs = 0;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "const unsigned long INTERVAL = 500;",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses millis() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_millis.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "const int LED = 13;\nunsigned long prevMs = 0;\nconst unsigned long INTERVAL = 500;\nbool ledOn = false;\nvoid setup() { pinMode(LED, OUTPUT); }\nvoid loop() {\n  unsigned long now = millis();\n  if (now - prevMs >= INTERVAL) {\n    prevMs = now;\n    ledOn = !ledOn;\n    digitalWrite(LED, ledOn ? HIGH : LOW);\n  }\n}",
+        "expectedBehavior": "Blinks pin 13 every 500 ms while leaving loop() free to read buttons and sensors instantaneously."
+      },
+      "exercises": [
+        {
+          "id": "m10-l09-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of millis() in an Arduino sketch?",
+          "options": [
+            "millis() returns elapsed milliseconds since boot as an unsigned long, enabling non-blocking multitasking without freezing buttons or sensors.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "millis() returns elapsed milliseconds since boot as an unsigned long, enabling non-blocking multitasking without freezing buttons or sensors."
+        }
+      ],
+      "summary": [
+        "millis() returns elapsed milliseconds since boot as an unsigned long, enabling non-blocking multitasking without freezing buttons or sensors.",
+        "Always verify pin capabilities and data types for your target board."
+      ]
+    },
+    {
+      "id": "m10-l10",
+      "title": "Serial.begin()",
+      "estimatedMinutes": 12,
+      "introduction": "Serial.begin(baud) initializes the USB serial UART at a chosen bit rate (typically 9600 on AVR or 115200 on Uno R4 / ESP32).",
+      "objectives": [
+        "Use Serial.begin() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "Serial.begin(baud) initializes the USB serial UART at a chosen bit rate (typically 9600 on AVR or 115200 on Uno R4 / ESP32).",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of Serial.begin() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for Serial.begin():",
+        "pattern": "void setup() {",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical Serial.begin() Example",
+          "description": "Demonstrates Serial.begin() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_serial_begin.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  Serial.println(\"Serial initialized at 9600 baud\");\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "Serial.begin(9600);",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "Serial.println(\"Serial initialized at 9600 baud\");",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses Serial.begin() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_serial_begin.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  Serial.println(\"Serial initialized at 9600 baud\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Opens serial telemetry at 9600 baud."
+      },
+      "exercises": [
+        {
+          "id": "m10-l10-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of Serial.begin() in an Arduino sketch?",
+          "options": [
+            "Serial.begin(baud) initializes the USB serial UART at a chosen bit rate (typically 9600 on AVR or 115200 on Uno R4 / ESP32).",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "Serial.begin(baud) initializes the USB serial UART at a chosen bit rate (typically 9600 on AVR or 115200 on Uno R4 / ESP32)."
+        }
+      ],
+      "summary": [
+        "Serial.begin(baud) initializes the USB serial UART at a chosen bit rate (typically 9600 on AVR or 115200 on Uno R4 / ESP32).",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "relatedProjectId": "automatic-streetlight"
+    },
+    {
+      "id": "m10-l11",
+      "title": "Serial.print()",
+      "estimatedMinutes": 12,
+      "introduction": "Serial.print() outputs text or numbers on the SAME line without a newline, letting you label values cleanly.",
+      "objectives": [
+        "Use Serial.print() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "Serial.print() outputs text or numbers on the SAME line without a newline, letting you label values cleanly.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of Serial.print() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for Serial.print():",
+        "pattern": "void setup() {",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical Serial.print() Example",
+          "description": "Demonstrates Serial.print() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_serial_print.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  Serial.print(\"Distance: \");\n  Serial.print(24.5);\n  Serial.println(\" cm\");\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "Serial.begin(9600);",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "Serial.print(\"Distance: \");",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses Serial.print() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_serial_print.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  Serial.print(\"Distance: \");\n  Serial.print(24.5);\n  Serial.println(\" cm\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 'Distance: 24.5 cm' neatly on a single line."
+      },
+      "exercises": [
+        {
+          "id": "m10-l11-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of Serial.print() in an Arduino sketch?",
+          "options": [
+            "Serial.print() outputs text or numbers on the SAME line without a newline, letting you label values cleanly.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "Serial.print() outputs text or numbers on the SAME line without a newline, letting you label values cleanly."
+        }
+      ],
+      "summary": [
+        "Serial.print() outputs text or numbers on the SAME line without a newline, letting you label values cleanly.",
+        "Always verify pin capabilities and data types for your target board."
+      ],
+      "relatedProjectId": "ultrasonic-distance-meter"
+    },
+    {
+      "id": "m10-l12",
+      "title": "Serial.println()",
+      "estimatedMinutes": 12,
+      "introduction": "Serial.println() outputs data followed by a newline so each reading starts cleanly on its own row.",
+      "objectives": [
+        "Use Serial.println() accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "Serial.println() outputs data followed by a newline so each reading starts cleanly on its own row.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of Serial.println() as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for Serial.println():",
+        "pattern": "void setup() { Serial.begin(9600); }",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical Serial.println() Example",
+          "description": "Demonstrates Serial.println() in a complete, verifiable Arduino sketch.",
+          "filename": "m10_serial_println.ino",
+          "code": "void setup() { Serial.begin(9600); }\nvoid loop() {\n  Serial.println(analogRead(A0));\n  delay(250);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() { Serial.begin(9600); }",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "void loop() {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "Serial.println(analogRead(A0));",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses Serial.println() inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_serial_println.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "void setup() { Serial.begin(9600); }\nvoid loop() {\n  Serial.println(analogRead(A0));\n  delay(250);\n}",
+        "expectedBehavior": "Prints each A0 reading on its own new line."
+      },
+      "exercises": [
+        {
+          "id": "m10-l12-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of Serial.println() in an Arduino sketch?",
+          "options": [
+            "Serial.println() outputs data followed by a newline so each reading starts cleanly on its own row.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "Serial.println() outputs data followed by a newline so each reading starts cleanly on its own row."
+        }
+      ],
+      "summary": [
+        "Serial.println() outputs data followed by a newline so each reading starts cleanly on its own row.",
+        "Always verify pin capabilities and data types for your target board."
+      ]
+    },
+    {
+      "id": "m10-l13",
+      "title": "Hardware-Control Functions",
+      "estimatedMinutes": 12,
+      "introduction": "Wrap low-level digitalWrite and analogWrite calls inside clear hardware-control functions like setMotorSpeed() or setTrafficLights().",
+      "objectives": [
+        "Use Hardware-Control Functions accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "Wrap low-level digitalWrite and analogWrite calls inside clear hardware-control functions like setMotorSpeed() or setTrafficLights().",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of Hardware-Control Functions as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for Hardware-Control Functions:",
+        "pattern": "void setMotorPwm(int dirPin, int pwmPin, bool forward, int speed) {",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical Hardware-Control Functions Example",
+          "description": "Demonstrates Hardware-Control Functions in a complete, verifiable Arduino sketch.",
+          "filename": "m10_hw_funcs.ino",
+          "code": "void setMotorPwm(int dirPin, int pwmPin, bool forward, int speed) {\n  digitalWrite(dirPin, forward ? HIGH : LOW);\n  analogWrite(pwmPin, constrain(speed, 0, 255));\n}\nvoid setup() { pinMode(4, OUTPUT); pinMode(5, OUTPUT); setMotorPwm(4, 5, true, 160); }\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setMotorPwm(int dirPin, int pwmPin, bool forward, int speed) {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "digitalWrite(dirPin, forward ? HIGH : LOW);",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "analogWrite(pwmPin, constrain(speed, 0, 255));",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses Hardware-Control Functions inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_hw_funcs.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "void setMotorPwm(int dirPin, int pwmPin, bool forward, int speed) {\n  digitalWrite(dirPin, forward ? HIGH : LOW);\n  analogWrite(pwmPin, constrain(speed, 0, 255));\n}\nvoid setup() { pinMode(4, OUTPUT); pinMode(5, OUTPUT); setMotorPwm(4, 5, true, 160); }\nvoid loop() {}",
+        "expectedBehavior": "Drives a motor channel forward safely with clamped PWM speed."
+      },
+      "exercises": [
+        {
+          "id": "m10-l13-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of Hardware-Control Functions in an Arduino sketch?",
+          "options": [
+            "Wrap low-level digitalWrite and analogWrite calls inside clear hardware-control functions like setMotorSpeed() or setTrafficLights().",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "Wrap low-level digitalWrite and analogWrite calls inside clear hardware-control functions like setMotorSpeed() or setTrafficLights()."
+        }
+      ],
+      "summary": [
+        "Wrap low-level digitalWrite and analogWrite calls inside clear hardware-control functions like setMotorSpeed() or setTrafficLights().",
+        "Always verify pin capabilities and data types for your target board."
+      ]
+    },
+    {
+      "id": "m10-l14",
+      "title": "Sensor Data Processing",
+      "estimatedMinutes": 12,
+      "introduction": "Raw sensor readings are noisy and uncalibrated \u2014 use averaging, map(), and constrain() to turn raw numbers into reliable physical decisions.",
+      "objectives": [
+        "Use Sensor Data Processing accurately in Arduino C++ sketches.",
+        "Predict exact pin or Serial behavior on hardware.",
+        "Avoid common beginner pitfalls with this core API."
+      ],
+      "conceptExplanation": [
+        "Raw sensor readings are noisy and uncalibrated \u2014 use averaging, map(), and constrain() to turn raw numbers into reliable physical decisions.",
+        "Understanding how this core Arduino function interacts with hardware registers and timing lets you write responsive, bug-free robotics sketches instead of guessing."
+      ],
+      "analogy": "Think of Sensor Data Processing as one of the core instrument controls in your robotics cockpit \u2014 simple to call, powerful when combined cleanly.",
+      "syntaxExplanation": {
+        "summary": "Standard Arduino usage for Sensor Data Processing:",
+        "pattern": "int readCleanPercent(int pin) {",
+        "rules": [
+          "Always configure pins with pinMode() before digitalWrite() or digitalRead().",
+          "Use unsigned long for millis() subtraction (now - prev >= interval) to handle rollover safely."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Practical Sensor Data Processing Example",
+          "description": "Demonstrates Sensor Data Processing in a complete, verifiable Arduino sketch.",
+          "filename": "m10_sensor_proc.ino",
+          "code": "int readCleanPercent(int pin) {\n  long sum = 0;\n  for (int i = 0; i < 8; i++) sum += analogRead(pin);\n  int avg = sum / 8;\n  return constrain(map(avg, 0, 1023, 0, 100), 0, 100);\n}\nvoid setup() { Serial.begin(9600); }\nvoid loop() { Serial.println(readCleanPercent(A0)); delay(250); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int readCleanPercent(int pin) {",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "long sum = 0;",
+          "explanation": "Core step executing this Arduino capability."
+        },
+        {
+          "code": "for (int i = 0; i < 8; i++) sum += analogRead(pin);",
+          "explanation": "Core step executing this Arduino capability."
+        }
+      ],
+      "realWorldApplication": "Almost every practical Arduino robot uses Sensor Data Processing inside its sensing, timing, or actuation layer.",
+      "commonMistakes": [
+        {
+          "mistake": "Using delay() when simultaneous button responsiveness is needed",
+          "fix": "Switch to non-blocking millis() timing whenever multiple tasks must run concurrently."
+        },
+        {
+          "mistake": "Calling analogWrite() on a non-PWM pin",
+          "fix": "Check your board's ~PWM pin markings before calling analogWrite()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m10_sensor_proc.ino",
+        "challengePrompt": "Modify a pin number or timing constant, then download .ino to test in Arduino IDE.",
+        "starterCode": "int readCleanPercent(int pin) {\n  long sum = 0;\n  for (int i = 0; i < 8; i++) sum += analogRead(pin);\n  int avg = sum / 8;\n  return constrain(map(avg, 0, 1023, 0, 100), 0, 100);\n}\nvoid setup() { Serial.begin(9600); }\nvoid loop() { Serial.println(readCleanPercent(A0)); delay(250); }",
+        "expectedBehavior": "Averages 8 samples and prints a clean 0\u2013100% reading."
+      },
+      "exercises": [
+        {
+          "id": "m10-l14-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the primary role of Sensor Data Processing in an Arduino sketch?",
+          "options": [
+            "Raw sensor readings are noisy and uncalibrated \u2014 use averaging, map(), and constrain() to turn raw numbers into reliable physical decisions.",
+            "It installs libraries from the internet.",
+            "It permanently erases Flash memory.",
+            "It replaces C++ syntax."
+          ],
+          "correctIndex": 0,
+          "explanation": "Raw sensor readings are noisy and uncalibrated \u2014 use averaging, map(), and constrain() to turn raw numbers into reliable physical decisions."
+        }
+      ],
+      "summary": [
+        "Raw sensor readings are noisy and uncalibrated \u2014 use averaging, map(), and constrain() to turn raw numbers into reliable physical decisions.",
+        "Always verify pin capabilities and data types for your target board."
+      ]
+    }
+  ]
+}

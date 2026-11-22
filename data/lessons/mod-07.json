@@ -1,0 +1,507 @@
+{
+  "id": "mod-07",
+  "lessons": [
+    {
+      "id": "m07-l01",
+      "title": "Arrays",
+      "estimatedMinutes": 12,
+      "introduction": "An array stores a fixed-size list of values of the same data type under a single name \u2014 ideal for LED banks and multi-sensor readings.",
+      "objectives": [
+        "Declare and initialize fixed-size C++ arrays.",
+        "Explain why all elements in an array share one data type.",
+        "Store multiple pin numbers cleanly in one array."
+      ],
+      "conceptExplanation": [
+        "Instead of declaring led1, led2, led3, led4, led5 as five separate variables, an array groups them into one contiguous block of SRAM: const int LEDS[4] = {8, 9, 10, 11};.",
+        "Arrays pair naturally with for loops so you can configure or update 4 or 40 pins with just three lines of code."
+      ],
+      "analogy": "An array is a pill organizer with numbered compartments in a row \u2014 every slot holds the same kind of item and is accessed by slot number.",
+      "syntaxExplanation": {
+        "summary": "Specify element type, array name, size in brackets [ ], and brace-enclosed values.",
+        "pattern": "const int LED_PINS[4] = {8, 9, 10, 11};",
+        "rules": [
+          "Array size is fixed at compile time.",
+          "All elements must share the same data type."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "LED Pin Array",
+          "description": "Stores four LED pins in a single array.",
+          "filename": "m07_arrays.ino",
+          "code": "const int LED_PINS[4] = {8, 9, 10, 11};\nvoid setup() {\n  for (int i = 0; i < 4; i++) {\n    pinMode(LED_PINS[i], OUTPUT);\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LED_PINS[4] = {8, 9, 10, 11};",
+          "explanation": "Creates a 4-element integer array of pin numbers."
+        },
+        {
+          "code": "pinMode(LED_PINS[i], OUTPUT);",
+          "explanation": "Configures each pin using index i."
+        }
+      ],
+      "realWorldApplication": "Line-following robots store their 5 or 8 IR reflectance sensor pins and readings inside arrays.",
+      "commonMistakes": [
+        {
+          "mistake": "Accessing index 4 in a 4-element array",
+          "fix": "Valid indices for size 4 are 0, 1, 2, and 3 only."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m07_arrays.ino",
+        "challengePrompt": "Add pin 12 as a 5th element and update the array size and loop limit to 5.",
+        "starterCode": "const int LED_PINS[4] = {8, 9, 10, 11};\nvoid setup() {\n  for (int i = 0; i < 4; i++) {\n    pinMode(LED_PINS[i], OUTPUT);\n  }\n}\nvoid loop() {}",
+        "expectedBehavior": "Configures all 5 digital pins (8 through 12) as OUTPUT cleanly."
+      },
+      "exercises": [
+        {
+          "id": "m07-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the valid index range for `int samples[5];`?",
+          "options": [
+            "0 to 4",
+            "1 to 5",
+            "0 to 5",
+            "1 to 4"
+          ],
+          "correctIndex": 0,
+          "explanation": "C++ arrays are zero-indexed, so a 5-element array uses indices 0, 1, 2, 3, and 4."
+        },
+        {
+          "id": "m07-l01-e2",
+          "type": "fill-blank",
+          "prompt": "Declare an array of 3 ints named pins.",
+          "template": "int pins[___1___] = {2, 3, 4};",
+          "answers": [
+            "3"
+          ],
+          "explanation": "The bracket size matches the 3 initializer values."
+        }
+      ],
+      "summary": [
+        "Arrays store multiple values of one type in contiguous memory.",
+        "Indices always start at 0 and end at size - 1.",
+        "Arrays eliminate repetitive pin declarations."
+      ]
+    },
+    {
+      "id": "m07-l02",
+      "title": "Indexing",
+      "estimatedMinutes": 12,
+      "introduction": "Indexing reads or updates a specific slot inside an array using square brackets [index], starting from 0.",
+      "objectives": [
+        "Read and modify individual array elements by index.",
+        "Avoid out-of-bounds memory corruption on Arduino."
+      ],
+      "conceptExplanation": [
+        "The first item in an array is ALWAYS at index 0, and the last item is at index (length - 1). Because C++ does not perform automatic bounds checking, reading or writing past the end of an array silently corrupts adjacent SRAM variables!"
+      ],
+      "analogy": "Like European building floors where the ground floor is 0, array indexing starts at 0.",
+      "syntaxExplanation": {
+        "summary": "Use arrayName[index] to read or assign a specific element.",
+        "pattern": "int first = temps[0];\ntemps[2] = 27;",
+        "rules": [
+          "Index 0 is the first element.",
+          "Never access index < 0 or index >= arraySize."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Reading & Updating Array Slots",
+          "description": "Modifies index 1 and prints elements 0 and 1.",
+          "filename": "m07_indexing.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int speeds[3] = {100, 150, 200};\n  speeds[1] = 180;\n  Serial.println(speeds[0]);\n  Serial.println(speeds[1]);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "speeds[1] = 180;",
+          "explanation": "Updates the SECOND element (index 1) from 150 to 180."
+        }
+      ],
+      "realWorldApplication": "Lookup tables store pre-calibrated servo angles indexed by gripper preset number.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing speeds[3] on a 3-element array",
+          "fix": "Index 3 is out of bounds and corrupts SRAM! Last valid index is 2."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m07_indexing.ino",
+        "challengePrompt": "Print the last element (speeds[2]) as well.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int speeds[3] = {100, 150, 200};\n  speeds[1] = 180;\n  Serial.println(speeds[0]);\n  Serial.println(speeds[1]);\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 100, 180, and 200 to Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m07-l02-e1",
+          "type": "predict-behavior",
+          "prompt": "What prints?",
+          "codeSnippet": "int a[4] = {10, 20, 30, 40};\nSerial.println(a[2]);",
+          "options": [
+            "30",
+            "20",
+            "40",
+            "10"
+          ],
+          "correctIndex": 0,
+          "explanation": "Index 0=10, 1=20, 2=30."
+        }
+      ],
+      "summary": [
+        "Array indexing starts at 0.",
+        "Use array[i] to read or overwrite a slot.",
+        "Out-of-bounds indexing corrupts microcontroller SRAM."
+      ]
+    },
+    {
+      "id": "m07-l03",
+      "title": "Iterating Through Arrays",
+      "estimatedMinutes": 12,
+      "introduction": "Combining a for loop with an array lets you process every sensor channel or LED in just a few lines.",
+      "objectives": [
+        "Compute array length safely using sizeof(arr) / sizeof(arr[0]).",
+        "Iterate through an array to sum, average, or drive outputs."
+      ],
+      "conceptExplanation": [
+        "Using sizeof(arr) / sizeof(arr[0]) automatically calculates the element count so you never forget to update loop limits when adding another LED or sensor."
+      ],
+      "analogy": "Walking down a row of mailboxes inspecting each one in order from 0 to N-1.",
+      "syntaxExplanation": {
+        "summary": "Compute count with sizeof and loop from i = 0 while i < count.",
+        "pattern": "const int N = sizeof(arr) / sizeof(arr[0]);\nfor (int i = 0; i < N; i++) { ... }",
+        "rules": [
+          "Always use strictly less-than (i < N) to stay inside bounds."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Computing Average of Sensor Array",
+          "description": "Sums and averages 5 stored readings.",
+          "filename": "m07_iterate.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int samples[5] = {20, 22, 19, 21, 23};\n  int n = sizeof(samples) / sizeof(samples[0]);\n  int sum = 0;\n  for (int i = 0; i < n; i++) sum += samples[i];\n  Serial.println((float)sum / n, 1);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "sizeof(samples) / sizeof(samples[0])",
+          "explanation": "Computes element count (5) safely regardless of int byte size."
+        }
+      ],
+      "realWorldApplication": "Moving-average filters keep the last N distance readings in an array and iterate to compute a smooth average.",
+      "commonMistakes": [
+        {
+          "mistake": "Using sizeof(samples) directly as the element count",
+          "fix": "sizeof returns BYTES, not elements! Divide by sizeof(samples[0])."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m07_iterate.ino",
+        "challengePrompt": "Add a 6th reading (25) to samples[] and notice how sizeof adapts automatically.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int samples[5] = {20, 22, 19, 21, 23};\n  int n = sizeof(samples) / sizeof(samples[0]);\n  int sum = 0;\n  for (int i = 0; i < n; i++) sum += samples[i];\n  Serial.println((float)sum / n, 1);\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints the exact decimal average of all array elements."
+      },
+      "exercises": [
+        {
+          "id": "m07-l03-e1",
+          "type": "select-code",
+          "prompt": "Which expression returns the number of elements in an int array named data?",
+          "options": [
+            "sizeof(data) / sizeof(data[0])",
+            "data.count()",
+            "sizeof(data)",
+            "length(data)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Dividing total array bytes by one element's byte size gives exact element count."
+        }
+      ],
+      "summary": [
+        "Use for (int i = 0; i < n; i++) to traverse arrays.",
+        "Calculate element count with sizeof(arr) / sizeof(arr[0]).",
+        "Pair float casting with sums for accurate averages."
+      ]
+    },
+    {
+      "id": "m07-l04",
+      "title": "Strings",
+      "estimatedMinutes": 12,
+      "introduction": "Arduino's String object makes text formatting convenient, while requiring awareness of heap fragmentation on small AVR boards.",
+      "objectives": [
+        "Create, concatenate, and compare Arduino String objects.",
+        "Understand when String is fine vs when fixed char arrays are safer."
+      ],
+      "conceptExplanation": [
+        "The Arduino String class lets you join text with +, check .length(), and compare with ==. On 32-bit boards (Uno R4, ESP32) with lots of RAM, String is very comfortable; on 2 KB SRAM boards (Uno R3 / Nano Classic), avoid repeatedly building huge Strings inside loop()."
+      ],
+      "analogy": "A String object is an expandable binder that dynamically resizes itself, convenient but requiring extra shelf space.",
+      "syntaxExplanation": {
+        "summary": "String msg = \"Temp: \" + String(tempC) + \" C\";",
+        "pattern": "String status = \"OK\";\nif (status == \"OK\") { Serial.println(status); }",
+        "rules": [
+          "Use String for readable Serial logs, but keep repeated loop() concatenation minimal on Uno R3."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Formatting Telemetry with String",
+          "description": "Builds a clean telemetry message.",
+          "filename": "m07_strings.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  String robotName = \"RoboDex-1\";\n  int batteryPct = 88;\n  String msg = robotName + \" Battery: \" + String(batteryPct) + \"%\";\n  Serial.println(msg);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "String(batteryPct)",
+          "explanation": "Converts integer 88 into text so it can be joined with +."
+        }
+      ],
+      "realWorldApplication": "ESP32 Wi-Fi dashboards and LCD status lines format human-readable labels using Strings.",
+      "commonMistakes": [
+        {
+          "mistake": "Heavy String concatenation inside a fast loop() on Uno R3",
+          "fix": "Print pieces directly with separate Serial.print() calls to avoid SRAM fragmentation."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m07_strings.ino",
+        "challengePrompt": "Change robotName to your own robot's name.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  String robotName = \"RoboDex-1\";\n  int batteryPct = 88;\n  String msg = robotName + \" Battery: \" + String(batteryPct) + \"%\";\n  Serial.println(msg);\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints the formatted battery telemetry line to Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m07-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "Why should you be cautious with frequent String concatenation inside loop() on an Arduino Uno R3?",
+          "options": [
+            "Uno R3 only has 2 KB of SRAM, and dynamic String resizing can fragment heap memory.",
+            "String does not exist on Arduino.",
+            "String only holds numbers.",
+            "Serial.println cannot print String."
+          ],
+          "correctIndex": 0,
+          "explanation": "Dynamic heap allocations in 2 KB SRAM can cause crashes over long uptimes."
+        }
+      ],
+      "summary": [
+        "String objects support +, ==, and .length().",
+        "On Uno R3/Nano Classic, prefer multiple Serial.print() calls or char arrays for long-running loops."
+      ]
+    },
+    {
+      "id": "m07-l05",
+      "title": "Character Arrays (C-Strings)",
+      "estimatedMinutes": 12,
+      "introduction": "Null-terminated char arrays (C-strings) store text in fixed, predictable memory with zero heap fragmentation.",
+      "objectives": [
+        "Declare null-terminated char arrays.",
+        "Compare C-strings using strcmp() instead of ==."
+      ],
+      "conceptExplanation": [
+        "In standard C++, a C-string is simply a char array ending with the invisible null character '\\0'. Because its size is fixed at compile time, it never fragments SRAM \u2014 making it the gold standard for reliable embedded firmware."
+      ],
+      "analogy": "A fixed nameplate with an end-stop marker ('\\0') telling Serial.print where the text finishes.",
+      "syntaxExplanation": {
+        "summary": "char label[] = \"READY\"; // Automatically includes '\\0'",
+        "pattern": "char cmd[16] = \"START\";\nif (strcmp(cmd, \"START\") == 0) { ... }",
+        "rules": [
+          "Reserve 1 extra byte for the trailing '\\0' terminator.",
+          "Always compare C-strings with strcmp(a, b) == 0, never a == b."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Comparing C-Strings Safely",
+          "description": "Uses strcmp() to match a command buffer.",
+          "filename": "m07_cstrings.ino",
+          "code": "#include <string.h>\nvoid setup() {\n  Serial.begin(9600);\n  char cmd[10] = \"STOP\";\n  if (strcmp(cmd, \"STOP\") == 0) {\n    Serial.println(\"Halting motors\");\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "strcmp(cmd, \"STOP\") == 0",
+          "explanation": "Returns 0 when both C-strings contain identical characters."
+        }
+      ],
+      "realWorldApplication": "GPS NMEA sentence parsers and Serial protocol handlers on AVR boards use char buffers for rock-solid uptime.",
+      "commonMistakes": [
+        {
+          "mistake": "Comparing char arrays with cmd == \"STOP\"",
+          "fix": "That compares memory addresses, not text! Always use strcmp(cmd, \"STOP\") == 0."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m07_cstrings.ino",
+        "challengePrompt": "Change cmd to \"GO\" and add an else branch printing \"Running\".",
+        "starterCode": "#include <string.h>\nvoid setup() {\n  Serial.begin(9600);\n  char cmd[10] = \"STOP\";\n  if (strcmp(cmd, \"STOP\") == 0) {\n    Serial.println(\"Halting motors\");\n  }\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 'Running' when cmd is \"GO\"."
+      },
+      "exercises": [
+        {
+          "id": "m07-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "What value does strcmp(a, b) return when two C-strings are identical?",
+          "options": [
+            "0",
+            "1",
+            "-1",
+            "true"
+          ],
+          "correctIndex": 0,
+          "explanation": "strcmp returns 0 when there is zero difference between the two strings."
+        }
+      ],
+      "summary": [
+        "C-strings are char arrays terminated by '\\0'.",
+        "They avoid heap fragmentation on low-RAM boards.",
+        "Compare C-strings with strcmp(a, b) == 0."
+      ]
+    },
+    {
+      "id": "m07-l06",
+      "title": "Structures (struct)",
+      "estimatedMinutes": 12,
+      "introduction": "A struct bundles related variables of different data types (like pin, threshold, and reading) into a single custom record.",
+      "objectives": [
+        "Define a struct grouping mixed fields.",
+        "Access struct members using the dot (.) operator."
+      ],
+      "conceptExplanation": [
+        "Arrays hold many items of the SAME type; a struct holds related properties of DIFFERENT types \u2014 for instance, a SensorNode struct holding an int pin, float distanceCm, and bool alertActive."
+      ],
+      "analogy": "A contact card that groups Name (text), Age (int), and Active (bool) into one tidy package.",
+      "syntaxExplanation": {
+        "summary": "struct TypeName { fields... }; followed by a semicolon.",
+        "pattern": "struct SensorData {\n  int rawAdc;\n  float voltage;\n  bool isLow;\n};",
+        "rules": [
+          "Never forget the semicolon ';' after the closing brace of a struct definition.",
+          "Access fields with dot notation: data.voltage."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "SensorData Struct",
+          "description": "Groups raw ADC, voltage, and alert status into one struct.",
+          "filename": "m07_struct.ino",
+          "code": "struct SensorData {\n  int raw;\n  float volts;\n  bool warning;\n};\n\nvoid setup() {\n  Serial.begin(9600);\n  SensorData battery = {720, 3.52f, true};\n  Serial.println(battery.volts);\n  if (battery.warning) Serial.println(\"Low Battery!\");\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "struct SensorData { ... };",
+          "explanation": "Defines a custom composite type."
+        },
+        {
+          "code": "battery.volts",
+          "explanation": "Reads the volts field using dot notation."
+        }
+      ],
+      "realWorldApplication": "Telemetry packets sent over LoRa or Wi-Fi bundle GPS latitude, longitude, altitude, and battery voltage into a single struct.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting the semicolon after struct { ... };",
+          "fix": "C++ requires ';' immediately after the struct's closing brace."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m07_struct.ino",
+        "challengePrompt": "Change battery.warning to false and observe the output.",
+        "starterCode": "struct SensorData {\n  int raw;\n  float volts;\n  bool warning;\n};\n\nvoid setup() {\n  Serial.begin(9600);\n  SensorData battery = {720, 3.52f, true};\n  Serial.println(battery.volts);\n  if (battery.warning) Serial.println(\"Low Battery!\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 3.52 without printing 'Low Battery!'."
+      },
+      "exercises": [
+        {
+          "id": "m07-l06-e1",
+          "type": "fill-blank",
+          "prompt": "Access the volts member of the struct variable sensor.",
+          "template": "Serial.println(sensor___1___volts);",
+          "answers": [
+            "."
+          ],
+          "explanation": "The dot operator (.) accesses members of a struct."
+        }
+      ],
+      "summary": [
+        "struct groups related fields of different types into one custom type.",
+        "End struct definitions with a semicolon ';'.",
+        "Use dot notation (item.field) to read or write members."
+      ]
+    },
+    {
+      "id": "m07-l07",
+      "title": "Enumerations (enum)",
+      "estimatedMinutes": 12,
+      "introduction": "An enum replaces cryptic state numbers (0, 1, 2) with readable names like STATE_IDLE, STATE_DRIVE, and STATE_AVOID.",
+      "objectives": [
+        "Define an enum for robot operating states.",
+        "Combine enum with switch for clean state machines."
+      ],
+      "conceptExplanation": [
+        "Instead of remembering whether mode 2 means 'Turning' or 'Alarm', an enum gives each integer state a descriptive identifier that the compiler checks for typos."
+      ],
+      "analogy": "Traffic light labels RED, YELLOW, GREEN instead of secret codes 0, 1, 2.",
+      "syntaxExplanation": {
+        "summary": "enum RobotState { IDLE, DRIVE, AVOID };",
+        "pattern": "enum RobotState { IDLE, DRIVE, AVOID };\nRobotState state = DRIVE;",
+        "rules": [
+          "Enum values default to 0, 1, 2... automatically.",
+          "Pairs cleanly with switch statements."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Readable Robot State Machine with enum",
+          "description": "Uses enum values inside a switch statement.",
+          "filename": "m07_enum.ino",
+          "code": "enum RobotState { IDLE, DRIVE, AVOID };\nRobotState currentState = DRIVE;\n\nvoid setup() {\n  Serial.begin(9600);\n  switch (currentState) {\n    case IDLE:  Serial.println(\"Waiting\"); break;\n    case DRIVE: Serial.println(\"Driving\"); break;\n    case AVOID: Serial.println(\"Avoiding obstacle\"); break;\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "enum RobotState { IDLE, DRIVE, AVOID };",
+          "explanation": "Creates three named state constants."
+        },
+        {
+          "code": "switch (currentState)",
+          "explanation": "Dispatches cleanly on readable state names."
+        }
+      ],
+      "realWorldApplication": "Almost every autonomous robot firmware uses an enum-driven Finite State Machine (FSM) to manage navigation modes.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting the semicolon after enum { ... };",
+          "fix": "Just like struct, enum definitions end with ';'."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m07_enum.ino",
+        "challengePrompt": "Change currentState to AVOID and check which message prints.",
+        "starterCode": "enum RobotState { IDLE, DRIVE, AVOID };\nRobotState currentState = DRIVE;\n\nvoid setup() {\n  Serial.begin(9600);\n  switch (currentState) {\n    case IDLE:  Serial.println(\"Waiting\"); break;\n    case DRIVE: Serial.println(\"Driving\"); break;\n    case AVOID: Serial.println(\"Avoiding obstacle\"); break;\n  }\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 'Avoiding obstacle' to Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m07-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "Why is an enum preferred over raw numbers 0, 1, 2 for robot states?",
+          "options": [
+            "Named states make code self-documenting and prevent typos.",
+            "Enums use zero bytes.",
+            "switch cannot use integers.",
+            "Enums make motors spin faster."
+          ],
+          "correctIndex": 0,
+          "explanation": "Readable names like AVOID or IDLE make state machines far easier to maintain."
+        }
+      ],
+      "summary": [
+        "enum defines a named set of integer constants.",
+        "Ideal for Finite State Machines (FSMs) paired with switch.",
+        "Always end an enum definition with a semicolon."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,653 @@
+{
+  "mod-01": {
+    "title": "Module 01 Quiz \u2014 Introduction to Programming",
+    "description": "Test your understanding of programming, C++, Arduino sketches, and sequential execution.",
+    "questions": [
+      {
+        "category": "Fundamentals",
+        "prompt": "What language are Arduino sketches compiled from?",
+        "options": [
+          "C++ with the Arduino core library",
+          "Python",
+          "HTML5",
+          "SQL"
+        ],
+        "correctIndex": 0,
+        "explanation": "Arduino IDE compiles standard C++ enhanced with hardware functions like pinMode and digitalWrite."
+      },
+      {
+        "category": "Memory",
+        "prompt": "Where is your compiled Arduino program stored so it persists after unplugging USB power?",
+        "options": [
+          "Flash memory",
+          "SRAM",
+          "Serial Monitor",
+          "The breadboard"
+        ],
+        "correctIndex": 0,
+        "explanation": "Flash memory is non-volatile; SRAM holds temporary variables that reset on power loss."
+      },
+      {
+        "category": "Output Prediction",
+        "prompt": "What prints first and second?",
+        "code": "int a = 3;\nSerial.println(a);\na = a + 4;\nSerial.println(a);",
+        "options": [
+          "3 then 7",
+          "7 then 7",
+          "3 then 4",
+          "7 then 3"
+        ],
+        "correctIndex": 0,
+        "explanation": "Statements execute strictly top to bottom: a is 3 on the first print, then updated to 7."
+      },
+      {
+        "category": "Hardware Safety",
+        "prompt": "Why is a 220-ohm resistor wired in series with an LED?",
+        "options": [
+          "To limit current and protect both the LED and GPIO pin",
+          "To increase pin voltage",
+          "To make it blink",
+          "To enable Serial Monitor"
+        ],
+        "correctIndex": 0,
+        "explanation": "Without a current-limiting resistor, excess current can damage the LED and microcontroller pin."
+      }
+    ]
+  },
+  "mod-02": {
+    "title": "Module 02 Quiz \u2014 Computational Thinking",
+    "description": "Assess your mastery of algorithms, pseudocode, flowcharts, decomposition, and the IPO model.",
+    "questions": [
+      {
+        "category": "IPO Model",
+        "prompt": "In the Input-Processing-Output model, what is a DC motor?",
+        "options": [
+          "Output",
+          "Input",
+          "Processing",
+          "Flowchart"
+        ],
+        "correctIndex": 0,
+        "explanation": "Actuators like motors, servos, LEDs, and buzzers are Outputs."
+      },
+      {
+        "category": "Flowcharts",
+        "prompt": "Which flowchart symbol represents an if/else decision?",
+        "options": [
+          "Diamond",
+          "Oval",
+          "Rectangle",
+          "Arrow"
+        ],
+        "correctIndex": 0,
+        "explanation": "A diamond represents a true/false decision with YES and NO branches."
+      },
+      {
+        "category": "Decomposition",
+        "prompt": "Why should you test each sensor individually before combining 4 sensors into one robot?",
+        "options": [
+          "It isolates hardware or wiring bugs quickly.",
+          "Arduino can only run one sensor.",
+          "Pseudocode forbids multiple sensors.",
+          "It skips compilation."
+        ],
+        "correctIndex": 0,
+        "explanation": "Decomposition isolates faults so debugging stays fast and systematic."
+      },
+      {
+        "category": "Pin Planning",
+        "prompt": "Why should you avoid pins D0 and D1 for LEDs/buttons on an Uno R3 when using Serial?",
+        "options": [
+          "D0 and D1 are shared with USB Serial RX/TX.",
+          "D0 and D1 are analog-only.",
+          "D0 and D1 output 12V.",
+          "D0 and D1 cannot be set to OUTPUT."
+        ],
+        "correctIndex": 0,
+        "explanation": "D0/D1 carry USB Serial communication and sketch uploads on Uno R3."
+      }
+    ]
+  },
+  "mod-03": {
+    "title": "Module 03 Quiz \u2014 C++ Fundamentals",
+    "description": "Verify your command of syntax, data types, constants, arithmetic, comparisons, and casting.",
+    "questions": [
+      {
+        "category": "Data Types",
+        "prompt": "Which data type should ALWAYS store millis() timestamps?",
+        "options": [
+          "unsigned long",
+          "int",
+          "char",
+          "bool"
+        ],
+        "correctIndex": 0,
+        "explanation": "millis() returns a 32-bit unsigned long; 16-bit int overflows in ~32.7 seconds on Uno R3."
+      },
+      {
+        "category": "Arithmetic",
+        "prompt": "What value does `int x = 9 / 2;` store?",
+        "options": [
+          "4",
+          "4.5",
+          "5",
+          "0"
+        ],
+        "correctIndex": 0,
+        "explanation": "Integer division truncates the .5 fractional remainder."
+      },
+      {
+        "category": "Operators",
+        "prompt": "Which expression checks if temp is between 20 and 30 inclusive?",
+        "options": [
+          "temp >= 20 && temp <= 30",
+          "20 <= temp <= 30",
+          "temp >= 20 || temp <= 30",
+          "temp = 20 && 30"
+        ],
+        "correctIndex": 0,
+        "explanation": "C++ requires two separate comparisons joined by &&."
+      },
+      {
+        "category": "Constants",
+        "prompt": "What happens if your code tries to reassign a `const int LED_PIN = 8;`?",
+        "options": [
+          "The compiler reports an error and protects the constant.",
+          "It silently changes to 9.",
+          "The LED burns out.",
+          "It becomes a float."
+        ],
+        "correctIndex": 0,
+        "explanation": "const enforces read-only protection at compile time."
+      }
+    ]
+  },
+  "mod-04": {
+    "title": "Module 04 Quiz \u2014 Decision Making",
+    "description": "Test booleans, if-else chains, switch statements, and compound sensor guards.",
+    "questions": [
+      {
+        "category": "Code Interpretation",
+        "prompt": "What prints if dist = 10?",
+        "code": "if (dist < 15) Serial.println(\"STOP\");\nelse if (dist < 35) Serial.println(\"SLOW\");\nelse Serial.println(\"GO\");",
+        "options": [
+          "STOP",
+          "SLOW",
+          "STOP and SLOW",
+          "GO"
+        ],
+        "correctIndex": 0,
+        "explanation": "10 < 15 matches first, prints STOP, and skips all remaining else-if/else branches."
+      },
+      {
+        "category": "Switch",
+        "prompt": "What happens if you omit `break;` at the end of a switch case?",
+        "options": [
+          "Execution falls through into the next case.",
+          "The Arduino resets.",
+          "The compiler inserts break automatically.",
+          "The switch skips default."
+        ],
+        "correctIndex": 0,
+        "explanation": "Without break;, C++ continues executing subsequent cases."
+      },
+      {
+        "category": "Logic",
+        "prompt": "Why write `if (dist > 0 && dist < 20)` for an ultrasonic sensor?",
+        "options": [
+          "To prevent a 0 or -1 timeout error from triggering a false obstacle stop.",
+          "To double the sensor range.",
+          "Because < cannot compare floats.",
+          "To slow down loop()."
+        ],
+        "correctIndex": 0,
+        "explanation": "Guarding dist > 0 ensures invalid timeout codes are ignored."
+      },
+      {
+        "category": "Syntax",
+        "prompt": "Which operator tests equality without modifying a variable?",
+        "options": [
+          "==",
+          "=",
+          "!=",
+          "&&"
+        ],
+        "correctIndex": 0,
+        "explanation": "== compares equality; = assigns a value."
+      }
+    ]
+  },
+  "mod-05": {
+    "title": "Module 05 Quiz \u2014 Loops",
+    "description": "Evaluate your skill with for, while, do-while, nested loops, break, and continue.",
+    "questions": [
+      {
+        "category": "Output Prediction",
+        "prompt": "How many times does this loop run?",
+        "code": "for (int i = 0; i < 6; i++) {\n  blink();\n}",
+        "options": [
+          "6 times",
+          "5 times",
+          "7 times",
+          "Forever"
+        ],
+        "correctIndex": 0,
+        "explanation": "i takes values 0, 1, 2, 3, 4, 5 \u2014 exactly 6 iterations."
+      },
+      {
+        "category": "Loop Types",
+        "prompt": "Which loop is guaranteed to execute its body at least ONCE?",
+        "options": [
+          "do-while",
+          "while",
+          "for",
+          "if"
+        ],
+        "correctIndex": 0,
+        "explanation": "do-while evaluates its condition at the bottom after the first run."
+      },
+      {
+        "category": "Nested Loops",
+        "prompt": "An outer loop of 4 contains an inner loop of 3. How many times does the inner body run?",
+        "options": [
+          "12",
+          "7",
+          "4",
+          "3"
+        ],
+        "correctIndex": 0,
+        "explanation": "4 outer iterations * 3 inner iterations = 12 total executions."
+      },
+      {
+        "category": "Control",
+        "prompt": "What does `continue;` do inside a loop?",
+        "options": [
+          "Skips the rest of the current iteration and moves to the next iteration.",
+          "Exits the entire loop permanently.",
+          "Restarts setup().",
+          "Pauses for 1 second."
+        ],
+        "correctIndex": 0,
+        "explanation": "continue skips only the remaining lines of the current pass; break exits the loop."
+      }
+    ]
+  },
+  "mod-06": {
+    "title": "Module 06 Quiz \u2014 Functions",
+    "description": "Check your understanding of parameters, return values, scope, and modular programming.",
+    "questions": [
+      {
+        "category": "Return Types",
+        "prompt": "What keyword indicates a function returns NO value?",
+        "options": [
+          "void",
+          "null",
+          "empty",
+          "int"
+        ],
+        "correctIndex": 0,
+        "explanation": "void specifies no return value."
+      },
+      {
+        "category": "Scope",
+        "prompt": "What happens to a plain local variable declared inside loop() on each cycle?",
+        "options": [
+          "It is recreated and reset every time loop() starts again.",
+          "It retains its previous value forever.",
+          "It becomes global.",
+          "It is saved to Flash."
+        ],
+        "correctIndex": 0,
+        "explanation": "Use global or static variables for state that must persist across loop() cycles."
+      },
+      {
+        "category": "Parameters",
+        "prompt": "Which parameter list is valid in C++?",
+        "options": [
+          "void setMotor(int pin, int speed)",
+          "void setMotor(int pin, speed)",
+          "void setMotor(pin, speed)",
+          "setMotor(int pin; int speed)"
+        ],
+        "correctIndex": 0,
+        "explanation": "Every parameter must state its own type, separated by commas."
+      },
+      {
+        "category": "Overflow Safety",
+        "prompt": "Why use `long sum` when averaging 40 analogRead() samples on Uno R3?",
+        "options": [
+          "40 * 1023 exceeds 16-bit int maximum (32,767).",
+          "analogRead returns a float.",
+          "int cannot be divided.",
+          "long is required in setup()."
+        ],
+        "correctIndex": 0,
+        "explanation": "long avoids 16-bit integer overflow when accumulating many samples."
+      }
+    ]
+  },
+  "mod-07": {
+    "title": "Module 07 Quiz \u2014 Arrays and Data",
+    "description": "Test arrays, zero-based indexing, C-strings, structs, and enums.",
+    "questions": [
+      {
+        "category": "Indexing",
+        "prompt": "In `int pins[4] = {5, 6, 7, 8};`, what is `pins[3]`?",
+        "options": [
+          "8",
+          "7",
+          "6",
+          "Out of bounds"
+        ],
+        "correctIndex": 0,
+        "explanation": "0->5, 1->6, 2->7, 3->8."
+      },
+      {
+        "category": "C-Strings",
+        "prompt": "How do you properly compare two char array C-strings for equality?",
+        "options": [
+          "strcmp(a, b) == 0",
+          "a == b",
+          "a = b",
+          "sizeof(a) == sizeof(b)"
+        ],
+        "correctIndex": 0,
+        "explanation": "strcmp() compares the text contents and returns 0 when identical."
+      },
+      {
+        "category": "Structs",
+        "prompt": "What is the main difference between an array and a struct?",
+        "options": [
+          "An array holds one type; a struct groups fields of different types.",
+          "A struct can only hold ints.",
+          "Arrays require #include.",
+          "Structs cannot be used on Arduino."
+        ],
+        "correctIndex": 0,
+        "explanation": "Structs combine mixed types (int, float, bool) into one composite record."
+      },
+      {
+        "category": "Enums",
+        "prompt": "Why pair `enum` with `switch` in robotics?",
+        "options": [
+          "It creates readable, compiler-checked state machines.",
+          "It reduces pin voltage.",
+          "It replaces setup().",
+          "It enables Wi-Fi."
+        ],
+        "correctIndex": 0,
+        "explanation": "Named enum states make Finite State Machines clear and bug-resistant."
+      }
+    ]
+  },
+  "mod-08": {
+    "title": "Module 08 Quiz \u2014 Advanced C++ Foundations",
+    "description": "Assess references, pointers, classes/objects, headers, .cpp files, and libraries.",
+    "questions": [
+      {
+        "category": "References",
+        "prompt": "What does `void update(int &x)` allow the function to do?",
+        "options": [
+          "Modify the caller's original variable directly.",
+          "Copy x twice.",
+          "Delete x from Flash.",
+          "Convert x to a float."
+        ],
+        "correctIndex": 0,
+        "explanation": "& passes a reference alias to the caller's variable."
+      },
+      {
+        "category": "Classes",
+        "prompt": "Why should Arduino classes call `pinMode()` in a `.begin()` method rather than the constructor?",
+        "options": [
+          "Global constructors run before Arduino hardware initialization finishes.",
+          "Constructors cannot take parameters.",
+          "pinMode is private.",
+          "Arduino forbids classes."
+        ],
+        "correctIndex": 0,
+        "explanation": "Calling begin() inside setup() ensures hardware timers and pins are initialized."
+      },
+      {
+        "category": "Multi-File",
+        "prompt": "What header must you manually include in standalone `.cpp` files that use `digitalWrite()`?",
+        "options": [
+          "#include <Arduino.h>",
+          "#include <loop.h>",
+          "#include <uno.h>",
+          "None \u2014 .cpp auto-includes it"
+        ],
+        "correctIndex": 0,
+        "explanation": "Only .ino files auto-include Arduino.h; .cpp files must include it explicitly."
+      },
+      {
+        "category": "Headers",
+        "prompt": "What does `#pragma once` prevent in a `.h` header file?",
+        "options": [
+          "Duplicate declaration errors if the header is included multiple times.",
+          "Infinite loops.",
+          "Low battery.",
+          "Missing semicolons."
+        ],
+        "correctIndex": 0,
+        "explanation": "#pragma once acts as an include guard."
+      }
+    ]
+  },
+  "mod-09": {
+    "title": "Module 09 Quiz \u2014 Arduino IDE Mastery",
+    "description": "Confirm you can verify, compile, upload, use Serial Monitor/Plotter, and troubleshoot Arduino IDE.",
+    "questions": [
+      {
+        "category": "Serial Monitor",
+        "prompt": "Why might Serial Monitor display garbled random symbols?",
+        "options": [
+          "The Serial Monitor baud rate does not match Serial.begin(...).",
+          "The LED resistor is backwards.",
+          "Flash memory is full.",
+          "You used const int."
+        ],
+        "correctIndex": 0,
+        "explanation": "Matching the exact baud rate (e.g., 9600 or 115200) fixes garbled serial text immediately."
+      },
+      {
+        "category": "Workflow",
+        "prompt": "Can you click Verify (\u2713) to check for C++ syntax errors without an Arduino plugged in?",
+        "options": [
+          "Yes \u2014 Verify compiles code on your computer without uploading.",
+          "No \u2014 a board must always be connected.",
+          "Only on ESP32.",
+          "Only if Serial Monitor is open."
+        ],
+        "correctIndex": 0,
+        "explanation": "Verify runs the compiler locally so you can catch syntax errors anytime."
+      },
+      {
+        "category": "Troubleshooting",
+        "prompt": "If no COM/tty port appears when plugging in a board, what is the FIRST hardware check?",
+        "options": [
+          "Confirm the USB cable supports data transfer (not charge-only) and check drivers.",
+          "Rewrite loop().",
+          "Delete Arduino IDE.",
+          "Add more delay()."
+        ],
+        "correctIndex": 0,
+        "explanation": "Charge-only USB cables lack data wires and are the #1 cause of missing ports."
+      },
+      {
+        "category": "Serial Plotter",
+        "prompt": "What does Arduino IDE's Serial Plotter do?",
+        "options": [
+          "Graphs numeric Serial data in real time.",
+          "Uploads sketches over Bluetooth.",
+          "Designs PCBs.",
+          "Replaces pinMode()."
+        ],
+        "correctIndex": 0,
+        "explanation": "Serial Plotter visualizes live numeric telemetry as scrolling charts."
+      }
+    ]
+  },
+  "mod-10": {
+    "title": "Module 10 Quiz \u2014 Arduino Programming",
+    "description": "Test setup/loop, digital/analog I/O, PWM, millis(), and Serial.",
+    "questions": [
+      {
+        "category": "Non-Blocking Timing",
+        "prompt": "Why is `millis()` preferred over `delay()` in multi-tasking robots?",
+        "options": [
+          "millis() lets the Arduino keep reading buttons and sensors while timing intervals.",
+          "millis() uses less voltage.",
+          "delay() does not work in loop().",
+          "millis() automatically drives servos."
+        ],
+        "correctIndex": 0,
+        "explanation": "delay() freezes execution; millis() tracks elapsed time without blocking."
+      },
+      {
+        "category": "Inputs",
+        "prompt": "With `pinMode(2, INPUT_PULLUP)` and a button wired to GND, what does `digitalRead(2)` return when pressed?",
+        "options": [
+          "LOW",
+          "HIGH",
+          "1023",
+          "255"
+        ],
+        "correctIndex": 0,
+        "explanation": "INPUT_PULLUP pulls the pin HIGH at rest; pressing connects it to GND (LOW)."
+      },
+      {
+        "category": "PWM",
+        "prompt": "What value range does standard 8-bit `analogWrite(pin, val)` accept?",
+        "options": [
+          "0 to 255",
+          "0 to 1023",
+          "0 to 5",
+          "1 to 100"
+        ],
+        "correctIndex": 0,
+        "explanation": "Standard Arduino analogWrite uses 8-bit duty cycle values from 0 (off) to 255 (full on)."
+      },
+      {
+        "category": "ADC",
+        "prompt": "On an Arduino Uno R3 (10-bit ADC), what range does `analogRead(A0)` return?",
+        "options": [
+          "0 to 1023",
+          "0 to 255",
+          "0 to 4095",
+          "0 to 5"
+        ],
+        "correctIndex": 0,
+        "explanation": "10-bit ADC produces 2^10 = 1024 steps (0 through 1023)."
+      }
+    ]
+  },
+  "mod-11": {
+    "title": "Module 11 Quiz \u2014 Board-Specific Development",
+    "description": "Verify real hardware differences across Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants.",
+    "questions": [
+      {
+        "category": "Voltage Safety",
+        "prompt": "Which board family uses STRICT 3.3V GPIO logic where 5V input signals can damage the chip?",
+        "options": [
+          "ESP32 Family (and Nano ESP32)",
+          "Arduino Uno R3",
+          "Arduino Mega 2560",
+          "Arduino Nano Classic"
+        ],
+        "correctIndex": 0,
+        "explanation": "ESP32 silicon is strictly 3.3V logic; always level-shift 5V sensor outputs."
+      },
+      {
+        "category": "Nano Variants",
+        "prompt": "On an Arduino Nano Classic (ATmega328P), what is special about pins A6 and A7?",
+        "options": [
+          "They are analog-input-only and cannot be used with digitalWrite().",
+          "They output 12V.",
+          "They are Wi-Fi antennas.",
+          "They are hardware UARTs."
+        ],
+        "correctIndex": 0,
+        "explanation": "A6 and A7 on Nano Classic connect only to the ADC multiplexer, not digital output drivers."
+      },
+      {
+        "category": "Mega 2560",
+        "prompt": "How many independent hardware Serial UART ports does the Arduino Mega 2560 provide?",
+        "options": [
+          "4 (Serial, Serial1, Serial2, Serial3)",
+          "1",
+          "2",
+          "0"
+        ],
+        "correctIndex": 0,
+        "explanation": "Mega 2560 has 4 hardware UARTs, eliminating fragile SoftwareSerial for multi-device robots."
+      },
+      {
+        "category": "ESP32 Variants",
+        "prompt": "Which ESP32 variant uses a single-core RISC-V CPU?",
+        "options": [
+          "ESP32-C3",
+          "ESP32-WROOM-32",
+          "Arduino Uno R4",
+          "Arduino Mega 2560"
+        ],
+        "correctIndex": 0,
+        "explanation": "ESP32-C3 is a low-power single-core RISC-V variant, distinct from dual-core Xtensa WROOM-32 and S3."
+      }
+    ]
+  },
+  "mod-12": {
+    "title": "Module 12 Quiz \u2014 Practical Robotics Programming",
+    "description": "Assess applied robotics wiring safety, sensor filtering, hysteresis, and motor control.",
+    "questions": [
+      {
+        "category": "Motor Safety",
+        "prompt": "Why must you NEVER connect a DC motor directly to an Arduino digital output pin?",
+        "options": [
+          "Motors draw far more current than a GPIO pin can supply and produce inductive voltage spikes.",
+          "DC motors only run on AC power.",
+          "Arduino pins cannot output HIGH.",
+          "Motors require analogRead()."
+        ],
+        "correctIndex": 0,
+        "explanation": "Always use an H-bridge motor driver (e.g., L298N or TB6612FNG) with an external power supply and shared GND."
+      },
+      {
+        "category": "Streetlight Logic",
+        "prompt": "Why does an automatic streetlight use two separate thresholds (e.g., < 350 ON, > 450 OFF)?",
+        "options": [
+          "Hysteresis prevents rapid flickering when light hovers right at twilight.",
+          "It doubles LED brightness.",
+          "analogRead only works with two numbers.",
+          "It disables Serial."
+        ],
+        "correctIndex": 0,
+        "explanation": "A hysteresis deadband stops noisy borderline readings from rapidly toggling the lamp."
+      },
+      {
+        "category": "Ultrasonic Math",
+        "prompt": "Why do we divide the HC-SR04 echo distance by 2?",
+        "options": [
+          "The sound pulse travels TO the object and BACK to the sensor (round trip).",
+          "Sound travels half as fast on Arduino.",
+          "pulseIn returns double microseconds.",
+          "HC-SR04 has two triggers."
+        ],
+        "correctIndex": 0,
+        "explanation": "Dividing the round-trip travel distance by 2 gives the one-way distance to the obstacle."
+      },
+      {
+        "category": "Servos",
+        "prompt": "Why should multiple or high-torque servos be powered from an external 5V supply with shared GND?",
+        "options": [
+          "Servo stall current can overload the Arduino's onboard 5V regulator and cause brownout resets.",
+          "Servos do not need GND.",
+          "Servos run on 24V.",
+          "Servo.h disables USB."
+        ],
+        "correctIndex": 0,
+        "explanation": "External 5V servo power with common GND prevents brownouts while keeping clean PWM signal reference."
+      }
+    ]
+  }
+}

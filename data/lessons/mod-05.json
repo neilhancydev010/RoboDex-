@@ -1,0 +1,408 @@
+{
+  "id": "mod-05",
+  "lessons": [
+    {
+      "id": "m05-l01",
+      "title": "For Loops",
+      "estimatedMinutes": 12,
+      "introduction": "A for loop repeats a block of code a known, counted number of times \u2014 ideal for blinking N times, sweeping a servo, or iterating arrays.",
+      "objectives": [
+        "Write a for loop with initializer, condition, and step update.",
+        "Trace loop counter values from start to finish.",
+        "Use a for loop to sweep PWM brightness smoothly."
+      ],
+      "conceptExplanation": [
+        "Whenever you know how many times an action should repeat \u2014 like flashing an LED 5 times or stepping a servo from 0 to 180 degrees \u2014 a for loop keeps all three loop controls cleanly in one header."
+      ],
+      "analogy": "A for loop is like doing 10 push-ups: start at 1, keep going while count <= 10, add 1 after each rep.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for For Loops:",
+        "pattern": "for (int i = 0; i < 5; i++) {\n  // Runs 5 times (i = 0, 1, 2, 3, 4)\n}",
+        "rules": [
+          "Three parts separated by semicolons: start; condition; update.",
+          "Avoid off-by-one errors: i < 5 runs 5 times (0..4); i <= 5 runs 6 times (0..5)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Smooth LED Fade with a For Loop",
+          "description": "Ramps PWM brightness on pin 9 from 0 to 255.",
+          "filename": "m05_for_loop.ino",
+          "code": "const int LED_PIN = 9;\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() {\n  for (int b = 0; b <= 255; b += 5) {\n    analogWrite(LED_PIN, b);\n    delay(15);\n  }\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int b = 0;",
+          "explanation": "Starts brightness at 0."
+        },
+        {
+          "code": "b <= 255;",
+          "explanation": "Continues while brightness is at most 255."
+        },
+        {
+          "code": "b += 5",
+          "explanation": "Increases brightness in steps of 5 each pass."
+        }
+      ],
+      "realWorldApplication": "Servo sweeps, LED strip animations, and taking 10 sensor samples to average noise all rely on for loops.",
+      "commonMistakes": [
+        {
+          "mistake": "Using <= when iterating an array of length N",
+          "fix": "Array indices end at N-1, so use i < N."
+        },
+        {
+          "mistake": "Creating an infinite loop with the wrong update direction",
+          "fix": "If counting down from 10 to 0, use i-- not i++."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m05_for_loop.ino",
+        "challengePrompt": "Add a second for loop that fades brightness back down from 255 to 0.",
+        "starterCode": "const int LED_PIN = 9;\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() {\n  for (int b = 0; b <= 255; b += 5) {\n    analogWrite(LED_PIN, b);\n    delay(15);\n  }\n}",
+        "expectedBehavior": "Pin 9 smoothly breathes from dark to full brightness and back down."
+      },
+      "exercises": [
+        {
+          "id": "m05-l01-e1",
+          "type": "predict-behavior",
+          "prompt": "How many times does this loop print?",
+          "codeSnippet": "for (int i = 0; i < 4; i++) {\n  Serial.println(i);\n}",
+          "options": [
+            "4 times (0, 1, 2, 3)",
+            "5 times (0, 1, 2, 3, 4)",
+            "3 times (1, 2, 3)",
+            "Infinite"
+          ],
+          "correctIndex": 0,
+          "explanation": "Starting at 0 while i < 4 runs for i = 0, 1, 2, and 3 (4 times total)."
+        },
+        {
+          "id": "m05-l01-e2",
+          "type": "fill-blank",
+          "prompt": "Complete the for loop to count from 1 to 5 inclusive.",
+          "template": "for (int i = 1; i ___1___ 5; i++) {",
+          "answers": [
+            "<="
+          ],
+          "explanation": "<= 5 includes 5 as the final iteration."
+        }
+      ],
+      "summary": [
+        "for loops bundle initialization, condition, and step into one header.",
+        "Great for counted repetitions, PWM fades, and sensor sampling.",
+        "Watch out for off-by-one (< vs <=) boundaries."
+      ],
+      "relatedProjectId": "buzzer-alarm"
+    },
+    {
+      "id": "m05-l02",
+      "title": "While Loops",
+      "estimatedMinutes": 12,
+      "introduction": "A while loop repeats as long as a condition remains true \u2014 ideal when you don't know in advance how many repetitions it will take.",
+      "objectives": [
+        "Write condition-controlled while loops.",
+        "Prevent accidental infinite loops by updating the condition inside the loop.",
+        "Wait for a button release or calibration trigger safely."
+      ],
+      "conceptExplanation": [
+        "Unlike a for loop with a fixed count, a while loop keeps checking a condition before every pass. If the condition is false at the start, the body runs zero times."
+      ],
+      "analogy": "Think of filling a water tank: WHILE the tank is not full, keep the valve open.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for While Loops:",
+        "pattern": "while (condition) {\n  // Runs while condition stays true\n}",
+        "rules": [
+          "Something inside the loop (or a hardware input) MUST eventually make the condition false.",
+          "On ESP32, long blocking while loops without delay() can trigger the Watchdog Timer!"
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Wait for Start Button",
+          "description": "Pauses in setup() until the student presses the start button.",
+          "filename": "m05_while_loop.ino",
+          "code": "const int START_BTN = 2;\nvoid setup() {\n  pinMode(START_BTN, INPUT_PULLUP);\n  Serial.begin(9600);\n  Serial.println(\"Press button to start...\");\n  while (digitalRead(START_BTN) == HIGH) {\n    delay(10);\n  }\n  Serial.println(\"Robot launched!\");\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "while (digitalRead(START_BTN) == HIGH)",
+          "explanation": "Stays waiting while button is unpressed (HIGH)."
+        },
+        {
+          "code": "delay(10);",
+          "explanation": "Small pause keeps CPU friendly (and feeds ESP32 watchdog)."
+        }
+      ],
+      "realWorldApplication": "Competition robots use a while loop in setup() to wait for the referee's start button before driving.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting to update the loop variable",
+          "fix": "Always increment/change the tested variable inside the loop body."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m05_while_loop.ino",
+        "challengePrompt": "Change the wait loop to print a dot '.' every 500 ms while waiting.",
+        "starterCode": "const int START_BTN = 2;\nvoid setup() {\n  pinMode(START_BTN, INPUT_PULLUP);\n  Serial.begin(9600);\n  while (digitalRead(START_BTN) == HIGH) {\n    delay(500);\n  }\n  Serial.println(\"Started!\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints dots every half second until pin 2 connects to GND, then prints 'Started!'."
+      },
+      "exercises": [
+        {
+          "id": "m05-l02-e1",
+          "type": "multiple-choice",
+          "prompt": "If a while loop's condition is false on the very first check, how many times does its body run?",
+          "options": [
+            "0 times",
+            "1 time",
+            "Forever",
+            "Compile error"
+          ],
+          "correctIndex": 0,
+          "explanation": "while tests its condition BEFORE entering the body."
+        },
+        {
+          "id": "m05-l02-e2",
+          "type": "find-error",
+          "prompt": "Why does this loop run forever?",
+          "codeSnippet": "int n = 3;\nwhile (n > 0) {\n  Serial.println(n);\n}",
+          "options": [
+            "n is never decremented inside the loop, so n > 0 stays true forever.",
+            "while cannot print variables.",
+            "n must start at 0.",
+            "Missing else block."
+          ],
+          "correctIndex": 0,
+          "explanation": "Add n--; inside the loop so n reaches 0 and exits."
+        }
+      ],
+      "summary": [
+        "while loops repeat as long as a condition remains true.",
+        "A while loop may execute 0 times if initially false.",
+        "Always ensure the loop condition can become false."
+      ]
+    },
+    {
+      "id": "m05-l03",
+      "title": "Do-While Loops",
+      "estimatedMinutes": 12,
+      "introduction": "A do-while loop runs its body at least once before checking the condition at the bottom.",
+      "objectives": [
+        "Compare do-while with standard while loops.",
+        "Apply do-while when you must take at least one sensor reading before deciding to retry."
+      ],
+      "conceptExplanation": [
+        "Because the condition sits at the end of a do-while loop, the statements inside { } are guaranteed to execute at least one time \u2014 even if the condition turns out to be false."
+      ],
+      "analogy": "Sampling soup before seasoning: you taste it at least once, and keep adding a pinch WHILE it still tastes bland.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Do-While Loops:",
+        "pattern": "do {\n  // Runs at least once\n} while (condition);",
+        "rules": [
+          "Notice the required semicolon ';' right after while (condition);!"
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Retry Until Valid Sensor Reading",
+          "description": "Reads a sensor at least once and retries if reading is 0.",
+          "filename": "m05_do_while.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int reading;\n  int tries = 0;\n  do {\n    reading = analogRead(A0);\n    tries++;\n  } while (reading == 0 && tries < 5);\n  Serial.println(reading);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "do { ... }",
+          "explanation": "Guarantees analogRead(A0) runs at least once."
+        },
+        {
+          "code": "while (reading == 0 && tries < 5);",
+          "explanation": "Retries up to 5 times if reading is 0, preventing infinite hangs."
+        }
+      ],
+      "realWorldApplication": "Sensor initialization handshakes use do-while with a max-retry cap so the robot attempts connection at least once without freezing forever.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting the semicolon after while (condition);",
+          "fix": "Unlike while, do-while requires a trailing semicolon."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m05_do_while.ino",
+        "challengePrompt": "Increase the max retry limit from 5 to 10.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int tries = 0;\n  do {\n    tries++;\n    Serial.println(tries);\n  } while (tries < 3);\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 1, 2, 3 cleanly before exiting."
+      },
+      "exercises": [
+        {
+          "id": "m05-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the key difference between while and do-while?",
+          "options": [
+            "do-while always executes its body at least once before testing the condition.",
+            "do-while runs twice as fast.",
+            "while requires a semicolon at the end of its block.",
+            "do-while cannot use integer variables."
+          ],
+          "correctIndex": 0,
+          "explanation": "do-while checks its condition at the bottom of the loop."
+        }
+      ],
+      "summary": [
+        "do-while always executes at least once.",
+        "Always include the trailing semicolon after while (condition);.",
+        "Cap retries to prevent infinite loops on faulty hardware."
+      ]
+    },
+    {
+      "id": "m05-l04",
+      "title": "Nested Loops",
+      "estimatedMinutes": 12,
+      "introduction": "A nested loop places one loop inside another to handle grids, LED matrices, or repeated pattern groups.",
+      "objectives": [
+        "Trace outer and inner loop counters step by step.",
+        "Calculate total inner iterations (outer * inner).",
+        "Use nested loops for multi-burst alert patterns."
+      ],
+      "conceptExplanation": [
+        "For every single iteration of the outer loop, the inner loop runs all the way from start to finish. An outer loop of 3 with an inner loop of 4 executes the inner body 3 * 4 = 12 times."
+      ],
+      "analogy": "Think of a clock: for every 1 hour step (outer loop), the minute hand completes 60 full steps (inner loop).",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Nested Loops:",
+        "pattern": "for (int row = 0; row < 3; row++) {\n  for (int col = 0; col < 4; col++) {\n    // Runs 12 times\n  }\n}",
+        "rules": [
+          "Always use distinct counter names (e.g., row and col, or i and j) so inner and outer counters don't collide."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "3-Burst SOS Blink Pattern",
+          "description": "Outer loop repeats 3 bursts; inner loop blinks 3 quick pulses per burst.",
+          "filename": "m05_nested_loops.ino",
+          "code": "const int LED_PIN = 13;\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n  for (int burst = 0; burst < 3; burst++) {\n    for (int pulse = 0; pulse < 3; pulse++) {\n      digitalWrite(LED_PIN, HIGH); delay(150);\n      digitalWrite(LED_PIN, LOW);  delay(150);\n    }\n    delay(600); // Pause between bursts\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "for (int burst = 0; burst < 3; burst++)",
+          "explanation": "Outer loop runs 3 groups."
+        },
+        {
+          "code": "for (int pulse = 0; pulse < 3; pulse++)",
+          "explanation": "Inner loop produces 3 blinks inside each group (9 blinks total)."
+        }
+      ],
+      "realWorldApplication": "Scanning 8x8 LED matrices (like on Arduino Uno R4 WiFi) or keypads uses nested row/column loops.",
+      "commonMistakes": [
+        {
+          "mistake": "Reusing 'i' for both outer and inner loops",
+          "fix": "Use descriptive names like row/col or burst/pulse."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m05_nested_loops.ino",
+        "challengePrompt": "Change the inner loop to 2 pulses per burst for 6 total blinks.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  for (int r = 0; r < 2; r++) {\n    for (int c = 0; c < 3; c++) {\n      Serial.print(r); Serial.print(','); Serial.println(c);\n    }\n  }\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints coordinate pairs (0,0) through (1,2) in Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m05-l04-e1",
+          "type": "predict-behavior",
+          "prompt": "How many total times does Serial.print('*') run?",
+          "codeSnippet": "for (int i = 0; i < 3; i++) {\n  for (int j = 0; j < 5; j++) {\n    Serial.print('*');\n  }\n}",
+          "options": [
+            "15",
+            "8",
+            "5",
+            "3"
+          ],
+          "correctIndex": 0,
+          "explanation": "3 outer iterations x 5 inner iterations = 15 total executions."
+        }
+      ],
+      "summary": [
+        "Nested loops run the full inner loop for each single step of the outer loop.",
+        "Use distinct counter variable names for each loop level.",
+        "Total inner runs = outer count * inner count."
+      ]
+    },
+    {
+      "id": "m05-l05",
+      "title": "Break and Continue",
+      "estimatedMinutes": 12,
+      "introduction": "break exits a loop immediately, while continue skips the rest of the current pass and jumps to the next iteration.",
+      "objectives": [
+        "Use break to abort a loop early on an emergency stop or target found.",
+        "Use continue to ignore bad or out-of-range sensor samples.",
+        "Trace exact output when break or continue runs."
+      ],
+      "conceptExplanation": [
+        "Sometimes you don't want to finish all remaining loop iterations \u2014 for example, if an emergency stop button is pressed mid-sweep, break exits immediately. If one sensor reading is noisy (-1), continue skips that bad sample without stopping the whole loop."
+      ],
+      "analogy": "break is pulling the emergency exit door to leave the train; continue is skipping one station and staying on board.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Break and Continue:",
+        "pattern": "if (emergencyStop) break;      // Exit loop completely\nif (sample < 0) continue;     // Skip this iteration only",
+        "rules": [
+          "break exits only the innermost enclosing loop (or switch).",
+          "In a for loop, continue still executes the step update (i++)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Filtering Bad Samples & Emergency Abort",
+          "description": "Skips negative samples with continue and stops early if value exceeds 900.",
+          "filename": "m05_break_continue.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int readings[5] = {120, -1, 340, 950, 200};\n  for (int i = 0; i < 5; i++) {\n    if (readings[i] < 0) continue;\n    if (readings[i] > 900) {\n      Serial.println(\"Limit hit - abort!\");\n      break;\n    }\n    Serial.println(readings[i]);\n  }\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "if (readings[i] < 0) continue;",
+          "explanation": "Skips -1 without printing it."
+        },
+        {
+          "code": "if (readings[i] > 900) { ... break; }",
+          "explanation": "Prints abort message and exits before ever reaching 200."
+        }
+      ],
+      "realWorldApplication": "Safety monitors inside motor ramp loops check an E-stop pin every step and call break immediately if triggered.",
+      "commonMistakes": [
+        {
+          "mistake": "Confusing break with continue",
+          "fix": "break leaves the entire loop; continue only skips to the next iteration."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m05_break_continue.ino",
+        "challengePrompt": "Change 950 to 500 in the array and trace what prints now.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int readings[5] = {120, -1, 340, 950, 200};\n  for (int i = 0; i < 5; i++) {\n    if (readings[i] < 0) continue;\n    if (readings[i] > 900) break;\n    Serial.println(readings[i]);\n  }\n}\nvoid loop() {}",
+        "expectedBehavior": "With 500 instead of 950, prints 120, 340, 500, and 200 (still skipping -1)."
+      },
+      "exercises": [
+        {
+          "id": "m05-l05-e1",
+          "type": "predict-behavior",
+          "prompt": "What numbers print?",
+          "codeSnippet": "for (int i = 1; i <= 5; i++) {\n  if (i == 3) continue;\n  if (i == 5) break;\n  Serial.println(i);\n}",
+          "options": [
+            "1, 2, 4",
+            "1, 2, 3, 4",
+            "1, 2",
+            "1, 2, 4, 5"
+          ],
+          "correctIndex": 0,
+          "explanation": "3 is skipped by continue, and 5 exits before printing via break."
+        }
+      ],
+      "summary": [
+        "break exits the loop immediately.",
+        "continue skips the remainder of the current iteration and moves to the next.",
+        "Use break for emergency aborts and continue for filtering invalid samples."
+      ]
+    }
+  ]
+}

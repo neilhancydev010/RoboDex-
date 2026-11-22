@@ -1,0 +1,525 @@
+{
+  "version": "1.0",
+  "modules": [
+    {
+      "id": "mod-01",
+      "shortTitle": "Module 01",
+      "title": "Introduction to Programming",
+      "track": "foundations",
+      "skillName": "Programming Foundations",
+      "description": "Learn what programming, programs, C++, Arduino, and source code really are from absolute zero.",
+      "exerciseCount": 12,
+      "lessons": [
+        {
+          "id": "m01-l01",
+          "title": "What Is Programming?"
+        },
+        {
+          "id": "m01-l02",
+          "title": "What Is a Program?"
+        },
+        {
+          "id": "m01-l03",
+          "title": "How Computers Execute Instructions"
+        },
+        {
+          "id": "m01-l04",
+          "title": "What Is C++?"
+        },
+        {
+          "id": "m01-l05",
+          "title": "Introduction to Arduino Programming"
+        },
+        {
+          "id": "m01-l06",
+          "title": "Understanding Source Code"
+        }
+      ]
+    },
+    {
+      "id": "mod-02",
+      "shortTitle": "Module 02",
+      "title": "Computational Thinking",
+      "track": "foundations",
+      "skillName": "Computational Thinking",
+      "description": "Master logical thinking, decomposition, algorithms, pseudocode, flowcharts, and the IPO model.",
+      "exerciseCount": 14,
+      "lessons": [
+        {
+          "id": "m02-l01",
+          "title": "Logical Thinking"
+        },
+        {
+          "id": "m02-l02",
+          "title": "Problem Decomposition"
+        },
+        {
+          "id": "m02-l03",
+          "title": "Algorithms"
+        },
+        {
+          "id": "m02-l04",
+          "title": "Pseudocode"
+        },
+        {
+          "id": "m02-l05",
+          "title": "Flowcharts"
+        },
+        {
+          "id": "m02-l06",
+          "title": "Input, Processing, and Output (IPO)"
+        },
+        {
+          "id": "m02-l07",
+          "title": "Designing Solutions Before Coding"
+        }
+      ]
+    },
+    {
+      "id": "mod-03",
+      "shortTitle": "Module 03",
+      "title": "C++ Fundamentals",
+      "track": "cpp",
+      "skillName": "C++ Fundamentals",
+      "description": "Build fluency in C++ syntax, variables, data types, constants, operators, math, and casting.",
+      "exerciseCount": 22,
+      "lessons": [
+        {
+          "id": "m03-l01",
+          "title": "C++ Syntax"
+        },
+        {
+          "id": "m03-l02",
+          "title": "Statements"
+        },
+        {
+          "id": "m03-l03",
+          "title": "Comments"
+        },
+        {
+          "id": "m03-l04",
+          "title": "Variables"
+        },
+        {
+          "id": "m03-l05",
+          "title": "Data Types"
+        },
+        {
+          "id": "m03-l06",
+          "title": "Constants"
+        },
+        {
+          "id": "m03-l07",
+          "title": "Operators"
+        },
+        {
+          "id": "m03-l08",
+          "title": "Arithmetic Expressions"
+        },
+        {
+          "id": "m03-l09",
+          "title": "Comparison Operators"
+        },
+        {
+          "id": "m03-l10",
+          "title": "Logical Operators"
+        },
+        {
+          "id": "m03-l11",
+          "title": "Type Conversion"
+        }
+      ]
+    },
+    {
+      "id": "mod-04",
+      "shortTitle": "Module 04",
+      "title": "Decision Making",
+      "track": "cpp",
+      "skillName": "Conditional Logic",
+      "description": "Control program flow using booleans, if, if-else, else-if, nested conditions, switch, and compound guards.",
+      "exerciseCount": 14,
+      "lessons": [
+        {
+          "id": "m04-l01",
+          "title": "Boolean Values"
+        },
+        {
+          "id": "m04-l02",
+          "title": "If Statements"
+        },
+        {
+          "id": "m04-l03",
+          "title": "If-Else Statements"
+        },
+        {
+          "id": "m04-l04",
+          "title": "Else-If Chains"
+        },
+        {
+          "id": "m04-l05",
+          "title": "Nested Conditions"
+        },
+        {
+          "id": "m04-l06",
+          "title": "Switch Statements"
+        },
+        {
+          "id": "m04-l07",
+          "title": "Compound Conditions"
+        }
+      ]
+    },
+    {
+      "id": "mod-05",
+      "shortTitle": "Module 05",
+      "title": "Loops",
+      "track": "cpp",
+      "skillName": "Iteration & Loops",
+      "description": "Automate repetition with for, while, do-while, nested loops, break, and continue.",
+      "exerciseCount": 7,
+      "lessons": [
+        {
+          "id": "m05-l01",
+          "title": "For Loops"
+        },
+        {
+          "id": "m05-l02",
+          "title": "While Loops"
+        },
+        {
+          "id": "m05-l03",
+          "title": "Do-While Loops"
+        },
+        {
+          "id": "m05-l04",
+          "title": "Nested Loops"
+        },
+        {
+          "id": "m05-l05",
+          "title": "Break and Continue"
+        }
+      ]
+    },
+    {
+      "id": "mod-06",
+      "shortTitle": "Module 06",
+      "title": "Functions",
+      "track": "cpp",
+      "skillName": "Modular Functions",
+      "description": "Package reusable logic with parameters, return values, scope, and clean modular architecture.",
+      "exerciseCount": 7,
+      "lessons": [
+        {
+          "id": "m06-l01",
+          "title": "Function Creation"
+        },
+        {
+          "id": "m06-l02",
+          "title": "Function Calls"
+        },
+        {
+          "id": "m06-l03",
+          "title": "Parameters"
+        },
+        {
+          "id": "m06-l04",
+          "title": "Return Values"
+        },
+        {
+          "id": "m06-l05",
+          "title": "Scope"
+        },
+        {
+          "id": "m06-l06",
+          "title": "Reusable Functions"
+        },
+        {
+          "id": "m06-l07",
+          "title": "Modular Programming"
+        }
+      ]
+    },
+    {
+      "id": "mod-07",
+      "shortTitle": "Module 07",
+      "title": "Arrays and Data",
+      "track": "cpp",
+      "skillName": "Data Structures",
+      "description": "Manage multi-sensor data with arrays, indexing, Strings, C-strings, structs, and enums.",
+      "exerciseCount": 8,
+      "lessons": [
+        {
+          "id": "m07-l01",
+          "title": "Arrays"
+        },
+        {
+          "id": "m07-l02",
+          "title": "Indexing"
+        },
+        {
+          "id": "m07-l03",
+          "title": "Iterating Through Arrays"
+        },
+        {
+          "id": "m07-l04",
+          "title": "Strings"
+        },
+        {
+          "id": "m07-l05",
+          "title": "Character Arrays (C-Strings)"
+        },
+        {
+          "id": "m07-l06",
+          "title": "Structures (struct)"
+        },
+        {
+          "id": "m07-l07",
+          "title": "Enumerations (enum)"
+        }
+      ]
+    },
+    {
+      "id": "mod-08",
+      "shortTitle": "Module 08",
+      "title": "Advanced C++ Foundations",
+      "track": "cpp",
+      "skillName": "Advanced C++",
+      "description": "Understand references, pointers, classes, objects, .h/.cpp files, libraries, and project structure.",
+      "exerciseCount": 7,
+      "lessons": [
+        {
+          "id": "m08-l01",
+          "title": "References"
+        },
+        {
+          "id": "m08-l02",
+          "title": "Pointers"
+        },
+        {
+          "id": "m08-l03",
+          "title": "Basic Classes and Objects"
+        },
+        {
+          "id": "m08-l04",
+          "title": "Header Files (.h)"
+        },
+        {
+          "id": "m08-l05",
+          "title": "Source Files (.cpp)"
+        },
+        {
+          "id": "m08-l06",
+          "title": "Libraries"
+        },
+        {
+          "id": "m08-l07",
+          "title": "Modular Code Organization"
+        }
+      ]
+    },
+    {
+      "id": "mod-09",
+      "shortTitle": "Module 09",
+      "title": "Arduino IDE Mastery",
+      "track": "arduino",
+      "skillName": "Arduino IDE Workflow",
+      "description": "Install Arduino IDE, select boards/ports, verify, compile, upload, use Serial Monitor/Plotter, and troubleshoot.",
+      "exerciseCount": 11,
+      "lessons": [
+        {
+          "id": "m09-l01",
+          "title": "Installing Arduino IDE"
+        },
+        {
+          "id": "m09-l02",
+          "title": "Understanding the Interface"
+        },
+        {
+          "id": "m09-l03",
+          "title": "Creating Sketches"
+        },
+        {
+          "id": "m09-l04",
+          "title": "Understanding Boards and Ports"
+        },
+        {
+          "id": "m09-l05",
+          "title": "Verifying Code"
+        },
+        {
+          "id": "m09-l06",
+          "title": "Compiling Sketches"
+        },
+        {
+          "id": "m09-l07",
+          "title": "Uploading Programs"
+        },
+        {
+          "id": "m09-l08",
+          "title": "Serial Monitor"
+        },
+        {
+          "id": "m09-l09",
+          "title": "Serial Plotter"
+        },
+        {
+          "id": "m09-l10",
+          "title": "Installing Libraries"
+        },
+        {
+          "id": "m09-l11",
+          "title": "Troubleshooting"
+        }
+      ]
+    },
+    {
+      "id": "mod-10",
+      "shortTitle": "Module 10",
+      "title": "Arduino Programming",
+      "track": "arduino",
+      "skillName": "Arduino Core API",
+      "description": "Master setup(), loop(), digital/analog I/O, PWM, millis() multitasking, Serial, and sensor processing.",
+      "exerciseCount": 14,
+      "lessons": [
+        {
+          "id": "m10-l01",
+          "title": "setup()"
+        },
+        {
+          "id": "m10-l02",
+          "title": "loop()"
+        },
+        {
+          "id": "m10-l03",
+          "title": "pinMode()"
+        },
+        {
+          "id": "m10-l04",
+          "title": "digitalWrite()"
+        },
+        {
+          "id": "m10-l05",
+          "title": "digitalRead()"
+        },
+        {
+          "id": "m10-l06",
+          "title": "analogRead()"
+        },
+        {
+          "id": "m10-l07",
+          "title": "PWM and analogWrite()"
+        },
+        {
+          "id": "m10-l08",
+          "title": "delay()"
+        },
+        {
+          "id": "m10-l09",
+          "title": "millis()"
+        },
+        {
+          "id": "m10-l10",
+          "title": "Serial.begin()"
+        },
+        {
+          "id": "m10-l11",
+          "title": "Serial.print()"
+        },
+        {
+          "id": "m10-l12",
+          "title": "Serial.println()"
+        },
+        {
+          "id": "m10-l13",
+          "title": "Hardware-Control Functions"
+        },
+        {
+          "id": "m10-l14",
+          "title": "Sensor Data Processing"
+        }
+      ]
+    },
+    {
+      "id": "mod-11",
+      "shortTitle": "Module 11",
+      "title": "Board-Specific Development",
+      "track": "arduino",
+      "skillName": "Multi-Board Hardware",
+      "description": "Learn real hardware differences across Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants.",
+      "exerciseCount": 10,
+      "lessons": [
+        {
+          "id": "m11-l01",
+          "title": "Arduino Uno R3 Development"
+        },
+        {
+          "id": "m11-l02",
+          "title": "Arduino Uno R4 Development"
+        },
+        {
+          "id": "m11-l03",
+          "title": "Arduino Nano Family Development"
+        },
+        {
+          "id": "m11-l04",
+          "title": "Arduino Mega 2560 Development"
+        },
+        {
+          "id": "m11-l05",
+          "title": "ESP32 Family Development"
+        }
+      ]
+    },
+    {
+      "id": "mod-12",
+      "shortTitle": "Module 12",
+      "title": "Practical Robotics Programming",
+      "track": "arduino",
+      "skillName": "Applied Robotics",
+      "description": "Apply your skills to LEDs, buttons, streetlights, buzzers, ultrasonic sensors, servos, DC motors, and obstacle avoidance.",
+      "exerciseCount": 10,
+      "lessons": [
+        {
+          "id": "m12-l01",
+          "title": "LEDs"
+        },
+        {
+          "id": "m12-l02",
+          "title": "Push Buttons"
+        },
+        {
+          "id": "m12-l03",
+          "title": "Traffic Lights"
+        },
+        {
+          "id": "m12-l04",
+          "title": "Automatic Streetlights"
+        },
+        {
+          "id": "m12-l05",
+          "title": "Buzzers"
+        },
+        {
+          "id": "m12-l06",
+          "title": "Ultrasonic Sensors"
+        },
+        {
+          "id": "m12-l07",
+          "title": "Servo Motors"
+        },
+        {
+          "id": "m12-l08",
+          "title": "DC Motors"
+        },
+        {
+          "id": "m12-l09",
+          "title": "Sensor-Based Decision Making"
+        },
+        {
+          "id": "m12-l10",
+          "title": "Basic Obstacle Detection"
+        }
+      ]
+    }
+  ]
+}

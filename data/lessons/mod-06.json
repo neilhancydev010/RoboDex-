@@ -1,0 +1,516 @@
+{
+  "id": "mod-06",
+  "lessons": [
+    {
+      "id": "m06-l01",
+      "title": "Function Creation",
+      "estimatedMinutes": 12,
+      "introduction": "A function packages a reusable set of instructions under a single descriptive name.",
+      "objectives": [
+        "Write a void function outside setup() and loop().",
+        "Identify return type, function name, parameter list, and body.",
+        "Avoid duplicating identical blocks of code."
+      ],
+      "conceptExplanation": [
+        "You have already used built-in functions like setup(), loop(), and delay(). Creating your own functions lets you name complex behaviors \u2014 like stopMotors() or blinkWarning() \u2014 so your code stays short, readable, and easy to fix in one place."
+      ],
+      "analogy": "A function is like a custom button on a microwave labeled 'Popcorn' \u2014 instead of manually typing power level and time every time, you press one named action.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Function Creation:",
+        "pattern": "void functionName() {\n  // Instructions\n}",
+        "rules": [
+          "Define your own functions outside setup() and loop().",
+          "Use void when the function performs an action without returning a value."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Creating a Custom blinkOnce() Function",
+          "description": "Defines blinkOnce() to flash pin 13 cleanly.",
+          "filename": "m06_func_create.ino",
+          "code": "const int LED_PIN = 13;\n\nvoid blinkOnce() {\n  digitalWrite(LED_PIN, HIGH);\n  delay(200);\n  digitalWrite(LED_PIN, LOW);\n  delay(200);\n}\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n  blinkOnce();\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void blinkOnce()",
+          "explanation": "Declares a custom function that returns nothing (void)."
+        },
+        {
+          "code": "blinkOnce();",
+          "explanation": "Calls the function inside setup()."
+        }
+      ],
+      "realWorldApplication": "Every clean robotics sketch wraps motor movements (driveForward, turnLeft, stopAll) into named functions.",
+      "commonMistakes": [
+        {
+          "mistake": "Defining a function inside loop()",
+          "fix": "Always place function definitions at the top level outside setup() and loop()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m06_func_create.ino",
+        "challengePrompt": "Call blinkOnce() three times inside setup().",
+        "starterCode": "const int LED_PIN = 13;\nvoid blinkOnce() {\n  digitalWrite(LED_PIN, HIGH); delay(200);\n  digitalWrite(LED_PIN, LOW); delay(200);\n}\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n  blinkOnce();\n}\nvoid loop() {}",
+        "expectedBehavior": "The LED flashes cleanly 3 times on startup."
+      },
+      "exercises": [
+        {
+          "id": "m06-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "What does the keyword void mean before a function name?",
+          "options": [
+            "The function does not return a value.",
+            "The function runs forever.",
+            "The function is empty.",
+            "The function cannot use pins."
+          ],
+          "correctIndex": 0,
+          "explanation": "void indicates no return value is sent back to the caller."
+        }
+      ],
+      "summary": [
+        "Functions group reusable statements under one clear name.",
+        "Define functions outside setup() and loop().",
+        "Use void when no value is returned."
+      ],
+      "relatedProjectId": "traffic-light-system"
+    },
+    {
+      "id": "m06-l02",
+      "title": "Function Calls",
+      "estimatedMinutes": 12,
+      "introduction": "Calling a function jumps execution into its body, runs its instructions, and returns right back to the next line.",
+      "objectives": [
+        "Call custom functions with parentheses ().",
+        "Trace execution order across multiple function calls."
+      ],
+      "conceptExplanation": [
+        "Defining a function only teaches the Arduino HOW to do a task \u2014 it does not run until you call it by name with parentheses, such as stopMotors();."
+      ],
+      "analogy": "Writing a recipe in a cookbook doesn't cook dinner; calling the function is actually cooking it.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Function Calls:",
+        "pattern": "functionName(); // Always include ()",
+        "rules": [
+          "Forgetting () when calling a function means it won't execute!",
+          "You can call the same function as many times as needed."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Calling Multiple Helper Functions",
+          "description": "Shows clean execution flow from setup() into two helper functions.",
+          "filename": "m06_func_call.ino",
+          "code": "void printBanner() {\n  Serial.println(\"=== RoboDex System ===\");\n}\nvoid printReady() {\n  Serial.println(\"Sensors Online.\");\n}\nvoid setup() {\n  Serial.begin(9600);\n  printBanner();\n  printReady();\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "printBanner();",
+          "explanation": "Jumps to printBanner(), prints the banner, then returns."
+        },
+        {
+          "code": "printReady();",
+          "explanation": "Runs immediately after printBanner() finishes."
+        }
+      ],
+      "realWorldApplication": "Startup self-tests call checkBattery(), checkSensors(), and homeServos() in sequence.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing printBanner; without parentheses",
+          "fix": "Always include () to invoke a function."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m06_func_call.ino",
+        "challengePrompt": "Call printBanner() a second time after printReady().",
+        "starterCode": "void printBanner() { Serial.println(\"=== RoboDex ===\"); }\nvoid printReady() { Serial.println(\"Online\"); }\nvoid setup() { Serial.begin(9600); printBanner(); printReady(); }\nvoid loop() {}",
+        "expectedBehavior": "Prints the banner, then Online, then the banner again."
+      },
+      "exercises": [
+        {
+          "id": "m06-l02-e1",
+          "type": "select-code",
+          "prompt": "Which line actually invokes a zero-argument function named stopMotors?",
+          "options": [
+            "stopMotors();",
+            "void stopMotors();",
+            "stopMotors;",
+            "call stopMotors"
+          ],
+          "correctIndex": 0,
+          "explanation": "Parentheses () followed by a semicolon invoke the function."
+        }
+      ],
+      "summary": [
+        "Functions only run when called.",
+        "Always include () when calling a function.",
+        "Control returns to the line immediately after the call."
+      ]
+    },
+    {
+      "id": "m06-l03",
+      "title": "Parameters",
+      "estimatedMinutes": 12,
+      "introduction": "Parameters let you pass inputs into a function so one function works for many pins, speeds, or durations.",
+      "objectives": [
+        "Declare typed parameters in a function header.",
+        "Pass matching arguments when calling the function."
+      ],
+      "conceptExplanation": [
+        "Instead of writing blinkPin8(), blinkPin9(), and blinkPin10(), you write one parameterized function blinkPin(int pin, int ms) and pass whichever pin and duration you want."
+      ],
+      "analogy": "Parameters are like the blank slots on a coffee order: size and drink type change the outcome without needing a separate barista for each drink.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Parameters:",
+        "pattern": "void blinkPin(int pin, int durationMs) {\n  digitalWrite(pin, HIGH); delay(durationMs);\n  digitalWrite(pin, LOW);  delay(durationMs);\n}",
+        "rules": [
+          "Every parameter must specify its own data type (int pin, int ms \u2014 NOT int pin, ms).",
+          "Arguments are matched by position."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Parameterized Blink Function",
+          "description": "Reuses one function to blink two different pins at different speeds.",
+          "filename": "m06_parameters.ino",
+          "code": "void blinkPin(int pin, int ms) {\n  digitalWrite(pin, HIGH); delay(ms);\n  digitalWrite(pin, LOW);  delay(ms);\n}\nvoid setup() {\n  pinMode(8, OUTPUT); pinMode(9, OUTPUT);\n}\nvoid loop() {\n  blinkPin(8, 200);\n  blinkPin(9, 500);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void blinkPin(int pin, int ms)",
+          "explanation": "Accepts two integer inputs."
+        },
+        {
+          "code": "blinkPin(8, 200);",
+          "explanation": "Blinks pin 8 for 200 ms."
+        }
+      ],
+      "realWorldApplication": "Traffic light controllers use setLights(bool r, bool y, bool g) to update all 3 LEDs with one clean call.",
+      "commonMistakes": [
+        {
+          "mistake": "Omitting the type on the second parameter",
+          "fix": "Write (int a, int b), never (int a, b)."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m06_parameters.ino",
+        "challengePrompt": "Add a third call blinkPin(8, 100); inside loop().",
+        "starterCode": "void blinkPin(int pin, int ms) {\n  digitalWrite(pin, HIGH); delay(ms);\n  digitalWrite(pin, LOW);  delay(ms);\n}\nvoid setup() { pinMode(8, OUTPUT); pinMode(9, OUTPUT); }\nvoid loop() { blinkPin(8, 200); blinkPin(9, 500); }",
+        "expectedBehavior": "Pin 8 blinks 200 ms, pin 9 blinks 500 ms, then pin 8 blinks quickly for 100 ms."
+      },
+      "exercises": [
+        {
+          "id": "m06-l03-e1",
+          "type": "find-error",
+          "prompt": "Find the parameter declaration error.",
+          "codeSnippet": "void drive(int leftSpeed, rightSpeed) {\n  analogWrite(5, leftSpeed);\n}",
+          "options": [
+            "rightSpeed is missing its data type (int rightSpeed).",
+            "analogWrite cannot take variables.",
+            "void is invalid here.",
+            "Parameters cannot have two words."
+          ],
+          "correctIndex": 0,
+          "explanation": "Every parameter in C++ must declare its own type."
+        }
+      ],
+      "summary": [
+        "Parameters make functions flexible and reusable.",
+        "Declare a type for every parameter individually.",
+        "Pass arguments in the exact order defined."
+      ],
+      "relatedProjectId": "traffic-light-system"
+    },
+    {
+      "id": "m06-l04",
+      "title": "Return Values",
+      "estimatedMinutes": 12,
+      "introduction": "A non-void function computes a result and sends it back to the caller using return.",
+      "objectives": [
+        "Write functions with int, float, or bool return types.",
+        "Capture and use returned values in variables or conditions."
+      ],
+      "conceptExplanation": [
+        "Functions like analogRead() and millis() hand back a value. You can write your own value-returning functions \u2014 such as float readDistanceCm() \u2014 so sensor math stays neatly encapsulated."
+      ],
+      "analogy": "Calling a return-value function is like asking a teammate 'What is the temperature?' and receiving '24.5' back.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Return Values:",
+        "pattern": "float adcToVolts(int raw) {\n  return (raw * 5.0f) / 1023.0f;\n}",
+        "rules": [
+          "The returned value must match the function's declared return type.",
+          "return exits the function immediately."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Returning Voltage from a Helper Function",
+          "description": "Converts raw ADC counts to volts and returns a float.",
+          "filename": "m06_return.ino",
+          "code": "float adcToVolts(int raw) {\n  return (raw * 5.0f) / 1023.0f;\n}\nvoid setup() {\n  Serial.begin(9600);\n  float v = adcToVolts(512);\n  Serial.println(v, 2);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "float adcToVolts(int raw)",
+          "explanation": "Promises to return a float."
+        },
+        {
+          "code": "return (raw * 5.0f) / 1023.0f;",
+          "explanation": "Sends ~2.50 back to setup()."
+        }
+      ],
+      "realWorldApplication": "Ultrasonic distance meters return distance in cm from measureDistanceCm() so loop() stays clean.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting the return statement in a non-void function",
+          "fix": "Always return a value on every code path."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m06_return.ino",
+        "challengePrompt": "Call adcToVolts(1023) and print it as well.",
+        "starterCode": "float adcToVolts(int raw) {\n  return (raw * 5.0f) / 1023.0f;\n}\nvoid setup() {\n  Serial.begin(9600);\n  Serial.println(adcToVolts(512), 2);\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 2.50 and 5.00 in Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m06-l04-e1",
+          "type": "fill-blank",
+          "prompt": "Fill in the keyword that sends the computed value back to the caller.",
+          "template": "int doubleVal(int n) {\n  ___1___ n * 2;\n}",
+          "answers": [
+            "return"
+          ],
+          "explanation": "return sends the expression result back to the caller."
+        }
+      ],
+      "summary": [
+        "Replace void with a data type (int, float, bool) to return a value.",
+        "Use return to hand back the computed result.",
+        "Capture the returned value in a variable or pass it directly to Serial/if."
+      ],
+      "relatedProjectId": "ultrasonic-distance-meter"
+    },
+    {
+      "id": "m06-l05",
+      "title": "Scope",
+      "estimatedMinutes": 12,
+      "introduction": "Scope defines where a variable is visible and how long it lives in memory: global vs local variables.",
+      "objectives": [
+        "Differentiate global variables from local variables.",
+        "Explain why local variables reset on every function call unless declared static.",
+        "Minimize unnecessary global variables."
+      ],
+      "conceptExplanation": [
+        "A variable declared inside { } (like inside setup() or a for loop) is LOCAL \u2014 only code inside those braces can see it, and it disappears when the block ends. A variable declared outside all functions is GLOBAL and persists across loop() cycles."
+      ],
+      "analogy": "Global variables are on a shared office whiteboard; local variables are on your personal notepad at your desk.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Scope:",
+        "pattern": "int totalHits = 0; // Global (persists)\nvoid loop() {\n  int reading = analogRead(A0); // Local (fresh each pass)\n}",
+        "rules": [
+          "Never accidentally shadow a global variable by declaring a local variable with the exact same name.",
+          "Use local variables for temporary calculations; use global (or static) variables for state that must survive between loop() cycles."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Global State vs Local Scratch Variable",
+          "description": "Tracks persistent count globally while keeping sensor reading local.",
+          "filename": "m06_scope.ino",
+          "code": "int pressCount = 0; // Global state\n\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  int localStep = 1; // Local temporary\n  pressCount += localStep;\n  Serial.println(pressCount);\n  delay(1000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int pressCount = 0;",
+          "explanation": "Global: remembers its value across loop() iterations."
+        },
+        {
+          "code": "int localStep = 1;",
+          "explanation": "Local: exists only inside loop()."
+        }
+      ],
+      "realWorldApplication": "State machines (like button toggle state or previous millis() timestamp) must be global or static so they don't reset to 0 every millisecond.",
+      "commonMistakes": [
+        {
+          "mistake": "Declaring unsigned long prevMillis = 0; as a plain local inside loop()",
+          "fix": "It resets to 0 every pass! Declare it global or 'static unsigned long prevMillis = 0;'."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m06_scope.ino",
+        "challengePrompt": "Observe why pressCount keeps growing while localStep stays 1.",
+        "starterCode": "int pressCount = 0;\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  int localStep = 1;\n  pressCount += localStep;\n  Serial.println(pressCount);\n  delay(1000);\n}",
+        "expectedBehavior": "Prints 1, 2, 3, 4... because pressCount is global."
+      },
+      "exercises": [
+        {
+          "id": "m06-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "What happens if you declare `int count = 0;` as a non-static local variable inside loop()?",
+          "options": [
+            "It resets back to 0 every time loop() restarts.",
+            "It remembers its value forever.",
+            "It causes a hardware short.",
+            "It becomes a constant."
+          ],
+          "correctIndex": 0,
+          "explanation": "Non-static local variables are recreated fresh on every entry to loop()."
+        }
+      ],
+      "summary": [
+        "Local variables live only inside their { } block.",
+        "Global variables persist across loop() cycles.",
+        "Use local variables for temporary math and global/static for persistent state."
+      ]
+    },
+    {
+      "id": "m06-l06",
+      "title": "Reusable Functions",
+      "estimatedMinutes": 12,
+      "introduction": "Reusable functions avoid hardcoded pins and magic numbers so you can drop them straight into future robotics projects.",
+      "objectives": [
+        "Write hardware-independent helper functions.",
+        "Pass pin numbers and thresholds as parameters."
+      ],
+      "conceptExplanation": [
+        "A function hardcoded to pin 9 only works on one circuit. A reusable function accepts the pin and threshold as parameters, making it a building block you can reuse across Uno, Nano, Mega, and ESP32 projects."
+      ],
+      "analogy": "A reusable function is like a standard USB-C charger \u2014 it works across many devices instead of being glued to one gadget.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Reusable Functions:",
+        "pattern": "int readAverageAdc(int pin, int samples) {\n  long sum = 0;\n  for (int i = 0; i < samples; i++) sum += analogRead(pin);\n  return sum / samples;\n}",
+        "rules": [
+          "Accept pins and sample counts as parameters.",
+          "Use long for sums so adding multiple 10-bit readings never overflows int."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Reusable Sensor Smoothing Function",
+          "description": "Averages N analog samples on any analog pin to reduce noise.",
+          "filename": "m06_reusable.ino",
+          "code": "int readAverageAdc(int pin, int samples) {\n  long sum = 0;\n  for (int i = 0; i < samples; i++) {\n    sum += analogRead(pin);\n    delay(2);\n  }\n  return (int)(sum / samples);\n}\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  Serial.println(readAverageAdc(A0, 10));\n  delay(300);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "long sum = 0;",
+          "explanation": "Prevents 16-bit int overflow when summing many readings."
+        },
+        {
+          "code": "readAverageAdc(A0, 10)",
+          "explanation": "Works on any analog pin with any sample count."
+        }
+      ],
+      "realWorldApplication": "Noisy light, soil, and IR distance sensors become dramatically steadier when wrapped in a reusable averaging function.",
+      "commonMistakes": [
+        {
+          "mistake": "Summing 50 analogRead() values into a 16-bit int",
+          "fix": "50 * 1023 = 51,150 which overflows 16-bit int (32,767)! Use long for sums."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m06_reusable.ino",
+        "challengePrompt": "Change the sample count from 10 to 20 in loop().",
+        "starterCode": "int readAverageAdc(int pin, int samples) {\n  long sum = 0;\n  for (int i = 0; i < samples; i++) sum += analogRead(pin);\n  return (int)(sum / samples);\n}\nvoid setup() { Serial.begin(9600); }\nvoid loop() { Serial.println(readAverageAdc(A0, 10)); delay(300); }",
+        "expectedBehavior": "Prints a smoother 20-sample average of A0 every 300 ms."
+      },
+      "exercises": [
+        {
+          "id": "m06-l06-e1",
+          "type": "multiple-choice",
+          "prompt": "Why did readAverageAdc use `long sum` instead of `int sum` on Uno R3?",
+          "options": [
+            "Summing many 0\u20131023 readings can exceed 16-bit int max (32,767).",
+            "analogRead returns a long.",
+            "int cannot be added in a for loop.",
+            "long is required by Serial.println."
+          ],
+          "correctIndex": 0,
+          "explanation": "33 samples of 1023 already exceed 32,767; long avoids overflow."
+        }
+      ],
+      "summary": [
+        "Parameterize pins and counts to make functions reusable.",
+        "Use long accumulators when summing multiple ADC readings.",
+        "Build your own personal toolbox of tested helper functions."
+      ],
+      "relatedProjectId": "obstacle-detection"
+    },
+    {
+      "id": "m06-l07",
+      "title": "Modular Programming",
+      "estimatedMinutes": 12,
+      "introduction": "Modular programming organizes a complex robotics program into clean, cohesive functions where loop() reads like a high-level story.",
+      "objectives": [
+        "Structure loop() as a sequence of clean function calls.",
+        "Separate sensing, decision making, and actuation cleanly."
+      ],
+      "conceptExplanation": [
+        "When a sketch grows past 40 lines, putting everything inside loop() turns debugging into a nightmare. Modular programming keeps loop() to 5\u201310 readable lines that call well-named helper functions."
+      ],
+      "analogy": "A conductor doesn't play every instrument \u2014 the conductor signals the strings, brass, and percussion modules at the right moments.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Modular Programming:",
+        "pattern": "void loop() {\n  float dist = readDistanceCm();\n  if (dist > 0 && dist < 20) avoidObstacle();\n  else driveForward();\n}",
+        "rules": [
+          "Each function should do one clear job and fit on one screen.",
+          "Name functions with active verbs: readSensor(), updateDisplay(), stopMotors()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Modular Autonomous Loop",
+          "description": "Demonstrates how readable loop() becomes when decomposed into modular helpers.",
+          "filename": "m06_modular.ino",
+          "code": "void driveForward() { Serial.println(\"Driving forward\"); }\nvoid avoidObstacle() { Serial.println(\"Stopping & turning\"); }\nfloat mockDistance() { return 18.0f; }\n\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  float d = mockDistance();\n  if (d > 0 && d < 20.0f) avoidObstacle();\n  else driveForward();\n  delay(1000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "if (d > 0 && d < 20.0f) avoidObstacle();",
+          "explanation": "loop() reads like plain English without low-level pin clutter."
+        }
+      ],
+      "realWorldApplication": "Modular sketches let you swap a motor driver or ultrasonic sensor later by editing just one function instead of rewriting the whole program.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing a 200-line loop() with no helper functions",
+          "fix": "Extract distinct tasks into small named functions as soon as loop() grows past ~20 lines."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m06_modular.ino",
+        "challengePrompt": "Change mockDistance() to return 35.0f and verify the output switches to 'Driving forward'.",
+        "starterCode": "void driveForward() { Serial.println(\"Driving forward\"); }\nvoid avoidObstacle() { Serial.println(\"Stopping & turning\"); }\nfloat mockDistance() { return 18.0f; }\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  float d = mockDistance();\n  if (d > 0 && d < 20.0f) avoidObstacle();\n  else driveForward();\n  delay(1000);\n}",
+        "expectedBehavior": "Prints 'Driving forward' every second when mockDistance() returns 35.0f."
+      },
+      "exercises": [
+        {
+          "id": "m06-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the hallmark of well-written modular Arduino code?",
+          "options": [
+            "loop() is short and readable, delegating sensing and actuation to focused helper functions.",
+            "All code is placed on a single line.",
+            "Every variable is global.",
+            "No comments are needed."
+          ],
+          "correctIndex": 0,
+          "explanation": "Modular design keeps high-level logic clear and isolates low-level hardware details."
+        }
+      ],
+      "summary": [
+        "Modular programming splits logic into focused, single-purpose functions.",
+        "Keep loop() concise and readable like a high-level summary.",
+        "Isolating hardware details makes upgrading sensors or motors easy."
+      ]
+    }
+  ]
+}

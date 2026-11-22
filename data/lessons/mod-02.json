@@ -1,0 +1,690 @@
+{
+  "id": "mod-02",
+  "lessons": [
+    {
+      "id": "m02-l01",
+      "title": "Logical Thinking",
+      "estimatedMinutes": 12,
+      "introduction": "Logical thinking breaks decisions into clear true/false conditions so your program behaves predictably in every situation.",
+      "objectives": [
+        "Translate everyday rules into unambiguous true/false conditions.",
+        "Combine simple conditions with AND, OR, and NOT reasoning.",
+        "Identify edge cases before writing code."
+      ],
+      "conceptExplanation": [
+        "Programming is applied logic. Before touching a keyboard, an engineer asks: under what exact condition should this motor run, and under what exact condition must it stop?",
+        "Ambiguous rules cause dangerous robot bugs. Logical thinking forces you to define both what happens when a condition is true AND what happens when it is false."
+      ],
+      "analogy": "Think of a microwave oven door: the heater runs ONLY when the timer is greater than zero AND the door is closed. If either condition is false, heating stops immediately.",
+      "syntaxExplanation": {
+        "summary": "Logical rules evaluate conditions to true or false.",
+        "pattern": "bool doorClosed = true;\nbool timerActive = true;\nbool canHeat = doorClosed && timerActive;",
+        "rules": [
+          "Every condition must resolve cleanly to true or false.",
+          "Always check boundary values (e.g., exactly equal to the threshold)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Safe Motor Enable Logic",
+          "description": "Checks both an enable switch and a clear obstacle flag before running a motor.",
+          "filename": "m02_logic.ino",
+          "code": "bool switchOn = true;\nbool pathClear = true;\n\nvoid setup() {\n  Serial.begin(9600);\n  if (switchOn && pathClear) {\n    Serial.println(\"Motors enabled\");\n  } else {\n    Serial.println(\"Motors halted\");\n  }\n}\n\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "bool switchOn = true;",
+          "explanation": "Represents whether the master safety switch is ON."
+        },
+        {
+          "code": "if (switchOn && pathClear)",
+          "explanation": "Requires BOTH conditions to be true before enabling motors."
+        },
+        {
+          "code": "else",
+          "explanation": "Guarantees a safe halt state whenever either condition fails."
+        }
+      ],
+      "realWorldApplication": "Industrial robotic arms use dual-condition safety interlocks so a machine never moves if a guard door is open.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting the false case",
+          "fix": "Always ask: what should hardware do when the condition is NOT met?"
+        },
+        {
+          "mistake": "Confusing AND with OR",
+          "fix": "Use AND (&&) when all safety rules must pass; use OR (||) when any single trigger is enough."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m02_logic.ino",
+        "challengePrompt": "Change pathClear to false and verify which message prints.",
+        "starterCode": "bool switchOn = true;\nbool pathClear = true;\nvoid setup() {\n  Serial.begin(9600);\n  if (switchOn && pathClear) Serial.println(\"GO\");\n  else Serial.println(\"STOP\");\n}\nvoid loop() {}",
+        "expectedBehavior": "With pathClear set to false, Serial Monitor prints STOP."
+      },
+      "exercises": [
+        {
+          "id": "m02-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "A robot should move ONLY if batteryOk is true AND obstacleDetected is false. Which condition matches?",
+          "options": [
+            "batteryOk && !obstacleDetected",
+            "batteryOk || obstacleDetected",
+            "!batteryOk && obstacleDetected",
+            "batteryOk == obstacleDetected"
+          ],
+          "correctIndex": 0,
+          "explanation": "&& requires both parts to be true, and ! negates obstacleDetected so it is true when no obstacle is present."
+        },
+        {
+          "id": "m02-l01-e2",
+          "type": "fill-blank",
+          "prompt": "Complete the logical AND operator so both checks must be true.",
+          "template": "if (sensorReady ___1___ buttonPressed) {",
+          "answers": [
+            "&&"
+          ],
+          "explanation": "In C++, && represents logical AND."
+        }
+      ],
+      "summary": [
+        "Logical thinking turns vague ideas into exact true/false rules.",
+        "Always handle both true and false outcomes.",
+        "Safety interlocks commonly use logical AND (&&)."
+      ]
+    },
+    {
+      "id": "m02-l02",
+      "title": "Problem Decomposition",
+      "estimatedMinutes": 12,
+      "introduction": "Problem decomposition splits one intimidating robotics project into small, independent sub-problems you can build and test one at a time.",
+      "objectives": [
+        "Break a multi-part robotics task into independent sub-tasks.",
+        "Test each sub-task in isolation before combining them.",
+        "Reduce debugging time by isolating hardware and logic components."
+      ],
+      "conceptExplanation": [
+        "Beginners often try to wire five sensors and write 150 lines of code all at once \u2014 and when nothing works, they have no idea where the bug is.",
+        "Decomposition solves this: an 'Automatic Smart Plant Waterer' splits into (1) read soil moisture sensor, (2) decide if soil is dry, (3) turn pump relay on for 3 seconds, and (4) wait before re-checking."
+      ],
+      "analogy": "You don't build a car in one single mold \u2014 you build and test the brakes, steering, engine, and headlights separately, then assemble them.",
+      "syntaxExplanation": {
+        "summary": "Map each sub-problem to its own dedicated function.",
+        "pattern": "int readMoisture();          // Sub-problem 1\nbool isTooDry(int reading);  // Sub-problem 2\nvoid runPump(int seconds);   // Sub-problem 3",
+        "rules": [
+          "Each sub-problem should have one clear job.",
+          "Verify each piece in isolation with Serial Monitor before combining."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Decomposed Streetlight Logic",
+          "description": "Splits reading light and controlling the lamp into two clear helper functions.",
+          "filename": "m02_decomposition.ino",
+          "code": "const int LDR_PIN = A0;\nconst int LAMP_PIN = 9;\n\nint readLight() {\n  return analogRead(LDR_PIN);\n}\n\nvoid setLamp(bool on) {\n  digitalWrite(LAMP_PIN, on ? HIGH : LOW);\n}\n\nvoid setup() {\n  pinMode(LAMP_PIN, OUTPUT);\n}\n\nvoid loop() {\n  int level = readLight();\n  setLamp(level < 350);\n  delay(200);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int readLight()",
+          "explanation": "Isolates sensor reading into one reusable function."
+        },
+        {
+          "code": "void setLamp(bool on)",
+          "explanation": "Isolates actuator output into a second function."
+        },
+        {
+          "code": "setLamp(level < 350);",
+          "explanation": "Connects the two pieces cleanly inside loop()."
+        }
+      ],
+      "realWorldApplication": "Autonomous drones decompose flight into separate modules: sensor fusion, altitude hold, motor mixing, and radio telemetry.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing one giant loop() with everything mixed together",
+          "fix": "Split sensing, decision making, and actuation into small named functions."
+        },
+        {
+          "mistake": "Testing all hardware at once",
+          "fix": "Verify each sensor alone via Serial Monitor first."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m02_decomposition.ino",
+        "challengePrompt": "Add a Serial.println(level); inside loop() to inspect the sensor sub-problem.",
+        "starterCode": "const int LDR_PIN = A0;\nconst int LAMP_PIN = 9;\nint readLight() { return analogRead(LDR_PIN); }\nvoid setLamp(bool on) { digitalWrite(LAMP_PIN, on ? HIGH : LOW); }\nvoid setup() { pinMode(LAMP_PIN, OUTPUT); Serial.begin(9600); }\nvoid loop() {\n  int level = readLight();\n  setLamp(level < 350);\n  delay(200);\n}",
+        "expectedBehavior": "Serial Monitor displays live light readings while the lamp responds whenever the reading drops below 350."
+      },
+      "exercises": [
+        {
+          "id": "m02-l02-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the main advantage of problem decomposition before wiring and coding?",
+          "options": [
+            "Each small sub-task can be built, tested, and debugged independently.",
+            "It eliminates the need for setup() in Arduino.",
+            "It makes the microcontroller run at double clock speed.",
+            "It removes the need for resistors."
+          ],
+          "correctIndex": 0,
+          "explanation": "Isolating sub-problems prevents cascading bugs and makes hardware troubleshooting straightforward."
+        },
+        {
+          "id": "m02-l02-e2",
+          "type": "arrange-steps",
+          "prompt": "Order the decomposed steps for an ultrasonic obstacle-avoiding robot.",
+          "shuffledSteps": [
+            "Command motors to turn or drive",
+            "Measure distance from ultrasonic sensor",
+            "Compare distance against safe threshold"
+          ],
+          "correctOrder": [
+            "Measure distance from ultrasonic sensor",
+            "Compare distance against safe threshold",
+            "Command motors to turn or drive"
+          ],
+          "explanation": "Sense first, decide second, act third."
+        }
+      ],
+      "summary": [
+        "Decomposition breaks complex projects into small, testable parts.",
+        "Test each sensor and actuator independently before integrating.",
+        "Map each sub-task to its own clean function."
+      ],
+      "relatedProjectId": "automatic-streetlight"
+    },
+    {
+      "id": "m02-l03",
+      "title": "Algorithms",
+      "estimatedMinutes": 12,
+      "introduction": "An algorithm is a finite, well-ordered sequence of steps that transforms inputs into a desired outcome.",
+      "objectives": [
+        "Define what makes a set of steps a valid algorithm.",
+        "Design a clear step-by-step algorithm for a traffic light controller.",
+        "Trace an algorithm by hand to catch logic flaws early."
+      ],
+      "conceptExplanation": [
+        "Before writing a single semicolon of C++, you design the algorithm. An algorithm is language-independent: the same traffic-light algorithm works in C++, Python, or on a whiteboard.",
+        "Good algorithms are finite (each cycle completes), unambiguous (no guesswork), and handle every possible input state."
+      ],
+      "analogy": "An algorithm is like turn-by-turn GPS navigation: each step is unambiguous, ordered, and leads reliably from start to destination.",
+      "syntaxExplanation": {
+        "summary": "Write numbered steps before translating them into C++.",
+        "pattern": "// Algorithm: Traffic Light Cycle\n// 1. Green ON (Red/Yellow OFF) for 4s\n// 2. Yellow ON (Green/Red OFF) for 1.5s\n// 3. Red ON (Green/Yellow OFF) for 4s\n// 4. Repeat",
+        "rules": [
+          "Every step should describe one concrete action or decision.",
+          "Check that no state leaves an old output accidentally stuck ON."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Traffic Light Algorithm in Code",
+          "description": "Direct translation of the 3-step traffic light algorithm.",
+          "filename": "m02_algorithm.ino",
+          "code": "const int RED = 10, YELLOW = 9, GREEN = 8;\n\nvoid setup() {\n  pinMode(RED, OUTPUT); pinMode(YELLOW, OUTPUT); pinMode(GREEN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(GREEN, HIGH); digitalWrite(YELLOW, LOW); digitalWrite(RED, LOW);\n  delay(4000);\n  digitalWrite(GREEN, LOW); digitalWrite(YELLOW, HIGH);\n  delay(1500);\n  digitalWrite(YELLOW, LOW); digitalWrite(RED, HIGH);\n  delay(4000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "digitalWrite(GREEN, HIGH)...",
+          "explanation": "Step 1: Activates Green while guaranteeing Red and Yellow are OFF."
+        },
+        {
+          "code": "delay(4000);",
+          "explanation": "Holds the Green state for 4 seconds."
+        },
+        {
+          "code": "digitalWrite(YELLOW, HIGH);",
+          "explanation": "Step 2: Transitions cleanly to Yellow."
+        }
+      ],
+      "realWorldApplication": "Path-planning algorithms, PID motor controllers, and sorting machines all start as clear algorithmic steps before becoming code.",
+      "commonMistakes": [
+        {
+          "mistake": "Jumping straight into coding without an algorithm",
+          "fix": "Write a 4-line numbered plan first; it prevents tangled if-else spaghetti."
+        },
+        {
+          "mistake": "Leaving previous LEDs ON during transitions",
+          "fix": "Explicitly turn off the previous state when entering the next state."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m02_algorithm.ino",
+        "challengePrompt": "Shorten the delays to 1000, 500, and 1000 ms for fast bench testing.",
+        "starterCode": "const int RED = 10, YELLOW = 9, GREEN = 8;\nvoid setup() {\n  pinMode(RED, OUTPUT); pinMode(YELLOW, OUTPUT); pinMode(GREEN, OUTPUT);\n}\nvoid loop() {\n  digitalWrite(GREEN, HIGH); digitalWrite(RED, LOW); delay(4000);\n  digitalWrite(GREEN, LOW); digitalWrite(YELLOW, HIGH); delay(1500);\n  digitalWrite(YELLOW, LOW); digitalWrite(RED, HIGH); delay(4000);\n}",
+        "expectedBehavior": "Three LEDs on pins 8, 9, and 10 cycle cleanly Green -> Yellow -> Red."
+      },
+      "exercises": [
+        {
+          "id": "m02-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "Which statement best describes an algorithm?",
+          "options": [
+            "A clear, ordered sequence of steps that solves a problem regardless of programming language.",
+            "A special Arduino library you download from the internet.",
+            "A type of microcontroller pin.",
+            "A syntax error in C++."
+          ],
+          "correctIndex": 0,
+          "explanation": "Algorithms are language-independent step-by-step plans for solving problems."
+        },
+        {
+          "id": "m02-l03-e2",
+          "type": "fill-blank",
+          "prompt": "In a 3-LED traffic light, when Yellow turns HIGH, Green should be set to ___1___.",
+          "template": "digitalWrite(GREEN, ___1___);",
+          "answers": [
+            "LOW"
+          ],
+          "explanation": "Turning Green LOW ensures only Yellow is active during the caution phase."
+        }
+      ],
+      "summary": [
+        "An algorithm is an ordered, unambiguous plan to solve a problem.",
+        "Design the algorithm first, then translate it to C++.",
+        "Explicitly manage transitions between states."
+      ],
+      "relatedProjectId": "traffic-light-system"
+    },
+    {
+      "id": "m02-l04",
+      "title": "Pseudocode",
+      "estimatedMinutes": 12,
+      "introduction": "Pseudocode is structured plain English that looks like code so you can verify logic without worrying about semicolons or syntax rules.",
+      "objectives": [
+        "Write clean pseudocode using IF, ELSE, REPEAT, and SET.",
+        "Convert pseudocode line-by-line into valid Arduino C++.",
+        "Use pseudocode to communicate logic clearly with teammates."
+      ],
+      "conceptExplanation": [
+        "Pseudocode sits halfway between human language and C++. Because there is no strict compiler checking it, you can focus 100% on whether your logic actually works.",
+        "Once your pseudocode reads cleanly, translating each line into Arduino C++ becomes straightforward and low-stress."
+      ],
+      "analogy": "Pseudocode is like a rough pencil sketch before painting with ink \u2014 fast to erase, easy to adjust, and prevents costly rework.",
+      "syntaxExplanation": {
+        "summary": "Use uppercase keywords (SET, READ, IF, ELSE, REPEAT) with indentation.",
+        "pattern": "READ lightValue FROM A0\nIF lightValue < 400 THEN\n  TURN streetlight ON\nELSE\n  TURN streetlight OFF",
+        "rules": [
+          "Keep one logical action per line.",
+          "Indent steps inside IF and REPEAT blocks just like real code."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Pseudocode Translated to Arduino C++",
+          "description": "Side-by-side translation of a temperature fan controller.",
+          "filename": "m02_pseudocode.ino",
+          "code": "// Pseudocode:\n// READ tempC -> IF tempC >= 30 THEN fan ON ELSE fan OFF\nconst int FAN_PIN = 6;\n\nvoid setup() {\n  pinMode(FAN_PIN, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int tempC = 32; // Placeholder for sensor reading\n  if (tempC >= 30) {\n    digitalWrite(FAN_PIN, HIGH);\n  } else {\n    digitalWrite(FAN_PIN, LOW);\n  }\n  delay(500);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int tempC = 32;",
+          "explanation": "Represents the READ tempC pseudocode step."
+        },
+        {
+          "code": "if (tempC >= 30)",
+          "explanation": "Directly matches IF tempC >= 30 THEN."
+        },
+        {
+          "code": "else { digitalWrite(FAN_PIN, LOW); }",
+          "explanation": "Directly matches ELSE TURN fan OFF."
+        }
+      ],
+      "realWorldApplication": "Robotics teams write pseudocode on whiteboards during competitions so mechanical and software members agree on robot behavior before coding.",
+      "commonMistakes": [
+        {
+          "mistake": "Making pseudocode too vague (e.g., 'do robot stuff')",
+          "fix": "Specify exact inputs, conditions, and outputs."
+        },
+        {
+          "mistake": "Skipping pseudocode on multi-branch logic",
+          "fix": "5 lines of pseudocode saves 30 minutes of debugging nested ifs."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m02_pseudocode.ino",
+        "challengePrompt": "Change the threshold from 30 to 28 and add Serial.println(\"Fan ON\") inside the if branch.",
+        "starterCode": "const int FAN_PIN = 6;\nvoid setup() { pinMode(FAN_PIN, OUTPUT); Serial.begin(9600); }\nvoid loop() {\n  int tempC = 32;\n  if (tempC >= 30) { digitalWrite(FAN_PIN, HIGH); }\n  else { digitalWrite(FAN_PIN, LOW); }\n  delay(500);\n}",
+        "expectedBehavior": "Pin 6 goes HIGH and Serial Monitor prints 'Fan ON' when tempC meets the threshold."
+      },
+      "exercises": [
+        {
+          "id": "m02-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "Why is pseudocode valuable for beginners?",
+          "options": [
+            "It lets you design and verify logic without getting blocked by C++ syntax rules.",
+            "Arduino IDE compiles pseudocode directly into machine code.",
+            "It runs faster than C++.",
+            "It replaces the need to test on hardware."
+          ],
+          "correctIndex": 0,
+          "explanation": "Pseudocode separates logical problem-solving from syntax memorization."
+        },
+        {
+          "id": "m02-l04-e2",
+          "type": "select-code",
+          "prompt": "Which C++ line correctly translates: IF distance < 20 THEN stopMotors?",
+          "options": [
+            "if (distance < 20) { stopMotors(); }",
+            "IF distance < 20 THEN stopMotors;",
+            "when (distance < 20) stopMotors();",
+            "if distance < 20: stopMotors()"
+          ],
+          "correctIndex": 0,
+          "explanation": "C++ requires parentheses around the condition and braces around the body, with () to call a function."
+        }
+      ],
+      "summary": [
+        "Pseudocode expresses program logic in structured plain English.",
+        "Use indentation and clear keywords like IF, ELSE, and REPEAT.",
+        "Translate verified pseudocode line-by-line into C++."
+      ]
+    },
+    {
+      "id": "m02-l05",
+      "title": "Flowcharts",
+      "estimatedMinutes": 12,
+      "introduction": "Flowcharts visualize program flow using standard shapes so you can see every branch and loop at a glance.",
+      "objectives": [
+        "Recognize standard flowchart symbols: Oval (Start/End), Rectangle (Process), Diamond (Decision), Arrows (Flow).",
+        "Read a sensor-decision flowchart and trace both YES and NO branches.",
+        "Convert a flowchart directly into Arduino if/else code."
+      ],
+      "conceptExplanation": [
+        "Some bugs are invisible in text but obvious in a diagram. Flowcharts use standardized shapes: rounded ovals for Start/End, rectangles for actions/processes, and diamonds for true/false decisions.",
+        "Every decision diamond must have two labeled outgoing arrows (YES/True and NO/False). Tracing arrows reveals dead ends or missing branches before you write code."
+      ],
+      "analogy": "A flowchart is a subway map for your program \u2014 you can trace every possible route a signal can take.",
+      "syntaxExplanation": {
+        "summary": "Each flowchart diamond becomes an if/else statement in C++.",
+        "pattern": "// Diamond: val < 400?\nif (val < 400) {\n  // YES branch\n} else {\n  // NO branch\n}",
+        "rules": [
+          "Oval = Start/End; Rectangle = Action; Diamond = Decision.",
+          "Every arrow must lead somewhere \u2014 avoid dangling branches."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Flowchart to Streetlight Code",
+          "description": "Directly implements the automatic streetlight flowchart diagram shown above.",
+          "filename": "m02_flowchart.ino",
+          "code": "const int LDR_PIN = A0;\nconst int LAMP_PIN = 9;\n\nvoid setup() {\n  pinMode(LAMP_PIN, OUTPUT);\n}\n\nvoid loop() {\n  int val = analogRead(LDR_PIN);\n  if (val < 400) {\n    digitalWrite(LAMP_PIN, HIGH);\n  } else {\n    digitalWrite(LAMP_PIN, LOW);\n  }\n  delay(100);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int val = analogRead(LDR_PIN);",
+          "explanation": "Matches the Rectangle step: Read Light Sensor."
+        },
+        {
+          "code": "if (val < 400)",
+          "explanation": "Matches the Decision Diamond: val < 400?"
+        },
+        {
+          "code": "digitalWrite(LAMP_PIN, HIGH/LOW);",
+          "explanation": "Matches the YES and NO action rectangles."
+        }
+      ],
+      "realWorldApplication": "Embedded engineers include flowcharts in design reviews for safety-critical systems like battery management and autonomous braking.",
+      "commonMistakes": [
+        {
+          "mistake": "Leaving a decision diamond with only one arrow",
+          "fix": "Always draw both YES and NO paths."
+        },
+        {
+          "mistake": "Skipping the loop-back arrow",
+          "fix": "Remember Arduino's loop() returns to the top after finishing the bottom step."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m02_flowchart.ino",
+        "challengePrompt": "Update the decision threshold from 400 to 500.",
+        "starterCode": "const int LDR_PIN = A0;\nconst int LAMP_PIN = 9;\nvoid setup() { pinMode(LAMP_PIN, OUTPUT); }\nvoid loop() {\n  int val = analogRead(LDR_PIN);\n  if (val < 400) digitalWrite(LAMP_PIN, HIGH);\n  else digitalWrite(LAMP_PIN, LOW);\n}",
+        "expectedBehavior": "Pin 9 turns HIGH whenever A0 reads below 500 and LOW at 500 or above."
+      },
+      "exercises": [
+        {
+          "id": "m02-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "Which flowchart shape represents a Yes/No decision (such as an if statement)?",
+          "options": [
+            "Diamond",
+            "Oval",
+            "Rectangle",
+            "Circle"
+          ],
+          "correctIndex": 0,
+          "explanation": "A diamond represents a branching decision with True/False (Yes/No) outgoing paths."
+        },
+        {
+          "id": "m02-l05-e2",
+          "type": "multiple-choice",
+          "prompt": "What does a rectangle represent in a standard flowchart?",
+          "options": [
+            "A process or action step (e.g., read sensor or turn LED on)",
+            "The start of the program only",
+            "A true/false condition",
+            "A wiring schematic"
+          ],
+          "correctIndex": 0,
+          "explanation": "Rectangles represent concrete processing or action steps."
+        }
+      ],
+      "summary": [
+        "Flowcharts visualize control flow with standard shapes.",
+        "Diamonds represent decisions with both YES and NO paths.",
+        "Every flowchart maps cleanly into C++ statements."
+      ],
+      "diagram": {
+        "file": "flowchart-basics.svg",
+        "caption": "Standard flowchart showing sensor reading, decision diamond, and YES/NO output actions."
+      }
+    },
+    {
+      "id": "m02-l06",
+      "title": "Input, Processing, and Output (IPO)",
+      "estimatedMinutes": 12,
+      "introduction": "Every embedded system \u2014 from a thermostat to a Mars rover \u2014 follows the Input-Processing-Output (IPO) model.",
+      "objectives": [
+        "Classify components as Inputs (sensors), Processing (microcontroller logic), or Outputs (actuators).",
+        "Structure Arduino sketches cleanly around the IPO cycle.",
+        "Trace data as it flows from physical world to code and back to physical world."
+      ],
+      "conceptExplanation": [
+        "Input collects information from the outside world (push buttons, photoresistors, ultrasonic sensors). Processing uses C++ variables, math, and decisions inside the microcontroller to interpret that data. Output drives physical actuators (LEDs, buzzers, servos, motors) or displays.",
+        "Organizing loop() in strict IPO order \u2014 Read Inputs, Process Logic, Write Outputs \u2014 makes even complex robotics code clean and predictable."
+      ],
+      "analogy": "Your own body uses IPO constantly: eyes see a red traffic light (Input), brain decides to brake (Processing), foot presses the pedal (Output).",
+      "syntaxExplanation": {
+        "summary": "Structure loop() in three clear phases: Input -> Process -> Output.",
+        "pattern": "void loop() {\n  // 1. INPUT\n  int raw = analogRead(A0);\n  // 2. PROCESS\n  int pct = map(raw, 0, 1023, 0, 100);\n  // 3. OUTPUT\n  Serial.println(pct);\n}",
+        "rules": [
+          "Read all needed sensors at the top of loop().",
+          "Perform calculations and decisions in the middle.",
+          "Drive LEDs, servos, motors, or Serial at the bottom."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Clean IPO Dimmer Sketch",
+          "description": "Reads a potentiometer (Input), scales it (Process), and drives LED brightness (Output).",
+          "filename": "m02_ipo.ino",
+          "code": "const int POT_PIN = A0;\nconst int LED_PIN = 9;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  // INPUT\n  int raw = analogRead(POT_PIN);\n  // PROCESS\n  int pwm = map(raw, 0, 1023, 0, 255);\n  // OUTPUT\n  analogWrite(LED_PIN, pwm);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int raw = analogRead(POT_PIN);",
+          "explanation": "INPUT: Reads 0\u20131023 from the analog knob."
+        },
+        {
+          "code": "int pwm = map(raw, 0, 1023, 0, 255);",
+          "explanation": "PROCESS: Converts the 10-bit reading to an 8-bit PWM brightness."
+        },
+        {
+          "code": "analogWrite(LED_PIN, pwm);",
+          "explanation": "OUTPUT: Sets the LED brightness on PWM pin 9."
+        }
+      ],
+      "realWorldApplication": "Line-following robots run an IPO loop hundreds of times per second: read IR array (Input) -> compute steering error (Process) -> set left/right motor speeds (Output).",
+      "commonMistakes": [
+        {
+          "mistake": "Mixing sensor reads randomly inside motor code",
+          "fix": "Group reads at the start of loop() for consistent snapshots."
+        },
+        {
+          "mistake": "Forgetting to scale sensor ranges",
+          "fix": "Always check input range (0\u20131023 on Uno) vs output range (0\u2013255 for analogWrite)."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m02_ipo.ino",
+        "challengePrompt": "Reverse the map() output range from (0, 255) to (255, 0) so turning the knob dims the LED instead.",
+        "starterCode": "const int POT_PIN = A0;\nconst int LED_PIN = 9;\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() {\n  int raw = analogRead(POT_PIN);\n  int pwm = map(raw, 0, 1023, 0, 255);\n  analogWrite(LED_PIN, pwm);\n}",
+        "expectedBehavior": "Reversing map() makes brightness decrease as the potentiometer turns up."
+      },
+      "exercises": [
+        {
+          "id": "m02-l06-e1",
+          "type": "multiple-choice",
+          "prompt": "In the IPO model, what category does an HC-SR04 ultrasonic sensor belong to?",
+          "options": [
+            "Input",
+            "Processing",
+            "Output",
+            "Power Supply"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sensors gather physical measurements from the environment, making them Inputs."
+        },
+        {
+          "id": "m02-l06-e2",
+          "type": "multiple-choice",
+          "prompt": "Which component is an Output actuator?",
+          "options": [
+            "Servo motor",
+            "Push button",
+            "Photoresistor (LDR)",
+            "Temperature sensor"
+          ],
+          "correctIndex": 0,
+          "explanation": "A servo motor converts electrical signals into physical motion, making it an Output."
+        }
+      ],
+      "summary": [
+        "Every robotics system follows Input -> Processing -> Output.",
+        "Structuring loop() in IPO order keeps code clean and bug-resistant.",
+        "Sensors are Inputs; C++ logic is Processing; LEDs/motors/buzzers are Outputs."
+      ],
+      "diagram": {
+        "file": "ipo-model.svg",
+        "caption": "The Input-Process-Output (IPO) architecture at the heart of every Arduino project."
+      }
+    },
+    {
+      "id": "m02-l07",
+      "title": "Designing Solutions Before Coding",
+      "estimatedMinutes": 12,
+      "introduction": "Five minutes of planning on paper prevents hours of trial-and-error debugging at the workbench.",
+      "objectives": [
+        "Write a 4-part mini design sheet: Goal, Pin Map, IPO Plan, and Edge Cases.",
+        "Check pin conflicts before wiring a breadboard.",
+        "Translate a finished design sheet directly into clean Arduino C++."
+      ],
+      "conceptExplanation": [
+        "Experienced engineers rarely open Arduino IDE with a blank mind. First, they list every connected part and its assigned pin (the Pin Map), write the IPO flow in pseudocode, and list edge cases (what if a sensor disconnects or times out?).",
+        "This habit is what separates independent programmers from people stuck copying random sketches off the internet."
+      ],
+      "analogy": "No carpenter cuts expensive lumber without measuring and marking pencil lines first. Your pin map and pseudocode are your pencil lines.",
+      "syntaxExplanation": {
+        "summary": "Document your Pin Map as const int declarations at the top of your sketch.",
+        "pattern": "// PIN MAP\nconst int BTN_PIN = 2;\nconst int BUZZER_PIN = 6;\nconst int LED_PIN = 8;",
+        "rules": [
+          "Assign every component a unique pin (avoid D0/D1 on Uno when using Serial).",
+          "Confirm PWM (~) pins for analogWrite() and analog pins (A0+) for analogRead().",
+          "List at least one safety/edge case before coding."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Design-First Buzzer Alert",
+          "description": "Starts with a clear pin map and IPO comment header before setup() and loop().",
+          "filename": "m02_design_first.ino",
+          "code": "// DESIGN: Sound buzzer when safety button is pressed\n// INPUT: BTN_PIN (2, INPUT_PULLUP)\n// OUTPUT: BUZZER_PIN (6), LED_PIN (8)\nconst int BTN_PIN = 2;\nconst int BUZZER_PIN = 6;\nconst int LED_PIN = 8;\n\nvoid setup() {\n  pinMode(BTN_PIN, INPUT_PULLUP);\n  pinMode(BUZZER_PIN, OUTPUT);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  bool triggered = (digitalRead(BTN_PIN) == LOW);\n  digitalWrite(LED_PIN, triggered ? HIGH : LOW);\n  if (triggered) tone(BUZZER_PIN, 1000);\n  else noTone(BUZZER_PIN);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int BTN_PIN = 2; ...",
+          "explanation": "Translates the paper pin map into named constants."
+        },
+        {
+          "code": "bool triggered = ...",
+          "explanation": "Clear processing step turning LOW active button into a readable boolean."
+        },
+        {
+          "code": "tone / noTone",
+          "explanation": "Cleanly drives and silences the buzzer output."
+        }
+      ],
+      "realWorldApplication": "Before building any competition robot, teams maintain a Pin Assignment Table so wiring and software never collide on the same GPIO.",
+      "commonMistakes": [
+        {
+          "mistake": "Assigning two devices to the same pin",
+          "fix": "Keep a Pin Map at the top of every sketch so every pin is visible in one place."
+        },
+        {
+          "mistake": "Using D0 or D1 on Uno for buttons while using Serial",
+          "fix": "Pins 0 and 1 carry USB Serial on Uno R3/Nano Classic \u2014 keep them free for debugging."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m02_design_first.ino",
+        "challengePrompt": "Change the buzzer frequency from 1000 Hz to 1500 Hz.",
+        "starterCode": "const int BTN_PIN = 2;\nconst int BUZZER_PIN = 6;\nconst int LED_PIN = 8;\nvoid setup() {\n  pinMode(BTN_PIN, INPUT_PULLUP);\n  pinMode(BUZZER_PIN, OUTPUT);\n  pinMode(LED_PIN, OUTPUT);\n}\nvoid loop() {\n  bool triggered = (digitalRead(BTN_PIN) == LOW);\n  digitalWrite(LED_PIN, triggered ? HIGH : LOW);\n  if (triggered) tone(BUZZER_PIN, 1000);\n  else noTone(BUZZER_PIN);\n}",
+        "expectedBehavior": "Pressing the button lights pin 8 and plays a higher-pitched 1500 Hz tone on pin 6; releasing stops both."
+      },
+      "exercises": [
+        {
+          "id": "m02-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "Why should you avoid connecting buttons or LEDs to pins 0 and 1 on an Arduino Uno R3 when using Serial Monitor?",
+          "options": [
+            "Pins 0 (RX) and 1 (TX) are shared with USB Serial communication and uploading.",
+            "Pins 0 and 1 do not support digitalWrite.",
+            "Pins 0 and 1 output 12V.",
+            "Pins 0 and 1 only work with servo motors."
+          ],
+          "correctIndex": 0,
+          "explanation": "Using D0/D1 on Uno R3 interferes with USB Serial Monitor output and can block sketch uploads."
+        },
+        {
+          "id": "m02-l07-e2",
+          "type": "write-code",
+          "prompt": "Write a const int pin map declaring TRIG_PIN as 9 and ECHO_PIN as 10.",
+          "starter": "",
+          "requiredTokens": [
+            "const",
+            "int",
+            "TRIG_PIN",
+            "9",
+            "ECHO_PIN",
+            "10"
+          ],
+          "sampleSolution": "const int TRIG_PIN = 9;\nconst int ECHO_PIN = 10;",
+          "explanation": "Named constants at the top of a sketch act as a live pin map."
+        }
+      ],
+      "summary": [
+        "Plan Goal, Pin Map, IPO logic, and Edge Cases before coding.",
+        "Store your pin map as const int declarations at the top of the sketch.",
+        "Avoid pin conflicts (especially D0/D1 on Uno R3)."
+      ],
+      "relatedProjectId": "buzzer-alarm"
+    }
+  ]
+}

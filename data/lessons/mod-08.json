@@ -1,0 +1,496 @@
+{
+  "id": "mod-08",
+  "lessons": [
+    {
+      "id": "m08-l01",
+      "title": "References",
+      "estimatedMinutes": 12,
+      "introduction": "A reference (&) creates an alias to an existing variable so a function can modify the caller's variable directly without copying it.",
+      "objectives": [
+        "Declare pass-by-reference function parameters using &.",
+        "Compare pass-by-value vs pass-by-reference behavior."
+      ],
+      "conceptExplanation": [
+        "Normally C++ passes a COPY of a variable into a function. Adding & (e.g., void resetCounter(int &count)) passes a direct reference to the original variable, letting the function update it and saving SRAM when passing large structs."
+      ],
+      "analogy": "Pass-by-value hands someone a photocopy of your notebook; pass-by-reference hands them the actual notebook.",
+      "syntaxExplanation": {
+        "summary": "Place & between the parameter type and parameter name.",
+        "pattern": "void addBonus(int &score, int pts) {\n  score += pts;\n}",
+        "rules": [
+          "A reference must always refer to an existing variable.",
+          "Use const Type &ref when you want zero-copy reading without allowing edits."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Modifying State via Reference",
+          "description": "Updates a counter variable directly inside a helper function.",
+          "filename": "m08_references.ino",
+          "code": "void resetToZero(int &value) {\n  value = 0;\n}\nvoid setup() {\n  Serial.begin(9600);\n  int errors = 7;\n  resetToZero(errors);\n  Serial.println(errors); // Prints 0\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void resetToZero(int &value)",
+          "explanation": "Receives a direct alias to 'errors', not a copy."
+        }
+      ],
+      "realWorldApplication": "Sensor drivers pass a struct by reference (readIMU(ImuData &out)) to fill X, Y, and Z axes in one call.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting & when expecting a function to modify a caller's variable",
+          "fix": "Without &, only the local copy changes and the caller's variable stays unchanged."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m08_references.ino",
+        "challengePrompt": "Remove the & from int &value and note why errors prints 7 instead of 0.",
+        "starterCode": "void resetToZero(int &value) {\n  value = 0;\n}\nvoid setup() {\n  Serial.begin(9600);\n  int errors = 7;\n  resetToZero(errors);\n  Serial.println(errors); // Prints 0\n}\nvoid loop() {}",
+        "expectedBehavior": "With &, prints 0; without &, prints 7."
+      },
+      "exercises": [
+        {
+          "id": "m08-l01-e1",
+          "type": "fill-blank",
+          "prompt": "Add the symbol that makes val a reference parameter.",
+          "template": "void clearVal(int ___1___val) { val = 0; }",
+          "answers": [
+            "&"
+          ],
+          "explanation": "& declares a reference parameter in C++."
+        }
+      ],
+      "summary": [
+        "References (&) alias existing variables without copying.",
+        "Pass-by-reference lets functions modify caller variables or return multiple outputs via a struct."
+      ]
+    },
+    {
+      "id": "m08-l02",
+      "title": "Pointers",
+      "estimatedMinutes": 12,
+      "introduction": "A pointer (*) stores the memory address of another variable \u2014 essential for understanding Arduino libraries, buffers, and hardware registers.",
+      "objectives": [
+        "Use & (address-of) and * (dereference) operators.",
+        "Check pointers against nullptr before dereferencing."
+      ],
+      "conceptExplanation": [
+        "Every variable in SRAM sits at a numeric memory address. A pointer variable holds that address. While beginners should prefer references (&) when possible, reading Arduino libraries requires understanding pointers (* and ->)."
+      ],
+      "analogy": "A pointer is a sticky note containing a house's street address rather than the house itself.",
+      "syntaxExplanation": {
+        "summary": "int *ptr = &target;  // store address\n*ptr = 42;           // modify target through pointer",
+        "pattern": "int speed = 100;\nint *p = &speed;\n*p = 150;",
+        "rules": [
+          "Initialize pointers to a valid address or nullptr.",
+          "Never dereference a nullptr!"
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Reading and Writing Through a Pointer",
+          "description": "Modifies an integer through its memory address.",
+          "filename": "m08_pointers.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int pwm = 128;\n  int *ptr = &pwm;\n  *ptr = 255;\n  Serial.println(pwm); // Prints 255\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int *ptr = &pwm;",
+          "explanation": "Stores the SRAM address of pwm."
+        },
+        {
+          "code": "*ptr = 255;",
+          "explanation": "Dereferences ptr to write 255 directly into pwm."
+        }
+      ],
+      "realWorldApplication": "Passing byte buffers to I2C, SPI, and radio libraries (like NRF24 or LoRa) relies on pointers.",
+      "commonMistakes": [
+        {
+          "mistake": "Dereferencing an uninitialized or nullptr pointer",
+          "fix": "Always initialize pointers and check if (ptr != nullptr) before using *ptr."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m08_pointers.ino",
+        "challengePrompt": "Change *ptr = 255; to *ptr = 64; and verify pwm updates.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int pwm = 128;\n  int *ptr = &pwm;\n  *ptr = 255;\n  Serial.println(pwm); // Prints 255\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints 64 to Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m08-l02-e1",
+          "type": "multiple-choice",
+          "prompt": "What does the & operator do in `int *p = &x;`?",
+          "options": [
+            "Gets the memory address of variable x.",
+            "Performs logical AND.",
+            "Multiplies x by p.",
+            "Deletes x."
+          ],
+          "correctIndex": 0,
+          "explanation": "Unary & returns the SRAM address of a variable."
+        }
+      ],
+      "summary": [
+        "Pointers store SRAM memory addresses.",
+        "& gets an address; * dereferences a pointer.",
+        "Always guard against nullptr."
+      ]
+    },
+    {
+      "id": "m08-l03",
+      "title": "Basic Classes and Objects",
+      "estimatedMinutes": 12,
+      "introduction": "A class is a blueprint combining data (like a pin number) and functions (methods like on() and off()) into reusable hardware objects.",
+      "objectives": [
+        "Define a simple C++ class with private data and public methods.",
+        "Instantiate multiple independent objects from one class."
+      ],
+      "conceptExplanation": [
+        "You have already used Arduino objects: Serial.println() and armServo.write(90) are methods called on objects! Writing your own class \u2014 such as StatusLed \u2014 lets you create ledRed and ledGreen with zero duplicated code."
+      ],
+      "analogy": "A class is the factory blueprint for a DC motor; each object (leftMotor, rightMotor) is a separate physical motor built from that blueprint.",
+      "syntaxExplanation": {
+        "summary": "class Name { private: ... public: Name(...); void method(); };",
+        "pattern": "class StatusLed {\n  int pin;\npublic:\n  StatusLed(int p) : pin(p) {}\n  void begin() { pinMode(pin, OUTPUT); }\n  void on()    { digitalWrite(pin, HIGH); }\n  void off()   { digitalWrite(pin, LOW); }\n};",
+        "rules": [
+          "End class definitions with a semicolon ';'.",
+          "Initialize pins in a begin() method called inside setup(), NOT inside the constructor!"
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "StatusLed Class with Two Objects",
+          "description": "Controls two independent LEDs using one reusable class.",
+          "filename": "m08_classes.ino",
+          "code": "class StatusLed {\n  int pin;\npublic:\n  StatusLed(int p) : pin(p) {}\n  void begin() { pinMode(pin, OUTPUT); }\n  void on()    { digitalWrite(pin, HIGH); }\n  void off()   { digitalWrite(pin, LOW); }\n};\n\nStatusLed greenLed(8);\nStatusLed redLed(9);\n\nvoid setup() {\n  greenLed.begin();\n  redLed.begin();\n  greenLed.on();\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "StatusLed(int p) : pin(p) {}",
+          "explanation": "Constructor stores the assigned pin."
+        },
+        {
+          "code": "greenLed.begin();",
+          "explanation": "Calls pinMode() safely inside setup() after hardware init."
+        }
+      ],
+      "realWorldApplication": "Every modern Arduino library (Servo, LiquidCrystal, Adafruit_NeoPixel) is built as a C++ class.",
+      "commonMistakes": [
+        {
+          "mistake": "Calling pinMode() inside a global object's constructor",
+          "fix": "Constructors run before Arduino initializes hardware timers/pins \u2014 always put pinMode() in a begin() method called in setup()."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m08_classes.ino",
+        "challengePrompt": "Turn redLed.on() inside setup() and greenLed.off().",
+        "starterCode": "class StatusLed {\n  int pin;\npublic:\n  StatusLed(int p) : pin(p) {}\n  void begin() { pinMode(pin, OUTPUT); }\n  void on()    { digitalWrite(pin, HIGH); }\n  void off()   { digitalWrite(pin, LOW); }\n};\n\nStatusLed greenLed(8);\nStatusLed redLed(9);\n\nvoid setup() {\n  greenLed.begin();\n  redLed.begin();\n  greenLed.on();\n}\nvoid loop() {}",
+        "expectedBehavior": "Pin 9 lights up while pin 8 turns off."
+      },
+      "exercises": [
+        {
+          "id": "m08-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "Why do Arduino classes provide a `.begin()` method instead of calling `pinMode()` in the constructor?",
+          "options": [
+            "Global constructors run before Arduino finishes low-level hardware initialization.",
+            "Constructors cannot accept integers.",
+            "pinMode() only works inside loop().",
+            "Classes cannot call Arduino functions."
+          ],
+          "correctIndex": 0,
+          "explanation": "Calling hardware setup inside begin() during setup() guarantees board peripherals are ready."
+        }
+      ],
+      "summary": [
+        "Classes bundle hardware pins and behavior into reusable objects.",
+        "Put hardware setup inside begin() and call it from setup().",
+        "Classes end with a trailing semicolon."
+      ],
+      "relatedProjectId": "servo-controller"
+    },
+    {
+      "id": "m08-l04",
+      "title": "Header Files (.h)",
+      "estimatedMinutes": 12,
+      "introduction": "Header files (.h) declare function prototypes, constants, and class interfaces so multiple sketch tabs can share them cleanly.",
+      "objectives": [
+        "Explain the purpose of #include \"MyModule.h\".",
+        "Use #pragma once (or include guards) to prevent duplicate definition errors."
+      ],
+      "conceptExplanation": [
+        "When a robotics sketch grows beyond 150 lines, splitting pin maps and class declarations into header files (.h) in new Arduino IDE tabs keeps your project organized and easy to navigate."
+      ],
+      "analogy": "A header file is a restaurant menu listing what dishes exist without printing the kitchen's full recipes.",
+      "syntaxExplanation": {
+        "summary": "#pragma once at the top prevents double-inclusion.",
+        "pattern": "// MotorControl.h\n#pragma once\nvoid motorsInit();\nvoid driveForward();",
+        "rules": [
+          "Use quotes \"MyHeader.h\" for local project tabs and angle brackets <Servo.h> for installed libraries."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Header Interface Example",
+          "description": "Demonstrates include guard and prototype declarations.",
+          "filename": "m08_headers.ino",
+          "code": "// Example MotorControl.h content:\n// #pragma once\n// void stopAllMotors();\n\nvoid stopAllMotors(); // Function prototype\nvoid setup() {\n  Serial.begin(9600);\n  stopAllMotors();\n}\nvoid loop() {}\nvoid stopAllMotors() { Serial.println(\"Stopped\"); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void stopAllMotors();",
+          "explanation": "Declaration (prototype) telling the compiler the function signature before use."
+        }
+      ],
+      "realWorldApplication": "All Arduino libraries ship a .h header file that you include at the top of your sketch.",
+      "commonMistakes": [
+        {
+          "mistake": "Omitting #pragma once or include guards",
+          "fix": "Including the same header twice without guards causes 'redefinition' compiler errors."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m08_headers.ino",
+        "challengePrompt": "Add a second prototype `void startMotors();` and define it at the bottom.",
+        "starterCode": "// Example MotorControl.h content:\n// #pragma once\n// void stopAllMotors();\n\nvoid stopAllMotors(); // Function prototype\nvoid setup() {\n  Serial.begin(9600);\n  stopAllMotors();\n}\nvoid loop() {}\nvoid stopAllMotors() { Serial.println(\"Stopped\"); }",
+        "expectedBehavior": "Compiles cleanly and prints messages from both functions."
+      },
+      "exercises": [
+        {
+          "id": "m08-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "What is the purpose of `#pragma once` at the top of a .h file?",
+          "options": [
+            "Prevents the header from being included multiple times during compilation.",
+            "Makes loop() run only once.",
+            "Speeds up Serial Monitor.",
+            "Uploads code faster."
+          ],
+          "correctIndex": 0,
+          "explanation": "#pragma once protects against duplicate declaration errors."
+        }
+      ],
+      "summary": [
+        "Header files (.h) declare interfaces, constants, and classes.",
+        "Always add #pragma once or include guards.",
+        "Use \"...\" for local headers and <...> for libraries."
+      ]
+    },
+    {
+      "id": "m08-l05",
+      "title": "Source Files (.cpp)",
+      "estimatedMinutes": 12,
+      "introduction": "Source files (.cpp) hold the actual implementation code behind your .h headers, compiling cleanly into modular object files.",
+      "objectives": [
+        "Separate interface (.h) from implementation (.cpp).",
+        "Remember to #include <Arduino.h> inside standalone .cpp files."
+      ],
+      "conceptExplanation": [
+        "Arduino IDE automatically inserts #include <Arduino.h> into .ino files, but NOT into .cpp files! Whenever you move helper code into a .cpp tab, add #include <Arduino.h> at the top so pinMode, HIGH, and millis() are recognized."
+      ],
+      "analogy": "If the .h file is the menu, the .cpp file is the kitchen where the recipes are actually cooked.",
+      "syntaxExplanation": {
+        "summary": "Include Arduino.h and your matching .h file at the top of a .cpp file.",
+        "pattern": "// MotorControl.cpp\n#include <Arduino.h>\n#include \"MotorControl.h\"\nvoid driveForward() { ... }",
+        "rules": [
+          "Always #include <Arduino.h> in .cpp files that call Arduino functions."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Understanding Arduino.h in .cpp",
+          "description": "Shows why explicit Arduino.h inclusion matters in multi-file sketches.",
+          "filename": "m08_cpp_files.ino",
+          "code": "#include <Arduino.h>\n\nvoid blinkStatus(int pin) {\n  digitalWrite(pin, HIGH);\n  delay(100);\n  digitalWrite(pin, LOW);\n}\nvoid setup() { pinMode(13, OUTPUT); blinkStatus(13); }\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "#include <Arduino.h>",
+          "explanation": "Provides pinMode, digitalWrite, HIGH, LOW, and delay inside .cpp files."
+        }
+      ],
+      "realWorldApplication": "Every professional Arduino library pairs LibraryName.h with LibraryName.cpp.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting #include <Arduino.h> in a .cpp tab",
+          "fix": "Results in 'pinMode was not declared in this scope' errors."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m08_cpp_files.ino",
+        "challengePrompt": "Note how #include <Arduino.h> compiles cleanly in both .ino and .cpp files.",
+        "starterCode": "#include <Arduino.h>\n\nvoid blinkStatus(int pin) {\n  digitalWrite(pin, HIGH);\n  delay(100);\n  digitalWrite(pin, LOW);\n}\nvoid setup() { pinMode(13, OUTPUT); blinkStatus(13); }\nvoid loop() {}",
+        "expectedBehavior": "Blinks pin 13 briefly once on startup."
+      },
+      "exercises": [
+        {
+          "id": "m08-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "Why might `digitalWrite()` fail to compile inside a separate `.cpp` file in an Arduino sketch?",
+          "options": [
+            "You must explicitly add `#include <Arduino.h>` at the top of `.cpp` files.",
+            "Arduino IDE forbids `.cpp` files.",
+            "digitalWrite only works in setup().",
+            "Variables cannot be used in `.cpp` files."
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino IDE auto-includes Arduino.h only for .ino files, not plain .cpp files."
+        }
+      ],
+      "summary": [
+        ".cpp files implement the functions declared in .h files.",
+        "Always #include <Arduino.h> inside standalone .cpp files."
+      ]
+    },
+    {
+      "id": "m08-l06",
+      "title": "Libraries",
+      "estimatedMinutes": 12,
+      "introduction": "Libraries are pre-written, community-tested collections of .h and .cpp files that handle complex hardware protocols like Servos, I2C displays, and Wi-Fi.",
+      "objectives": [
+        "Include standard and installed libraries with #include <...>.",
+        "Inspect library examples and APIs without blindly copying unknown code."
+      ],
+      "conceptExplanation": [
+        "You don't need to bit-bang microsecond servo pulses from scratch when <Servo.h> already exists. However, an independent programmer reads the library's documentation to know which timers or pins it uses (for example, Servo disables PWM on pins 9 & 10 on Uno R3!)."
+      ],
+      "analogy": "A library is a calibrated toolbox \u2014 you still decide what to build, while the precision wrenches are ready to use.",
+      "syntaxExplanation": {
+        "summary": "#include <LibraryName.h> at the very top of your sketch.",
+        "pattern": "#include <Servo.h>\nServo arm;\nvoid setup() { arm.attach(9); }",
+        "rules": [
+          "Check board compatibility before using a library (e.g., AVR Servo vs ESP32Servo)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Using the Standard Servo Library",
+          "description": "Includes <Servo.h> and moves a servo to 90 degrees.",
+          "filename": "m08_libraries.ino",
+          "code": "#include <Servo.h>\nServo neckServo;\nvoid setup() {\n  neckServo.attach(9);\n  neckServo.write(90); // Center position\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "#include <Servo.h>",
+          "explanation": "Loads the Servo class interface."
+        },
+        {
+          "code": "neckServo.attach(9);",
+          "explanation": "Binds the Servo object to pin 9."
+        },
+        {
+          "code": "neckServo.write(90);",
+          "explanation": "Commands the servo horn to 90 degrees."
+        }
+      ],
+      "realWorldApplication": "OLED screens (Adafruit_SSD1306), DHT sensors, and Servos all rely on libraries.",
+      "commonMistakes": [
+        {
+          "mistake": "Using AVR <Servo.h> on ESP32 without checking compatibility",
+          "fix": "ESP32 uses ESP32Servo library via Library Manager."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m08_libraries.ino",
+        "challengePrompt": "Change neckServo.write(90) to 45 degrees.",
+        "starterCode": "#include <Servo.h>\nServo neckServo;\nvoid setup() {\n  neckServo.attach(9);\n  neckServo.write(90); // Center position\n}\nvoid loop() {}",
+        "expectedBehavior": "Moves a servo on pin 9 to 45 degrees on startup (Uno/Mega/Nano AVR)."
+      },
+      "exercises": [
+        {
+          "id": "m08-l06-e1",
+          "type": "fill-blank",
+          "prompt": "Include the standard Arduino Servo header.",
+          "template": "___1___ <Servo.h>",
+          "answers": [
+            "#include"
+          ],
+          "explanation": "#include loads a library header into your sketch."
+        }
+      ],
+      "summary": [
+        "Use #include <Library.h> to bring in tested hardware drivers.",
+        "Always check pin/timer side effects and board compatibility."
+      ],
+      "relatedProjectId": "servo-controller"
+    },
+    {
+      "id": "m08-l07",
+      "title": "Modular Code Organization",
+      "estimatedMinutes": 12,
+      "introduction": "Organizing a multi-feature robot into config.h, sensors, and actuators tabs keeps your codebase maintainable as projects scale.",
+      "objectives": [
+        "Design a clean multi-tab Arduino project layout.",
+        "Centralize pin assignments and calibration constants in one place."
+      ],
+      "conceptExplanation": [
+        "A well-organized Arduino folder might contain: RoverMain.ino (high-level state loop), pins.h (all pin constants), motors.h/cpp, and sensors.h/cpp. When you rewire a sensor pin, you edit exactly one line in pins.h."
+      ],
+      "analogy": "A tidy electronics lab where resistors, sensors, and tools each have labeled drawers instead of one tangled pile.",
+      "syntaxExplanation": {
+        "summary": "Keep pins/thresholds in one config header and separate sensing from motion.",
+        "pattern": "// Folder: RoverMain/\n// - RoverMain.ino\n// - config.h\n// - motors.h / motors.cpp",
+        "rules": [
+          "The main .ino filename must match its parent folder name in Arduino IDE."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Clean Sectioned Single-File Template",
+          "description": "Shows a clean top-to-bottom organization pattern ready to split into tabs.",
+          "filename": "m08_organization.ino",
+          "code": "// 1. CONFIGURATION\nconst int LED_PIN = 13;\n// 2. HELPERS\nvoid setIndicator(bool on) { digitalWrite(LED_PIN, on ? HIGH : LOW); }\n// 3. LIFECYCLE\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() { setIndicator(true); delay(500); setIndicator(false); delay(500); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "// 1. CONFIGURATION",
+          "explanation": "Pins and constants grouped cleanly at the top."
+        },
+        {
+          "code": "// 2. HELPERS",
+          "explanation": "Reusable functions separated from loop()."
+        }
+      ],
+      "realWorldApplication": "Competition robotics repositories organize code by subsystem so multiple students can work without overwriting each other.",
+      "commonMistakes": [
+        {
+          "mistake": "Renaming a .ino file differently from its enclosing folder",
+          "fix": "Arduino IDE requires the main .ino file to share its folder's exact name."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m08_organization.ino",
+        "challengePrompt": "Add a const int DELAY_MS = 500; in the CONFIGURATION section and use it in loop().",
+        "starterCode": "// 1. CONFIGURATION\nconst int LED_PIN = 13;\n// 2. HELPERS\nvoid setIndicator(bool on) { digitalWrite(LED_PIN, on ? HIGH : LOW); }\n// 3. LIFECYCLE\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() { setIndicator(true); delay(500); setIndicator(false); delay(500); }",
+        "expectedBehavior": "Blinks pin 13 cleanly with centralized configuration."
+      },
+      "exercises": [
+        {
+          "id": "m08-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "In Arduino IDE, what naming rule applies to a sketch's folder and main `.ino` file?",
+          "options": [
+            "The main `.ino` file must have the exact same name as its enclosing folder.",
+            "The folder must always be named 'main'.",
+            "Spaces are required in filenames.",
+            "Only uppercase letters are allowed."
+          ],
+          "correctIndex": 0,
+          "explanation": "Arduino IDE requires matching folder and primary .ino filenames."
+        }
+      ],
+      "summary": [
+        "Separate configuration, helpers, and main lifecycle cleanly.",
+        "Match the main .ino filename to its parent folder name."
+      ]
+    }
+  ]
+}

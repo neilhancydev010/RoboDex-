@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" fill="none" role="img" aria-label="Algorithm Flowchart Example">
+  <rect width="720" height="230" rx="12" fill="#0C1729"/>
+  <rect x="26" y="92" width="110" height="46" rx="23" fill="#13223B" stroke="#22D3EE" stroke-width="2"/>
+  <text x="81" y="120" text-anchor="middle" fill="#22D3EE" font-family="sans-serif" font-size="13" font-weight="700">START</text>
+  <line x1="136" y1="115" x2="176" y2="115" stroke="#94A3B8" stroke-width="2"/>
+  <rect x="176" y="88" width="145" height="54" rx="6" fill="#13223B" stroke="#5EA3FF" stroke-width="2"/>
+  <text x="248" y="112" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="12">Read Light Sensor</text>
+  <text x="248" y="130" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="11">val = analogRead(A0)</text>
+  <line x1="321" y1="115" x2="365" y2="115" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="435,68 505,115 435,162 365,115" fill="#13223B" stroke="#FBBF24" stroke-width="2"/>
+  <text x="435" y="112" text-anchor="middle" fill="#FDE68A" font-family="monospace" font-size="12">val &lt; 400?</text>
+  <text x="435" y="129" text-anchor="middle" fill="#94A3B8" font-family="sans-serif" font-size="10">Decision</text>
+  <line x1="505" y1="115" x2="555" y2="115" stroke="#4ADE80" stroke-width="2"/>
+  <text x="528" y="106" text-anchor="middle" fill="#4ADE80" font-family="sans-serif" font-size="11">YES</text>
+  <rect x="555" y="88" width="140" height="54" rx="6" fill="#13223B" stroke="#4ADE80" stroke-width="2"/>
+  <text x="625" y="119" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="12">Turn Streetlight ON</text>
+  <line x1="435" y1="162" x2="435" y2="195" stroke="#F87171" stroke-width="2"/>
+  <line x1="435" y1="195" x2="555" y2="195" stroke="#F87171" stroke-width="2"/>
+  <text x="488" y="187" text-anchor="middle" fill="#F87171" font-family="sans-serif" font-size="11">NO</text>
+  <rect x="555" y="172" width="140" height="42" rx="6" fill="#13223B" stroke="#F87171" stroke-width="2"/>
+  <text x="625" y="198" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="12">Turn Streetlight OFF</text>
+</svg>

@@ -1,0 +1,107 @@
+/* ==========================================================================
+   RoboDex́ — Design System Tokens
+   Dark navy engineering navigation, blue & cyan accents, light/dark reading
+   ========================================================================== */
+
+:root {
+  /* Brand & Accent Palette */
+  --navy-950: #071120;
+  --navy-900: #0b192c;
+  --navy-800: #112540;
+  --navy-700: #1a3558;
+  --blue-600: #1d6fe8;
+  --blue-500: #2b82ff;
+  --blue-400: #5ea3ff;
+  --cyan-500: #06b6d4;
+  --cyan-400: #22d3ee;
+  --cyan-100: #cffafe;
+
+  /* Semantic Status Colors */
+  --success-600: #16a34a;
+  --success-bg: #ecfdf3;
+  --success-border: #86efac;
+  --warning-600: #d97706;
+  --warning-bg: #fffbeb;
+  --warning-border: #fcd34d;
+  --danger-600: #dc2626;
+  --danger-bg: #fef2f2;
+  --danger-border: #fca5a5;
+  --info-600: #0284c7;
+  --info-bg: #f0f9ff;
+  --info-border: #7dd3fc;
+
+  /* Light Reading Theme (Default) */
+  --bg-page: #f5f8fc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #edf3fa;
+  --bg-elevated: #ffffff;
+  --border-color: #d6e1ee;
+  --border-strong: #b6c8de;
+  --text-primary: #0f1d33;
+  --text-secondary: #3b4f6b;
+  --text-muted: #5d7290;
+  --text-inverse: #f8fafc;
+
+  /* Code & Editor Surfaces */
+  --code-bg: #0c1729;
+  --code-surface: #13223b;
+  --code-border: #233a5e;
+  --code-text: #e6f0ff;
+
+  /* Typography */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, "Courier New", monospace;
+  --reading-font-size: 16px;
+  --line-height-body: 1.7;
+
+  /* Radii & Shadows */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 9999px;
+  --shadow-sm: 0 1px 3px rgba(11, 25, 44, 0.08);
+  --shadow-md: 0 6px 20px rgba(11, 25, 44, 0.09);
+  --shadow-lg: 0 14px 36px rgba(11, 25, 44, 0.14);
+
+  /* Layout Dimensions */
+  --topbar-height: 62px;
+  --sidebar-width: 290px;
+  --toc-width: 240px;
+  --content-max-width: 1240px;
+
+  /* Motion */
+  --transition-fast: 140ms ease;
+  --transition-base: 220ms ease;
+}
+
+/* Dark Reading Theme */
+[data-theme="dark"] {
+  --bg-page: #081221;
+  --bg-surface: #0f1e36;
+  --bg-subtle: #152845;
+  --bg-elevated: #182e4f;
+  --border-color: #223b61;
+  --border-strong: #325382;
+  --text-primary: #eef4fc;
+  --text-secondary: #c2d4eb;
+  --text-muted: #8ea7c7;
+  --text-inverse: #071120;
+
+  --success-bg: rgba(22, 163, 74, 0.16);
+  --success-border: rgba(74, 222, 128, 0.45);
+  --warning-bg: rgba(217, 119, 6, 0.16);
+  --warning-border: rgba(251, 191, 36, 0.45);
+  --danger-bg: rgba(220, 38, 38, 0.16);
+  --danger-border: rgba(248, 113, 113, 0.45);
+  --info-bg: rgba(6, 182, 212, 0.15);
+  --info-border: rgba(34, 211, 238, 0.45);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Reading Font Size Preferences */
+[data-font-size="sm"] { --reading-font-size: 14.5px; }
+[data-font-size="md"] { --reading-font-size: 16px; }
+[data-font-size="lg"] { --reading-font-size: 18px; }

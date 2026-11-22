@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" fill="none" role="img" aria-label="Supported Boards Architecture Overview">
+  <rect width="760" height="220" rx="12" fill="#0C1729"/>
+  <text x="380" y="34" text-anchor="middle" fill="#22D3EE" font-family="sans-serif" font-size="15" font-weight="700">RoboDex́ Supported Microcontroller Families — Logic Voltage &amp; Architecture</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="20" y="54" width="134" height="142" rx="8" fill="#13223B" stroke="#2B82FF" stroke-width="2"/>
+    <text x="87" y="82" fill="#FFFFFF" font-size="13" font-weight="700">Uno R3</text>
+    <text x="87" y="106" fill="#94A3B8" font-size="11">ATmega328P</text>
+    <text x="87" y="128" fill="#4ADE80" font-size="12" font-weight="700">5V Logic</text>
+    <text x="87" y="150" fill="#CBD5E1" font-size="11">14 Dig / 6 Ana</text>
+    <text x="87" y="172" fill="#94A3B8" font-size="10">8-bit AVR 16MHz</text>
+
+    <rect x="166" y="54" width="134" height="142" rx="8" fill="#13223B" stroke="#22D3EE" stroke-width="2"/>
+    <text x="233" y="82" fill="#FFFFFF" font-size="13" font-weight="700">Uno R4</text>
+    <text x="233" y="106" fill="#94A3B8" font-size="11">Renesas RA4M1</text>
+    <text x="233" y="128" fill="#4ADE80" font-size="12" font-weight="700">5V Logic</text>
+    <text x="233" y="150" fill="#CBD5E1" font-size="11">14 Dig / 6 Ana / DAC</text>
+    <text x="233" y="172" fill="#94A3B8" font-size="10">32-bit ARM 48MHz</text>
+
+    <rect x="312" y="54" width="134" height="142" rx="8" fill="#13223B" stroke="#5EA3FF" stroke-width="2"/>
+    <text x="379" y="82" fill="#FFFFFF" font-size="13" font-weight="700">Nano Family</text>
+    <text x="379" y="106" fill="#94A3B8" font-size="11">Classic / Every / ESP32</text>
+    <text x="379" y="128" fill="#FBBF24" font-size="12" font-weight="700">5V or 3.3V*</text>
+    <text x="379" y="150" fill="#CBD5E1" font-size="11">Breadboard-Ready</text>
+    <text x="379" y="172" fill="#94A3B8" font-size="10">*Depends on variant</text>
+
+    <rect x="458" y="54" width="134" height="142" rx="8" fill="#13223B" stroke="#2B82FF" stroke-width="2"/>
+    <text x="525" y="82" fill="#FFFFFF" font-size="13" font-weight="700">Mega 2560</text>
+    <text x="525" y="106" fill="#94A3B8" font-size="11">ATmega2560</text>
+    <text x="525" y="128" fill="#4ADE80" font-size="12" font-weight="700">5V Logic</text>
+    <text x="525" y="150" fill="#CBD5E1" font-size="11">54 Dig / 16 Ana</text>
+    <text x="525" y="172" fill="#94A3B8" font-size="10">4 Hardware UARTs</text>
+
+    <rect x="604" y="54" width="136" height="142" rx="8" fill="#13223B" stroke="#F472B6" stroke-width="2"/>
+    <text x="672" y="82" fill="#FFFFFF" font-size="13" font-weight="700">ESP32 Family</text>
+    <text x="672" y="106" fill="#94A3B8" font-size="11">WROOM / S3 / C3</text>
+    <text x="672" y="128" fill="#F472B6" font-size="12" font-weight="700">3.3V Logic ONLY</text>
+    <text x="672" y="150" fill="#CBD5E1" font-size="11">Wi-Fi + BLE + LEDC</text>
+    <text x="672" y="172" fill="#94A3B8" font-size="10">32-bit up to 240MHz</text>
+  </g>
+</svg>

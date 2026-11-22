@@ -1,0 +1,835 @@
+{
+  "id": "mod-12",
+  "lessons": [
+    {
+      "id": "m12-l01",
+      "title": "LEDs",
+      "estimatedMinutes": 12,
+      "introduction": "Drive indicator LEDs safely with current-limiting resistors and clean blinking or PWM dimming logic.",
+      "objectives": [
+        "Wire and program leds safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Drive indicator LEDs safely with current-limiting resistors and clean blinking or PWM dimming logic.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering leds adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for LEDs:",
+        "pattern": "const int LED_PIN = 8;",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied LEDs Sketch",
+          "description": "Working hardware pattern for leds.",
+          "filename": "m12_l01.ino",
+          "code": "const int LED_PIN = 8;\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() { digitalWrite(LED_PIN, HIGH); delay(300); digitalWrite(LED_PIN, LOW); delay(300); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LED_PIN = 8;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setup() { pinMode(LED_PIN, OUTPUT); }",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void loop() { digitalWrite(LED_PIN, HIGH); delay(300); digitalWrite(LED_PIN, LOW); delay(300); }",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on leds.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l01.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "const int LED_PIN = 8;\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() { digitalWrite(LED_PIN, HIGH); delay(300); digitalWrite(LED_PIN, LOW); delay(300); }",
+        "expectedBehavior": "Demonstrates reliable leds control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l01-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with LEDs?",
+          "options": [
+            "Drive indicator LEDs safely with current-limiting resistors and clean blinking or PWM dimming logic.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Drive indicator LEDs safely with current-limiting resistors and clean blinking or PWM dimming logic."
+        }
+      ],
+      "summary": [
+        "Drive indicator LEDs safely with current-limiting resistors and clean blinking or PWM dimming logic.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "led-blinking"
+    },
+    {
+      "id": "m12-l02",
+      "title": "Push Buttons",
+      "estimatedMinutes": 12,
+      "introduction": "Read tactile push buttons cleanly using INPUT_PULLUP, active-LOW logic, and debounced edge detection.",
+      "objectives": [
+        "Wire and program push buttons safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Read tactile push buttons cleanly using INPUT_PULLUP, active-LOW logic, and debounced edge detection.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering push buttons adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Push Buttons:",
+        "pattern": "const int BTN = 2, LED = 8;",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Push Buttons Sketch",
+          "description": "Working hardware pattern for push buttons.",
+          "filename": "m12_l02.ino",
+          "code": "const int BTN = 2, LED = 8;\nvoid setup() { pinMode(BTN, INPUT_PULLUP); pinMode(LED, OUTPUT); }\nvoid loop() { digitalWrite(LED, digitalRead(BTN) == LOW ? HIGH : LOW); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int BTN = 2, LED = 8;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setup() { pinMode(BTN, INPUT_PULLUP); pinMode(LED, OUTPUT); }",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void loop() { digitalWrite(LED, digitalRead(BTN) == LOW ? HIGH : LOW); }",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on push buttons.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l02.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "const int BTN = 2, LED = 8;\nvoid setup() { pinMode(BTN, INPUT_PULLUP); pinMode(LED, OUTPUT); }\nvoid loop() { digitalWrite(LED, digitalRead(BTN) == LOW ? HIGH : LOW); }",
+        "expectedBehavior": "Demonstrates reliable push buttons control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l02-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Push Buttons?",
+          "options": [
+            "Read tactile push buttons cleanly using INPUT_PULLUP, active-LOW logic, and debounced edge detection.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Read tactile push buttons cleanly using INPUT_PULLUP, active-LOW logic, and debounced edge detection."
+        }
+      ],
+      "summary": [
+        "Read tactile push buttons cleanly using INPUT_PULLUP, active-LOW logic, and debounced edge detection.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "button-controlled-led"
+    },
+    {
+      "id": "m12-l03",
+      "title": "Traffic Lights",
+      "estimatedMinutes": 12,
+      "introduction": "Coordinate three digital outputs cleanly using a deterministic helper function and sequential timing phases.",
+      "objectives": [
+        "Wire and program traffic lights safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Coordinate three digital outputs cleanly using a deterministic helper function and sequential timing phases.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering traffic lights adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Traffic Lights:",
+        "pattern": "const int R=10, Y=9, G=8;",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Traffic Lights Sketch",
+          "description": "Working hardware pattern for traffic lights.",
+          "filename": "m12_l03.ino",
+          "code": "const int R=10, Y=9, G=8;\nvoid setLights(bool r, bool y, bool g){ digitalWrite(R,r); digitalWrite(Y,y); digitalWrite(G,g); }\nvoid setup(){ pinMode(R,OUTPUT); pinMode(Y,OUTPUT); pinMode(G,OUTPUT); }\nvoid loop(){ setLights(0,0,1); delay(3000); setLights(0,1,0); delay(1000); setLights(1,0,0); delay(3000); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int R=10, Y=9, G=8;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setLights(bool r, bool y, bool g){ digitalWrite(R,r); digitalWrite(Y,y); digitalWrite(G,g); }",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setup(){ pinMode(R,OUTPUT); pinMode(Y,OUTPUT); pinMode(G,OUTPUT); }",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on traffic lights.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l03.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "const int R=10, Y=9, G=8;\nvoid setLights(bool r, bool y, bool g){ digitalWrite(R,r); digitalWrite(Y,y); digitalWrite(G,g); }\nvoid setup(){ pinMode(R,OUTPUT); pinMode(Y,OUTPUT); pinMode(G,OUTPUT); }\nvoid loop(){ setLights(0,0,1); delay(3000); setLights(0,1,0); delay(1000); setLights(1,0,0); delay(3000); }",
+        "expectedBehavior": "Demonstrates reliable traffic lights control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l03-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Traffic Lights?",
+          "options": [
+            "Coordinate three digital outputs cleanly using a deterministic helper function and sequential timing phases.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Coordinate three digital outputs cleanly using a deterministic helper function and sequential timing phases."
+        }
+      ],
+      "summary": [
+        "Coordinate three digital outputs cleanly using a deterministic helper function and sequential timing phases.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "traffic-light-system"
+    },
+    {
+      "id": "m12-l04",
+      "title": "Automatic Streetlights",
+      "estimatedMinutes": 12,
+      "introduction": "Combine an LDR voltage divider on A0 with a hysteresis band (DARK_THRESHOLD vs BRIGHT_THRESHOLD) to prevent twilight flickering.",
+      "objectives": [
+        "Wire and program automatic streetlights safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Combine an LDR voltage divider on A0 with a hysteresis band (DARK_THRESHOLD vs BRIGHT_THRESHOLD) to prevent twilight flickering.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering automatic streetlights adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Automatic Streetlights:",
+        "pattern": "const int LDR = A0, LAMP = 9;",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Automatic Streetlights Sketch",
+          "description": "Working hardware pattern for automatic streetlights.",
+          "filename": "m12_l04.ino",
+          "code": "const int LDR = A0, LAMP = 9;\nvoid setup() { pinMode(LAMP, OUTPUT); }\nvoid loop() {\n  int v = analogRead(LDR);\n  if (v < 350) digitalWrite(LAMP, HIGH);\n  else if (v > 450) digitalWrite(LAMP, LOW);\n  delay(150);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LDR = A0, LAMP = 9;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setup() { pinMode(LAMP, OUTPUT); }",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void loop() {",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on automatic streetlights.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l04.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "const int LDR = A0, LAMP = 9;\nvoid setup() { pinMode(LAMP, OUTPUT); }\nvoid loop() {\n  int v = analogRead(LDR);\n  if (v < 350) digitalWrite(LAMP, HIGH);\n  else if (v > 450) digitalWrite(LAMP, LOW);\n  delay(150);\n}",
+        "expectedBehavior": "Demonstrates reliable automatic streetlights control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Automatic Streetlights?",
+          "options": [
+            "Combine an LDR voltage divider on A0 with a hysteresis band (DARK_THRESHOLD vs BRIGHT_THRESHOLD) to prevent twilight flickering.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Combine an LDR voltage divider on A0 with a hysteresis band (DARK_THRESHOLD vs BRIGHT_THRESHOLD) to prevent twilight flickering."
+        }
+      ],
+      "summary": [
+        "Combine an LDR voltage divider on A0 with a hysteresis band (DARK_THRESHOLD vs BRIGHT_THRESHOLD) to prevent twilight flickering.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "automatic-streetlight"
+    },
+    {
+      "id": "m12-l05",
+      "title": "Buzzers",
+      "estimatedMinutes": 12,
+      "introduction": "Generate audible tones and multi-pitch alert patterns on a passive piezo buzzer with tone() and noTone().",
+      "objectives": [
+        "Wire and program buzzers safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Generate audible tones and multi-pitch alert patterns on a passive piezo buzzer with tone() and noTone().",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering buzzers adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Buzzers:",
+        "pattern": "const int BUZZ = 6;",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Buzzers Sketch",
+          "description": "Working hardware pattern for buzzers.",
+          "filename": "m12_l05.ino",
+          "code": "const int BUZZ = 6;\nvoid setup() { pinMode(BUZZ, OUTPUT); }\nvoid loop() { tone(BUZZ, 880, 200); delay(300); tone(BUZZ, 1320, 200); delay(600); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int BUZZ = 6;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setup() { pinMode(BUZZ, OUTPUT); }",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void loop() { tone(BUZZ, 880, 200); delay(300); tone(BUZZ, 1320, 200); delay(600); }",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on buzzers.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l05.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "const int BUZZ = 6;\nvoid setup() { pinMode(BUZZ, OUTPUT); }\nvoid loop() { tone(BUZZ, 880, 200); delay(300); tone(BUZZ, 1320, 200); delay(600); }",
+        "expectedBehavior": "Demonstrates reliable buzzers control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Buzzers?",
+          "options": [
+            "Generate audible tones and multi-pitch alert patterns on a passive piezo buzzer with tone() and noTone().",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Generate audible tones and multi-pitch alert patterns on a passive piezo buzzer with tone() and noTone()."
+        }
+      ],
+      "summary": [
+        "Generate audible tones and multi-pitch alert patterns on a passive piezo buzzer with tone() and noTone().",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "buzzer-alarm"
+    },
+    {
+      "id": "m12-l06",
+      "title": "Ultrasonic Sensors",
+      "estimatedMinutes": 12,
+      "introduction": "Measure object distance in centimeters with an HC-SR04 using a 10 us trigger pulse, pulseIn() timeout, and speed-of-sound math.",
+      "objectives": [
+        "Wire and program ultrasonic sensors safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Measure object distance in centimeters with an HC-SR04 using a 10 us trigger pulse, pulseIn() timeout, and speed-of-sound math.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering ultrasonic sensors adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Ultrasonic Sensors:",
+        "pattern": "const int TRIG=9, ECHO=10;",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Ultrasonic Sensors Sketch",
+          "description": "Working hardware pattern for ultrasonic sensors.",
+          "filename": "m12_l06.ino",
+          "code": "const int TRIG=9, ECHO=10;\nfloat distCm(){\n  digitalWrite(TRIG,LOW); delayMicroseconds(2);\n  digitalWrite(TRIG,HIGH); delayMicroseconds(10);\n  digitalWrite(TRIG,LOW);\n  unsigned long d = pulseIn(ECHO, HIGH, 30000UL);\n  return d == 0 ? -1.0f : (d * 0.0343f) / 2.0f;\n}\nvoid setup(){ pinMode(TRIG,OUTPUT); pinMode(ECHO,INPUT); Serial.begin(9600); }\nvoid loop(){ Serial.println(distCm()); delay(200); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int TRIG=9, ECHO=10;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "float distCm(){",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "digitalWrite(TRIG,LOW); delayMicroseconds(2);",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on ultrasonic sensors.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l06.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "const int TRIG=9, ECHO=10;\nfloat distCm(){\n  digitalWrite(TRIG,LOW); delayMicroseconds(2);\n  digitalWrite(TRIG,HIGH); delayMicroseconds(10);\n  digitalWrite(TRIG,LOW);\n  unsigned long d = pulseIn(ECHO, HIGH, 30000UL);\n  return d == 0 ? -1.0f : (d * 0.0343f) / 2.0f;\n}\nvoid setup(){ pinMode(TRIG,OUTPUT); pinMode(ECHO,INPUT); Serial.begin(9600); }\nvoid loop(){ Serial.println(distCm()); delay(200); }",
+        "expectedBehavior": "Demonstrates reliable ultrasonic sensors control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l06-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Ultrasonic Sensors?",
+          "options": [
+            "Measure object distance in centimeters with an HC-SR04 using a 10 us trigger pulse, pulseIn() timeout, and speed-of-sound math.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Measure object distance in centimeters with an HC-SR04 using a 10 us trigger pulse, pulseIn() timeout, and speed-of-sound math."
+        }
+      ],
+      "summary": [
+        "Measure object distance in centimeters with an HC-SR04 using a 10 us trigger pulse, pulseIn() timeout, and speed-of-sound math.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "ultrasonic-distance-meter"
+    },
+    {
+      "id": "m12-l07",
+      "title": "Servo Motors",
+      "estimatedMinutes": 12,
+      "introduction": "Position hobby servo motors accurately between safe angular limits using <Servo.h> and external power best practices.",
+      "objectives": [
+        "Wire and program servo motors safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Position hobby servo motors accurately between safe angular limits using <Servo.h> and external power best practices.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering servo motors adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Servo Motors:",
+        "pattern": "#include <Servo.h>",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Servo Motors Sketch",
+          "description": "Working hardware pattern for servo motors.",
+          "filename": "m12_l07.ino",
+          "code": "#include <Servo.h>\nServo arm;\nvoid setup() { arm.attach(9); }\nvoid loop() { arm.write(30); delay(800); arm.write(150); delay(800); }"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "#include <Servo.h>",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "Servo arm;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setup() { arm.attach(9); }",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on servo motors.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l07.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "#include <Servo.h>\nServo arm;\nvoid setup() { arm.attach(9); }\nvoid loop() { arm.write(30); delay(800); arm.write(150); delay(800); }",
+        "expectedBehavior": "Demonstrates reliable servo motors control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l07-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Servo Motors?",
+          "options": [
+            "Position hobby servo motors accurately between safe angular limits using <Servo.h> and external power best practices.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Position hobby servo motors accurately between safe angular limits using <Servo.h> and external power best practices."
+        }
+      ],
+      "summary": [
+        "Position hobby servo motors accurately between safe angular limits using <Servo.h> and external power best practices.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "servo-controller"
+    },
+    {
+      "id": "m12-l08",
+      "title": "DC Motors",
+      "estimatedMinutes": 12,
+      "introduction": "Control DC motor direction and speed safely through an H-bridge motor driver (L298N / TB6612FNG) \u2014 never directly from GPIO pins.",
+      "objectives": [
+        "Wire and program dc motors safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Control DC motor direction and speed safely through an H-bridge motor driver (L298N / TB6612FNG) \u2014 never directly from GPIO pins.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering dc motors adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for DC Motors:",
+        "pattern": "const int IN1=4, IN2=5, ENA=3;",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied DC Motors Sketch",
+          "description": "Working hardware pattern for dc motors.",
+          "filename": "m12_l08.ino",
+          "code": "const int IN1=4, IN2=5, ENA=3;\nvoid setup(){ pinMode(IN1,OUTPUT); pinMode(IN2,OUTPUT); pinMode(ENA,OUTPUT); }\nvoid loop(){\n  digitalWrite(IN1,HIGH); digitalWrite(IN2,LOW); analogWrite(ENA,180); delay(1500);\n  analogWrite(ENA,0); delay(1000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int IN1=4, IN2=5, ENA=3;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void setup(){ pinMode(IN1,OUTPUT); pinMode(IN2,OUTPUT); pinMode(ENA,OUTPUT); }",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void loop(){",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on dc motors.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l08.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "const int IN1=4, IN2=5, ENA=3;\nvoid setup(){ pinMode(IN1,OUTPUT); pinMode(IN2,OUTPUT); pinMode(ENA,OUTPUT); }\nvoid loop(){\n  digitalWrite(IN1,HIGH); digitalWrite(IN2,LOW); analogWrite(ENA,180); delay(1500);\n  analogWrite(ENA,0); delay(1000);\n}",
+        "expectedBehavior": "Demonstrates reliable dc motors control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l08-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with DC Motors?",
+          "options": [
+            "Control DC motor direction and speed safely through an H-bridge motor driver (L298N / TB6612FNG) \u2014 never directly from GPIO pins.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Control DC motor direction and speed safely through an H-bridge motor driver (L298N / TB6612FNG) \u2014 never directly from GPIO pins."
+        }
+      ],
+      "summary": [
+        "Control DC motor direction and speed safely through an H-bridge motor driver (L298N / TB6612FNG) \u2014 never directly from GPIO pins.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "obstacle-detection"
+    },
+    {
+      "id": "m12-l09",
+      "title": "Sensor-Based Decision Making",
+      "estimatedMinutes": 12,
+      "introduction": "Combine filtered sensor data, guarded compound conditions, and finite states to make reliable autonomous decisions.",
+      "objectives": [
+        "Wire and program sensor-based decision making safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Combine filtered sensor data, guarded compound conditions, and finite states to make reliable autonomous decisions.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering sensor-based decision making adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Sensor-Based Decision Making:",
+        "pattern": "enum Mode { CLEAR, SLOW, STOP };",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Sensor-Based Decision Making Sketch",
+          "description": "Working hardware pattern for sensor-based decision making.",
+          "filename": "m12_l09.ino",
+          "code": "enum Mode { CLEAR, SLOW, STOP };\nMode decide(float cm){\n  if (cm > 0 && cm < 15) return STOP;\n  if (cm > 0 && cm < 35) return SLOW;\n  return CLEAR;\n}\nvoid setup(){ Serial.begin(9600); Serial.println(decide(22)); }\nvoid loop(){}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "enum Mode { CLEAR, SLOW, STOP };",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "Mode decide(float cm){",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "if (cm > 0 && cm < 15) return STOP;",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on sensor-based decision making.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l09.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "enum Mode { CLEAR, SLOW, STOP };\nMode decide(float cm){\n  if (cm > 0 && cm < 15) return STOP;\n  if (cm > 0 && cm < 35) return SLOW;\n  return CLEAR;\n}\nvoid setup(){ Serial.begin(9600); Serial.println(decide(22)); }\nvoid loop(){}",
+        "expectedBehavior": "Demonstrates reliable sensor-based decision making control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l09-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Sensor-Based Decision Making?",
+          "options": [
+            "Combine filtered sensor data, guarded compound conditions, and finite states to make reliable autonomous decisions.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Combine filtered sensor data, guarded compound conditions, and finite states to make reliable autonomous decisions."
+        }
+      ],
+      "summary": [
+        "Combine filtered sensor data, guarded compound conditions, and finite states to make reliable autonomous decisions.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "obstacle-detection"
+    },
+    {
+      "id": "m12-l10",
+      "title": "Basic Obstacle Detection",
+      "estimatedMinutes": 12,
+      "introduction": "Integrate ultrasonic sensing, timeout guards, and modular motor-driver helpers into an autonomous obstacle-avoiding robot loop.",
+      "objectives": [
+        "Wire and program basic obstacle detection safely on Arduino.",
+        "Apply C++ functions, conditionals, and loops to real hardware.",
+        "Connect this lesson directly to its guided robotics project pathway."
+      ],
+      "conceptExplanation": [
+        "Integrate ultrasonic sensing, timeout guards, and modular motor-driver helpers into an autonomous obstacle-avoiding robot loop.",
+        "Always verify power requirements, series resistors, common GND, and logic voltage (5V vs 3.3V) before powering a breadboard circuit."
+      ],
+      "analogy": "Mastering basic obstacle detection adds another proven building block to your robotics engineering toolkit.",
+      "syntaxExplanation": {
+        "summary": "Applied Arduino C++ pattern for Basic Obstacle Detection:",
+        "pattern": "// Modular obstacle decision skeleton",
+        "rules": [
+          "Always share a common GND between power supplies and Arduino.",
+          "Use motor drivers for DC motors and resistors for LEDs."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Applied Basic Obstacle Detection Sketch",
+          "description": "Working hardware pattern for basic obstacle detection.",
+          "filename": "m12_l10.ino",
+          "code": "// Modular obstacle decision skeleton\nconst float SAFE_CM = 20.0f;\nvoid driveForward(){ Serial.println(\"FWD\"); }\nvoid stopAndTurn(){ Serial.println(\"STOP + TURN\"); }\nvoid setup(){ Serial.begin(9600); }\nvoid loop(){\n  float dist = 16.0f; // Replace with real HC-SR04 reading\n  if (dist > 0 && dist < SAFE_CM) stopAndTurn();\n  else driveForward();\n  delay(500);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "// Modular obstacle decision skeleton",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "const float SAFE_CM = 20.0f;",
+          "explanation": "Applied hardware control line."
+        },
+        {
+          "code": "void driveForward(){ Serial.println(\"FWD\"); }",
+          "explanation": "Applied hardware control line."
+        }
+      ],
+      "realWorldApplication": "Autonomous mobile robots, smart appliances, and educational robotics kits rely directly on basic obstacle detection.",
+      "commonMistakes": [
+        {
+          "mistake": "Powering motors directly from Arduino GPIO pins",
+          "fix": "GPIO pins supply only ~20 mA; always use an H-bridge driver and external battery pack."
+        },
+        {
+          "mistake": "Skipping Serial Monitor verification",
+          "fix": "Print raw sensor values first before connecting actuators."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m12_l10.ino",
+        "challengePrompt": "Adjust a threshold or timing value, download .ino, and test on your breadboard via Arduino IDE.",
+        "starterCode": "// Modular obstacle decision skeleton\nconst float SAFE_CM = 20.0f;\nvoid driveForward(){ Serial.println(\"FWD\"); }\nvoid stopAndTurn(){ Serial.println(\"STOP + TURN\"); }\nvoid setup(){ Serial.begin(9600); }\nvoid loop(){\n  float dist = 16.0f; // Replace with real HC-SR04 reading\n  if (dist > 0 && dist < SAFE_CM) stopAndTurn();\n  else driveForward();\n  delay(500);\n}",
+        "expectedBehavior": "Demonstrates reliable basic obstacle detection control on Arduino hardware."
+      },
+      "exercises": [
+        {
+          "id": "m12-l10-e1",
+          "type": "multiple-choice",
+          "prompt": "Which engineering practice is essential when building with Basic Obstacle Detection?",
+          "options": [
+            "Integrate ultrasonic sensing, timeout guards, and modular motor-driver helpers into an autonomous obstacle-avoiding robot loop.",
+            "Connect motors directly to pin 13 without a driver.",
+            "Omit resistors on all LEDs.",
+            "Never connect GND rails together."
+          ],
+          "correctIndex": 0,
+          "explanation": "Integrate ultrasonic sensing, timeout guards, and modular motor-driver helpers into an autonomous obstacle-avoiding robot loop."
+        }
+      ],
+      "summary": [
+        "Integrate ultrasonic sensing, timeout guards, and modular motor-driver helpers into an autonomous obstacle-avoiding robot loop.",
+        "Test sensing and actuation separately before combining them in a full robot."
+      ],
+      "relatedProjectId": "obstacle-detection"
+    }
+  ]
+}

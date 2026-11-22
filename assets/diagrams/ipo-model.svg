@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" fill="none" role="img" aria-label="Input Process Output Model">
+  <rect width="720" height="210" rx="12" fill="#0C1729"/>
+  <rect x="24" y="42" width="185" height="126" rx="10" fill="#13223B" stroke="#22D3EE" stroke-width="2"/>
+  <text x="116" y="76" text-anchor="middle" fill="#22D3EE" font-family="sans-serif" font-size="16" font-weight="700">INPUT</text>
+  <text x="116" y="104" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">Push Buttons</text>
+  <text x="116" y="124" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">LDR / Ultrasonic</text>
+  <text x="116" y="144" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="12">digitalRead / analogRead</text>
+
+  <path d="M214 105H258" stroke="#22D3EE" stroke-width="3" stroke-linecap="round"/>
+  <path d="M250 97L262 105L250 113" fill="none" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="267" y="42" width="186" height="126" rx="10" fill="#13223B" stroke="#2B82FF" stroke-width="2"/>
+  <text x="360" y="76" text-anchor="middle" fill="#5EA3FF" font-family="sans-serif" font-size="16" font-weight="700">PROCESS</text>
+  <text x="360" y="104" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">Variables &amp; Math</text>
+  <text x="360" y="124" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">if / else &amp; Loops</text>
+  <text x="360" y="144" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="12">MCU Decision Logic</text>
+
+  <path d="M458 105H502" stroke="#2B82FF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M494 97L506 105L494 113" fill="none" stroke="#2B82FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="511" y="42" width="185" height="126" rx="10" fill="#13223B" stroke="#4ADE80" stroke-width="2"/>
+  <text x="603" y="76" text-anchor="middle" fill="#4ADE80" font-family="sans-serif" font-size="16" font-weight="700">OUTPUT</text>
+  <text x="603" y="104" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">LEDs &amp; Buzzers</text>
+  <text x="603" y="124" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="13">Servos &amp; DC Motors</text>
+  <text x="603" y="144" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="12">digitalWrite / analogWrite</text>
+</svg>

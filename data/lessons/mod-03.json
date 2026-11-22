@@ -1,0 +1,1038 @@
+{
+  "id": "mod-03",
+  "lessons": [
+    {
+      "id": "m03-l01",
+      "title": "C++ Syntax",
+      "estimatedMinutes": 12,
+      "introduction": "Syntax is the grammar of C++: semicolons, curly braces, parentheses, and exact spelling that allow the compiler to understand your intent.",
+      "objectives": [
+        "Identify the purpose of semicolons (;), curly braces ({ }), and parentheses ( ).",
+        "Spot and fix common C++ syntax errors before uploading.",
+        "Understand case sensitivity in C++ identifiers."
+      ],
+      "conceptExplanation": [
+        "Just as English uses periods and punctuation to separate sentences, C++ uses strict symbols. A missing semicolon or unmatched brace prevents compilation.",
+        "The compiler is your friend, not your enemy: when it reports a syntax error, it tells you the exact line where grammar broke."
+      ],
+      "analogy": "Syntax is like punctuation in a contract \u2014 missing one mark can completely change the meaning or make it invalid.",
+      "syntaxExplanation": {
+        "summary": "Blocks use { }, function calls use ( ), and statements end with ;.",
+        "pattern": "void setup() {\n  Serial.begin(9600);\n}",
+        "rules": [
+          "Every opening { must have a matching closing }.",
+          "Every opening ( must have a matching closing ).",
+          "C++ is strictly case-sensitive."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Clean C++ Syntax Structure",
+          "description": "A valid minimal sketch showing matched braces, parentheses, and semicolons.",
+          "filename": "m03_syntax.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  Serial.println(\"Syntax OK!\");\n}\n\nvoid loop() {\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "void setup() {",
+          "explanation": "Function signature with () and opening block brace {."
+        },
+        {
+          "code": "Serial.begin(9600);",
+          "explanation": "Function call with argument 9600 ending in semicolon ;."
+        },
+        {
+          "code": "}",
+          "explanation": "Closes the setup() block cleanly."
+        }
+      ],
+      "realWorldApplication": "Every Arduino library and robotics firmware file relies on strict C++ syntax to compile cleanly across different microcontrollers.",
+      "commonMistakes": [
+        {
+          "mistake": "Forgetting a closing brace }",
+          "fix": "Use Arduino IDE's Auto Format (Ctrl+T / Cmd+T) to spot mismatched braces instantly."
+        },
+        {
+          "mistake": "Using smart/curly quotes instead of straight quotes",
+          "fix": "Always use standard straight double quotes \" \" for strings."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_syntax.ino",
+        "challengePrompt": "Fix the intentional syntax error (missing semicolon) in the starter sketch below.",
+        "starterCode": "void setup() {\n  Serial.begin(9600)\n  Serial.println(\"Fixed!\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Once you add ';' after Serial.begin(9600), the sketch verifies cleanly in Arduino IDE and prints 'Fixed!'."
+      },
+      "exercises": [
+        {
+          "id": "m03-l01-e1",
+          "type": "find-error",
+          "prompt": "Spot the syntax error in this snippet.",
+          "codeSnippet": "void setup() {\n  pinMode(13, OUTPUT)\n  digitalWrite(13, HIGH);\n}",
+          "options": [
+            "Missing semicolon at the end of pinMode(13, OUTPUT)",
+            "13 cannot be an OUTPUT",
+            "HIGH should be lowercase",
+            "void setup() needs a semicolon"
+          ],
+          "correctIndex": 0,
+          "explanation": "Statements in C++ must end with a semicolon (;)."
+        },
+        {
+          "id": "m03-l01-e2",
+          "type": "multiple-choice",
+          "prompt": "Are ledPin and LEDPIN considered the same variable in C++?",
+          "options": [
+            "No \u2014 C++ is strictly case-sensitive.",
+            "Yes \u2014 capitalization is ignored.",
+            "Only inside setup().",
+            "Only on Arduino Uno."
+          ],
+          "correctIndex": 0,
+          "explanation": "C++ treats uppercase and lowercase letters as distinct characters."
+        }
+      ],
+      "summary": [
+        "Statements end with semicolons (;); blocks are enclosed in braces ({ }).",
+        "C++ is case-sensitive.",
+        "Use Arduino IDE Auto Format (Ctrl+T) to keep braces aligned."
+      ]
+    },
+    {
+      "id": "m03-l02",
+      "title": "Statements",
+      "estimatedMinutes": 12,
+      "introduction": "A statement is a single complete instruction executed by the microcontroller.",
+      "objectives": [
+        "Recognize declaration, assignment, and function-call statements.",
+        "Understand compound statements (blocks) enclosed in curly braces.",
+        "Trace multi-statement execution accurately."
+      ],
+      "conceptExplanation": [
+        "Programs are built out of statements. A declaration statement introduces a variable, an assignment statement updates a value, and a function-call statement tells hardware or helper code to perform an action.",
+        "Multiple statements grouped inside { } form a compound statement (block), which lets if statements, loops, and functions execute several instructions together."
+      ],
+      "analogy": "Each statement is a single sentence in an instruction manual; a block { } is a paragraph.",
+      "syntaxExplanation": {
+        "summary": "One statement per line keeps code clear and easy to debug.",
+        "pattern": "int count = 0;        // Declaration statement\ncount = count + 1;    // Assignment statement\nSerial.println(count);// Function-call statement",
+        "rules": [
+          "End simple statements with ;",
+          "Do not put a semicolon right after if (...) or void setup()."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Three Statement Types in Action",
+          "description": "Shows declaration, assignment, and function call statements working together.",
+          "filename": "m03_statements.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int speed = 50;\n  speed = speed + 25;\n  Serial.println(speed);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int speed = 50;",
+          "explanation": "Declaration + initialization statement."
+        },
+        {
+          "code": "speed = speed + 25;",
+          "explanation": "Assignment statement updating speed to 75."
+        },
+        {
+          "code": "Serial.println(speed);",
+          "explanation": "Function-call statement printing 75."
+        }
+      ],
+      "realWorldApplication": "Sensor calibration routines execute ordered assignment statements to subtract zero-offset errors before driving actuators.",
+      "commonMistakes": [
+        {
+          "mistake": "Placing a semicolon right after if (x > 5);",
+          "fix": "An extra semicolon creates an empty statement, detaching the { } block from the if condition!"
+        },
+        {
+          "mistake": "Cramming 5 statements onto one line",
+          "fix": "Write one statement per line for readability."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_statements.ino",
+        "challengePrompt": "Add a statement that multiplies speed by 2 before printing.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int speed = 50;\n  speed = speed + 25;\n  Serial.println(speed);\n}\nvoid loop() {}",
+        "expectedBehavior": "Multiplying speed by 2 prints 150 to the Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m03-l02-e1",
+          "type": "find-error",
+          "prompt": "Why does this LED always turn on even when x is 0?",
+          "codeSnippet": "int x = 0;\nif (x > 10);\n{\n  digitalWrite(13, HIGH);\n}",
+          "options": [
+            "The stray semicolon after if (x > 10); terminates the if early.",
+            "digitalWrite cannot be inside braces.",
+            "x cannot start at 0.",
+            "HIGH should be 10."
+          ],
+          "correctIndex": 0,
+          "explanation": "A semicolon directly after if (...) creates an empty statement, so the following { } block runs unconditionally."
+        },
+        {
+          "id": "m03-l02-e2",
+          "type": "fill-blank",
+          "prompt": "Complete the assignment statement to increase score by 10.",
+          "template": "score = score ___1___ 10;",
+          "answers": [
+            "+"
+          ],
+          "explanation": "score = score + 10; adds 10 to the current value and stores the result back in score."
+        }
+      ],
+      "summary": [
+        "Statements are individual executable instructions ending in ';'.",
+        "Braces { } group statements into blocks.",
+        "Never place a stray semicolon immediately after an if() header."
+      ]
+    },
+    {
+      "id": "m03-l03",
+      "title": "Comments",
+      "estimatedMinutes": 12,
+      "introduction": "Comments let you explain WHY your code exists, document wiring connections, and temporarily disable lines during debugging.",
+      "objectives": [
+        "Write single-line (//) and multi-line (/* ... */) comments.",
+        "Explain why good comments describe intent and wiring rather than restating obvious syntax.",
+        "Use comments safely to isolate lines while debugging."
+      ],
+      "conceptExplanation": [
+        "C++ supports two comment styles: // comments out the rest of a single line, while /* ... */ comments out multiple lines.",
+        "Write comments that help your future self: pin wiring notes, physical units (cm, ms, mV), and why a specific threshold was chosen."
+      ],
+      "analogy": "Comments are sticky notes attached to a blueprint \u2014 they guide engineers without altering the final machine.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Comments:",
+        "pattern": "// Single-line comment\n/* Multi-line\n   header comment */",
+        "rules": [
+          "Comments are removed by the compiler and use 0 bytes of Flash or SRAM.",
+          "Never nest /* /* ... */ */ multi-line comments."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Documenting Wiring & Units with Comments",
+          "description": "Shows effective engineering comments on an ultrasonic sensor pin map.",
+          "filename": "m03_comments.ino",
+          "code": "/*\n * Ultrasonic Sensor Pin Map (5V Uno R3)\n * TRIG -> D9, ECHO -> D10\n */\nconst int TRIG_PIN = 9;   // Sends 10 us pulse\nconst int ECHO_PIN = 10;  // Measures return pulse\n\nvoid setup() {\n  pinMode(TRIG_PIN, OUTPUT);\n  pinMode(ECHO_PIN, INPUT);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "/* ... */",
+          "explanation": "Multi-line header documenting board voltage and wiring."
+        },
+        {
+          "code": "// Sends 10 us pulse",
+          "explanation": "Inline comment specifying exact physical timing."
+        }
+      ],
+      "realWorldApplication": "Clear wiring comments at the top of a sketch let you rebuild the breadboard circuit months later without guessing.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing useless comments like 'i++; // add 1 to i'",
+          "fix": "Explain WHY, units, or wiring instead of repeating obvious C++ syntax."
+        },
+        {
+          "mistake": "Forgetting to close a /* multi-line comment",
+          "fix": "Every /* must have a matching */ or the compiler ignores the rest of your file."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_comments.ino",
+        "challengePrompt": "Add a single-line comment explaining what baud rate 9600 means.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  Serial.println(\"Ready\");\n}\nvoid loop() {}",
+        "expectedBehavior": "Adding comments keeps hardware behavior identical while making the sketch clearer to read."
+      },
+      "exercises": [
+        {
+          "id": "m03-l03-e1",
+          "type": "select-code",
+          "prompt": "Which of the following is a valid C++ multi-line comment?",
+          "options": [
+            "/* Motor driver pin map */",
+            "<!-- Motor driver -->",
+            "# Motor driver",
+            "-- Motor driver --"
+          ],
+          "correctIndex": 0,
+          "explanation": "C++ uses /* ... */ for multi-line comments and // for single-line comments."
+        },
+        {
+          "id": "m03-l03-e2",
+          "type": "multiple-choice",
+          "prompt": "What is the best use of a comment in an Arduino sketch?",
+          "options": [
+            "Documenting pin wiring, physical units (ms, cm), and why a threshold was chosen.",
+            "Explaining what every semicolon does.",
+            "Storing sensor readings at runtime.",
+            "Replacing const int declarations."
+          ],
+          "correctIndex": 0,
+          "explanation": "Good comments capture physical context and design reasoning."
+        }
+      ],
+      "summary": [
+        "Use // for single-line comments and /* ... */ for multi-line blocks.",
+        "Document wiring, units, and design intent.",
+        "Comments use zero memory on the Arduino."
+      ]
+    },
+    {
+      "id": "m03-l04",
+      "title": "Variables",
+      "estimatedMinutes": 12,
+      "introduction": "A variable is a named container in SRAM that stores a value your program can read and update while running.",
+      "objectives": [
+        "Declare, initialize, and update variables in C++.",
+        "Follow valid C++ variable naming rules.",
+        "Distinguish variable declaration from variable assignment."
+      ],
+      "conceptExplanation": [
+        "Sensors change constantly: room brightness rises and falls, robot distance shrinks as you approach a wall, and timers tick upward. Variables give your program a named memory slot in SRAM to hold those changing values.",
+        "Always initialize a variable when you create it (e.g., int count = 0;) so it never starts with unpredictable garbage data."
+      ],
+      "analogy": "A variable is like a labeled storage bin on a workbench: the label stays the same, while the contents inside can be swapped anytime.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Variables:",
+        "pattern": "dataType variableName = initialValue;",
+        "rules": [
+          "Names can contain letters, digits, and underscores, but cannot start with a digit.",
+          "No spaces or C++ keywords (like int or if) allowed in names.",
+          "Use camelCase for variables (e.g., sensorReading, motorSpeed)."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Tracking a Live Counter Variable",
+          "description": "Increments a counter variable each second and prints it to Serial Monitor.",
+          "filename": "m03_variables.ino",
+          "code": "int blinkCount = 0;\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  blinkCount = blinkCount + 1;\n  Serial.print(\"Cycle: \");\n  Serial.println(blinkCount);\n  delay(1000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int blinkCount = 0;",
+          "explanation": "Creates an integer variable initialized to 0."
+        },
+        {
+          "code": "blinkCount = blinkCount + 1;",
+          "explanation": "Reads the current value, adds 1, and stores the result back."
+        },
+        {
+          "code": "Serial.println(blinkCount);",
+          "explanation": "Prints the updated value each second."
+        }
+      ],
+      "realWorldApplication": "Odometry counters on wheeled robots use variables to count encoder ticks and calculate distance traveled.",
+      "commonMistakes": [
+        {
+          "mistake": "Re-declaring the same variable type inside loop()",
+          "fix": "Write 'blinkCount = 5;' to update an existing variable, NOT 'int blinkCount = 5;'."
+        },
+        {
+          "mistake": "Starting a variable name with a number like 1stSensor",
+          "fix": "Start names with a letter: firstSensor or sensor1."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_variables.ino",
+        "challengePrompt": "Change blinkCount to increase by 2 each cycle instead of 1.",
+        "starterCode": "int blinkCount = 0;\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  blinkCount = blinkCount + 1;\n  Serial.println(blinkCount);\n  delay(1000);\n}",
+        "expectedBehavior": "Serial Monitor prints 2, 4, 6, 8... once per second."
+      },
+      "exercises": [
+        {
+          "id": "m03-l04-e1",
+          "type": "multiple-choice",
+          "prompt": "Which variable name is VALID in C++?",
+          "options": [
+            "sensor_1_val",
+            "1st_sensor",
+            "motor speed",
+            "void"
+          ],
+          "correctIndex": 0,
+          "explanation": "Variable names cannot start with a digit, contain spaces, or match reserved keywords."
+        },
+        {
+          "id": "m03-l04-e2",
+          "type": "predict-behavior",
+          "prompt": "What value is printed?",
+          "codeSnippet": "int score = 10;\nscore = 25;\nscore = score + 5;\nSerial.println(score);",
+          "options": [
+            "30",
+            "40",
+            "25",
+            "15"
+          ],
+          "correctIndex": 0,
+          "explanation": "score is overwritten with 25, then increased by 5 to become 30."
+        }
+      ],
+      "summary": [
+        "Variables store changeable values in SRAM.",
+        "Always initialize variables with a starting value.",
+        "Use clear camelCase names following C++ identifier rules."
+      ],
+      "relatedProjectId": "led-blinking"
+    },
+    {
+      "id": "m03-l05",
+      "title": "Data Types",
+      "estimatedMinutes": 12,
+      "introduction": "Choosing the right C++ data type saves precious microcontroller SRAM and prevents integer overflow bugs.",
+      "objectives": [
+        "Compare int, unsigned long, float, bool, and char.",
+        "Explain why millis() requires unsigned long instead of int.",
+        "Select the smallest safe data type for sensor and timing data."
+      ],
+      "conceptExplanation": [
+        "Microcontrollers have limited memory \u2014 an Arduino Uno R3 has only 2,048 bytes of SRAM! Every data type uses a specific number of bytes and holds a specific range of values.",
+        "On 8-bit AVR boards (Uno R3/Nano Classic/Mega), int is 16-bit (-32,768 to 32,767). That means an int overflows after just 32.7 seconds if you store milliseconds in it! Always use unsigned long (32-bit, up to ~49.7 days) for millis() timestamps."
+      ],
+      "analogy": "Data types are like shipping boxes: you wouldn't ship a single screw in a refrigerator crate, and you can't fit a refrigerator in an envelope.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Data Types:",
+        "pattern": "bool (true/false) | char ('A') | int (whole numbers) | unsigned long (timers) | float (decimals)",
+        "rules": [
+          "int on Uno R3 is 16-bit (-32,768 to 32,767); on Uno R4 & ESP32 it is 32-bit.",
+          "Use unsigned long for millis() and pulseIn() durations.",
+          "Use float for decimals like distance in cm or temperature in Celsius."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Choosing Appropriate Arduino Data Types",
+          "description": "Demonstrates bool, int, unsigned long, and float side by side.",
+          "filename": "m03_data_types.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  bool motorReady = true;\n  int rawAdc = 612;\n  unsigned long startTimeMs = millis();\n  float distanceCm = 24.75;\n  Serial.println(distanceCm);\n  Serial.println(startTimeMs);\n  Serial.println(motorReady);\n  Serial.println(rawAdc);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "bool motorReady = true;",
+          "explanation": "1 byte storing true or false."
+        },
+        {
+          "code": "unsigned long startTimeMs = millis();",
+          "explanation": "4 bytes storing positive millisecond timestamps safely."
+        },
+        {
+          "code": "float distanceCm = 24.75;",
+          "explanation": "4 bytes storing decimal measurements."
+        }
+      ],
+      "realWorldApplication": "Preventing int overflow in timers is critical for weather stations and robots that run for hours or days without resetting.",
+      "commonMistakes": [
+        {
+          "mistake": "Storing millis() in an int",
+          "fix": "Always declare timing variables as unsigned long."
+        },
+        {
+          "mistake": "Using float for simple pin numbers or counters",
+          "fix": "Integers are faster and use less Flash/CPU on 8-bit boards."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_data_types.ino",
+        "challengePrompt": "Add a char variable named grade = 'A'; and print it to Serial Monitor.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  float voltage = 4.95;\n  unsigned long nowMs = millis();\n  Serial.println(voltage);\n  Serial.println(nowMs);\n}\nvoid loop() {}",
+        "expectedBehavior": "Serial Monitor prints 4.95, the startup millisecond count, and the character A."
+      },
+      "exercises": [
+        {
+          "id": "m03-l05-e1",
+          "type": "multiple-choice",
+          "prompt": "Which data type MUST you use to store values returned by millis()?",
+          "options": [
+            "unsigned long",
+            "int",
+            "bool",
+            "char"
+          ],
+          "correctIndex": 0,
+          "explanation": "millis() returns an unsigned long (32-bit unsigned integer); using int overflows in ~32.7 seconds on Uno R3."
+        },
+        {
+          "id": "m03-l05-e2",
+          "type": "fill-blank",
+          "prompt": "Declare a decimal variable named tempC initialized to 23.5.",
+          "template": "___1___ tempC = 23.5;",
+          "answers": [
+            "float",
+            "double"
+          ],
+          "explanation": "float stores floating-point decimal numbers in Arduino C++."
+        }
+      ],
+      "summary": [
+        "Every C++ variable has a fixed data type and memory size.",
+        "Use unsigned long for millis() and pulseIn() timing.",
+        "Use float for decimals, bool for true/false, and int for whole numbers."
+      ],
+      "relatedProjectId": "ultrasonic-distance-meter"
+    },
+    {
+      "id": "m03-l06",
+      "title": "Constants",
+      "estimatedMinutes": 12,
+      "introduction": "Constants store fixed values like pin numbers and thresholds so your code cannot accidentally overwrite them.",
+      "objectives": [
+        "Declare read-only constants using const.",
+        "Explain why const int is preferred over #define for pin numbers.",
+        "Eliminate 'magic numbers' from Arduino sketches."
+      ],
+      "conceptExplanation": [
+        "If a motor pin is wired to Digital Pin 5, that number never changes while the robot runs. Marking it const tells the compiler to forbid accidental modification \u2014 and often lets the compiler optimize away SRAM usage completely.",
+        "Using ALL_CAPS_WITH_UNDERSCORES for constants (like LED_PIN or SAFE_DISTANCE_CM) lets anyone spot fixed configuration values immediately."
+      ],
+      "analogy": "A constant is like engraving a number into metal instead of writing it on a whiteboard \u2014 you can read it forever, but nobody can smudge it.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Constants:",
+        "pattern": "const dataType CONSTANT_NAME = value;",
+        "rules": [
+          "A const variable must be initialized when declared.",
+          "Trying to reassign a const causes a helpful compile-time error.",
+          "Prefer const over #define because const respects C++ data types and scope."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Replacing Magic Numbers with Constants",
+          "description": "Uses named constants for pins and timing thresholds.",
+          "filename": "m03_constants.ino",
+          "code": "const int LED_PIN = 8;\nconst int BLINK_INTERVAL_MS = 300;\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(LED_PIN, HIGH);\n  delay(BLINK_INTERVAL_MS);\n  digitalWrite(LED_PIN, LOW);\n  delay(BLINK_INTERVAL_MS);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "const int LED_PIN = 8;",
+          "explanation": "Locks LED_PIN to 8; changing the wire later only requires editing one line."
+        },
+        {
+          "code": "const int BLINK_INTERVAL_MS = 300;",
+          "explanation": "Clarifies both purpose and unit (milliseconds)."
+        }
+      ],
+      "realWorldApplication": "When migrating a sketch from Arduino Uno to Mega or ESP32, having all pins in a const block at the top makes re-mapping effortless.",
+      "commonMistakes": [
+        {
+          "mistake": "Trying to change a const inside loop()",
+          "fix": "Remove const only if the value genuinely needs to change at runtime."
+        },
+        {
+          "mistake": "Scattering raw numbers like 8 and 300 across 15 lines",
+          "fix": "Centralize configuration values as named constants at the top."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_constants.ino",
+        "challengePrompt": "Change BLINK_INTERVAL_MS to 150 in one place to speed up both delays.",
+        "starterCode": "const int LED_PIN = 8;\nconst int BLINK_INTERVAL_MS = 300;\nvoid setup() { pinMode(LED_PIN, OUTPUT); }\nvoid loop() {\n  digitalWrite(LED_PIN, HIGH); delay(BLINK_INTERVAL_MS);\n  digitalWrite(LED_PIN, LOW); delay(BLINK_INTERVAL_MS);\n}",
+        "expectedBehavior": "Editing the single constant updates both ON and OFF timing cleanly."
+      },
+      "exercises": [
+        {
+          "id": "m03-l06-e1",
+          "type": "find-error",
+          "prompt": "Why will this sketch fail to compile?",
+          "codeSnippet": "const int MAX_SPEED = 200;\nvoid setup() {\n  MAX_SPEED = 255;\n}",
+          "options": [
+            "You cannot assign a new value to a const variable.",
+            "255 is not an integer.",
+            "setup() cannot read MAX_SPEED.",
+            "const must be written inside loop()."
+          ],
+          "correctIndex": 0,
+          "explanation": "const marks a value read-only; the compiler blocks reassignment."
+        },
+        {
+          "id": "m03-l06-e2",
+          "type": "write-code",
+          "prompt": "Declare a constant float named MAX_VOLTS equal to 5.0.",
+          "starter": "",
+          "requiredTokens": [
+            "const",
+            "float",
+            "MAX_VOLTS",
+            "=",
+            "5.0",
+            ";"
+          ],
+          "sampleSolution": "const float MAX_VOLTS = 5.0;",
+          "explanation": "const float MAX_VOLTS = 5.0; creates a typed read-only constant."
+        }
+      ],
+      "summary": [
+        "Use const for pin numbers, thresholds, and fixed physical constants.",
+        "Constants prevent accidental overwrites and eliminate magic numbers.",
+        "Name constants in ALL_CAPS for immediate clarity."
+      ]
+    },
+    {
+      "id": "m03-l07",
+      "title": "Operators",
+      "estimatedMinutes": 12,
+      "introduction": "Operators perform actions on variables and values \u2014 including assignment (=), arithmetic (+, -, *, /, %), and compound shorthands (+=, ++).",
+      "objectives": [
+        "Use assignment (=) and compound assignment (+=, -=) cleanly.",
+        "Understand increment (++) and decrement (--).",
+        "Apply the modulo (%) operator for cycling patterns."
+      ],
+      "conceptExplanation": [
+        "Operators are the verbs of C++. You already used the assignment operator (=) to store values. Compound operators like count += 5; and count++; make loops and counters concise and idiomatic.",
+        "The modulo operator (%) returns the remainder of integer division (for example, 7 % 3 is 1). Robotics programmers love % for wrapping an index back to 0 when cycling through LEDs or menu modes."
+      ],
+      "analogy": "Modulo (%) is like a 12-hour clock: after 12, it wraps cleanly back around instead of counting to 13.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Operators:",
+        "pattern": "x = 10;  x += 5;  // x is 15\nx++;              // x is 16\nint r = 10 % 3;   // r is 1",
+        "rules": [
+          "= assigns a value; == compares two values (never mix them up!).",
+          "++ adds 1; -- subtracts 1.",
+          "% only works on integer types, not float."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Cycling Modes with Modulo (%)",
+          "description": "Cycles a mode index 0 -> 1 -> 2 -> 0 cleanly using %.",
+          "filename": "m03_operators.ino",
+          "code": "int mode = 0;\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  Serial.print(\"Active mode: \");\n  Serial.println(mode);\n  mode = (mode + 1) % 3; // Wraps 0, 1, 2, 0...\n  delay(1000);\n}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "mode = (mode + 1) % 3;",
+          "explanation": "Increments mode and wraps 3 cleanly back to 0."
+        }
+      ],
+      "realWorldApplication": "Multi-mode flashlights and robot state selectors use modulo (%) to cycle through modes with a single push button.",
+      "commonMistakes": [
+        {
+          "mistake": "Using = instead of == in an if statement",
+          "fix": "Single = assigns! Use == to check equality."
+        },
+        {
+          "mistake": "Using % on float variables",
+          "fix": "Modulo works only with integers (int, long, byte)."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_operators.ino",
+        "challengePrompt": "Change % 3 to % 4 so the mode cycles 0, 1, 2, 3, 0.",
+        "starterCode": "int mode = 0;\nvoid setup() { Serial.begin(9600); }\nvoid loop() {\n  Serial.println(mode);\n  mode = (mode + 1) % 3;\n  delay(1000);\n}",
+        "expectedBehavior": "Serial Monitor prints 0, 1, 2, 3 and repeats back to 0."
+      },
+      "exercises": [
+        {
+          "id": "m03-l07-e1",
+          "type": "predict-behavior",
+          "prompt": "What does 11 % 4 evaluate to?",
+          "options": [
+            "3",
+            "2",
+            "1",
+            "0"
+          ],
+          "correctIndex": 0,
+          "explanation": "4 goes into 11 twice (8) with a remainder of 3."
+        },
+        {
+          "id": "m03-l07-e2",
+          "type": "fill-blank",
+          "prompt": "Use the shorthand increment operator to add 1 to count.",
+          "template": "count___1___;",
+          "answers": [
+            "++"
+          ],
+          "explanation": "count++; increments count by 1."
+        }
+      ],
+      "summary": [
+        "Assignment (=) stores values; compound operators (+=, ++) update them concisely.",
+        "Modulo (%) returns integer remainder and is ideal for wrap-around cycles.",
+        "Never confuse assignment (=) with equality comparison (==)."
+      ]
+    },
+    {
+      "id": "m03-l08",
+      "title": "Arithmetic Expressions",
+      "estimatedMinutes": 12,
+      "introduction": "Arithmetic expressions combine numbers, variables, and math operators to convert raw sensor numbers into real-world engineering units.",
+      "objectives": [
+        "Apply C++ operator precedence (parentheses, *, /, %, then +, -).",
+        "Avoid integer division truncation when computing decimals.",
+        "Convert raw ADC readings into voltage."
+      ],
+      "conceptExplanation": [
+        "C++ follows standard math precedence: multiplication and division happen before addition and subtraction, and parentheses ( ) always run first.",
+        "Watch out for integer division! In C++, 5 / 2 evaluates to 2 (the .5 is chopped off) because both numbers are integers. Writing 5.0 / 2.0 produces 2.5."
+      ],
+      "analogy": "Integer division is like counting how many full 2-liter bottles you can fill from 5 liters of water: you get 2 full bottles, and the leftover half is ignored unless you use decimal floats.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Arithmetic Expressions:",
+        "pattern": "float volts = (rawAdc * 5.0) / 1023.0;",
+        "rules": [
+          "Use parentheses to make order of operations unmistakable.",
+          "Include .0 on constants (e.g., 5.0, 1023.0) when you want a decimal result."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Converting Raw ADC to Voltage",
+          "description": "Converts a 10-bit Uno R3 analog reading into volts.",
+          "filename": "m03_arithmetic.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int rawAdc = 512;\n  float volts = (rawAdc * 5.0) / 1023.0;\n  Serial.print(\"Voltage: \");\n  Serial.println(volts, 2);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "int rawAdc = 512;",
+          "explanation": "Mid-scale 10-bit ADC reading."
+        },
+        {
+          "code": "(rawAdc * 5.0) / 1023.0",
+          "explanation": "Uses 5.0 and 1023.0 so C++ performs floating-point division (~2.50 V)."
+        },
+        {
+          "code": "Serial.println(volts, 2);",
+          "explanation": "Prints the float rounded to 2 decimal places."
+        }
+      ],
+      "realWorldApplication": "Ultrasonic distance meters, battery voltage monitors, and thermistor thermometers all rely on accurate floating-point arithmetic expressions.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing 5 / 1023 instead of 5.0 / 1023.0",
+          "fix": "Integer 5 / 1023 evaluates to 0! Always include .0 for floating-point math."
+        },
+        {
+          "mistake": "Skipping parentheses in complex formulas",
+          "fix": "Parentheses eliminate precedence bugs and improve clarity."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_arithmetic.ino",
+        "challengePrompt": "Change 5.0 to 3.3 and 1023.0 to 4095.0 to match an ESP32 12-bit ADC formula.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int rawAdc = 512;\n  float volts = (rawAdc * 5.0) / 1023.0;\n  Serial.println(volts, 2);\n}\nvoid loop() {}",
+        "expectedBehavior": "Prints the scaled voltage with two decimal places in Serial Monitor."
+      },
+      "exercises": [
+        {
+          "id": "m03-l08-e1",
+          "type": "predict-behavior",
+          "prompt": "What value is stored in result?",
+          "codeSnippet": "int result = 7 / 2;",
+          "options": [
+            "3",
+            "3.5",
+            "4",
+            "0"
+          ],
+          "correctIndex": 0,
+          "explanation": "Both 7 and 2 are integers, so C++ performs integer division and drops the fractional remainder."
+        },
+        {
+          "id": "m03-l08-e2",
+          "type": "select-code",
+          "prompt": "Which expression computes the average of a and b accurately as a float?",
+          "options": [
+            "float avg = (a + b) / 2.0;",
+            "float avg = a + b / 2;",
+            "float avg = (a + b) / 2;",
+            "float avg = a / 2 + b;"
+          ],
+          "correctIndex": 0,
+          "explanation": "Parentheses ensure addition happens first, and 2.0 forces floating-point division."
+        }
+      ],
+      "summary": [
+        "Parentheses control arithmetic precedence cleanly.",
+        "Integer division truncates decimals \u2014 use .0 literals for floating-point results.",
+        "Use arithmetic expressions to turn raw ADC values into physical units."
+      ]
+    },
+    {
+      "id": "m03-l09",
+      "title": "Comparison Operators",
+      "estimatedMinutes": 12,
+      "introduction": "Comparison operators compare two values and produce a boolean result: true or false.",
+      "objectives": [
+        "Use all six comparison operators: ==, !=, <, <=, >, >=.",
+        "Explain the critical difference between = and ==.",
+        "Write sensor threshold comparisons accurately."
+      ],
+      "conceptExplanation": [
+        "Every decision your Arduino makes starts with a comparison: Is distance less than 20 cm? Is temperature greater than or equal to 30 C? Is the button state equal to LOW?",
+        "All six comparison operators evaluate to a bool (true or false), which feeds directly into if statements and loops."
+      ],
+      "analogy": "Comparison operators are like a balance scale that answers a single yes-or-no question about two weights.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Comparison Operators:",
+        "pattern": "== (equal) | != (not equal) | < | <= | > | >=",
+        "rules": [
+          "Always use DOUBLE equals (==) to test equality.",
+          "!= means 'not equal to'."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Comparing Sensor Readings",
+          "description": "Evaluates threshold comparisons and prints boolean results (1 = true, 0 = false).",
+          "filename": "m03_comparisons.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int lightVal = 320;\n  bool isDark = (lightVal < 400);\n  bool isExactZero = (lightVal == 0);\n  Serial.println(isDark);      // prints 1 (true)\n  Serial.println(isExactZero); // prints 0 (false)\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "lightVal < 400",
+          "explanation": "Evaluates to true because 320 is less than 400."
+        },
+        {
+          "code": "lightVal == 0",
+          "explanation": "Tests equality without changing lightVal."
+        }
+      ],
+      "realWorldApplication": "Thermostats, automatic streetlights, and obstacle detectors all depend on comparison operators to react to sensor thresholds.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing if (x = 5) instead of if (x == 5)",
+          "fix": "Single = overwrites x with 5 and evaluates true! Always double-check ==."
+        },
+        {
+          "mistake": "Off-by-one boundary (< vs <=)",
+          "fix": "Decide explicitly whether the exact threshold value should trigger the action."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_comparisons.ino",
+        "challengePrompt": "Change lightVal to 400 and test the difference between < 400 and <= 400.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int lightVal = 320;\n  Serial.println(lightVal < 400);\n}\nvoid loop() {}",
+        "expectedBehavior": "At 400, lightVal < 400 prints 0 (false), while lightVal <= 400 prints 1 (true)."
+      },
+      "exercises": [
+        {
+          "id": "m03-l09-e1",
+          "type": "select-code",
+          "prompt": "Which operator tests whether two values are NOT equal?",
+          "options": [
+            "!=",
+            "<>",
+            "==",
+            "=!"
+          ],
+          "correctIndex": 0,
+          "explanation": "In C++, != checks inequality."
+        },
+        {
+          "id": "m03-l09-e2",
+          "type": "find-error",
+          "prompt": "What bug is hidden in this if condition?",
+          "codeSnippet": "if (buttonState = LOW) {\n  digitalWrite(13, HIGH);\n}",
+          "options": [
+            "It uses assignment (=) instead of equality comparison (==).",
+            "LOW cannot be compared to buttonState.",
+            "13 must be an INPUT.",
+            "Missing semicolon after LOW."
+          ],
+          "correctIndex": 0,
+          "explanation": "Single = assigns LOW (0) to buttonState instead of comparing them."
+        }
+      ],
+      "summary": [
+        "Six comparison operators (==, !=, <, <=, >, >=) return true or false.",
+        "Never confuse = (assignment) with == (equality).",
+        "Check boundary conditions (< vs <=) carefully."
+      ],
+      "relatedProjectId": "automatic-streetlight"
+    },
+    {
+      "id": "m03-l10",
+      "title": "Logical Operators",
+      "estimatedMinutes": 12,
+      "introduction": "Logical operators combine or invert boolean conditions: AND (&&), OR (||), and NOT (!).",
+      "objectives": [
+        "Build compound conditions using &&, ||, and !.",
+        "Evaluate truth tables for AND, OR, and NOT.",
+        "Use ! to toggle boolean states cleanly."
+      ],
+      "conceptExplanation": [
+        "Real robots rarely make decisions from just one sensor. Logical AND (&&) is true only when BOTH sides are true. Logical OR (||) is true when AT LEAST ONE side is true. Logical NOT (!) flips true to false and false to true.",
+        "You will also see ! used constantly to toggle an LED: ledState = !ledState;."
+      ],
+      "analogy": "AND (&&) is two switches wired in series \u2014 both must be closed for current to flow. OR (||) is two switches wired in parallel \u2014 closing either one lights the bulb.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Logical Operators:",
+        "pattern": "condA && condB   // AND\ncondA || condB   // OR\n!condA           // NOT",
+        "rules": [
+          "Use double && and double || for logical tests (single & and | are bitwise operators).",
+          "Parenthesize mixed && and || expressions for clarity."
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Safe Range Check with &&",
+          "description": "Verifies a sensor value sits inside a valid operating window.",
+          "filename": "m03_logical.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int tempC = 24;\n  bool inComfortZone = (tempC >= 18 && tempC <= 26);\n  Serial.println(inComfortZone ? \"Comfort OK\" : \"Adjust HVAC\");\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "(tempC >= 18 && tempC <= 26)",
+          "explanation": "Both lower and upper bounds must be satisfied simultaneously."
+        }
+      ],
+      "realWorldApplication": "Battery chargers use && to allow charging only when voltage is below max AND battery temperature is within safe limits.",
+      "commonMistakes": [
+        {
+          "mistake": "Writing 18 <= tempC <= 26 (invalid chained math in C++)",
+          "fix": "Always split range checks into two comparisons joined by &&: (tempC >= 18 && tempC <= 26)."
+        },
+        {
+          "mistake": "Using single & instead of &&",
+          "fix": "Use && for boolean logic."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_logical.ino",
+        "challengePrompt": "Change tempC to 30 and observe the output.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int tempC = 24;\n  if (tempC >= 18 && tempC <= 26) Serial.println(\"OK\");\n  else Serial.println(\"OUT OF RANGE\");\n}\nvoid loop() {}",
+        "expectedBehavior": "At 30, Serial Monitor prints OUT OF RANGE."
+      },
+      "exercises": [
+        {
+          "id": "m03-l10-e1",
+          "type": "select-code",
+          "prompt": "How do you correctly check if x is between 10 and 20 inclusive in C++?",
+          "options": [
+            "x >= 10 && x <= 20",
+            "10 <= x <= 20",
+            "x >= 10 || x <= 20",
+            "x == 10 && 20"
+          ],
+          "correctIndex": 0,
+          "explanation": "C++ requires two separate comparisons connected by &&."
+        },
+        {
+          "id": "m03-l10-e2",
+          "type": "predict-behavior",
+          "prompt": "If bool active = false; what is !active?",
+          "options": [
+            "true",
+            "false",
+            "0",
+            "Compile error"
+          ],
+          "correctIndex": 0,
+          "explanation": "The NOT operator (!) inverts false to true."
+        }
+      ],
+      "summary": [
+        "&& requires both conditions true; || requires at least one true; ! inverts a boolean.",
+        "Always write range checks as (x >= min && x <= max).",
+        "Use !flag to toggle boolean states cleanly."
+      ]
+    },
+    {
+      "id": "m03-l11",
+      "title": "Type Conversion",
+      "estimatedMinutes": 12,
+      "introduction": "Type conversion (casting) explicitly converts a value from one C++ data type to another so math and hardware outputs stay accurate.",
+      "objectives": [
+        "Distinguish implicit conversion from explicit casting.",
+        "Use explicit float casting to prevent integer division loss.",
+        "Understand truncation when converting float to int."
+      ],
+      "conceptExplanation": [
+        "Sometimes you have two int variables (like totalDistance and sampleCount) and you need their decimal average. If you write totalDistance / sampleCount, C++ performs integer division and drops the remainder.",
+        "Casting one operand to float \u2014 (float)totalDistance / sampleCount \u2014 forces floating-point division. Conversely, casting a float like 24.9 to int truncates it to 24 (it chops off .9 rather than rounding!)."
+      ],
+      "analogy": "Casting a float to an int is like reading only the whole dollars on a $24.99 price tag \u2014 the cents are dropped, not rounded up.",
+      "syntaxExplanation": {
+        "summary": "Core C++ syntax pattern for Type Conversion:",
+        "pattern": "float avg = (float)sum / count;\nint whole = (int)3.9; // becomes 3",
+        "rules": [
+          "Casting float -> int truncates toward zero; use round() if you want rounding.",
+          "Cast before dividing, not after: (float)(5 / 2) is still 2.0!"
+        ]
+      },
+      "codeExamples": [
+        {
+          "title": "Explicit Float Cast for Sensor Averaging",
+          "description": "Computes an accurate decimal average from integer sensor readings.",
+          "filename": "m03_casting.ino",
+          "code": "void setup() {\n  Serial.begin(9600);\n  int sum = 15;\n  int samples = 4;\n  float wrongAvg = sum / samples;          // 3.00 (truncated!)\n  float rightAvg = (float)sum / samples;   // 3.75 (accurate)\n  Serial.println(wrongAvg);\n  Serial.println(rightAvg);\n}\nvoid loop() {}"
+        }
+      ],
+      "lineByLine": [
+        {
+          "code": "sum / samples",
+          "explanation": "Divides two ints first (3), then stores 3.00."
+        },
+        {
+          "code": "(float)sum / samples",
+          "explanation": "Converts sum to 15.0 first, yielding 3.75."
+        }
+      ],
+      "realWorldApplication": "Sensor smoothing filters average integer ADC samples; explicit float casting preserves precision before feeding PID controllers.",
+      "commonMistakes": [
+        {
+          "mistake": "Casting too late: (float)(sum / samples)",
+          "fix": "The division inside parentheses already truncated! Cast one operand before dividing."
+        },
+        {
+          "mistake": "Assuming (int)2.9 rounds to 3",
+          "fix": "It truncates to 2; use round(2.9) when rounding is desired."
+        }
+      ],
+      "tryItYourself": {
+        "title": "m03_casting.ino",
+        "challengePrompt": "Change sum to 23 and samples to 4 and compare wrongAvg vs rightAvg.",
+        "starterCode": "void setup() {\n  Serial.begin(9600);\n  int sum = 15;\n  int samples = 4;\n  Serial.println(sum / samples);\n  Serial.println((float)sum / samples);\n}\nvoid loop() {}",
+        "expectedBehavior": "Serial Monitor prints 5 for integer division and 5.75 for float-cast division."
+      },
+      "exercises": [
+        {
+          "id": "m03-l11-e1",
+          "type": "predict-behavior",
+          "prompt": "What value does (int)9.95 produce in C++?",
+          "options": [
+            "9",
+            "10",
+            "9.9",
+            "Compile error"
+          ],
+          "correctIndex": 0,
+          "explanation": "Casting a float to int truncates the fractional part without rounding."
+        },
+        {
+          "id": "m03-l11-e2",
+          "type": "select-code",
+          "prompt": "Which line prevents integer division truncation when a and b are int?",
+          "options": [
+            "float ratio = (float)a / b;",
+            "float ratio = (float)(a / b);",
+            "int ratio = a / b;",
+            "float ratio = a / b;"
+          ],
+          "correctIndex": 0,
+          "explanation": "Casting 'a' before division forces floating-point arithmetic."
+        }
+      ],
+      "summary": [
+        "Explicit casting converts one data type to another intentionally.",
+        "Cast an operand to float BEFORE dividing two integers.",
+        "Casting float to int truncates rather than rounds."
+      ]
+    }
+  ]
+}
