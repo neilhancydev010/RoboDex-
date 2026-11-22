@@ -1,7 +1,6 @@
 /* ==========================================================================
    RoboDex́ — Unified Student Dashboard Controller
-   Consolidates the previous Dashboard + Explore Academy into one personal
-   overview backed strictly by the selected profile's IndexedDB records.
+   Consolidates Dashboard + Explore Academy with 100% genuine IndexedDB data.
    ========================================================================== */
 
 (function () {
@@ -52,13 +51,13 @@
             <div class="progress-fill" style="width:${metrics.overallPercent}%"></div>
           </div>
           <div class="text-xs" style="color:rgba(241,233,255,0.82);">
-            Weighted from Programming School (30% lessons · 50% exercises · 20% quizzes). Boards and Application-Based Learning metrics will automatically integrate as you complete them in later stages.
+            Weighted from Programming School (30% lessons · 50% exercises · 20% quizzes). Boards and Application-Based Learning metrics will automatically integrate in Stages 2 and 3.
           </div>
         </div>
       </div>
     `;
 
-    // 2. Track Overview Cards (Programming School, Boards, Application-Based Learning)
+    // 2. Track Overview Cards
     document.getElementById('dash-tracks-grid').innerHTML = `
       <div class="card card-hover">
         <div class="card-header">
@@ -79,7 +78,7 @@
           <span class="text-xs text-muted">${metrics.boardRecordsCount > 0 ? `${metrics.boardsCompleted} completed` : 'Not started'}</span>
         </div>
         <h3>Boards Learning</h3>
-        <p class="text-sm">${metrics.boardRecordsCount > 0 ? `${metrics.boardRecordsCount} local board records saved.` : 'No board learning records yet. Dedicated hardware board paths arrive in Stage 2.'}</p>
+        <p class="text-sm">${metrics.boardRecordsCount > 0 ? `${metrics.boardRecordsCount} local board record(s) saved.` : 'No board learning records yet. Dedicated hardware board paths arrive in Stage 2.'}</p>
         <a class="btn btn-secondary btn-sm" href="./boards.html">View Boards Destination</a>
       </div>
 
@@ -89,7 +88,7 @@
           <span class="text-xs text-muted">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} in progress` : 'Not started'}</span>
         </div>
         <h3>Application-Based Learning</h3>
-        <p class="text-sm">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} saved project pathway record(s) found from earlier sessions.` : 'No project progress recorded yet. Full project studio arrives in Stage 3.'}</p>
+        <p class="text-sm">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} saved project pathway record(s) found.` : 'No project progress recorded yet. Full project studio arrives in Stage 3.'}</p>
         <a class="btn btn-secondary btn-sm" href="./projects.html">View Application Learning</a>
       </div>
     `;
@@ -114,22 +113,22 @@
       </div>
     `;
 
-    // 4. Recent Learning Activity & Project Readiness
+    // 4. Recent Learning Activity
     const recentHost = document.getElementById('dash-recent-activity');
     if (metrics.recentActivity.length === 0) {
       recentHost.innerHTML = `
         <div class="empty-state">
           <h3>No learning activity yet</h3>
-          <p>Complete a lesson checkpoint, check an exercise, or submit a module quiz in Programming School and your timeline will appear here automatically.</p>
+          <p>Complete a lesson checkpoint, check an exercise, or submit a quiz in Programming School and your activity will appear here.</p>
         </div>
       `;
     } else {
       recentHost.innerHTML = `
-        <div class="grid" style="gap:0.65rem;">
+        <div class="grid" style="gap:0.6rem;">
           ${metrics.recentActivity.map((item) => `
-            <div class="flex items-center justify-between gap-sm" style="padding:0.75rem 0.95rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--bg-surface-solid);">
-              <div>
-                <span class="badge badge-bloom" style="margin-right:0.45rem;">${window.RoboDexApp.escapeHtml(item.area)}</span>
+            <div class="flex items-center justify-between gap-sm" style="padding:0.7rem 0.9rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--bg-surface-solid);">
+              <div class="text-sm">
+                <span class="badge badge-bloom" style="margin-right:0.4rem;">${window.RoboDexApp.escapeHtml(item.area)}</span>
                 <strong>${window.RoboDexApp.escapeHtml(item.action)}</strong> —
                 ${item.targetUrl ? `<a href="${item.targetUrl}">${window.RoboDexApp.escapeHtml(item.label)}</a>` : window.RoboDexApp.escapeHtml(item.label)}
               </div>
@@ -140,7 +139,81 @@
       `;
     }
 
-    // 5. Skill Mastery Grid
+    // 5. Project Progress & Next Steps (Stage 3 ready, zero fake values)
+    const projHost = document.getElementById('dash-projects-overview');
+    if (metrics.activeProjectsCount === 0) {
+      projHost.innerHTML = `
+        <div class="empty-state">
+          <h3>No project records yet</h3>
+          <p>Application-Based Learning launches in Stage 3. Recommended next step right now: continue <a href="./learn.html?lesson=${encodeURIComponent(metrics.nextLesson.id)}">${window.RoboDexApp.escapeHtml(metrics.nextLesson.title)}</a>.</p>
+        </div>
+      `;
+    } else {
+      projHost.innerHTML = `
+        <ul style="margin:0.4rem 0 0 1.2rem;">
+          ${metrics.projectRecords.filter((p) => (p.completedSteps || []).length > 0).map((p) => `
+            <li class="text-sm"><strong>${window.RoboDexApp.escapeHtml(p.projectId)}</strong> — ${p.completedSteps.length} step(s) saved locally</li>
+          `).join('')}
+        </ul>
+      `;
+    }
+
+    // 6. Module Quiz Scores
+    const quizHost = document.getElementById('dash-quizzes-overview');
+    const takenQuizzes = metrics.moduleStats.filter((m) => Boolean(m.quiz));
+    if (takenQuizzes.length === 0) {
+      quizHost.innerHTML = `
+        <div class="empty-state">
+          <h3>No module quizzes taken yet</h3>
+          <p>Pass end-of-module quizzes (default 70% threshold) to earn the 20% assessment weighting.</p>
+        </div>
+      `;
+    } else {
+      quizHost.innerHTML = `
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Module</th><th>Best Score</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              ${takenQuizzes.map((m) => `
+                <tr>
+                  <td><strong>${window.RoboDexApp.escapeHtml(m.shortTitle)}</strong></td>
+                  <td>${m.quiz.bestScore}%</td>
+                  <td><span class="badge ${m.quiz.passed ? 'badge-success' : 'badge-warning'}">${m.quiz.passed ? 'Passed' : 'Retry'}</span></td>
+                  <td><a class="text-sm" href="./learn.html?quiz=${encodeURIComponent(m.moduleId)}">Open</a></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // 7. Completed Lessons
+    const compHost = document.getElementById('dash-completed-lessons');
+    const doneList = (snapshot.lessons || [])
+      .filter((l) => l.checkpointCompleted)
+      .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0));
+    if (doneList.length === 0) {
+      compHost.innerHTML = `
+        <div class="empty-state">
+          <h3>No completed lessons yet</h3>
+          <p>Confirm the checkpoint at the end of your first lesson in Programming School to record completion.</p>
+        </div>
+      `;
+    } else {
+      compHost.innerHTML = `
+        <ul style="margin:0.4rem 0 0 1.2rem;">
+          ${doneList.slice(0, 8).map((l) => `
+            <li class="text-sm">
+              <a href="./learn.html?lesson=${encodeURIComponent(l.lessonId)}">${window.RoboDexApp.escapeHtml(lessonLookup.get(l.lessonId) || l.lessonId)}</a>
+              <span class="text-xs text-muted"> · ${window.RoboDexApp.formatDate(l.completedAt)}</span>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    }
+
+    // 8. Skill Mastery Grid
     document.getElementById('dash-skills-grid').innerHTML = metrics.moduleStats.map((m) => `
       <div style="padding:0.9rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--bg-surface-solid);">
         <div class="flex items-center justify-between gap-xs mb-sm">
@@ -154,7 +227,7 @@
       </div>
     `).join('');
 
-    // 6. Consolidated Explore Curriculum (Merged from Explore Academy)
+    // 9. Consolidated Curriculum Explorer
     const modulesHost = document.getElementById('dash-modules-grid');
     const filterBtns = document.querySelectorAll('[data-track-filter]');
 

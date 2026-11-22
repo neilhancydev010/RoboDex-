@@ -1,7 +1,7 @@
 /* ==========================================================================
    RoboDex́ — Versioned IndexedDB Persistence Layer (Schema v2)
    - Non-destructive upgrade from V1 (preserves all existing records)
-   - Safe recovery/migration of unowned V1 records
+   - Concurrency-safe V1 migration/recovery (shared migrationPromise)
    - Independent multi-profile storage supporting identical full names
    - Prepares boardProgress & activityLog stores for Stages 2 & 3
    - Requests persistent browser storage where supported
@@ -12,7 +12,7 @@ window.RoboDexDB = (function () {
   const DB_VERSION = 2;
   const BACKUP_SCHEMA_VERSION = '2.0';
   let dbPromise = null;
-  let migrationChecked = false;
+  let migrationPromise = null;
 
   function openDB() {
     if (dbPromise) return dbPromise;
@@ -25,7 +25,6 @@ window.RoboDexDB = (function () {
       req.onupgradeneeded = (event) => {
         const db = event.target.result;
 
-        // V1 stores — preserved non-destructively
         if (!db.objectStoreNames.contains('profiles')) {
           db.createObjectStore('profiles', { keyPath: 'id' });
         }
@@ -45,8 +44,6 @@ window.RoboDexDB = (function () {
           const s = db.createObjectStore('projectProgress', { keyPath: 'key' });
           s.createIndex('byProfile', 'profileId', { unique: false });
         }
-
-        // V2 stores — Stage 2 Boards & Activity Timeline
         if (!db.objectStoreNames.contains('boardProgress')) {
           const s = db.createObjectStore('boardProgress', { keyPath: 'key' });
           s.createIndex('byProfile', 'profileId', { unique: false });
@@ -119,62 +116,62 @@ window.RoboDexDB = (function () {
     };
   }
 
-  /* Safe V1 Migration: preserve any existing unowned/orphan learning records */
-  async function ensureV1Migration() {
-    if (migrationChecked) return;
-    migrationChecked = true;
-    try {
-      const profiles = await getAllFromStore('profiles');
-      const knownIds = new Set(profiles.map((p) => p.id));
+  /* Concurrency-safe V1 migration: all simultaneous callers await the same promise */
+  function ensureV1Migration() {
+    if (migrationPromise) return migrationPromise;
+    migrationPromise = (async () => {
+      try {
+        const profiles = await getAllFromStore('profiles');
+        const knownIds = new Set(profiles.map((p) => p.id));
 
-      // Normalize any V1 profile records to ensure fullName is populated
-      for (const p of profiles) {
-        if (!p.fullName || p.schemaVersion !== 2) {
-          await txStore('profiles', 'readwrite', (s) => s.put(normalizeProfile(p)));
-        }
-      }
-
-      const dataStores = ['lessonProgress', 'exerciseAttempts', 'quizAttempts', 'projectProgress'];
-      const orphans = [];
-      for (const storeName of dataStores) {
-        const rows = await getAllFromStore(storeName);
-        for (const r of rows) {
-          if (!r.profileId || !knownIds.has(r.profileId)) {
-            orphans.push({ storeName, record: r });
+        for (const p of profiles) {
+          if (!p.fullName || p.schemaVersion !== 2) {
+            await txStore('profiles', 'readwrite', (s) => s.put(normalizeProfile(p)));
           }
         }
-      }
 
-      if (orphans.length > 0) {
-        const now = Date.now();
-        const recovered = normalizeProfile({
-          id: makeUniqueId('mig'),
-          fullName: 'Migrated Local Learner',
-          createdAt: now,
-          lastActiveAt: now,
-          migratedFromV1: true
-        });
-        await txStore('profiles', 'readwrite', (s) => s.put(recovered));
-
-        for (const { storeName, record } of orphans) {
-          const itemSuffix = record.lessonId || record.exerciseId || record.moduleId || record.projectId || makeUniqueId('rec');
-          const migrated = {
-            ...record,
-            profileId: recovered.id,
-            key: `${recovered.id}::${itemSuffix}`
-          };
-          await txStore(storeName, 'readwrite', (s) => {
-            if (record.key && record.key !== migrated.key) s.delete(record.key);
-            s.put(migrated);
-          });
+        const dataStores = ['lessonProgress', 'exerciseAttempts', 'quizAttempts', 'projectProgress'];
+        const orphans = [];
+        for (const storeName of dataStores) {
+          const rows = await getAllFromStore(storeName);
+          for (const r of rows) {
+            if (!r.profileId || !knownIds.has(r.profileId)) {
+              orphans.push({ storeName, record: r });
+            }
+          }
         }
+
+        if (orphans.length > 0) {
+          const now = Date.now();
+          const recovered = normalizeProfile({
+            id: makeUniqueId('mig'),
+            fullName: 'Migrated Local Learner',
+            createdAt: now,
+            lastActiveAt: now,
+            migratedFromV1: true
+          });
+          await txStore('profiles', 'readwrite', (s) => s.put(recovered));
+
+          for (const { storeName, record } of orphans) {
+            const itemSuffix = record.lessonId || record.exerciseId || record.moduleId || record.projectId || makeUniqueId('rec');
+            const migrated = {
+              ...record,
+              profileId: recovered.id,
+              key: `${recovered.id}::${itemSuffix}`
+            };
+            await txStore(storeName, 'readwrite', (s) => {
+              if (record.key && record.key !== migrated.key) s.delete(record.key);
+              s.put(migrated);
+            });
+          }
+        }
+      } catch {
+        // Non-fatal; never wipe existing records
       }
-    } catch {
-      // Non-fatal; never wipe data
-    }
+    })();
+    return migrationPromise;
   }
 
-  /* Persistent Storage API Request */
   async function requestPersistentStorage() {
     try {
       if (navigator.storage && navigator.storage.persist) {
@@ -203,7 +200,6 @@ window.RoboDexDB = (function () {
     return status;
   }
 
-  /* ---- Profiles ---- */
   async function listProfiles() {
     await ensureV1Migration();
     const rows = await getAllFromStore('profiles');
@@ -280,7 +276,6 @@ window.RoboDexDB = (function () {
     return getProfile(sessionId);
   }
 
-  /* ---- Activity Log ---- */
   async function logActivity(profileId, { area, action, label, targetUrl = '' }) {
     const entry = {
       id: makeUniqueId('act'),
@@ -295,7 +290,6 @@ window.RoboDexDB = (function () {
     return entry;
   }
 
-  /* ---- Lesson Progress ---- */
   async function getLessonRecord(profileId, lessonId) {
     const db = await openDB();
     return new Promise((resolve, reject) => {
@@ -349,7 +343,6 @@ window.RoboDexDB = (function () {
     return record;
   }
 
-  /* ---- Exercise Attempts ---- */
   async function saveExerciseAttempt(profileId, { exerciseId, lessonId, moduleId, passed, lastAnswer }) {
     const key = `${profileId}::${exerciseId}`;
     const db = await openDB();
@@ -381,7 +374,6 @@ window.RoboDexDB = (function () {
     return record;
   }
 
-  /* ---- Quiz Attempts ---- */
   async function saveQuizAttempt(profileId, { moduleId, scorePercent, correctCount, totalQuestions, passed }) {
     const key = `${profileId}::${moduleId}`;
     const db = await openDB();
@@ -414,7 +406,6 @@ window.RoboDexDB = (function () {
     return record;
   }
 
-  /* ---- Future-Ready Stores (Boards & Projects) ---- */
   async function saveProjectProgress(profileId, projectId, completedSteps) {
     const key = `${profileId}::${projectId}`;
     const record = {
@@ -441,7 +432,6 @@ window.RoboDexDB = (function () {
     return record;
   }
 
-  /* ---- Full Profile Snapshot ---- */
   async function getProfileSnapshot(profileId) {
     await ensureV1Migration();
     const [profile, lessons, exercises, quizzes, projects, boards, activity] = await Promise.all([
@@ -456,7 +446,6 @@ window.RoboDexDB = (function () {
     return { profile, lessons, exercises, quizzes, projects, boards, activity };
   }
 
-  /* ---- Delete Local Profile ---- */
   async function deleteProfile(profileId) {
     const stores = ['lessonProgress', 'exerciseAttempts', 'quizAttempts', 'projectProgress', 'boardProgress', 'activityLog'];
     for (const storeName of stores) {
@@ -473,7 +462,6 @@ window.RoboDexDB = (function () {
     }
   }
 
-  /* ---- Versioned Backup & Restore (Supports V1 & V2 Backups) ---- */
   async function exportProfileBackup(profileId) {
     const snapshot = await getProfileSnapshot(profileId);
     if (!snapshot.profile) throw new Error('No active profile found to export.');
@@ -488,6 +476,17 @@ window.RoboDexDB = (function () {
       },
       data: snapshot
     };
+  }
+
+  function sanitizeKeyedRecords(list, profileId, suffixField) {
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter((r) => r && typeof r === 'object' && r[suffixField])
+      .map((r) => ({
+        ...r,
+        profileId,
+        key: `${profileId}::${r[suffixField]}`
+      }));
   }
 
   async function restoreProfileBackup(backupObj) {
@@ -517,13 +516,22 @@ window.RoboDexDB = (function () {
       throw new Error('Backup learning records are malformed.');
     }
 
+    const cleanLessons = sanitizeKeyedRecords(lessons, profile.id, 'lessonId');
+    const cleanExercises = sanitizeKeyedRecords(exercises, profile.id, 'exerciseId');
+    const cleanQuizzes = sanitizeKeyedRecords(quizzes, profile.id, 'moduleId');
+    const cleanProjects = sanitizeKeyedRecords(projects, profile.id, 'projectId');
+    const cleanBoards = sanitizeKeyedRecords(boards, profile.id, 'boardId');
+    const cleanActivity = Array.isArray(activity)
+      ? activity.filter((a) => a && typeof a === 'object').map((a) => ({ ...a, id: a.id || makeUniqueId('act'), profileId: profile.id }))
+      : [];
+
     await txStore('profiles', 'readwrite', (s) => s.put(profile));
-    if (lessons.length) await txStore('lessonProgress', 'readwrite', (s) => lessons.forEach((r) => s.put(r)));
-    if (exercises.length) await txStore('exerciseAttempts', 'readwrite', (s) => exercises.forEach((r) => s.put(r)));
-    if (quizzes.length) await txStore('quizAttempts', 'readwrite', (s) => quizzes.forEach((r) => s.put(r)));
-    if (Array.isArray(projects) && projects.length) await txStore('projectProgress', 'readwrite', (s) => projects.forEach((r) => s.put(r)));
-    if (Array.isArray(boards) && boards.length) await txStore('boardProgress', 'readwrite', (s) => boards.forEach((r) => s.put(r)));
-    if (Array.isArray(activity) && activity.length) await txStore('activityLog', 'readwrite', (s) => activity.forEach((r) => s.put(r)));
+    if (cleanLessons.length) await txStore('lessonProgress', 'readwrite', (s) => cleanLessons.forEach((r) => s.put(r)));
+    if (cleanExercises.length) await txStore('exerciseAttempts', 'readwrite', (s) => cleanExercises.forEach((r) => s.put(r)));
+    if (cleanQuizzes.length) await txStore('quizAttempts', 'readwrite', (s) => cleanQuizzes.forEach((r) => s.put(r)));
+    if (cleanProjects.length) await txStore('projectProgress', 'readwrite', (s) => cleanProjects.forEach((r) => s.put(r)));
+    if (cleanBoards.length) await txStore('boardProgress', 'readwrite', (s) => cleanBoards.forEach((r) => s.put(r)));
+    if (cleanActivity.length) await txStore('activityLog', 'readwrite', (s) => cleanActivity.forEach((r) => s.put(r)));
 
     if (backupObj.preferences) {
       if (backupObj.preferences.theme) window.RoboDexPrefs.set('theme', backupObj.preferences.theme);

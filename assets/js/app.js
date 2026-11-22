@@ -152,9 +152,9 @@ window.RoboDexApp = (function () {
     bg.setAttribute('aria-hidden', 'true');
     bg.innerHTML = `
       <svg viewBox="0 0 1600 1000" preserveAspectRatio="none" fill="none">
-        <path d="M-120,240 C260,60 540,420 960,210 C1280,50 1520,170 1720,80 L1720,-80 L-120,-80 Z" fill="var(--bg-curve-fill-1)"/>
-        <path d="M-100,760 C280,560 660,920 1120,690 C1380,560 1560,650 1720,580 L1720,1080 L-100,1080 Z" fill="var(--bg-curve-fill-2)"/>
-        <path d="M920,-60 C1180,180 1020,460 1320,620 C1480,705 1620,660 1720,740 L1720,-60 Z" fill="var(--bg-curve-fill-3)"/>
+        <path d="M-100,250 C260,70 580,410 980,200 C1280,45 1500,165 1700,85 L1700,-80 L-100,-80 Z" fill="var(--bg-curve-fill-1)"/>
+        <path d="M-100,770 C280,580 680,910 1140,685 C1390,560 1550,650 1700,590 L1700,1080 L-100,1080 Z" fill="var(--bg-curve-fill-2)"/>
+        <path d="M-100,520 C340,340 760,670 1180,470 C1420,355 1560,420 1700,360 L1700,1080 L-100,1080 Z" fill="var(--bg-curve-fill-3)"/>
       </svg>
     `;
     document.body.prepend(bg);

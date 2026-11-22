@@ -46,8 +46,8 @@ window.RoboDexEditor = (function () {
           </div>
         </div>
         ${challengePrompt ? `
-          <div style="padding:0.72rem 1rem; background:#112540; color:#e2e8f0; border-bottom:1px solid #233a5e; font-size:0.86rem;">
-            <strong style="color:#22d3ee;">Practice Task:</strong> ${window.RoboDexApp.escapeHtml(challengePrompt)}
+          <div style="padding:0.72rem 1rem; background:var(--code-surface); color:var(--code-text); border-bottom:1px solid var(--code-border); font-size:0.86rem;">
+            <strong style="color:var(--bloom-300);">Practice Task:</strong> ${window.RoboDexApp.escapeHtml(challengePrompt)}
           </div>
         ` : ''}
         <div class="try-editor-stage" data-stage></div>
