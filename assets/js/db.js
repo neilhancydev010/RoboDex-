@@ -419,6 +419,132 @@ window.RoboDexDB = (function () {
     return record;
   }
 
+  async function getBoardRecord(profileId, variantId) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const req = db.transaction('boardProgress', 'readonly').objectStore('boardProgress').get(`${profileId}::${variantId}`);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  async function saveBoardLessonVisit(profileId, variantId, lessonId) {
+    const existing = (await getBoardRecord(profileId, variantId)) || {
+      key: `${profileId}::${variantId}`,
+      profileId,
+      boardId: variantId,
+      visitedLessons: [],
+      completedLessons: [],
+      exercisesPassed: {},
+      exercisesAttempted: {},
+      quizBestScore: null,
+      quizPassed: false,
+      lastLessonId: lessonId
+    };
+    const visited = new Set(existing.visitedLessons || []);
+    visited.add(lessonId);
+    const updated = {
+      ...existing,
+      visitedLessons: Array.from(visited),
+      lastLessonId: lessonId,
+      updatedAt: Date.now()
+    };
+    await txStore('boardProgress', 'readwrite', (s) => s.put(updated));
+    await updateProfile(profileId, { lastVisitedBoardVariant: variantId, lastVisitedBoardLesson: lessonId });
+    return updated;
+  }
+
+  async function completeBoardLessonCheckpoint(profileId, variantId, lessonId, lessonTitle = '') {
+    const existing = await saveBoardLessonVisit(profileId, variantId, lessonId);
+    const done = new Set(existing.completedLessons || []);
+    done.add(lessonId);
+    const updated = {
+      ...existing,
+      completedLessons: Array.from(done),
+      updatedAt: Date.now()
+    };
+    await txStore('boardProgress', 'readwrite', (s) => s.put(updated));
+    await logActivity(profileId, {
+      area: 'Boards',
+      action: 'Completed board lesson',
+      label: lessonTitle || lessonId,
+      targetUrl: `./boards.html?variant=${encodeURIComponent(variantId)}&lesson=${encodeURIComponent(lessonId)}`
+    });
+    return updated;
+  }
+
+  async function saveBoardExerciseAttempt(profileId, variantId, exerciseId, passed) {
+    const existing = (await getBoardRecord(profileId, variantId)) || {
+      key: `${profileId}::${variantId}`,
+      profileId,
+      boardId: variantId,
+      visitedLessons: [],
+      completedLessons: [],
+      exercisesPassed: {},
+      exercisesAttempted: {},
+      quizBestScore: null,
+      quizPassed: false
+    };
+    const attempted = { ...(existing.exercisesAttempted || {}) };
+    attempted[exerciseId] = (attempted[exerciseId] || 0) + 1;
+    const passedMap = { ...(existing.exercisesPassed || {}) };
+    passedMap[exerciseId] = Boolean(passedMap[exerciseId] || passed);
+    const updated = {
+      ...existing,
+      exercisesAttempted: attempted,
+      exercisesPassed: passedMap,
+      updatedAt: Date.now()
+    };
+    await txStore('boardProgress', 'readwrite', (s) => s.put(updated));
+    await logActivity(profileId, {
+      area: 'Boards',
+      action: passed ? 'Passed board exercise' : 'Attempted board exercise',
+      label: `${variantId} (${exerciseId})`,
+      targetUrl: `./boards.html?variant=${encodeURIComponent(variantId)}`
+    });
+    return updated;
+  }
+
+  async function saveBoardQuizAttempt(profileId, variantId, { scorePercent, correctCount, totalQuestions, passed }) {
+    const existing = (await getBoardRecord(profileId, variantId)) || {
+      key: `${profileId}::${variantId}`,
+      profileId,
+      boardId: variantId,
+      visitedLessons: [],
+      completedLessons: [],
+      exercisesPassed: {},
+      exercisesAttempted: {},
+      quizBestScore: null,
+      quizPassed: false
+    };
+    const best = existing.quizBestScore !== null ? Math.max(existing.quizBestScore, scorePercent) : scorePercent;
+    const updated = {
+      ...existing,
+      quizBestScore: best,
+      quizLastScore: scorePercent,
+      quizCorrectCount: correctCount,
+      quizTotalQuestions: totalQuestions,
+      quizPassed: Boolean(existing.quizPassed || passed),
+      updatedAt: Date.now()
+    };
+    await txStore('boardProgress', 'readwrite', (s) => s.put(updated));
+    await logActivity(profileId, {
+      area: 'Boards',
+      action: passed ? `Passed board quiz (${scorePercent}%)` : `Scored ${scorePercent}% on board quiz`,
+      label: variantId,
+      targetUrl: `./boards.html?variant=${encodeURIComponent(variantId)}&quiz=1`
+    });
+    return updated;
+  }
+
+  async function toggleSelectedBoardVariant(profileId, variantId) {
+    const profile = await getProfile(profileId);
+    const set = new Set(profile.selectedBoards || []);
+    if (set.has(variantId)) set.delete(variantId);
+    else set.add(variantId);
+    return updateProfile(profileId, { selectedBoards: Array.from(set) });
+  }
+
   async function saveBoardProgress(profileId, boardId, payload) {
     const key = `${profileId}::${boardId}`;
     const record = {
@@ -563,6 +689,12 @@ window.RoboDexDB = (function () {
     saveExerciseAttempt,
     saveQuizAttempt,
     saveProjectProgress,
+    getBoardRecord,
+    saveBoardLessonVisit,
+    completeBoardLessonCheckpoint,
+    saveBoardExerciseAttempt,
+    saveBoardQuizAttempt,
+    toggleSelectedBoardVariant,
     saveBoardProgress,
     getProfileSnapshot,
     deleteProfile,

@@ -1,52 +1,142 @@
 {
-  "policyVersion": "1.0",
-  "standard": "Authentic photographs of actual electronic boards and components only. No AI-generated electronics, no imaginary hardware, and no unverified redistribution.",
+  "policyVersion": "2.0",
+  "standard": "Authentic manufacturer or reputable retailer photographs only with recorded source and usage rights. Zero AI-generated or fabricated electronics.",
   "localAssetDirectory": "./assets/hardware/",
   "entries": [
     {
-      "id": "arduino-uno-r3",
-      "componentName": "Arduino Uno Rev3",
+      "id": "uno-r3",
+      "componentName": "Arduino Uno R3",
+      "familyId": "arduino-uno",
       "localFile": null,
-      "status": "pending_verified_source",
-      "preferredSources": ["Arduino Official Documentation / Press Kit (arduino.cc)", "Wikimedia Commons CC-BY-SA verified board photo"],
-      "license": "Pending verification before local bundling",
-      "fallbackLabel": "Arduino Uno Rev3 (ATmega328P, 5V Logic — verified photograph scheduled for Stage 2)"
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/uno-rev3",
+      "fallbackLabel": "Arduino Uno R3 (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic)"
     },
     {
-      "id": "arduino-uno-r4",
-      "componentName": "Arduino Uno R4 (Minima & WiFi)",
+      "id": "uno-r4-minima",
+      "componentName": "Arduino Uno R4 Minima",
+      "familyId": "arduino-uno",
       "localFile": null,
-      "status": "pending_verified_source",
-      "preferredSources": ["Arduino Official Product Photography (arduino.cc)"],
-      "license": "Pending verification before local bundling",
-      "fallbackLabel": "Arduino Uno R4 Minima / WiFi (Renesas RA4M1, 5V Logic — verified photograph scheduled for Stage 2)"
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/resources/datasheets/ABX00080-datasheet.pdf",
+      "fallbackLabel": "Arduino Uno R4 Minima (Renesas RA4M1 (32-bit Arm Cortex-M4 w/ FPU) @ 48 MHz, 5V logic)"
     },
     {
-      "id": "arduino-nano-family",
-      "componentName": "Arduino Nano Family (Classic / Every / Nano ESP32)",
+      "id": "uno-r4-wifi",
+      "componentName": "Arduino Uno R4 WiFi",
+      "familyId": "arduino-uno",
       "localFile": null,
-      "status": "pending_verified_source",
-      "preferredSources": ["Arduino Official Product Photography (arduino.cc)"],
-      "license": "Pending verification before local bundling",
-      "fallbackLabel": "Arduino Nano Family — Classic (5V), Every (5V), Nano ESP32 (3.3V) — verified photographs scheduled for Stage 2"
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf",
+      "fallbackLabel": "Arduino Uno R4 WiFi (Renesas RA4M1 (48 MHz, 5V) + ESP32-S3-MINI-1-N8 (3.3V wireless co-processor), 5V on main headers (3.3V on Qwiic I2C) logic)"
     },
     {
-      "id": "arduino-mega-2560",
+      "id": "nano-classic",
+      "componentName": "Classic Arduino Nano",
+      "familyId": "arduino-nano",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano/",
+      "fallbackLabel": "Classic Arduino Nano (ATmega328P (8-bit AVR) @ 16 MHz, 5V logic)"
+    },
+    {
+      "id": "nano-every",
+      "componentName": "Arduino Nano Every",
+      "familyId": "arduino-nano",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-every",
+      "fallbackLabel": "Arduino Nano Every (ATmega4809 (8-bit megaAVR) @ 20 MHz, 5V logic)"
+    },
+    {
+      "id": "nano-33-iot",
+      "componentName": "Arduino Nano 33 IoT",
+      "familyId": "arduino-nano",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-33-iot",
+      "fallbackLabel": "Arduino Nano 33 IoT (SAMD21G18A (32-bit Arm Cortex-M0+) @ 48 MHz + u-blox NINA-W102, 3.3V ONLY logic)"
+    },
+    {
+      "id": "nano-33-ble",
+      "componentName": "Arduino Nano 33 BLE / BLE Sense (Rev2)",
+      "familyId": "arduino-nano",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-33-ble-rev2",
+      "fallbackLabel": "Arduino Nano 33 BLE / BLE Sense (Rev2) (Nordic nRF52840 (32-bit Arm Cortex-M4F) @ 64 MHz (Mbed OS), 3.3V ONLY logic)"
+    },
+    {
+      "id": "nano-esp32",
+      "componentName": "Arduino Nano ESP32",
+      "familyId": "arduino-nano",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-esp32",
+      "fallbackLabel": "Arduino Nano ESP32 (u-blox NORA-W106 (ESP32-S3 dual-core Xtensa LX7 @ 240 MHz), 3.3V ONLY logic)"
+    },
+    {
+      "id": "nano-rp2040-connect",
+      "componentName": "Arduino Nano RP2040 Connect",
+      "familyId": "arduino-nano",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/nano-rp2040-connect",
+      "fallbackLabel": "Arduino Nano RP2040 Connect (Raspberry Pi RP2040 (Dual-core Arm Cortex-M0+ @ 133 MHz) + u-blox NINA-W102, 3.3V ONLY logic)"
+    },
+    {
+      "id": "mega-2560",
       "componentName": "Arduino Mega 2560 Rev3",
+      "familyId": "arduino-mega",
       "localFile": null,
-      "status": "pending_verified_source",
-      "preferredSources": ["Arduino Official Product Photography (arduino.cc)", "Wikimedia Commons CC-BY-SA"],
-      "license": "Pending verification before local bundling",
-      "fallbackLabel": "Arduino Mega 2560 Rev3 (ATmega2560, 54 Digital I/O, 4 UARTs — verified photograph scheduled for Stage 2)"
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.arduino.cc/hardware/mega-2560/",
+      "fallbackLabel": "Arduino Mega 2560 Rev3 (ATmega2560 (8-bit AVR) @ 16 MHz, 5V logic)"
     },
     {
-      "id": "esp32-family",
-      "componentName": "ESP32 Family (WROOM-32 / S3 / C3)",
+      "id": "esp32-classic",
+      "componentName": "ESP32 (Classic / WROOM-32 DevKit)",
+      "familyId": "esp32",
       "localFile": null,
-      "status": "pending_verified_source",
-      "preferredSources": ["Espressif Systems Official Documentation (espressif.com)"],
-      "license": "Pending verification before local bundling",
-      "fallbackLabel": "ESP32 Development Boards (3.3V Logic ONLY — verified photographs scheduled for Stage 2)"
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/release-v5.0/esp32/hw-reference/chip-series-comparison.html",
+      "fallbackLabel": "ESP32 (Classic / WROOM-32 DevKit) (ESP32 Dual-core Xtensa LX6 @ up to 240 MHz (chip inside WROOM-32 module on DevKit board), 3.3V ONLY logic)"
+    },
+    {
+      "id": "esp32-s2",
+      "componentName": "ESP32-S2 (e.g. Saola / Feather S2)",
+      "familyId": "esp32",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/release-v5.0/esp32/hw-reference/chip-series-comparison.html",
+      "fallbackLabel": "ESP32-S2 (e.g. Saola / Feather S2) (ESP32-S2 Single-core Xtensa LX7 @ 240 MHz, 3.3V ONLY logic)"
+    },
+    {
+      "id": "esp32-s3",
+      "componentName": "ESP32-S3 (e.g. DevKitC-1)",
+      "familyId": "esp32",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.0/esp32s3/hw-reference/chip-series-comparison.html",
+      "fallbackLabel": "ESP32-S3 (e.g. DevKitC-1) (ESP32-S3 Dual-core Xtensa LX7 @ 240 MHz (w/ AI/Vector instructions), 3.3V ONLY logic)"
+    },
+    {
+      "id": "esp32-c3",
+      "componentName": "ESP32-C3 (e.g. DevKitM-1 / SuperMini)",
+      "familyId": "esp32",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/v5.0/esp32/hw-reference/chip-series-comparison.html",
+      "fallbackLabel": "ESP32-C3 (e.g. DevKitM-1 / SuperMini) (ESP32-C3 Single-core 32-bit RISC-V @ 160 MHz, 3.3V ONLY logic)"
+    },
+    {
+      "id": "esp32-c6",
+      "componentName": "ESP32-C6 (e.g. DevKitC-1)",
+      "familyId": "esp32",
+      "localFile": null,
+      "status": "pending_verified_local_photo",
+      "officialReferenceUrl": "https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/get-started/workflow-overview.html",
+      "fallbackLabel": "ESP32-C6 (e.g. DevKitC-1) (ESP32-C6 Single-core 32-bit RISC-V @ 160 MHz + Low-Power RISC-V core, 3.3V ONLY logic)"
     }
   ]
 }

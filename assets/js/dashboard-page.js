@@ -8,10 +8,12 @@
     const profile = await window.RoboDexApp.requireActiveProfile();
     if (!profile) return;
 
-    const [curriculum, snapshot] = await Promise.all([
+    const [curriculum, boardsCurriculum, snapshot] = await Promise.all([
       window.RoboDexApp.loadJSON('./data/curriculum.json'),
+      window.RoboDexApp.loadJSON('./data/boards-curriculum.json'),
       window.RoboDexDB.getProfileSnapshot(profile.id)
     ]);
+    const boardMetrics = window.RoboDexProgress.computeBoardMetrics(boardsCurriculum, snapshot);
 
     const metrics = window.RoboDexProgress.computeMetrics(curriculum, snapshot);
     const lessonLookup = new Map();
@@ -72,14 +74,23 @@
         <a class="btn btn-primary btn-sm" href="./learn.html?lesson=${encodeURIComponent(profile.lastVisitedLesson || 'm01-l01')}">Open Programming School →</a>
       </div>
 
-      <div class="card">
+      <div class="card card-hover">
         <div class="card-header">
-          <span class="badge">Track 2 · Stage 2</span>
-          <span class="text-xs text-muted">${metrics.boardRecordsCount > 0 ? `${metrics.boardsCompleted} completed` : 'Not started'}</span>
+          <span class="badge badge-bloom">Track 2 · Active</span>
+          <strong style="font-family:var(--font-display);">${boardMetrics.startedVariants > 0 ? `${boardMetrics.overallBoardsPercent}%` : 'Not started'}</strong>
         </div>
         <h3>Boards Learning</h3>
-        <p class="text-sm">${metrics.boardRecordsCount > 0 ? `${metrics.boardRecordsCount} local board record(s) saved.` : 'No board learning records yet. Dedicated hardware board paths arrive in Stage 2.'}</p>
-        <a class="btn btn-secondary btn-sm" href="./boards.html">View Boards Destination</a>
+        <p class="text-sm">
+          ${boardMetrics.completedBoardLessons > 0 || boardMetrics.startedVariants > 0
+            ? `${boardMetrics.completedBoardLessons} board lessons completed · ${boardMetrics.passedBoardQuizzes} variant assessments passed across ${boardMetrics.startedVariants} started board(s).`
+            : `No board learning activity yet. Explore 4 families and ${boardMetrics.totalVariants} hardware variants.`}
+        </p>
+        <div class="progress-track sm mb-md">
+          <div class="progress-fill" style="width:${boardMetrics.overallBoardsPercent}%"></div>
+        </div>
+        <a class="btn btn-primary btn-sm" href="./boards.html${profile.lastVisitedBoardVariant ? `?variant=${encodeURIComponent(profile.lastVisitedBoardVariant)}&lesson=${encodeURIComponent(profile.lastVisitedBoardLesson || '')}` : ''}">
+          ${boardMetrics.startedVariants > 0 ? 'Continue Boards Learning →' : 'Explore Boards →'}
+        </a>
       </div>
 
       <div class="card">

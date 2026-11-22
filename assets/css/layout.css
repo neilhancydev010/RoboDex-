@@ -14,10 +14,10 @@
 
 .hyperbloom-backdrop svg {
   position: absolute;
-  width: 118%;
-  height: 118%;
-  top: -9%;
-  left: -9%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
   opacity: 0.95;
 }
 

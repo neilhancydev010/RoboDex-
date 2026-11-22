@@ -367,6 +367,15 @@
           </div>
         </section>
 
+                <div class="callout callout-info mt-md">
+          <div class="callout-title">Apply This Concept on Your Physical Board</div>
+          <p class="text-sm mb-sm">Hardware pin numbers, ADC resolution, and logic voltages vary by board variant. Explore how this concept works on real hardware in the Boards Learning Environment:</p>
+          <div class="flex flex-wrap gap-xs">
+            <a class="btn btn-secondary btn-sm" href="./boards.html?variant=${encodeURIComponent((profile.selectedBoards && profile.selectedBoards[0]) || 'uno-r3')}&lesson=b-${encodeURIComponent((profile.selectedBoards && profile.selectedBoards[0]) || 'uno-r3')}-l06">Explore on Your Selected Board →</a>
+            <a class="btn btn-ghost btn-sm" href="./boards.html">Compare All 15 Board Variants</a>
+          </div>
+        </div>
+
         <nav class="lesson-nav-bar" aria-label="Lesson Pagination">
           <div>
             ${adj.prev ? `<a class="btn btn-secondary" href="./learn.html?lesson=${encodeURIComponent(adj.prev.id)}">← Previous: ${window.RoboDexApp.escapeHtml(adj.prev.title)}</a>` : '<span></span>'}

@@ -1,5 +1,5 @@
 /* RoboDex́ Service Worker — Offline-capable static asset caching (relative paths) */
-const CACHE_NAME = 'robodex-v2-stage1';
+const CACHE_NAME = 'robodex-v2-stage2';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -22,11 +22,13 @@ const CORE_ASSETS = [
   './assets/js/profile-gate.js',
   './assets/js/dashboard-page.js',
   './assets/js/learn-page.js',
+  './assets/js/boards-page.js',
   './assets/js/my-information-page.js',
   './assets/js/editor.js',
   './assets/js/exercises.js',
   './assets/js/quiz.js',
   './data/curriculum.json',
+  './data/boards-curriculum.json',
   './data/hardware-assets.json',
   './data/quizzes/quizzes.json'
 ];
