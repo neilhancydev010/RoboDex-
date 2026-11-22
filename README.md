@@ -1,131 +1,48 @@
-# RoboDex́ — Version 1.0
+# RoboDex́ | Train Yourself
 
-**RoboDex́** is an application-first, 100% static educational website designed to take absolute beginners from zero programming experience to writing, debugging, and deploying Arduino C++ programs independently.
-
-Its learning workspace is inspired by W3Schools' clear 3-column instructional structure (left course navigation, structured lesson column with Try It Yourself examples and exercises, and right-side section contents) while using original branding, original content, and robotics-specific engineering pedagogy.
+**RoboDex́ | Train Yourself** is a 100% static, local-first educational web application that teaches absolute beginners to think, write, debug, and build Arduino C++ programs independently.
 
 ---
 
-## Core Architecture & Technical Stack
+## Stage 1 Architecture Overview
 
-- **Multi-page HTML5**: Separate pages for Home (`index.html`), Learning Workspace (`learn.html`), Explore Academy (`academy.html`), Board-Specific Paths (`boards.html`), Guided Projects (`projects.html`), Student Dashboard (`dashboard.html`), Local Profiles (`profiles.html`), Local Data Management (`my-data.html`), and `404.html`.
-- **CSS3 Design System**: Modular stylesheets (`tokens.css`, `base.css`, `layout.css`, `components.css`) with dark navy engineering navigation, blue/cyan accents, responsive desktop/tablet/mobile support, and Light/Dark reading themes.
-- **Vanilla JavaScript**: Zero frameworks, zero build step, zero backend server, zero AI integrations, zero paid services.
-- **Persistence**:
-  - **IndexedDB (`RoboDexAcademyDB`)** for multiple independent local student profiles, lesson checkpoints, exercise attempts, module quiz scores, and project progress.
-  - **localStorage** strictly for lightweight UI preferences (theme, font size, active profile ID, quiz passing threshold).
-- **Interactive Code Editor**: Loads **Ace Editor** (C/C++ syntax mode) when online and seamlessly provides a built-in, zero-dependency syntax-highlighted editable code editor when offline — including Copy, Reset, and real `.ino` file download for Arduino IDE. It intentionally **never** fabricates compilation or hardware execution results.
-- **PWA & GitHub Pages Ready**: All links and asset paths are strictly relative (`./...`), accompanied by `manifest.webmanifest`, `service-worker.js`, and `404.html`.
-
----
-
-## Project Folder Structure
-
-```text
-robodex/
-├── index.html                  # Home page & quick start
-├── learn.html                  # W3Schools-style 3-column lesson & quiz workspace
-├── academy.html                # Explore Academy (12 modules + project pathways)
-├── boards.html                 # 5 Board-specific learning paths & comparison matrix
-├── projects.html               # 8 Guided robotics project pathways
-├── dashboard.html              # Live IndexedDB student dashboard
-├── profiles.html               # Multi-profile local manager & preferences
-├── my-data.html                # Export progress, records, versioned backup/restore, delete
-├── 404.html                    # GitHub Pages custom 404 page
-├── manifest.webmanifest        # Relative-path Web App Manifest
-├── service-worker.js           # Offline static shell caching
-├── README.md                   # Documentation
-├── assets/
-│   ├── css/
-│   │   ├── tokens.css
-│   │   ├── base.css
-│   │   ├── layout.css
-│   │   └── components.css
-│   ├── js/
-│   │   ├── prefs.js
-│   │   ├── db.js
-│   │   ├── progress.js
-│   │   ├── app.js
-│   │   ├── editor.js
-│   │   ├── exercises.js
-│   │   ├── quiz.js
-│   │   ├── learn-page.js
-│   │   ├── academy-page.js
-│   │   ├── boards-page.js
-│   │   ├── projects-page.js
-│   │   ├── dashboard-page.js
-│   │   ├── profiles-page.js
-│   │   └── my-data-page.js
-│   ├── img/
-│   │   ├── logo.svg
-│   │   └── favicon.svg
-│   └── diagrams/
-│       ├── ipo-model.svg
-│       ├── flowchart-basics.svg
-│       ├── arduino-loop.svg
-│       └── boards-overview.svg
-└── data/
-    ├── curriculum.json         # Master index of all 12 modules & 97 lessons
-    ├── boards.json             # Uno R3, Uno R4, Nano variants, Mega 2560, ESP32 variants
-    ├── projects.json           # 8 progressive project pathways
-    ├── lessons/
-    │   ├── mod-01.json ... mod-12.json
-    └── quizzes/
-        └── quizzes.json        # Module quizzes for all 12 modules
-```
+- **Brand Identity**: Text-only wordmark `RoboDex́` and `RoboDex́ | Train Yourself` (zero graphical brand logos, zero version-based branding).
+- **Hyper-Bloom Visual System**: Complete **Dark Hyper-Bloom** and **Light Hyper-Bloom** themes (`tokens.css`, `base.css`, `layout.css`, `components.css`) featuring organic layered background curves, curved section transitions, purple-centered gradients, geometric display + technical sans typography, laptop-first layout (`1280px` / `1440px`), and calm reading surfaces for Programming School.
+- **Navigation & Application Shell**:
+  - **Initial Screen (`index.html`)**: Mandatory Local Student Profile Selector (always shown on a fresh session via `sessionStorage`-scoped active profile). Supports multiple independent local profiles including identical full names via unique internal IDs (`stu_...`), requiring only a real full name.
+  - **Persistent Left Sidebar (6 Primary Destinations)**:
+    1. **Dashboard (`dashboard.html`)** — Consolidated Dashboard + Explore Academy overview backed strictly by the selected profile's IndexedDB records.
+    2. **Programming School (`learn.html`)** — Preserved 12-module, 97-lesson, 136-exercise, 12-quiz W3Schools-inspired learning workspace.
+    3. **Boards (`boards.html`)** — Prepared Stage 1 shell for Stage 2 hardware board paths + authentic hardware photography attribution manifest (`data/hardware-assets.json`).
+    4. **Application-Based Learning (`projects.html`)** — Prepared Stage 1 shell for Stage 3 project learning environment.
+    5. **My Information (`my-information.html`)** — Profile management, persistent storage status, export/backup/restore (V1 & V2 compatible), and explicit profile deletion.
+    6. **About (`about.html`)** — Preserved educational methodology and platform overview moved from the removed Home page.
+- **Persistence & Safe V1 Migration**:
+  - **IndexedDB (`RoboDexAcademyDB`, Schema v2)**: Non-destructively upgrades V1 stores (`profiles`, `lessonProgress`, `exerciseAttempts`, `quizAttempts`, `projectProgress`), adds `boardProgress` and `activityLog`, recovers any unowned V1 records into a `"Migrated Local Learner"` profile rather than discarding them, and requests `navigator.storage.persist()` where supported.
+  - **localStorage**: Lightweight UI preferences only (theme, reading font size, quiz pass score).
+  - **sessionStorage**: Active profile selection for the current browser session only.
 
 ---
 
 ## Running Locally
 
-Because browsers block `fetch()` of local JSON files over the `file://` protocol, run RoboDex́ through any static local HTTP server:
+Because browsers block `fetch()` of local JSON files over `file://`, serve the `robodex/` folder via a local static HTTP server:
 
-### Option 1: Python 3 (Recommended)
 ```bash
 cd robodex
 python3 -m http.server 8080
 ```
+
 Then open `http://localhost:8080` in your browser.
 
-### Option 2: Node.js
-```bash
-cd robodex
-npx serve .
+---
+
+## Footer Standard
+
+Every application page displays the exact three-line footer:
+
+```text
+RoboDex́ | Train Yourself
+United Academy Robotics Club | United Academy
+Copyright © United Academy Robotics Club Member - Neilhancy Dev 2026
 ```
-
-### Option 3: VS Code Live Server
-Open the `robodex/` folder in VS Code and click **Go Live**.
-
----
-
-## Deploying to GitHub Pages
-
-1. Create a new GitHub repository (e.g., `robodex`).
-2. Push the contents of the `robodex/` folder to the root of your `main` branch.
-3. Open **Settings → Pages** in your GitHub repository.
-4. Under **Build and deployment → Source**, choose **Deploy from a branch**.
-5. Select `main` and `/ (root)`, then click **Save**.
-6. Your site will be live at `https://<your-username>.github.io/<repo-name>/`. Because all internal links, JSON fetches, manifest paths, and service worker paths are relative (`./`), repository subpath hosting works out of the box.
-
----
-
-## Implemented Features (Version 1.0)
-
-- Complete 12-module curriculum in the exact specified order (97 structured lessons across Modules 01–12), every lesson containing all 14 instructional sections.
-- W3Schools-inspired 3-column learning workspace with expandable module sidebar, checkmarks, sequential lock/unlock states, live course progress bar, and right-side On-This-Page TOC scrollspy.
-- Interactive Try It Yourself Arduino C++ editor (Ace Editor when online + built-in syntax-highlighted fallback offline) with Copy, Reset, `.ino` download, expected hardware behavior notes, and honest Arduino IDE compilation guidance.
-- All 7 interactive exercise types (multiple choice, fill-in-the-blanks, select correct code, predict behavior, identify errors, arrange instructions, write short code) with Submit/Check, feedback, Try Again, Show Answer, and explanations.
-- End-of-module quizzes for all 12 modules with configurable passing threshold (default 70%), auto-scoring, per-question explanations, and retake support.
-- Weighted progress tracking (30% lessons/checkpoints, 50% coding exercises, 20% module quizzes) and 5-tier skill mastery indicators (`Not Started`, `Learning`, `Practicing`, `Competent`, `Mastered`).
-- Separate board-specific learning paths for Arduino Uno R3, Uno R4, Nano (explicitly distinguishing Classic, Every, and Nano ESP32), Mega 2560, and ESP32 (explicitly distinguishing WROOM-32, S3, and C3).
-- 8 guided project pathways integrated with curriculum prerequisites and interactive logic checklists (no immediate copy-paste spoilers).
-- Multi-profile local student system (no fake server auth or passwords), live Student Dashboard (zero fabricated metrics), and My Data page (Export Progress JSON, Export Records CSV, Versioned Backup JSON, Restore Backup, Delete Local Profile).
-
----
-
-## Known Limitations & Future Roadmap (Not in Version 1.0)
-
-- **No in-browser compiler or hardware upload**: Real compiling, verifying, and uploading require the official Arduino IDE on desktop (intentional pedagogical design).
-- **Token-based checking for `write-code` exercises**: Free-form code exercises validate required C++ / Arduino constructs and syntax patterns rather than running a full C++ compiler in the browser.
-- **Browser-local storage**: IndexedDB data stays strictly on the local browser/device; clearing site data removes unsaved progress unless the student downloads a backup from `my-data.html`.
-- **Intentionally excluded from Version 1.0**: Separate Coding Arena, Debugging Lab, Robotics Project Laboratory, project submission/review systems, certificates, cloud database/auth, instructor/admin dashboards, AI tutors, leaderboards, and paid services.

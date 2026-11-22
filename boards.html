@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Board-Specific Development — RoboDex́</title>
-  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
+  <title>Boards — RoboDex́ | Train Yourself</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./assets/css/tokens.css">
   <link rel="stylesheet" href="./assets/css/base.css">
@@ -12,54 +11,81 @@
   <link rel="stylesheet" href="./assets/css/components.css">
 </head>
 <body data-page="boards">
-  <div id="site-header"></div>
+  <div class="app-shell">
+    <div id="app-sidebar-host"></div>
 
-  <main class="page-main">
-    <div class="container">
-      <div class="mb-lg">
-        <span class="badge badge-cyan">Module 11 Hardware Paths</span>
-        <h1 class="mt-sm">Board-Specific Development</h1>
-        <p>Microcontroller boards do not share identical voltages, pinouts, timers, or board packages. Study your exact board family — including Nano and ESP32 hardware variants — before wiring circuits or uploading sketches.</p>
-      </div>
+    <div class="app-stage">
+      <div id="utility-bar-host"></div>
 
-      <div class="diagram-frame mb-lg">
-        <img src="./assets/diagrams/boards-overview.svg" alt="Comparison of Uno R3, Uno R4, Nano, Mega 2560, and ESP32 families">
-        <div class="diagram-caption">Architecture and logic-voltage comparison across all five RoboDex́ board learning paths.</div>
-      </div>
-
-      <div id="board-tabs" class="tab-bar" role="tablist" aria-label="Select microcontroller board"></div>
-      <div id="board-detail" class="mb-lg">
-        <p class="text-muted">Loading board specifications...</p>
-      </div>
-
-      <section class="mt-lg">
-        <h2>Hardware Comparison Matrix</h2>
-        <div class="table-wrap mt-sm">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Board Family</th>
-                <th>Primary MCU</th>
-                <th>Logic Voltage</th>
-                <th>Digital I/O</th>
-                <th>Analog Inputs</th>
-                <th>PWM / DAC</th>
-                <th>Best For</th>
-              </tr>
-            </thead>
-            <tbody id="board-comparison-body"></tbody>
-          </table>
+      <section class="bloom-hero">
+        <svg class="bloom-hero-curves" viewBox="0 0 1440 320" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <path d="M-40,220 C340,60 720,300 1480,100 L1480,-20 L-40,-20 Z" fill="rgba(216,180,254,0.12)"/>
+        </svg>
+        <div class="container" style="position:relative; z-index:2;">
+          <span class="badge" style="background:rgba(255,255,255,0.14); color:#fff; border-color:rgba(255,255,255,0.28);">Stage 2 Destination</span>
+          <h1 class="mt-sm">Boards — Hardware Architecture Paths</h1>
+          <p style="max-width:640px;">Dedicated interactive hardware guides for Arduino Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants are scheduled for Stage 2 of RoboDex&#x0301; V2.</p>
         </div>
+        <svg class="hero-wave-divider" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,26 C400,72 980,-16 1440,32 L1440,64 L0,64 Z" fill="var(--bg-divider-fill)"/>
+        </svg>
       </section>
-    </div>
-  </main>
 
-  <div id="site-footer"></div>
+      <main class="page-body">
+        <div class="container">
+          <div class="empty-state mb-lg">
+            <h3>Boards Curriculum Arrives in Stage 2</h3>
+            <p>Your local IndexedDB database is already upgraded with a dedicated <code>boardProgress</code> store ready to track your board-specific progress. In the meantime, you can build C++ and Arduino fundamentals in <a href="./learn.html">Programming School</a>.</p>
+          </div>
+
+          <section class="card">
+            <h2>Authentic Hardware Photography &amp; Attribution Registry</h2>
+            <p class="text-sm">RoboDex&#x0301; displays only authentic photographs of real electronic boards and components with recorded sources and usage rights — never AI-generated or fabricated hardware images. Until verified local photographs are bundled in Stage 2, honest text fallbacks are tracked below:</p>
+            <div class="table-wrap mt-md">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Hardware Family</th>
+                    <th>Asset Status</th>
+                    <th>Preferred Official Source</th>
+                    <th>Text Fallback Description</th>
+                  </tr>
+                </thead>
+                <tbody id="hardware-registry-body">
+                  <tr><td colspan="4" class="text-muted">Loading hardware asset manifest...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <div id="site-footer"></div>
+    </div>
+  </div>
 
   <script src="./assets/js/prefs.js"></script>
   <script src="./assets/js/db.js"></script>
   <script src="./assets/js/progress.js"></script>
   <script src="./assets/js/app.js"></script>
-  <script src="./assets/js/boards-page.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const reg = await window.RoboDexApp.loadJSON('./data/hardware-assets.json');
+        const tbody = document.getElementById('hardware-registry-body');
+        tbody.innerHTML = reg.entries.map((item) => `
+          <tr>
+            <td><strong>${window.RoboDexApp.escapeHtml(item.componentName)}</strong></td>
+            <td><span class="badge">${window.RoboDexApp.escapeHtml(item.status.replace(/_/g, ' '))}</span></td>
+            <td class="text-sm">${window.RoboDexApp.escapeHtml(item.preferredSources.join('; '))}</td>
+            <td class="text-sm text-muted">${window.RoboDexApp.escapeHtml(item.fallbackLabel)}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        const tbody = document.getElementById('hardware-registry-body');
+        if (tbody) tbody.innerHTML = `<tr><td colspan="4">${window.RoboDexApp.escapeHtml(err.message)}</td></tr>`;
+      }
+    });
+  </script>
 </body>
 </html>

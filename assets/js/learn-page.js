@@ -1,5 +1,6 @@
 /* ==========================================================================
-   RoboDex́ — Learn Workspace Controller (W3Schools-Inspired 3-Column UI)
+   RoboDex́ — Programming School Workspace Controller (Preserved for Stage 2)
+   3-Column W3Schools-style lesson & quiz runner inside the V2 shell.
    ========================================================================== */
 
 (function () {
@@ -47,11 +48,11 @@
     sidebar.innerHTML = `
       <div class="sidebar-progress-box">
         <div class="flex items-center justify-between mb-sm">
-          <strong style="font-size:0.86rem;">Course Progress</strong>
-          <span class="badge badge-cyan">${metrics.overallPercent}%</span>
+          <strong style="font-size:0.84rem; font-family:var(--font-display);">Programming School</strong>
+          <span class="badge badge-bloom">${metrics.programmingPercent}%</span>
         </div>
         <div class="progress-track sm">
-          <div class="progress-fill" style="width:${metrics.overallPercent}%"></div>
+          <div class="progress-fill" style="width:${metrics.programmingPercent}%"></div>
         </div>
         <div class="text-xs text-muted mt-sm">
           ${metrics.completedLessons}/${metrics.totalLessons} lessons · ${metrics.exercisesPassed} exercises · ${metrics.quizzesPassed}/${metrics.totalQuizzes} quizzes
@@ -83,8 +84,7 @@
                 return `
                   <li>
                     <a href="./learn.html?lesson=${encodeURIComponent(l.id)}"
-                       class="sidebar-lesson-link ${isActive ? 'active' : ''} ${!unlocked ? 'locked' : ''}"
-                       data-unlocked="${unlocked}">
+                       class="sidebar-lesson-link ${isActive ? 'active' : ''} ${!unlocked ? 'locked' : ''}">
                       <span class="lesson-state-icon" aria-hidden="true">${icon}</span>
                       <span>${window.RoboDexApp.escapeHtml(l.title)}</span>
                     </a>
@@ -151,10 +151,10 @@
         <div class="lesson-article">
           <div class="callout callout-danger">
             <div class="callout-title">Lesson Not Found</div>
-            <p>We could not find a lesson with ID <code>${window.RoboDexApp.escapeHtml(lessonId)}</code>. It may have been typed incorrectly or removed.</p>
+            <p>We could not find a lesson with ID <code>${window.RoboDexApp.escapeHtml(lessonId)}</code>.</p>
             <div class="flex flex-wrap gap-sm mt-sm">
               <a class="btn btn-primary btn-sm" href="./learn.html?lesson=m01-l01">Go to Module 01, Lesson 1</a>
-              <a class="btn btn-secondary btn-sm" href="./academy.html">Browse Full Curriculum</a>
+              <a class="btn btn-secondary btn-sm" href="./dashboard.html">Return to Dashboard</a>
             </div>
           </div>
         </div>
@@ -181,10 +181,10 @@
           <h1 class="mt-sm">🔒 ${window.RoboDexApp.escapeHtml(meta.lesson.title)}</h1>
           <div class="callout callout-warning mt-md">
             <div class="callout-title">Complete the Previous Lesson Checkpoint First</div>
-            <p>To help you build genuine programming foundations without skipping key concepts, RoboDex́ unlocks each lesson after you complete the checkpoint in the previous lesson.</p>
+            <p>RoboDex́ unlocks each lesson after you complete the checkpoint in the previous lesson so core concepts stay solid.</p>
             <div class="flex flex-wrap gap-sm mt-md">
               ${adj.prev ? `<a class="btn btn-primary" href="./learn.html?lesson=${encodeURIComponent(adj.prev.id)}">Go to Previous Lesson: ${window.RoboDexApp.escapeHtml(adj.prev.title)}</a>` : ''}
-              <a class="btn btn-secondary" href="./profiles.html">Change Lock Preference in Profile</a>
+              <a class="btn btn-secondary" href="./my-information.html">Adjust Lock Preference in My Information</a>
             </div>
           </div>
         </div>
@@ -196,15 +196,7 @@
     try {
       modData = await window.RoboDexApp.loadJSON(`./data/lessons/${meta.mod.id}.json`);
     } catch (err) {
-      main.innerHTML = `
-        <div class="lesson-article">
-          <div class="callout callout-danger">
-            <div class="callout-title">Unable to Load Lesson Data</div>
-            <p>${window.RoboDexApp.escapeHtml(err.message)}</p>
-            <p class="text-sm text-muted">If you opened this HTML file directly via <code>file://</code>, browser security blocks JSON fetching. Run RoboDex́ through a local web server (e.g., <code>python3 -m http.server</code>) or GitHub Pages.</p>
-          </div>
-        </div>
-      `;
+      main.innerHTML = `<div class="lesson-article"><div class="callout callout-danger">Unable to load lesson data: ${window.RoboDexApp.escapeHtml(err.message)}</div></div>`;
       return;
     }
 
@@ -214,7 +206,6 @@
       return;
     }
 
-    // Record visit (does NOT mark lesson complete!)
     await window.RoboDexDB.saveLessonVisit(profile.id, lesson.id, meta.mod.id);
     await refreshState();
     renderSidebar(lesson.id, null);
@@ -240,18 +231,15 @@
     main.innerHTML = `
       <article class="lesson-article">
         <div class="flex flex-wrap items-center gap-xs mb-sm">
-          <span class="badge badge-blue">${window.RoboDexApp.escapeHtml(meta.mod.shortTitle)}</span>
-          <span class="badge ${isDone ? 'badge-success' : 'badge-cyan'}" id="lesson-status-pill">
+          <span class="badge badge-bloom">${window.RoboDexApp.escapeHtml(meta.mod.shortTitle)}</span>
+          <span class="badge ${isDone ? 'badge-success' : 'badge-bloom'}" id="lesson-status-pill">
             ${isDone ? '✓ Checkpoint Completed' : 'In Progress'}
           </span>
           <span class="text-xs text-muted">Est. ${lesson.estimatedMinutes || 12} min</span>
         </div>
 
-        <!-- 1. Lesson Title -->
         <h1>${window.RoboDexApp.escapeHtml(lesson.title)}</h1>
-
-        <!-- 2. Short Introduction -->
-        <p style="font-size:1.06rem; color:var(--text-primary);">${window.RoboDexApp.escapeHtml(lesson.introduction)}</p>
+        <p style="font-size:1.05rem; color:var(--text-primary);">${window.RoboDexApp.escapeHtml(lesson.introduction)}</p>
 
         ${lesson.diagram ? `
           <div class="diagram-frame">
@@ -260,7 +248,6 @@
           </div>
         ` : ''}
 
-        <!-- 3. Learning Objectives -->
         <section class="lesson-section" id="sec-objectives">
           <h2 class="lesson-section-title">1. Learning Objectives</h2>
           <div class="callout callout-info">
@@ -271,22 +258,19 @@
           </div>
         </section>
 
-        <!-- 4. Concept Explanation -->
         <section class="lesson-section" id="sec-concept">
           <h2 class="lesson-section-title">2. Concept Explanation</h2>
           ${lesson.conceptExplanation.map((p) => `<p>${window.RoboDexApp.escapeHtml(p)}</p>`).join('')}
         </section>
 
-        <!-- 5. Beginner-Friendly Analogy -->
         <section class="lesson-section" id="sec-analogy">
           <h2 class="lesson-section-title">3. Beginner-Friendly Analogy</h2>
           <div class="callout">
-            <div class="callout-title">💡 Think of it this way</div>
+            <div class="callout-title">Think of it this way</div>
             <p style="margin:0;">${window.RoboDexApp.escapeHtml(lesson.analogy)}</p>
           </div>
         </section>
 
-        <!-- 6. Syntax Explanation -->
         <section class="lesson-section" id="sec-syntax">
           <h2 class="lesson-section-title">4. Syntax Explanation</h2>
           <p>${window.RoboDexApp.escapeHtml(lesson.syntaxExplanation.summary)}</p>
@@ -301,7 +285,6 @@
           ` : ''}
         </section>
 
-        <!-- 7. Code Examples -->
         <section class="lesson-section" id="sec-examples">
           <h2 class="lesson-section-title">5. Code Examples</h2>
           ${lesson.codeExamples.map((ex, i) => `
@@ -319,7 +302,6 @@
           `).join('')}
         </section>
 
-        <!-- 8. Line-by-Line Code Explanation -->
         <section class="lesson-section" id="sec-line-by-line">
           <h2 class="lesson-section-title">6. Line-by-Line Code Explanation</h2>
           <div class="line-explain-list">
@@ -332,16 +314,14 @@
           </div>
         </section>
 
-        <!-- 9. Real-World Arduino Application -->
         <section class="lesson-section" id="sec-arduino-app">
           <h2 class="lesson-section-title">7. Real-World Arduino Application</h2>
           <div class="callout callout-success">
-            <div class="callout-title">🔧 How Robotics Engineers Use This</div>
+            <div class="callout-title">How Robotics Engineers Use This</div>
             <p style="margin:0;">${window.RoboDexApp.escapeHtml(lesson.realWorldApplication)}</p>
           </div>
         </section>
 
-        <!-- 10. Common Mistakes -->
         <section class="lesson-section" id="sec-mistakes">
           <h2 class="lesson-section-title">8. Common Mistakes to Avoid</h2>
           <div class="grid grid-2">
@@ -354,21 +334,18 @@
           </div>
         </section>
 
-        <!-- 11. Try It Yourself -->
         <section class="lesson-section" id="sec-try-it">
           <h2 class="lesson-section-title">9. Try It Yourself</h2>
           <p>Edit the sketch below, experiment with values, or download the <code>.ino</code> file to test on your board in Arduino IDE.</p>
           <div id="try-it-editor-host"></div>
         </section>
 
-        <!-- 12. Exercises -->
         <section class="lesson-section" id="sec-exercises">
           <h2 class="lesson-section-title">10. Lesson Exercises</h2>
-          <p>Check your understanding before completing this lesson. Exercise scores contribute <strong>50%</strong> toward your course mastery.</p>
+          <p>Check your understanding before completing this lesson. Exercise scores contribute <strong>50%</strong> toward Programming School mastery.</p>
           <div id="lesson-exercises-host"></div>
         </section>
 
-        <!-- 13. Lesson Summary & Checkpoint -->
         <section class="lesson-section" id="sec-summary">
           <h2 class="lesson-section-title">11. Lesson Summary</h2>
           <ul style="margin:0.4rem 0 0 1.2rem;">
@@ -380,7 +357,7 @@
               <div>
                 <h3 style="margin-bottom:0.25rem;">Lesson Checkpoint</h3>
                 <p class="text-sm" style="margin:0;">
-                  Opening a lesson does not mark it complete. Confirm this checkpoint once you understand the concept and have practiced the exercises above.
+                  Opening a lesson does not mark it complete. Confirm this checkpoint once you understand the concept and have checked the exercises.
                 </p>
               </div>
               <button type="button" id="complete-checkpoint-btn" class="btn ${isDone ? 'btn-secondary' : 'btn-primary'}">
@@ -390,15 +367,6 @@
           </div>
         </section>
 
-        ${lesson.relatedProjectId ? `
-          <div class="callout callout-info mt-md">
-            <div class="callout-title">🚀 Apply This in a Guided Project</div>
-            <p style="margin-bottom:0.5rem;">Ready to see how this lesson connects to real hardware? Explore the linked project pathway.</p>
-            <a class="btn btn-secondary btn-sm" href="./projects.html?project=${encodeURIComponent(lesson.relatedProjectId)}">Open Project Pathway →</a>
-          </div>
-        ` : ''}
-
-        <!-- 14. Previous & Next Lesson Navigation -->
         <nav class="lesson-nav-bar" aria-label="Lesson Pagination">
           <div>
             ${adj.prev ? `<a class="btn btn-secondary" href="./learn.html?lesson=${encodeURIComponent(adj.prev.id)}">← Previous: ${window.RoboDexApp.escapeHtml(adj.prev.title)}</a>` : '<span></span>'}
@@ -411,7 +379,6 @@
       </article>
     `;
 
-    // Bind copy buttons for static code examples
     main.querySelectorAll('.copy-example-btn').forEach((btn) => {
       btn.addEventListener('click', async () => {
         const idx = Number(btn.dataset.exIdx);
@@ -425,10 +392,8 @@
       });
     });
 
-    // Mount Try It Yourself Editor
     window.RoboDexEditor.mount(document.getElementById('try-it-editor-host'), lesson.tryItYourself);
 
-    // Mount Exercises
     window.RoboDexExercises.renderExercises(
       document.getElementById('lesson-exercises-host'),
       lesson.exercises,
@@ -444,10 +409,9 @@
       }
     );
 
-    // Checkpoint completion button
     const cpBtn = document.getElementById('complete-checkpoint-btn');
     cpBtn.addEventListener('click', async () => {
-      await window.RoboDexDB.completeLessonCheckpoint(profile.id, lesson.id, meta.mod.id);
+      await window.RoboDexDB.completeLessonCheckpoint(profile.id, lesson.id, meta.mod.id, lesson.title);
       await refreshState();
       renderSidebar(lesson.id, null);
       cpBtn.textContent = '✓ Checkpoint Completed';
@@ -491,19 +455,11 @@
   }
 
   async function init() {
-    profile = await window.RoboDexDB.ensureActiveProfile();
+    profile = await window.RoboDexApp.requireActiveProfile();
+    if (!profile) return;
+
     curriculum = await window.RoboDexApp.loadJSON('./data/curriculum.json');
     await refreshState();
-
-    // Mobile sidebar drawer toggle
-    const toggleBtn = document.getElementById('mobile-sidebar-btn');
-    const sidebar = document.getElementById('learn-sidebar');
-    if (toggleBtn && sidebar) {
-      toggleBtn.addEventListener('click', () => {
-        const open = sidebar.classList.toggle('open');
-        toggleBtn.textContent = open ? '✕ Close Topics' : '☰ Course Topics';
-      });
-    }
 
     const { lessonId, quizModuleId } = getParams();
     if (quizModuleId) {

@@ -1,6 +1,7 @@
 /* ==========================================================================
-   RoboDex́ — Progress Engine, Weighted Scoring & Skill Mastery Indicators
-   Weighting: Lessons & Checkpoints 30% | Coding Exercises 50% | Quizzes 20%
+   RoboDex́ — Progress Engine, Weighted Scoring & Multi-Track Readiness
+   Programming School weighting: 30% Lessons | 50% Exercises | 20% Quizzes
+   Prepares Boards & Application-Based Learning hooks without fake values.
    ========================================================================== */
 
 window.RoboDexProgress = (function () {
@@ -27,10 +28,54 @@ window.RoboDexProgress = (function () {
     return 'Independent Robotics Programmer';
   }
 
+  function buildRecentActivity(snapshot, lessonLookup) {
+    const events = [];
+
+    (snapshot.activity || []).forEach((a) => {
+      events.push({
+        area: a.area || 'Programming School',
+        action: a.action,
+        label: a.label,
+        targetUrl: a.targetUrl || '',
+        timestamp: a.timestamp || 0
+      });
+    });
+
+    // Backfill from V1 records if activityLog was empty (migrated V1 profile)
+    if (events.length === 0) {
+      (snapshot.lessons || []).forEach((l) => {
+        if (l.checkpointCompleted) {
+          events.push({
+            area: 'Programming School',
+            action: 'Completed lesson checkpoint',
+            label: lessonLookup.get(l.lessonId) || l.lessonId,
+            targetUrl: `./learn.html?lesson=${encodeURIComponent(l.lessonId)}`,
+            timestamp: l.completedAt || l.lastVisitedAt || 0
+          });
+        }
+      });
+      (snapshot.quizzes || []).forEach((q) => {
+        events.push({
+          area: 'Programming School',
+          action: q.passed ? `Passed module quiz (${q.bestScore}%)` : `Attempted module quiz (${q.bestScore}%)`,
+          label: q.moduleId.toUpperCase(),
+          targetUrl: `./learn.html?quiz=${encodeURIComponent(q.moduleId)}`,
+          timestamp: q.updatedAt || 0
+        });
+      });
+    }
+
+    return events.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0)).slice(0, 8);
+  }
+
   function computeMetrics(curriculum, snapshot) {
     const lessonsList = [];
+    const lessonLookup = new Map();
     curriculum.modules.forEach((m) => {
-      m.lessons.forEach((l) => lessonsList.push({ ...l, moduleId: m.id }));
+      m.lessons.forEach((l) => {
+        lessonsList.push({ ...l, moduleId: m.id });
+        lessonLookup.set(l.id, l.title);
+      });
     });
 
     const completedLessonSet = new Set(
@@ -60,11 +105,17 @@ window.RoboDexProgress = (function () {
     const exerciseRatio = totalExercises ? Math.min(1, exercisesPassed / totalExercises) : 0;
     const quizRatio = totalQuizzes ? quizzesPassed / totalQuizzes : 0;
 
-    const overallPercent = Math.round(
+    const programmingPercent = Math.round(
       (lessonRatio * WEIGHTS.lessons + exerciseRatio * WEIGHTS.exercises + quizRatio * WEIGHTS.quizzes) * 100
     );
 
-    // Per-module metrics & skill indicators
+    // Future-ready Boards & Application-Based Learning summaries (strictly from real records)
+    const boardRecords = snapshot.boards || [];
+    const boardsCompleted = boardRecords.filter((b) => b.completed).length;
+
+    const projectRecords = snapshot.projects || [];
+    const activeProjectsCount = projectRecords.filter((p) => (p.completedSteps || []).length > 0).length;
+
     const moduleStats = curriculum.modules.map((m) => {
       const mTotalLessons = m.lessons.length;
       const mDoneLessons = m.lessons.filter((l) => completedLessonSet.has(l.id)).length;
@@ -87,7 +138,10 @@ window.RoboDexProgress = (function () {
 
       return {
         moduleId: m.id,
+        shortTitle: m.shortTitle,
         title: m.title,
+        track: m.track,
+        description: m.description,
         skillName: m.skillName || m.title,
         totalLessons: mTotalLessons,
         completedLessons: mDoneLessons,
@@ -100,12 +154,13 @@ window.RoboDexProgress = (function () {
       };
     });
 
-    // Determine next recommended lesson
     const nextLesson = lessonsList.find((l) => !completedLessonSet.has(l.id)) || lessonsList[lessonsList.length - 1];
+    const recentActivity = buildRecentActivity(snapshot, lessonLookup);
 
     return {
-      overallPercent,
-      level: overallLevel(overallPercent),
+      overallPercent: programmingPercent,
+      programmingPercent,
+      level: overallLevel(programmingPercent),
       totalLessons,
       completedLessons,
       totalExercises,
@@ -113,12 +168,17 @@ window.RoboDexProgress = (function () {
       exercisesPassed,
       totalQuizzes,
       quizzesPassed,
+      boardRecordsCount: boardRecords.length,
+      boardsCompleted,
+      projectRecords,
+      activeProjectsCount,
       completedLessonSet,
       visitedLessonSet,
       exerciseMap,
       quizMap,
       moduleStats,
-      nextLesson
+      nextLesson,
+      recentActivity
     };
   }
 
@@ -127,8 +187,7 @@ window.RoboDexProgress = (function () {
     const flat = [];
     curriculum.modules.forEach((m) => m.lessons.forEach((l) => flat.push(l.id)));
     const idx = flat.indexOf(lessonId);
-    if (idx <= 0) return true; // First lesson always unlocked
-    // Unlocked if already completed OR previous lesson is completed
+    if (idx <= 0) return true;
     return completedLessonSet.has(lessonId) || completedLessonSet.has(flat[idx - 1]);
   }
 

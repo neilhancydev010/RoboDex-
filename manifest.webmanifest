@@ -1,17 +1,10 @@
 {
-  "name": "RoboDex́ — Arduino & C++ Robotics Academy",
+  "name": "RoboDex́ | Train Yourself",
   "short_name": "RoboDex́",
   "description": "Application-first C++ and Arduino programming education platform for absolute beginners.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b192c",
-  "theme_color": "#0b192c",
-  "icons": [
-    {
-      "src": "./assets/img/logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ]
+  "background_color": "#090612",
+  "theme_color": "#7c3aed"
 }

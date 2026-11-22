@@ -1,0 +1,52 @@
+{
+  "policyVersion": "1.0",
+  "standard": "Authentic photographs of actual electronic boards and components only. No AI-generated electronics, no imaginary hardware, and no unverified redistribution.",
+  "localAssetDirectory": "./assets/hardware/",
+  "entries": [
+    {
+      "id": "arduino-uno-r3",
+      "componentName": "Arduino Uno Rev3",
+      "localFile": null,
+      "status": "pending_verified_source",
+      "preferredSources": ["Arduino Official Documentation / Press Kit (arduino.cc)", "Wikimedia Commons CC-BY-SA verified board photo"],
+      "license": "Pending verification before local bundling",
+      "fallbackLabel": "Arduino Uno Rev3 (ATmega328P, 5V Logic — verified photograph scheduled for Stage 2)"
+    },
+    {
+      "id": "arduino-uno-r4",
+      "componentName": "Arduino Uno R4 (Minima & WiFi)",
+      "localFile": null,
+      "status": "pending_verified_source",
+      "preferredSources": ["Arduino Official Product Photography (arduino.cc)"],
+      "license": "Pending verification before local bundling",
+      "fallbackLabel": "Arduino Uno R4 Minima / WiFi (Renesas RA4M1, 5V Logic — verified photograph scheduled for Stage 2)"
+    },
+    {
+      "id": "arduino-nano-family",
+      "componentName": "Arduino Nano Family (Classic / Every / Nano ESP32)",
+      "localFile": null,
+      "status": "pending_verified_source",
+      "preferredSources": ["Arduino Official Product Photography (arduino.cc)"],
+      "license": "Pending verification before local bundling",
+      "fallbackLabel": "Arduino Nano Family — Classic (5V), Every (5V), Nano ESP32 (3.3V) — verified photographs scheduled for Stage 2"
+    },
+    {
+      "id": "arduino-mega-2560",
+      "componentName": "Arduino Mega 2560 Rev3",
+      "localFile": null,
+      "status": "pending_verified_source",
+      "preferredSources": ["Arduino Official Product Photography (arduino.cc)", "Wikimedia Commons CC-BY-SA"],
+      "license": "Pending verification before local bundling",
+      "fallbackLabel": "Arduino Mega 2560 Rev3 (ATmega2560, 54 Digital I/O, 4 UARTs — verified photograph scheduled for Stage 2)"
+    },
+    {
+      "id": "esp32-family",
+      "componentName": "ESP32 Family (WROOM-32 / S3 / C3)",
+      "localFile": null,
+      "status": "pending_verified_source",
+      "preferredSources": ["Espressif Systems Official Documentation (espressif.com)"],
+      "license": "Pending verification before local bundling",
+      "fallbackLabel": "ESP32 Development Boards (3.3V Logic ONLY — verified photographs scheduled for Stage 2)"
+    }
+  ]
+}

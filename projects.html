@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guided Project Pathways — RoboDex́</title>
-  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
+  <title>Application-Based Learning — RoboDex́ | Train Yourself</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./assets/css/tokens.css">
   <link rel="stylesheet" href="./assets/css/base.css">
@@ -12,30 +11,48 @@
   <link rel="stylesheet" href="./assets/css/components.css">
 </head>
 <body data-page="projects">
-  <div id="site-header"></div>
+  <div class="app-shell">
+    <div id="app-sidebar-host"></div>
 
-  <main class="page-main">
-    <div class="container">
-      <div class="mb-lg">
-        <span class="badge badge-cyan">Integrated Project-Based Learning</span>
-        <h1 class="mt-sm">Guided Robotics Project Pathways</h1>
-        <p>Select a project below to review its objective, required programming concepts, live prerequisite status, step-by-step logic design, hardware wiring notes, and Arduino IDE starter skeleton. RoboDex́ guides your thinking instead of handing out complete copy-paste solutions.</p>
-      </div>
+    <div class="app-stage">
+      <div id="utility-bar-host"></div>
 
-      <div id="projects-selector" class="grid grid-4 mb-lg"></div>
-      <div id="project-detail">
-        <p class="text-muted">Loading project pathway...</p>
-      </div>
+      <section class="bloom-hero">
+        <svg class="bloom-hero-curves" viewBox="0 0 1440 320" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <path d="M-40,230 C320,80 780,310 1480,90 L1480,-20 L-40,-20 Z" fill="rgba(216,180,254,0.12)"/>
+        </svg>
+        <div class="container" style="position:relative; z-index:2;">
+          <span class="badge" style="background:rgba(255,255,255,0.14); color:#fff; border-color:rgba(255,255,255,0.28);">Stage 3 Destination</span>
+          <h1 class="mt-sm">Application-Based Learning</h1>
+          <p style="max-width:640px;">The full guided robotics project curriculum is scheduled for Stage 3. Your local profile and Dashboard are already wired to record and surface project progress when it launches.</p>
+        </div>
+        <svg class="hero-wave-divider" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,26 C400,72 980,-16 1440,32 L1440,64 L0,64 Z" fill="var(--bg-divider-fill)"/>
+        </svg>
+      </section>
+
+      <main class="page-body">
+        <div class="container">
+          <div class="empty-state">
+            <h3>Application-Based Learning Environment — Coming in Stage 3</h3>
+            <p class="mb-md">
+              No placeholder project cards or fabricated completion numbers are shown here. Prepare for Stage 3 projects by completing core C++ and Arduino lessons in Programming School.
+            </p>
+            <div class="flex flex-wrap gap-sm" style="justify-content:center;">
+              <a class="btn btn-primary" href="./learn.html">Go to Programming School →</a>
+              <a class="btn btn-secondary" href="./dashboard.html">Return to Dashboard</a>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <div id="site-footer"></div>
     </div>
-  </main>
-
-  <div id="site-footer"></div>
+  </div>
 
   <script src="./assets/js/prefs.js"></script>
   <script src="./assets/js/db.js"></script>
   <script src="./assets/js/progress.js"></script>
   <script src="./assets/js/app.js"></script>
-  <script src="./assets/js/editor.js"></script>
-  <script src="./assets/js/projects-page.js"></script>
 </body>
 </html>

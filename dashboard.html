@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Dashboard — RoboDex́</title>
-  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
+  <title>Dashboard — RoboDex́ | Train Yourself</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./assets/css/tokens.css">
   <link rel="stylesheet" href="./assets/css/base.css">
@@ -12,15 +11,79 @@
   <link rel="stylesheet" href="./assets/css/components.css">
 </head>
 <body data-page="dashboard">
-  <div id="site-header"></div>
+  <div class="app-shell">
+    <div id="app-sidebar-host"></div>
 
-  <main class="page-main">
-    <div class="container" id="dashboard-root">
-      <p class="text-muted">Loading your local learning records from IndexedDB...</p>
+    <div class="app-stage">
+      <div id="utility-bar-host"></div>
+
+      <!-- Expressive Hyper-Bloom Curved Hero -->
+      <section class="bloom-hero">
+        <svg class="bloom-hero-curves" viewBox="0 0 1440 360" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <path d="M-40,260 C280,80 620,340 1020,140 C1240,30 1380,95 1480,60 L1480,-20 L-40,-20 Z" fill="rgba(216,180,254,0.12)"/>
+          <path d="M460,360 C720,190 1040,270 1480,110 L1480,360 Z" fill="rgba(168,85,247,0.16)"/>
+        </svg>
+        <div class="container" style="position:relative; z-index:2;" id="dash-hero-content">
+          <p>Loading your local learning records...</p>
+        </div>
+        <svg class="hero-wave-divider" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,22 C360,72 920,-18 1440,34 L1440,64 L0,64 Z" fill="var(--bg-divider-fill)"/>
+        </svg>
+      </section>
+
+      <main class="page-body">
+        <div class="container">
+          <!-- Three Learning Tracks Summary -->
+          <section class="mb-lg">
+            <h2>Learning Tracks</h2>
+            <div id="dash-tracks-grid" class="grid grid-3 mt-sm"></div>
+          </section>
+
+          <!-- Genuine Quantitative Stats -->
+          <section class="mb-lg">
+            <div id="dash-stats-grid" class="grid grid-4"></div>
+          </section>
+
+          <!-- Recent Learning Activity -->
+          <section class="card mb-lg">
+            <div class="card-header">
+              <div>
+                <h2>Recent Learning Activity</h2>
+                <p class="text-sm" style="margin:0;">Recorded strictly from your active local profile.</p>
+              </div>
+            </div>
+            <div id="dash-recent-activity"></div>
+          </section>
+
+          <!-- Skill Mastery Grid -->
+          <section class="curved-band">
+            <h2>Skill Mastery Across Modules</h2>
+            <p class="text-sm mb-md">Calculated from completed checkpoints, checked coding exercises, and module quiz scores.</p>
+            <div id="dash-skills-grid" class="grid grid-3"></div>
+          </section>
+
+          <!-- Consolidated Curriculum Explorer (Merged from Explore Academy) -->
+          <section class="mt-lg">
+            <div class="flex flex-wrap items-center justify-between gap-sm mb-md">
+              <div>
+                <h2>Programming School Curriculum</h2>
+                <p class="text-sm" style="margin:0;">Browse all 12 modules and jump straight to any unlocked lesson or module quiz.</p>
+              </div>
+            </div>
+            <div class="tab-bar" role="tablist" aria-label="Filter curriculum tracks">
+              <button type="button" class="tab-btn active" data-track-filter="all">All 12 Modules</button>
+              <button type="button" class="tab-btn" data-track-filter="foundations">Programming &amp; Logic (01–02)</button>
+              <button type="button" class="tab-btn" data-track-filter="cpp">C++ Core &amp; Advanced (03–08)</button>
+              <button type="button" class="tab-btn" data-track-filter="arduino">Arduino &amp; Robotics (09–12)</button>
+            </div>
+            <div id="dash-modules-grid" class="grid grid-3"></div>
+          </section>
+        </div>
+      </main>
+
+      <div id="site-footer"></div>
     </div>
-  </main>
-
-  <div id="site-footer"></div>
+  </div>
 
   <script src="./assets/js/prefs.js"></script>
   <script src="./assets/js/db.js"></script>

@@ -1,203 +1,210 @@
 /* ==========================================================================
-   RoboDex́ — Student Dashboard Controller
-   100% live IndexedDB metrics — zero fabricated statistics.
+   RoboDex́ — Unified Student Dashboard Controller
+   Consolidates the previous Dashboard + Explore Academy into one personal
+   overview backed strictly by the selected profile's IndexedDB records.
    ========================================================================== */
 
 (function () {
   async function init() {
-    const profile = await window.RoboDexDB.ensureActiveProfile();
-    const [curriculum, boardsData, projectsData, snapshot] = await Promise.all([
+    const profile = await window.RoboDexApp.requireActiveProfile();
+    if (!profile) return;
+
+    const [curriculum, snapshot] = await Promise.all([
       window.RoboDexApp.loadJSON('./data/curriculum.json'),
-      window.RoboDexApp.loadJSON('./data/boards.json'),
-      window.RoboDexApp.loadJSON('./data/projects.json'),
       window.RoboDexDB.getProfileSnapshot(profile.id)
     ]);
 
     const metrics = window.RoboDexProgress.computeMetrics(curriculum, snapshot);
-    const boardLookup = new Map(boardsData.boards.map((b) => [b.id, b]));
     const lessonLookup = new Map();
     curriculum.modules.forEach((m) => m.lessons.forEach((l) => lessonLookup.set(l.id, l.title)));
 
-    // Find recommended project based on completed prerequisites
-    const recommendedProject =
-      projectsData.projects.find((p) => {
-        const prereqsDone = p.prerequisiteLessons.every((lid) => metrics.completedLessonSet.has(lid));
-        return prereqsDone;
-      }) || projectsData.projects[0];
-
     const accuracy = metrics.exercisesAttempted > 0
       ? Math.round((metrics.exercisesPassed / metrics.exercisesAttempted) * 100)
-      : 0;
+      : null;
 
-    const root = document.getElementById('dashboard-root');
-    root.innerHTML = `
-      <!-- Personalized Welcome & Continue Learning -->
-      <section class="card mb-lg" style="background:linear-gradient(135deg, var(--navy-900), var(--navy-800)); color:#fff; border-color:rgba(34,211,238,0.3);">
-        <div class="flex flex-wrap items-center justify-between gap-md">
-          <div>
-            <span class="badge badge-cyan">Local Student Profile · Active</span>
-            <h1 class="mt-sm" style="color:#fff;">Welcome back, ${window.RoboDexApp.escapeHtml(profile.displayName)}</h1>
-            <p style="color:#cbd5e1; margin-bottom:0.5rem;">
-              Current Learning Level: <strong style="color:#22d3ee;">${window.RoboDexApp.escapeHtml(metrics.level)}</strong>
-              ${profile.goal ? ` · Goal: ${window.RoboDexApp.escapeHtml(profile.goal)}` : ''}
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-sm">
-            <a class="btn btn-accent btn-lg" href="./learn.html?lesson=${encodeURIComponent(profile.lastVisitedLesson || 'm01-l01')}">
-              Continue Learning →
+    // 1. Hero Welcome & Continue Learning
+    document.getElementById('dash-hero-content').innerHTML = `
+      <div class="grid grid-asymmetric items-center">
+        <div>
+          <span class="badge" style="background:rgba(255,255,255,0.14); color:#fff; border-color:rgba(255,255,255,0.28);">
+            Personal Learning Overview · ${window.RoboDexApp.escapeHtml(metrics.level)}
+          </span>
+          <h1 class="mt-sm">Welcome back, ${window.RoboDexApp.escapeHtml(profile.fullName)}</h1>
+          <p style="max-width:600px;">
+            Track your real progress across Programming School, upcoming Boards hardware training, and Application-Based Learning — all stored locally for your profile.
+          </p>
+          <div class="flex flex-wrap gap-sm mt-md">
+            <a class="btn btn-primary btn-lg" href="./learn.html?lesson=${encodeURIComponent(profile.lastVisitedLesson || 'm01-l01')}">
+              ${metrics.completedLessons > 0 ? 'Continue Learning →' : 'Start Programming School →'}
             </a>
-            <a class="btn btn-secondary" href="./profiles.html">Switch / Edit Profile</a>
+            <a class="btn btn-secondary" style="background:rgba(255,255,255,0.12); color:#fff !important; border-color:rgba(255,255,255,0.32);" href="./learn.html?lesson=${encodeURIComponent(metrics.nextLesson.id)}">
+              Next Lesson: ${window.RoboDexApp.escapeHtml(metrics.nextLesson.title)}
+            </a>
           </div>
         </div>
-        <div class="mt-md">
-          <div class="flex justify-between text-sm mb-sm" style="color:#e2e8f0;">
-            <span>Overall Course Progress (30% Lessons · 50% Exercises · 20% Quizzes)</span>
-            <strong>${metrics.overallPercent}%</strong>
+
+        <div class="card" style="background:rgba(15,10,30,0.48); border-color:rgba(233,213,255,0.28); color:#fff;">
+          <div class="flex justify-between items-center mb-sm">
+            <span style="font-family:var(--font-display); font-weight:700;">Overall Learning Progress</span>
+            <strong style="font-size:1.5rem; font-family:var(--font-display);">${metrics.overallPercent}%</strong>
           </div>
-          <div class="progress-track">
+          <div class="progress-track mb-md" style="background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.2);">
             <div class="progress-fill" style="width:${metrics.overallPercent}%"></div>
           </div>
-        </div>
-      </section>
-
-      <!-- Live Stat Tiles -->
-      <section class="grid grid-4 mb-lg">
-        <div class="stat-card">
-          <div class="stat-value">${metrics.completedLessons} / ${metrics.totalLessons}</div>
-          <div class="stat-label">Completed Lessons</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">${metrics.exercisesPassed} / ${metrics.exercisesAttempted}</div>
-          <div class="stat-label">Exercises Passed / Attempted (${accuracy}%)</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">${metrics.quizzesPassed} / ${metrics.totalQuizzes}</div>
-          <div class="stat-label">Module Quizzes Passed</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">${(profile.selectedBoards || []).length}</div>
-          <div class="stat-label">Selected Target Boards</div>
-        </div>
-      </section>
-
-      <!-- Recommended Next Lesson + Recommended Project + Selected Boards -->
-      <section class="grid grid-3 mb-lg">
-        <div class="card">
-          <span class="badge badge-blue">Recommended Next Lesson</span>
-          <h3 class="mt-sm">${window.RoboDexApp.escapeHtml(metrics.nextLesson.title)}</h3>
-          <p class="text-sm">Continue your structured progression to unlock downstream modules and hardware projects.</p>
-          <a class="btn btn-primary btn-sm" href="./learn.html?lesson=${encodeURIComponent(metrics.nextLesson.id)}">Open Lesson →</a>
-        </div>
-
-        <div class="card">
-          <span class="badge badge-cyan">Recommended Project Path</span>
-          <h3 class="mt-sm">${window.RoboDexApp.escapeHtml(recommendedProject.title)}</h3>
-          <p class="text-sm">${window.RoboDexApp.escapeHtml(recommendedProject.objective)}</p>
-          <a class="btn btn-secondary btn-sm" href="./projects.html?project=${encodeURIComponent(recommendedProject.id)}">Start Guided Project →</a>
-        </div>
-
-        <div class="card">
-          <span class="badge">Selected Boards</span>
-          <h3 class="mt-sm">Your Hardware Focus</h3>
-          <div class="flex flex-wrap gap-xs mt-sm mb-md">
-            ${(profile.selectedBoards && profile.selectedBoards.length)
-              ? profile.selectedBoards.map((bid) => {
-                  const b = boardLookup.get(bid);
-                  return `<a class="badge badge-blue" href="./boards.html?board=${encodeURIComponent(bid)}">${window.RoboDexApp.escapeHtml(b ? b.name : bid)}</a>`;
-                }).join('')
-              : '<span class="text-sm text-muted">No boards selected yet.</span>'}
+          <div class="text-xs" style="color:rgba(241,233,255,0.82);">
+            Weighted from Programming School (30% lessons · 50% exercises · 20% quizzes). Boards and Application-Based Learning metrics will automatically integrate as you complete them in later stages.
           </div>
-          <a class="btn btn-secondary btn-sm" href="./boards.html">Manage Board Paths</a>
         </div>
-      </section>
+      </div>
+    `;
 
-      <!-- Skill Mastery Grid -->
-      <section class="card mb-lg">
+    // 2. Track Overview Cards (Programming School, Boards, Application-Based Learning)
+    document.getElementById('dash-tracks-grid').innerHTML = `
+      <div class="card card-hover">
         <div class="card-header">
-          <div>
-            <h2>Skill Mastery</h2>
-            <p class="text-sm" style="margin:0;">Calculated strictly from your completed checkpoints, checked exercises, and module quiz scores.</p>
-          </div>
+          <span class="badge badge-bloom">Track 1 · Active</span>
+          <strong style="font-family:var(--font-display);">${metrics.programmingPercent}%</strong>
         </div>
-        <div class="grid grid-3">
-          ${metrics.moduleStats.map((m) => `
-            <div style="padding:0.85rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--bg-page);">
-              <div class="flex items-center justify-between gap-xs mb-sm">
-                <strong class="text-sm">${window.RoboDexApp.escapeHtml(m.skillName)}</strong>
-                <span class="badge ${m.skill.cls}">${m.skill.label}</span>
+        <h3>Programming School</h3>
+        <p class="text-sm">${metrics.completedLessons} of ${metrics.totalLessons} lessons completed · ${metrics.quizzesPassed}/${metrics.totalQuizzes} module quizzes passed.</p>
+        <div class="progress-track sm mb-md">
+          <div class="progress-fill" style="width:${metrics.programmingPercent}%"></div>
+        </div>
+        <a class="btn btn-primary btn-sm" href="./learn.html?lesson=${encodeURIComponent(profile.lastVisitedLesson || 'm01-l01')}">Open Programming School →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">Track 2 · Stage 2</span>
+          <span class="text-xs text-muted">${metrics.boardRecordsCount > 0 ? `${metrics.boardsCompleted} completed` : 'Not started'}</span>
+        </div>
+        <h3>Boards Learning</h3>
+        <p class="text-sm">${metrics.boardRecordsCount > 0 ? `${metrics.boardRecordsCount} local board records saved.` : 'No board learning records yet. Dedicated hardware board paths arrive in Stage 2.'}</p>
+        <a class="btn btn-secondary btn-sm" href="./boards.html">View Boards Destination</a>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">Track 3 · Stage 3</span>
+          <span class="text-xs text-muted">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} in progress` : 'Not started'}</span>
+        </div>
+        <h3>Application-Based Learning</h3>
+        <p class="text-sm">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} saved project pathway record(s) found from earlier sessions.` : 'No project progress recorded yet. Full project studio arrives in Stage 3.'}</p>
+        <a class="btn btn-secondary btn-sm" href="./projects.html">View Application Learning</a>
+      </div>
+    `;
+
+    // 3. Genuine Quantitative Stat Tiles
+    document.getElementById('dash-stats-grid').innerHTML = `
+      <div class="stat-card">
+        <div class="stat-value">${metrics.completedLessons} / ${metrics.totalLessons}</div>
+        <div class="stat-label">Completed Lessons</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${metrics.exercisesPassed} / ${metrics.exercisesAttempted}</div>
+        <div class="stat-label">Exercises Passed / Attempted ${accuracy !== null ? `(${accuracy}%)` : ''}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${metrics.quizzesPassed} / ${metrics.totalQuizzes}</div>
+        <div class="stat-label">Module Quizzes Passed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${metrics.recentActivity.length}</div>
+        <div class="stat-label">Recorded Recent Activities</div>
+      </div>
+    `;
+
+    // 4. Recent Learning Activity & Project Readiness
+    const recentHost = document.getElementById('dash-recent-activity');
+    if (metrics.recentActivity.length === 0) {
+      recentHost.innerHTML = `
+        <div class="empty-state">
+          <h3>No learning activity yet</h3>
+          <p>Complete a lesson checkpoint, check an exercise, or submit a module quiz in Programming School and your timeline will appear here automatically.</p>
+        </div>
+      `;
+    } else {
+      recentHost.innerHTML = `
+        <div class="grid" style="gap:0.65rem;">
+          ${metrics.recentActivity.map((item) => `
+            <div class="flex items-center justify-between gap-sm" style="padding:0.75rem 0.95rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--bg-surface-solid);">
+              <div>
+                <span class="badge badge-bloom" style="margin-right:0.45rem;">${window.RoboDexApp.escapeHtml(item.area)}</span>
+                <strong>${window.RoboDexApp.escapeHtml(item.action)}</strong> —
+                ${item.targetUrl ? `<a href="${item.targetUrl}">${window.RoboDexApp.escapeHtml(item.label)}</a>` : window.RoboDexApp.escapeHtml(item.label)}
               </div>
-              <div class="progress-track sm">
-                <div class="progress-fill" style="width:${m.percent}%"></div>
-              </div>
-              <div class="text-xs text-muted mt-sm">${m.percent}% weighted · ${m.completedLessons}/${m.totalLessons} lessons</div>
+              <span class="text-xs text-muted">${window.RoboDexApp.formatDateTime(item.timestamp)}</span>
             </div>
           `).join('')}
         </div>
-      </section>
+      `;
+    }
 
-      <!-- My Courses & Module Quiz Results -->
-      <section class="card mb-lg">
-        <h2>My Courses &amp; Module Quiz Results</h2>
-        <div class="table-wrap mt-sm">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Module</th>
-                <th>Lessons</th>
-                <th>Exercises Passed</th>
-                <th>Best Quiz Score</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${metrics.moduleStats.map((m) => {
-                const modObj = curriculum.modules.find((x) => x.id === m.moduleId);
-                return `
-                  <tr>
-                    <td><strong>${window.RoboDexApp.escapeHtml(m.title)}</strong></td>
-                    <td>${m.completedLessons} / ${m.totalLessons}</td>
-                    <td>${m.exercisesPassed} / ${m.exercisesTotal}</td>
-                    <td>${m.quiz ? `${m.quiz.bestScore}% (${m.quiz.passed ? 'Passed' : 'Retry'})` : 'Not taken'}</td>
-                    <td><span class="badge ${m.skill.cls}">${m.skill.label}</span></td>
-                    <td>
-                      <a class="btn btn-secondary btn-sm" href="./learn.html?lesson=${encodeURIComponent(modObj.lessons[0].id)}">Open</a>
-                      <a class="btn btn-ghost btn-sm" href="./learn.html?quiz=${encodeURIComponent(m.moduleId)}">Quiz</a>
-                    </td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
+    // 5. Skill Mastery Grid
+    document.getElementById('dash-skills-grid').innerHTML = metrics.moduleStats.map((m) => `
+      <div style="padding:0.9rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--bg-surface-solid);">
+        <div class="flex items-center justify-between gap-xs mb-sm">
+          <strong class="text-sm">${window.RoboDexApp.escapeHtml(m.skillName)}</strong>
+          <span class="badge ${m.skill.cls}">${m.skill.label}</span>
         </div>
-      </section>
+        <div class="progress-track sm">
+          <div class="progress-fill" style="width:${m.percent}%"></div>
+        </div>
+        <div class="text-xs text-muted mt-sm">${m.percent}% · ${m.completedLessons}/${m.totalLessons} lessons · Quiz: ${m.quiz ? `${m.quiz.bestScore}%` : 'Not taken'}</div>
+      </div>
+    `).join('');
 
-      <!-- Completed Lessons History -->
-      <section class="card">
-        <h2>Completed Lessons</h2>
-        ${snapshot.lessons.filter((l) => l.checkpointCompleted).length === 0 ? `
-          <p class="text-sm text-muted" style="margin:0;">You have not completed any lesson checkpoints yet. Open Module 01 Lesson 1 and complete its checkpoint to record your first completion.</p>
-        ` : `
-          <ul style="margin:0.5rem 0 0 1.2rem;">
-            ${snapshot.lessons
-              .filter((l) => l.checkpointCompleted)
-              .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0))
-              .map((l) => `
-                <li>
-                  <a href="./learn.html?lesson=${encodeURIComponent(l.lessonId)}">${window.RoboDexApp.escapeHtml(lessonLookup.get(l.lessonId) || l.lessonId)}</a>
-                  <span class="text-xs text-muted"> — completed ${window.RoboDexApp.formatDate(l.completedAt)}</span>
-                </li>
-              `).join('')}
-          </ul>
-        `}
-      </section>
-    `;
+    // 6. Consolidated Explore Curriculum (Merged from Explore Academy)
+    const modulesHost = document.getElementById('dash-modules-grid');
+    const filterBtns = document.querySelectorAll('[data-track-filter]');
+
+    function renderModules(filter) {
+      const list = metrics.moduleStats.filter((m) => filter === 'all' || m.track === filter);
+      modulesHost.innerHTML = list.map((stat) => {
+        const modObj = curriculum.modules.find((x) => x.id === stat.moduleId);
+        const firstLesson = modObj.lessons[0];
+        return `
+          <div class="card card-hover flex" style="flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="card-header">
+                <span class="badge badge-bloom">${window.RoboDexApp.escapeHtml(stat.shortTitle)}</span>
+                <span class="badge ${stat.skill.cls}">${stat.skill.label}</span>
+              </div>
+              <h3>${window.RoboDexApp.escapeHtml(stat.title)}</h3>
+              <p class="text-sm">${window.RoboDexApp.escapeHtml(stat.description)}</p>
+              <div class="text-xs text-muted mb-sm">
+                ${stat.completedLessons}/${stat.totalLessons} lessons · ${stat.exercisesPassed}/${stat.exercisesTotal} exercises · Quiz: ${stat.quiz ? `${stat.quiz.bestScore}%` : 'Not taken'}
+              </div>
+              <div class="progress-track sm mb-md">
+                <div class="progress-fill" style="width:${stat.percent}%"></div>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-sm">
+              <a class="btn btn-primary btn-sm" href="./learn.html?lesson=${encodeURIComponent(firstLesson.id)}">
+                ${stat.completedLessons > 0 ? 'Continue Module' : 'Start Module'}
+              </a>
+              <a class="btn btn-secondary btn-sm" href="./learn.html?quiz=${encodeURIComponent(stat.moduleId)}">Module Quiz</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderModules(btn.dataset.trackFilter);
+      });
+    });
+
+    renderModules('all');
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     init().catch((err) => {
-      const root = document.getElementById('dashboard-root');
-      if (root) root.innerHTML = `<div class="callout callout-danger">${window.RoboDexApp.escapeHtml(err.message)}</div>`;
+      const hero = document.getElementById('dash-hero-content');
+      if (hero) hero.innerHTML = `<div class="callout callout-danger">${window.RoboDexApp.escapeHtml(err.message)}</div>`;
     });
   });
 })();

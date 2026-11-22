@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found — RoboDex́</title>
-  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
+  <title>Page Not Found — RoboDex́ | Train Yourself</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./assets/css/tokens.css">
   <link rel="stylesheet" href="./assets/css/base.css">
@@ -12,26 +11,31 @@
   <link rel="stylesheet" href="./assets/css/components.css">
 </head>
 <body data-page="404">
-  <div id="site-header"></div>
+  <div class="app-shell">
+    <div id="app-sidebar-host"></div>
 
-  <main class="page-main">
-    <div class="container" style="max-width: 680px; text-align: center; padding-top: 2.5rem;">
-      <span class="badge badge-cyan mb-sm">HTTP 404</span>
-      <h1>Page Not Found</h1>
-      <p class="mt-sm">
-        The RoboDex́ page or lesson link you opened does not exist or may have moved.
-        Use one of the verified paths below to get back to your learning track.
-      </p>
-      <div class="flex flex-wrap gap-sm mt-lg" style="justify-content: center;">
-        <a class="btn btn-primary" href="./index.html">Back to Home</a>
-        <a class="btn btn-secondary" href="./learn.html?lesson=m01-l01">Start Learning</a>
-        <a class="btn btn-secondary" href="./academy.html">Explore Academy</a>
-        <a class="btn btn-secondary" href="./dashboard.html">Student Dashboard</a>
-      </div>
+    <div class="app-stage">
+      <div id="utility-bar-host"></div>
+
+      <main class="page-body">
+        <div class="container" style="max-width:680px; text-align:center; padding-top:3rem;">
+          <span class="badge badge-bloom mb-sm">HTTP 404</span>
+          <h1>Page Not Found</h1>
+          <p class="mt-sm">
+            The RoboDex&#x0301; page or lesson link you requested does not exist or has been consolidated into a newer destination.
+          </p>
+          <div class="flex flex-wrap gap-sm mt-lg" style="justify-content:center;">
+            <a class="btn btn-primary" href="./index.html">Select Local Profile</a>
+            <a class="btn btn-secondary" href="./dashboard.html">Open Dashboard</a>
+            <a class="btn btn-secondary" href="./learn.html">Programming School</a>
+            <a class="btn btn-secondary" href="./about.html">About RoboDex&#x0301;</a>
+          </div>
+        </div>
+      </main>
+
+      <div id="site-footer"></div>
     </div>
-  </main>
-
-  <div id="site-footer"></div>
+  </div>
 
   <script src="./assets/js/prefs.js"></script>
   <script src="./assets/js/db.js"></script>

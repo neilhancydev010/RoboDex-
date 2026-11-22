@@ -1,15 +1,14 @@
-/* RoboDex́ Service Worker — Relative-path offline shell caching for GitHub Pages */
-const CACHE_NAME = 'robodex-v1.0.0';
+/* RoboDex́ Service Worker — Offline-capable static asset caching (relative paths) */
+const CACHE_NAME = 'robodex-v2-stage1';
 const CORE_ASSETS = [
   './',
   './index.html',
+  './dashboard.html',
   './learn.html',
-  './academy.html',
   './boards.html',
   './projects.html',
-  './dashboard.html',
-  './profiles.html',
-  './my-data.html',
+  './my-information.html',
+  './about.html',
   './404.html',
   './manifest.webmanifest',
   './assets/css/tokens.css',
@@ -20,21 +19,15 @@ const CORE_ASSETS = [
   './assets/js/db.js',
   './assets/js/progress.js',
   './assets/js/app.js',
+  './assets/js/profile-gate.js',
+  './assets/js/dashboard-page.js',
+  './assets/js/learn-page.js',
+  './assets/js/my-information-page.js',
   './assets/js/editor.js',
   './assets/js/exercises.js',
   './assets/js/quiz.js',
-  './assets/js/learn-page.js',
-  './assets/js/academy-page.js',
-  './assets/js/boards-page.js',
-  './assets/js/projects-page.js',
-  './assets/js/dashboard-page.js',
-  './assets/js/profiles-page.js',
-  './assets/js/my-data-page.js',
-  './assets/img/logo.svg',
-  './assets/img/favicon.svg',
   './data/curriculum.json',
-  './data/boards.json',
-  './data/projects.json',
+  './data/hardware-assets.json',
   './data/quizzes/quizzes.json'
 ];
 

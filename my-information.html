@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Information — RoboDex́ | Train Yourself</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./assets/css/tokens.css">
+  <link rel="stylesheet" href="./assets/css/base.css">
+  <link rel="stylesheet" href="./assets/css/layout.css">
+  <link rel="stylesheet" href="./assets/css/components.css">
+</head>
+<body data-page="my-information">
+  <div class="app-shell">
+    <div id="app-sidebar-host"></div>
+
+    <div class="app-stage">
+      <div id="utility-bar-host"></div>
+
+      <section class="bloom-hero">
+        <svg class="bloom-hero-curves" viewBox="0 0 1440 300" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <path d="M-40,210 C320,60 760,290 1480,100 L1480,-20 L-40,-20 Z" fill="rgba(216,180,254,0.12)"/>
+        </svg>
+        <div class="container" style="position:relative; z-index:2;">
+          <span class="badge" style="background:rgba(255,255,255,0.14); color:#fff; border-color:rgba(255,255,255,0.28);">Local Profile &amp; Data Ownership</span>
+          <h1 class="mt-sm">My Information</h1>
+          <p style="max-width:640px;">Manage your local student profile, review where your records are stored, download versioned backups, restore saved backups, or delete a profile permanently.</p>
+        </div>
+        <svg class="hero-wave-divider" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,26 C400,72 980,-16 1440,32 L1440,64 L0,64 Z" fill="var(--bg-divider-fill)"/>
+        </svg>
+      </section>
+
+      <main class="page-body">
+        <div class="container">
+          <!-- Current Profile & Progress Overview -->
+          <section id="myinfo-overview" class="mb-lg"></section>
+
+          <!-- Storage Transparency & Persistence Status -->
+          <section id="storage-status-box" class="mb-lg"></section>
+
+          <div class="grid grid-2 mb-lg">
+            <!-- Profile & Reading Preferences -->
+            <section class="card">
+              <h2>Profile &amp; Learning Preferences</h2>
+              <form id="info-profile-form" class="mt-md">
+                <div class="form-group">
+                  <label class="form-label" for="info-full-name">Real Full Name</label>
+                  <input class="form-input" id="info-full-name" type="text" required maxlength="64">
+                </div>
+                <div class="grid grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="info-font-size">Reading Text Size</label>
+                    <select class="form-select" id="info-font-size">
+                      <option value="sm">Compact (14.5px)</option>
+                      <option value="md">Standard (15.5px)</option>
+                      <option value="lg">Large (17.5px)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="info-pass-score">Quiz Passing Score (%)</label>
+                    <input class="form-input" id="info-pass-score" type="number" min="50" max="100" value="70">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="flex items-center gap-xs" style="cursor:pointer;">
+                    <input type="checkbox" id="info-lock-progression" checked>
+                    <span class="text-sm"><strong>Sequential Lesson Locking</strong> (unlock next lesson after checkpoint)</span>
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </form>
+            </section>
+
+            <!-- Local Profiles Switcher -->
+            <section class="card">
+              <div class="card-header">
+                <div>
+                  <h2>Local Profiles on This Browser</h2>
+                  <p class="text-xs text-muted" style="margin:0;">Local selection only — no passwords or server accounts.</p>
+                </div>
+                <a class="btn btn-secondary btn-sm" href="./index.html">+ New / All Profiles</a>
+              </div>
+              <div id="other-profiles-list" class="grid" style="gap:0.65rem;"></div>
+            </section>
+          </div>
+
+          <!-- Export & Backup Controls -->
+          <section class="grid grid-3 mb-lg">
+            <div class="card">
+              <h3>Export Progress Summary</h3>
+              <p class="text-sm">Download a concise JSON overview of your weighted progress, skill levels, and quiz scores.</p>
+              <button type="button" id="btn-export-progress" class="btn btn-secondary btn-sm">Export Summary (.json)</button>
+            </div>
+            <div class="card">
+              <h3>Export Learning Records</h3>
+              <p class="text-sm">Download a CSV log of all lesson checkpoints, exercise attempts, and module quizzes.</p>
+              <button type="button" id="btn-export-records" class="btn btn-secondary btn-sm">Export Records (.csv)</button>
+            </div>
+            <div class="card">
+              <h3>Download Full Backup</h3>
+              <p class="text-sm">Save a versioned RoboDex&#x0301; backup JSON containing your entire profile and local learning history.</p>
+              <button type="button" id="btn-download-backup" class="btn btn-primary btn-sm">Download Backup (.json)</button>
+            </div>
+          </section>
+
+          <!-- Restore Backup & Explicit Profile Deletion -->
+          <div class="grid grid-2">
+            <section class="card">
+              <h2>Restore Backup</h2>
+              <p class="text-sm">Import a valid RoboDex&#x0301; backup (.json) file (supports both V1 and V2 backups).</p>
+              <form id="restore-backup-form" class="mt-md">
+                <div class="form-group">
+                  <label class="form-label" for="restore-file-input">Backup File (.json)</label>
+                  <input class="form-input" id="restore-file-input" type="file" accept=".json,application/json">
+                </div>
+                <button type="submit" class="btn btn-accent">Validate &amp; Restore Backup</button>
+              </form>
+              <div id="restore-status" class="mt-md"></div>
+            </section>
+
+            <section class="card" style="border-color:var(--danger-border);">
+              <h2 style="color:var(--danger-text);">Delete Active Profile</h2>
+              <p class="text-sm">Permanently erase the currently active student profile and all of its local IndexedDB records from this browser. Other stored profiles are unaffected.</p>
+              <button type="button" id="btn-delete-profile" class="btn btn-danger mt-sm">Delete Active Local Profile</button>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <div id="site-footer"></div>
+    </div>
+  </div>
+
+  <script src="./assets/js/prefs.js"></script>
+  <script src="./assets/js/db.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/app.js"></script>
+  <script src="./assets/js/my-information-page.js"></script>
+</body>
+</html>

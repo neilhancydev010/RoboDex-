@@ -1,13 +1,18 @@
 /* ==========================================================================
-   RoboDex́ — IndexedDB Persistence Layer
-   Stores multiple local student profiles and all structured learning records.
+   RoboDex́ — Versioned IndexedDB Persistence Layer (Schema v2)
+   - Non-destructive upgrade from V1 (preserves all existing records)
+   - Safe recovery/migration of unowned V1 records
+   - Independent multi-profile storage supporting identical full names
+   - Prepares boardProgress & activityLog stores for Stages 2 & 3
+   - Requests persistent browser storage where supported
    ========================================================================== */
 
 window.RoboDexDB = (function () {
   const DB_NAME = 'RoboDexAcademyDB';
-  const DB_VERSION = 1;
-  const BACKUP_SCHEMA_VERSION = '1.0';
+  const DB_VERSION = 2;
+  const BACKUP_SCHEMA_VERSION = '2.0';
   let dbPromise = null;
+  let migrationChecked = false;
 
   function openDB() {
     if (dbPromise) return dbPromise;
@@ -19,28 +24,40 @@ window.RoboDexDB = (function () {
       const req = indexedDB.open(DB_NAME, DB_VERSION);
       req.onupgradeneeded = (event) => {
         const db = event.target.result;
+
+        // V1 stores — preserved non-destructively
         if (!db.objectStoreNames.contains('profiles')) {
           db.createObjectStore('profiles', { keyPath: 'id' });
         }
         if (!db.objectStoreNames.contains('lessonProgress')) {
-          const store = db.createObjectStore('lessonProgress', { keyPath: 'key' });
-          store.createIndex('byProfile', 'profileId', { unique: false });
+          const s = db.createObjectStore('lessonProgress', { keyPath: 'key' });
+          s.createIndex('byProfile', 'profileId', { unique: false });
         }
         if (!db.objectStoreNames.contains('exerciseAttempts')) {
-          const store = db.createObjectStore('exerciseAttempts', { keyPath: 'key' });
-          store.createIndex('byProfile', 'profileId', { unique: false });
+          const s = db.createObjectStore('exerciseAttempts', { keyPath: 'key' });
+          s.createIndex('byProfile', 'profileId', { unique: false });
         }
         if (!db.objectStoreNames.contains('quizAttempts')) {
-          const store = db.createObjectStore('quizAttempts', { keyPath: 'key' });
-          store.createIndex('byProfile', 'profileId', { unique: false });
+          const s = db.createObjectStore('quizAttempts', { keyPath: 'key' });
+          s.createIndex('byProfile', 'profileId', { unique: false });
         }
         if (!db.objectStoreNames.contains('projectProgress')) {
-          const store = db.createObjectStore('projectProgress', { keyPath: 'key' });
-          store.createIndex('byProfile', 'profileId', { unique: false });
+          const s = db.createObjectStore('projectProgress', { keyPath: 'key' });
+          s.createIndex('byProfile', 'profileId', { unique: false });
+        }
+
+        // V2 stores — Stage 2 Boards & Activity Timeline
+        if (!db.objectStoreNames.contains('boardProgress')) {
+          const s = db.createObjectStore('boardProgress', { keyPath: 'key' });
+          s.createIndex('byProfile', 'profileId', { unique: false });
+        }
+        if (!db.objectStoreNames.contains('activityLog')) {
+          const s = db.createObjectStore('activityLog', { keyPath: 'id' });
+          s.createIndex('byProfile', 'profileId', { unique: false });
         }
       };
       req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error || new Error('Failed to open IndexedDB.'));
+      req.onerror = () => reject(req.error || new Error('Failed to open local IndexedDB database.'));
     });
     return dbPromise;
   }
@@ -58,15 +75,14 @@ window.RoboDexDB = (function () {
         return;
       }
       tx.oncomplete = () => resolve(result && 'result' in result ? result.result : result);
-      tx.onerror = () => reject(tx.error || new Error('Transaction failed'));
+      tx.onerror = () => reject(tx.error || new Error('IndexedDB transaction failed.'));
     });
   }
 
   async function getAllFromStore(storeName) {
     const db = await openDB();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(storeName, 'readonly');
-      const req = tx.objectStore(storeName).getAll();
+      const req = db.transaction(storeName, 'readonly').objectStore(storeName).getAll();
       req.onsuccess = () => resolve(req.result || []);
       req.onerror = () => reject(req.error);
     });
@@ -75,93 +91,220 @@ window.RoboDexDB = (function () {
   async function getByProfile(storeName, profileId) {
     const db = await openDB();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(storeName, 'readonly');
-      const idx = tx.objectStore(storeName).index('byProfile');
+      const idx = db.transaction(storeName, 'readonly').objectStore(storeName).index('byProfile');
       const req = idx.getAll(profileId);
       req.onsuccess = () => resolve(req.result || []);
       req.onerror = () => reject(req.error);
     });
   }
 
-  function makeId() {
-    return 'stu_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
+  function makeUniqueId(prefix = 'stu') {
+    const rand = (window.crypto && window.crypto.randomUUID)
+      ? window.crypto.randomUUID().slice(0, 8)
+      : Math.random().toString(36).slice(2, 10);
+    return `${prefix}_${Date.now().toString(36)}_${rand}`;
+  }
+
+  function normalizeProfile(p) {
+    if (!p) return null;
+    const name = (p.fullName || p.displayName || 'Student').trim();
+    return {
+      ...p,
+      fullName: name,
+      displayName: name,
+      lockProgression: typeof p.lockProgression === 'boolean' ? p.lockProgression : true,
+      selectedBoards: Array.isArray(p.selectedBoards) ? p.selectedBoards : [],
+      lastVisitedLesson: p.lastVisitedLesson || 'm01-l01',
+      schemaVersion: 2
+    };
+  }
+
+  /* Safe V1 Migration: preserve any existing unowned/orphan learning records */
+  async function ensureV1Migration() {
+    if (migrationChecked) return;
+    migrationChecked = true;
+    try {
+      const profiles = await getAllFromStore('profiles');
+      const knownIds = new Set(profiles.map((p) => p.id));
+
+      // Normalize any V1 profile records to ensure fullName is populated
+      for (const p of profiles) {
+        if (!p.fullName || p.schemaVersion !== 2) {
+          await txStore('profiles', 'readwrite', (s) => s.put(normalizeProfile(p)));
+        }
+      }
+
+      const dataStores = ['lessonProgress', 'exerciseAttempts', 'quizAttempts', 'projectProgress'];
+      const orphans = [];
+      for (const storeName of dataStores) {
+        const rows = await getAllFromStore(storeName);
+        for (const r of rows) {
+          if (!r.profileId || !knownIds.has(r.profileId)) {
+            orphans.push({ storeName, record: r });
+          }
+        }
+      }
+
+      if (orphans.length > 0) {
+        const now = Date.now();
+        const recovered = normalizeProfile({
+          id: makeUniqueId('mig'),
+          fullName: 'Migrated Local Learner',
+          createdAt: now,
+          lastActiveAt: now,
+          migratedFromV1: true
+        });
+        await txStore('profiles', 'readwrite', (s) => s.put(recovered));
+
+        for (const { storeName, record } of orphans) {
+          const itemSuffix = record.lessonId || record.exerciseId || record.moduleId || record.projectId || makeUniqueId('rec');
+          const migrated = {
+            ...record,
+            profileId: recovered.id,
+            key: `${recovered.id}::${itemSuffix}`
+          };
+          await txStore(storeName, 'readwrite', (s) => {
+            if (record.key && record.key !== migrated.key) s.delete(record.key);
+            s.put(migrated);
+          });
+        }
+      }
+    } catch {
+      // Non-fatal; never wipe data
+    }
+  }
+
+  /* Persistent Storage API Request */
+  async function requestPersistentStorage() {
+    try {
+      if (navigator.storage && navigator.storage.persist) {
+        const already = await navigator.storage.persisted();
+        if (!already) await navigator.storage.persist();
+      }
+    } catch {
+      // Unsupported or browser-declined
+    }
+  }
+
+  async function getStorageStatus() {
+    const status = { supported: Boolean(navigator.storage), persisted: null, usageBytes: null, quotaBytes: null };
+    try {
+      if (navigator.storage && navigator.storage.persisted) {
+        status.persisted = await navigator.storage.persisted();
+      }
+      if (navigator.storage && navigator.storage.estimate) {
+        const est = await navigator.storage.estimate();
+        status.usageBytes = typeof est.usage === 'number' ? est.usage : null;
+        status.quotaBytes = typeof est.quota === 'number' ? est.quota : null;
+      }
+    } catch {
+      // ignore
+    }
+    return status;
   }
 
   /* ---- Profiles ---- */
   async function listProfiles() {
+    await ensureV1Migration();
     const rows = await getAllFromStore('profiles');
-    return rows.sort((a, b) => (b.lastActiveAt || 0) - (a.lastActiveAt || 0));
+    return rows.map(normalizeProfile).sort((a, b) => (b.lastActiveAt || 0) - (a.lastActiveAt || 0));
   }
 
   async function getProfile(id) {
     if (!id) return null;
+    await ensureV1Migration();
     const db = await openDB();
     return new Promise((resolve, reject) => {
       const req = db.transaction('profiles', 'readonly').objectStore('profiles').get(id);
-      req.onsuccess = () => resolve(req.result || null);
+      req.onsuccess = () => resolve(normalizeProfile(req.result || null));
       req.onerror = () => reject(req.error);
     });
   }
 
-  async function createProfile({ displayName, goal = '', selectedBoards = ['uno-r3'], learningStyle = 'guided', lockProgression = true }) {
+  async function createProfile({ fullName }) {
+    await ensureV1Migration();
+    const cleanName = String(fullName || '').trim().slice(0, 64);
+    if (!cleanName) throw new Error('Please enter your real full name.');
     const now = Date.now();
-    const profile = {
-      id: makeId(),
-      displayName: (displayName || 'Student').trim().slice(0, 48),
-      goal: (goal || '').trim().slice(0, 140),
-      selectedBoards: Array.isArray(selectedBoards) && selectedBoards.length ? selectedBoards : ['uno-r3'],
-      learningStyle,
-      lockProgression: Boolean(lockProgression),
+    const profile = normalizeProfile({
+      id: makeUniqueId('stu'),
+      fullName: cleanName,
+      displayName: cleanName,
+      selectedBoards: [],
+      lockProgression: true,
       lastVisitedLesson: 'm01-l01',
-      selectedProjects: [],
       createdAt: now,
       lastActiveAt: now
-    };
+    });
     await txStore('profiles', 'readwrite', (s) => s.put(profile));
-    window.RoboDexPrefs.set('activeProfileId', profile.id);
+    window.RoboDexPrefs.setSessionProfileId(profile.id);
+    requestPersistentStorage();
     return profile;
+  }
+
+  async function selectProfile(profileId) {
+    const profile = await getProfile(profileId);
+    if (!profile) throw new Error('Selected profile no longer exists.');
+    const updated = { ...profile, lastActiveAt: Date.now() };
+    await txStore('profiles', 'readwrite', (s) => s.put(updated));
+    window.RoboDexPrefs.setSessionProfileId(updated.id);
+    requestPersistentStorage();
+    return updated;
   }
 
   async function updateProfile(id, patch) {
     const existing = await getProfile(id);
     if (!existing) throw new Error('Profile not found.');
-    const updated = {
+    const nextName = patch.fullName !== undefined
+      ? String(patch.fullName).trim().slice(0, 64)
+      : patch.displayName !== undefined
+        ? String(patch.displayName).trim().slice(0, 64)
+        : existing.fullName;
+
+    const updated = normalizeProfile({
       ...existing,
       ...patch,
       id: existing.id,
+      fullName: nextName || existing.fullName,
+      displayName: nextName || existing.fullName,
       lastActiveAt: Date.now()
-    };
+    });
     await txStore('profiles', 'readwrite', (s) => s.put(updated));
     return updated;
   }
 
   async function getActiveProfile() {
-    const savedId = window.RoboDexPrefs.get('activeProfileId');
-    if (savedId) {
-      const found = await getProfile(savedId);
-      if (found) return found;
-    }
-    const all = await listProfiles();
-    if (all.length > 0) {
-      window.RoboDexPrefs.set('activeProfileId', all[0].id);
-      return all[0];
-    }
-    return null;
+    await ensureV1Migration();
+    const sessionId = window.RoboDexPrefs.getSessionProfileId();
+    if (!sessionId) return null;
+    return getProfile(sessionId);
   }
 
-  async function ensureActiveProfile() {
-    const current = await getActiveProfile();
-    if (current) return current;
-    return createProfile({
-      displayName: 'Local Learner',
-      goal: 'Learn C++ and Arduino programming from scratch',
-      selectedBoards: ['uno-r3'],
-      learningStyle: 'guided',
-      lockProgression: true
-    });
+  /* ---- Activity Log ---- */
+  async function logActivity(profileId, { area, action, label, targetUrl = '' }) {
+    const entry = {
+      id: makeUniqueId('act'),
+      profileId,
+      area,
+      action,
+      label,
+      targetUrl,
+      timestamp: Date.now()
+    };
+    await txStore('activityLog', 'readwrite', (s) => s.put(entry));
+    return entry;
   }
 
   /* ---- Lesson Progress ---- */
+  async function getLessonRecord(profileId, lessonId) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const req = db.transaction('lessonProgress', 'readonly').objectStore('lessonProgress').get(`${profileId}::${lessonId}`);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
   async function saveLessonVisit(profileId, lessonId, moduleId) {
     const key = `${profileId}::${lessonId}`;
     const existing = await getLessonRecord(profileId, lessonId);
@@ -181,7 +324,7 @@ window.RoboDexDB = (function () {
     return record;
   }
 
-  async function completeLessonCheckpoint(profileId, lessonId, moduleId) {
+  async function completeLessonCheckpoint(profileId, lessonId, moduleId, lessonTitle = '') {
     const key = `${profileId}::${lessonId}`;
     const existing = await getLessonRecord(profileId, lessonId);
     const now = Date.now();
@@ -197,16 +340,13 @@ window.RoboDexDB = (function () {
     };
     await txStore('lessonProgress', 'readwrite', (s) => s.put(record));
     await updateProfile(profileId, { lastVisitedLesson: lessonId });
-    return record;
-  }
-
-  async function getLessonRecord(profileId, lessonId) {
-    const db = await openDB();
-    return new Promise((resolve, reject) => {
-      const req = db.transaction('lessonProgress', 'readonly').objectStore('lessonProgress').get(`${profileId}::${lessonId}`);
-      req.onsuccess = () => resolve(req.result || null);
-      req.onerror = () => reject(req.error);
+    await logActivity(profileId, {
+      area: 'Programming School',
+      action: 'Completed lesson checkpoint',
+      label: lessonTitle || lessonId,
+      targetUrl: `./learn.html?lesson=${encodeURIComponent(lessonId)}`
     });
+    return record;
   }
 
   /* ---- Exercise Attempts ---- */
@@ -232,6 +372,12 @@ window.RoboDexDB = (function () {
       updatedAt: now
     };
     await txStore('exerciseAttempts', 'readwrite', (s) => s.put(record));
+    await logActivity(profileId, {
+      area: 'Programming School',
+      action: passed ? 'Passed exercise' : 'Attempted exercise',
+      label: exerciseId,
+      targetUrl: `./learn.html?lesson=${encodeURIComponent(lessonId)}`
+    });
     return record;
   }
 
@@ -259,10 +405,16 @@ window.RoboDexDB = (function () {
       updatedAt: now
     };
     await txStore('quizAttempts', 'readwrite', (s) => s.put(record));
+    await logActivity(profileId, {
+      area: 'Programming School',
+      action: passed ? `Passed module quiz (${scorePercent}%)` : `Scored ${scorePercent}% on quiz`,
+      label: moduleId.toUpperCase(),
+      targetUrl: `./learn.html?quiz=${encodeURIComponent(moduleId)}`
+    });
     return record;
   }
 
-  /* ---- Project Progress ---- */
+  /* ---- Future-Ready Stores (Boards & Projects) ---- */
   async function saveProjectProgress(profileId, projectId, completedSteps) {
     const key = `${profileId}::${projectId}`;
     const record = {
@@ -276,35 +428,52 @@ window.RoboDexDB = (function () {
     return record;
   }
 
+  async function saveBoardProgress(profileId, boardId, payload) {
+    const key = `${profileId}::${boardId}`;
+    const record = {
+      key,
+      profileId,
+      boardId,
+      ...payload,
+      updatedAt: Date.now()
+    };
+    await txStore('boardProgress', 'readwrite', (s) => s.put(record));
+    return record;
+  }
+
   /* ---- Full Profile Snapshot ---- */
   async function getProfileSnapshot(profileId) {
-    const [profile, lessons, exercises, quizzes, projects] = await Promise.all([
+    await ensureV1Migration();
+    const [profile, lessons, exercises, quizzes, projects, boards, activity] = await Promise.all([
       getProfile(profileId),
       getByProfile('lessonProgress', profileId),
       getByProfile('exerciseAttempts', profileId),
       getByProfile('quizAttempts', profileId),
-      getByProfile('projectProgress', profileId)
+      getByProfile('projectProgress', profileId),
+      getByProfile('boardProgress', profileId),
+      getByProfile('activityLog', profileId)
     ]);
-    return { profile, lessons, exercises, quizzes, projects };
+    return { profile, lessons, exercises, quizzes, projects, boards, activity };
   }
 
   /* ---- Delete Local Profile ---- */
   async function deleteProfile(profileId) {
-    const stores = ['lessonProgress', 'exerciseAttempts', 'quizAttempts', 'projectProgress'];
+    const stores = ['lessonProgress', 'exerciseAttempts', 'quizAttempts', 'projectProgress', 'boardProgress', 'activityLog'];
     for (const storeName of stores) {
       const rows = await getByProfile(storeName, profileId);
-      await txStore(storeName, 'readwrite', (s) => {
-        rows.forEach((r) => s.delete(r.key));
-      });
+      if (rows.length) {
+        await txStore(storeName, 'readwrite', (s) => {
+          rows.forEach((r) => s.delete(r.key || r.id));
+        });
+      }
     }
     await txStore('profiles', 'readwrite', (s) => s.delete(profileId));
-    if (window.RoboDexPrefs.get('activeProfileId') === profileId) {
-      const remaining = await listProfiles();
-      window.RoboDexPrefs.set('activeProfileId', remaining[0] ? remaining[0].id : '');
+    if (window.RoboDexPrefs.getSessionProfileId() === profileId) {
+      window.RoboDexPrefs.clearSessionProfileId();
     }
   }
 
-  /* ---- Backup & Restore (Versioned JSON) ---- */
+  /* ---- Versioned Backup & Restore (Supports V1 & V2 Backups) ---- */
   async function exportProfileBackup(profileId) {
     const snapshot = await getProfileSnapshot(profileId);
     if (!snapshot.profile) throw new Error('No active profile found to export.');
@@ -322,49 +491,71 @@ window.RoboDexDB = (function () {
   }
 
   async function restoreProfileBackup(backupObj) {
-    if (!backupObj || backupObj.app !== 'RoboDex́' || !backupObj.data || !backupObj.data.profile) {
-      throw new Error('Invalid RoboDex́ backup file format.');
+    if (!backupObj || typeof backupObj !== 'object') {
+      throw new Error('Backup file is not a valid JSON object.');
     }
-    const { profile, lessons = [], exercises = [], quizzes = [], projects = [] } = backupObj.data;
-    if (!profile.id || !profile.displayName) {
-      throw new Error('Backup file is missing required profile fields.');
+    const validApps = ['RoboDex́', 'RoboDex'];
+    if (!validApps.includes(backupObj.app) || !backupObj.data || !backupObj.data.profile) {
+      throw new Error('Incompatible backup file: missing RoboDex́ profile structure.');
     }
-    await txStore('profiles', 'readwrite', (s) => s.put({ ...profile, lastActiveAt: Date.now() }));
-    if (lessons.length) {
-      await txStore('lessonProgress', 'readwrite', (s) => lessons.forEach((r) => s.put(r)));
+    const rawProfile = backupObj.data.profile;
+    if (!rawProfile.id || !(rawProfile.fullName || rawProfile.displayName)) {
+      throw new Error('Backup profile is missing required identifier or name.');
     }
-    if (exercises.length) {
-      await txStore('exerciseAttempts', 'readwrite', (s) => exercises.forEach((r) => s.put(r)));
+    const profile = normalizeProfile({ ...rawProfile, lastActiveAt: Date.now() });
+
+    const {
+      lessons = [],
+      exercises = [],
+      quizzes = [],
+      projects = [],
+      boards = [],
+      activity = []
+    } = backupObj.data;
+
+    if (!Array.isArray(lessons) || !Array.isArray(exercises) || !Array.isArray(quizzes)) {
+      throw new Error('Backup learning records are malformed.');
     }
-    if (quizzes.length) {
-      await txStore('quizAttempts', 'readwrite', (s) => quizzes.forEach((r) => s.put(r)));
-    }
-    if (projects.length) {
-      await txStore('projectProgress', 'readwrite', (s) => projects.forEach((r) => s.put(r)));
-    }
+
+    await txStore('profiles', 'readwrite', (s) => s.put(profile));
+    if (lessons.length) await txStore('lessonProgress', 'readwrite', (s) => lessons.forEach((r) => s.put(r)));
+    if (exercises.length) await txStore('exerciseAttempts', 'readwrite', (s) => exercises.forEach((r) => s.put(r)));
+    if (quizzes.length) await txStore('quizAttempts', 'readwrite', (s) => quizzes.forEach((r) => s.put(r)));
+    if (Array.isArray(projects) && projects.length) await txStore('projectProgress', 'readwrite', (s) => projects.forEach((r) => s.put(r)));
+    if (Array.isArray(boards) && boards.length) await txStore('boardProgress', 'readwrite', (s) => boards.forEach((r) => s.put(r)));
+    if (Array.isArray(activity) && activity.length) await txStore('activityLog', 'readwrite', (s) => activity.forEach((r) => s.put(r)));
+
     if (backupObj.preferences) {
       if (backupObj.preferences.theme) window.RoboDexPrefs.set('theme', backupObj.preferences.theme);
       if (backupObj.preferences.fontSize) window.RoboDexPrefs.set('fontSize', backupObj.preferences.fontSize);
       if (backupObj.preferences.quizPassScore) window.RoboDexPrefs.set('quizPassScore', backupObj.preferences.quizPassScore);
     }
-    window.RoboDexPrefs.set('activeProfileId', profile.id);
+    window.RoboDexPrefs.setSessionProfileId(profile.id);
+    requestPersistentStorage();
     return profile;
   }
 
   return {
+    DB_NAME,
+    DB_VERSION,
     openDB,
+    ensureV1Migration,
+    requestPersistentStorage,
+    getStorageStatus,
     listProfiles,
     getProfile,
     createProfile,
+    selectProfile,
     updateProfile,
     getActiveProfile,
-    ensureActiveProfile,
+    logActivity,
     saveLessonVisit,
     completeLessonCheckpoint,
     getLessonRecord,
     saveExerciseAttempt,
     saveQuizAttempt,
     saveProjectProgress,
+    saveBoardProgress,
     getProfileSnapshot,
     deleteProfile,
     exportProfileBackup,

@@ -1,9 +1,33 @@
 /* ==========================================================================
-   RoboDex́ — Shared Application Shell, Navigation, Syntax Highlight & Helpers
+   RoboDex́ — Shared Hyper-Bloom Application Shell
+   - Text-only wordmark: RoboDex́ | Train Yourself (zero graphical logos)
+   - Persistent 6-destination left sidebar + compact top utility bar
+   - Organic Hyper-Bloom SVG background curves
+   - Exact 3-line footer on every page
+   - Session-scoped profile enforcement
    ========================================================================== */
 
 window.RoboDexApp = (function () {
   const jsonCache = new Map();
+
+  const PRIMARY_NAV = [
+    { id: 'dashboard', label: 'Dashboard', icon: '◈', href: './dashboard.html' },
+    { id: 'learn', label: 'Programming School', icon: '⌘', href: './learn.html' },
+    { id: 'boards', label: 'Boards', icon: '⊞', href: './boards.html' },
+    { id: 'projects', label: 'Application-Based Learning', icon: '❖', href: './projects.html' },
+    { id: 'my-information', label: 'My Information', icon: '◎', href: './my-information.html' },
+    { id: 'about', label: 'About', icon: 'ⓘ', href: './about.html' }
+  ];
+
+  const PAGE_TITLES = {
+    'dashboard': 'Student Dashboard',
+    'learn': 'Programming School',
+    'boards': 'Boards — Hardware Architecture',
+    'projects': 'Application-Based Learning',
+    'my-information': 'My Information & Local Data',
+    'about': 'About RoboDex́',
+    '404': 'Page Not Found'
+  };
 
   function escapeHtml(str) {
     return String(str ?? '')
@@ -19,7 +43,6 @@ window.RoboDexApp = (function () {
     const tokens = [];
     let out = escapeHtml(src);
 
-    // Protect comments & strings first with placeholders
     out = out.replace(/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)/g, (m) => {
       tokens.push(`<span class="tok-com">${m}</span>`);
       return `@@TOK${tokens.length - 1}@@`;
@@ -33,16 +56,10 @@ window.RoboDexApp = (function () {
       return `${p1}@@TOK${tokens.length - 1}@@`;
     });
 
-    // Keywords
     out = out.replace(/\b(if|else|for|while|do|switch|case|default|break|continue|return|const|struct|enum|class|public|private|new|delete|true|false|nullptr)\b/g, '<span class="tok-kw">$1</span>');
-    // Types & Arduino constants
     out = out.replace(/\b(void|int|long|unsigned|float|double|bool|char|byte|String|size_t|uint8_t|uint16_t|uint32_t|HIGH|LOW|INPUT|OUTPUT|INPUT_PULLUP|LED_BUILTIN)\b/g, '<span class="tok-type">$1</span>');
-    // Common Arduino/C++ functions
     out = out.replace(/\b(setup|loop|pinMode|digitalWrite|digitalRead|analogRead|analogWrite|delay|delayMicroseconds|millis|micros|map|constrain|tone|noTone|pulseIn|Serial|begin|print|println|available|read|attach|write)\b/g, '<span class="tok-fn">$1</span>');
-    // Numbers
     out = out.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="tok-num">$1</span>');
-
-    // Restore placeholders
     out = out.replace(/@@TOK(\d+)@@/g, (_, idx) => tokens[Number(idx)]);
     return out;
   }
@@ -98,9 +115,80 @@ window.RoboDexApp = (function () {
     }
   }
 
-  async function renderShell() {
+  function formatDateTime(ts) {
+    if (!ts) return '—';
+    try {
+      return new Date(ts).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    } catch {
+      return '—';
+    }
+  }
+
+  function getInitials(name) {
+    return String(name || 'ST')
+      .trim()
+      .split(/\s+/)
+      .map((w) => w[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
+  }
+
+  function renderFooterHtml() {
+    return `
+      <footer class="site-footer">
+        <p class="footer-brand-line">RoboDex&#x0301; | Train Yourself</p>
+        <p>United Academy Robotics Club | United Academy</p>
+        <p>Copyright &copy; United Academy Robotics Club Member - Neilhancy Dev 2026</p>
+      </footer>
+    `;
+  }
+
+  function injectOrganicBackdrop() {
+    if (document.getElementById('hyperbloom-bg')) return;
+    const bg = document.createElement('div');
+    bg.id = 'hyperbloom-bg';
+    bg.className = 'hyperbloom-backdrop';
+    bg.setAttribute('aria-hidden', 'true');
+    bg.innerHTML = `
+      <svg viewBox="0 0 1600 1000" preserveAspectRatio="none" fill="none">
+        <path d="M-120,240 C260,60 540,420 960,210 C1280,50 1520,170 1720,80 L1720,-80 L-120,-80 Z" fill="var(--bg-curve-fill-1)"/>
+        <path d="M-100,760 C280,560 660,920 1120,690 C1380,560 1560,650 1720,580 L1720,1080 L-100,1080 Z" fill="var(--bg-curve-fill-2)"/>
+        <path d="M920,-60 C1180,180 1020,460 1320,620 C1480,705 1620,660 1720,740 L1720,-60 Z" fill="var(--bg-curve-fill-3)"/>
+      </svg>
+    `;
+    document.body.prepend(bg);
+  }
+
+  async function requireActiveProfile() {
+    const profile = await window.RoboDexDB.getActiveProfile();
+    if (!profile) {
+      window.location.replace('./index.html');
+      return null;
+    }
+    return profile;
+  }
+
+  async function initShell() {
     window.RoboDexPrefs.applyVisualPrefs();
+    injectOrganicBackdrop();
+
     const page = document.body.getAttribute('data-page') || '';
+
+    // Register service worker on http/https (relative path for GitHub Pages)
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+    }
+
+    // Profile gate page renders its own full-canvas layout + exact footer
+    if (page === 'profile-gate') {
+      const footerHost = document.getElementById('site-footer');
+      if (footerHost) footerHost.innerHTML = renderFooterHtml();
+      return null;
+    }
+
+    // Enforce active session profile on student workspace pages
+    const requiresProfile = ['dashboard', 'learn', 'boards', 'projects', 'my-information'].includes(page);
     let profile = null;
     try {
       profile = await window.RoboDexDB.getActiveProfile();
@@ -108,112 +196,99 @@ window.RoboDexApp = (function () {
       profile = null;
     }
 
-    const navItems = [
-      { id: 'home', label: 'Home', href: './index.html' },
-      { id: 'learn', label: 'Learn', href: './learn.html' },
-      { id: 'academy', label: 'Explore Academy', href: './academy.html' },
-      { id: 'boards', label: 'Boards', href: './boards.html' },
-      { id: 'projects', label: 'Projects', href: './projects.html' },
-      { id: 'dashboard', label: 'Dashboard', href: './dashboard.html' },
-      { id: 'my-data', label: 'My Data', href: './my-data.html' }
-    ];
+    if (requiresProfile && !profile) {
+      window.location.replace('./index.html');
+      return null;
+    }
 
-    const headerEl = document.getElementById('site-header');
-    if (headerEl) {
-      const initials = profile
-        ? profile.displayName.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase()
-        : 'ST';
-      const profileName = profile ? escapeHtml(profile.displayName) : 'Local Profile';
-      const theme = window.RoboDexPrefs.get('theme');
-
-      headerEl.innerHTML = `
-        <header class="topbar">
-          <div class="topbar-inner">
-            <a class="brand-link" href="./index.html" aria-label="RoboDex́ Home">
-              <img src="./assets/img/logo.svg" alt="RoboDex́ logo">
-              <span>Robo<span class="brand-accent">Dex&#x0301;</span></span>
-            </a>
-            <nav aria-label="Primary Navigation">
-              <ul class="nav-links">
-                ${navItems.map((item) => `
-                  <li><a href="${item.href}" class="${page === item.id ? 'active' : ''}">${item.label}</a></li>
+    const sidebarHost = document.getElementById('app-sidebar-host');
+    if (sidebarHost) {
+      sidebarHost.innerHTML = `
+        <aside class="app-sidebar" aria-label="Primary Sidebar Navigation">
+          <div>
+            <div class="sidebar-brand">
+              <a class="wordmark" href="${profile ? './dashboard.html' : './index.html'}">RoboDex&#x0301;</a>
+              <span class="wordmark-sub">Train Yourself</span>
+            </div>
+            <nav aria-label="Main Destinations">
+              <ul class="sidebar-nav-list">
+                ${PRIMARY_NAV.map((item) => `
+                  <li>
+                    <a href="${item.href}" class="sidebar-nav-link ${page === item.id ? 'active' : ''}">
+                      <span class="sidebar-nav-icon" aria-hidden="true">${item.icon}</span>
+                      <span>${item.label}</span>
+                    </a>
+                  </li>
                 `).join('')}
               </ul>
             </nav>
-            <div class="topbar-actions">
-              <button type="button" id="theme-toggle-btn" class="icon-btn" title="Toggle light or dark reading theme" aria-label="Toggle reading theme">
-                <span>${theme === 'dark' ? '☀️ Light' : '🌙 Dark'}</span>
-              </button>
-              <a href="./profiles.html" class="profile-pill" title="Manage local student profiles">
-                <span class="profile-avatar">${escapeHtml(initials)}</span>
-                <span>${profileName}</span>
+          </div>
+          <div class="sidebar-bottom-card">
+            <strong style="display:block; color:var(--text-primary); margin-bottom:0.2rem;">Local-First Workspace</strong>
+            Progress saves in this browser's IndexedDB. No server account required.
+          </div>
+        </aside>
+      `;
+    }
+
+    const utilityHost = document.getElementById('utility-bar-host');
+    if (utilityHost) {
+      const theme = window.RoboDexPrefs.get('theme');
+      const contextTitle = PAGE_TITLES[page] || 'RoboDex́';
+      utilityHost.innerHTML = `
+        <header class="utility-bar">
+          <div class="utility-context">${escapeHtml(contextTitle)}</div>
+          <div class="utility-actions">
+            <button type="button" id="theme-toggle-btn" class="utility-btn" aria-label="Toggle Dark or Light Hyper-Bloom theme">
+              <span>${theme === 'light' ? '🌙 Dark Theme' : '☀️ Light Theme'}</span>
+            </button>
+            ${profile ? `
+              <a href="./my-information.html" class="profile-chip" title="Open My Information">
+                <span class="profile-avatar">${escapeHtml(getInitials(profile.fullName))}</span>
+                <span>${escapeHtml(profile.fullName)}</span>
               </a>
-              <button type="button" id="mobile-menu-toggle" class="icon-btn mobile-menu-btn" aria-label="Open menu">☰ Menu</button>
-            </div>
+              <a href="./index.html" class="utility-btn" title="Return to local profile selection">Switch Profile</a>
+            ` : `
+              <a href="./index.html" class="utility-btn">Select Profile</a>
+            `}
           </div>
         </header>
-        <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Mobile Navigation">
-          ${navItems.map((item) => `
-            <a href="${item.href}" class="${page === item.id ? 'active' : ''}">${item.label}</a>
-          `).join('')}
-          <a href="./profiles.html" class="${page === 'profiles' ? 'active' : ''}">Student Profiles</a>
-        </div>
       `;
 
       const themeBtn = document.getElementById('theme-toggle-btn');
       if (themeBtn) {
         themeBtn.addEventListener('click', () => {
           const next = window.RoboDexPrefs.toggleTheme();
-          themeBtn.innerHTML = `<span>${next === 'dark' ? '☀️ Light' : '🌙 Dark'}</span>`;
+          themeBtn.innerHTML = `<span>${next === 'light' ? '🌙 Dark Theme' : '☀️ Light Theme'}</span>`;
           window.dispatchEvent(new CustomEvent('robodex:theme-changed', { detail: { theme: next } }));
         });
       }
-
-      const menuBtn = document.getElementById('mobile-menu-toggle');
-      const drawer = document.getElementById('mobile-nav-drawer');
-      if (menuBtn && drawer) {
-        menuBtn.addEventListener('click', () => drawer.classList.toggle('open'));
-      }
     }
 
-    const footerEl = document.getElementById('site-footer');
-    if (footerEl) {
-      footerEl.innerHTML = `
-        <footer class="site-footer">
-          <div class="container footer-inner">
-            <div>
-              <strong style="color:#fff;">RoboDex&#x0301; v1.0</strong> — Independent C++ &amp; Arduino Robotics Academy.
-              <span style="display:block; margin-top:0.2rem;">100% static, offline-friendly, local IndexedDB storage. No accounts, no tracking, no fake compiler.</span>
-            </div>
-            <div class="footer-links">
-              <a href="./learn.html">Curriculum</a>
-              <a href="./boards.html">Boards</a>
-              <a href="./projects.html">Projects</a>
-              <a href="./profiles.html">Profiles</a>
-              <a href="./my-data.html">Backup &amp; Data</a>
-            </div>
-          </div>
-        </footer>
-      `;
+    const footerHost = document.getElementById('site-footer');
+    if (footerHost) {
+      footerHost.innerHTML = renderFooterHtml();
     }
 
-    // Register service worker on http/https (works cleanly on GitHub Pages subpaths)
-    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
-    }
+    return profile;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    renderShell();
+    initShell();
   });
 
   return {
+    PRIMARY_NAV,
     escapeHtml,
     highlightCpp,
     loadJSON,
     showToast,
     downloadFile,
     formatDate,
-    renderShell
+    formatDateTime,
+    getInitials,
+    renderFooterHtml,
+    requireActiveProfile,
+    initShell
   };
 })();

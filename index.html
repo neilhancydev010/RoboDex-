@@ -3,155 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RoboDex́ — Independent C++ &amp; Arduino Robotics Academy</title>
-  <meta name="description" content="Application-first programming education platform teaching absolute beginners to think, write, debug, and build Arduino C++ programs independently.">
-  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
+  <title>RoboDex́ | Train Yourself — Select Local Student Profile</title>
+  <meta name="description" content="RoboDex́ | Train Yourself — Local student profile selection for independent Arduino and C++ programming education.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./assets/css/tokens.css">
   <link rel="stylesheet" href="./assets/css/base.css">
   <link rel="stylesheet" href="./assets/css/layout.css">
   <link rel="stylesheet" href="./assets/css/components.css">
 </head>
-<body data-page="home">
-  <div id="site-header"></div>
-
-  <section class="hero">
-    <div class="container hero-grid">
+<body data-page="profile-gate">
+  <div class="gate-shell">
+    <header class="gate-topbar">
       <div>
-        <span class="badge badge-cyan mb-sm">Version 1.0 · 100% Static · Local IndexedDB</span>
-        <h1>Learn to Think, Code &amp; Build with Arduino Independently</h1>
-        <p style="font-size:1.05rem;">
-          RoboDex́ is a structured, W3Schools-inspired programming academy for absolute beginners.
-          Master computational thinking and C++ fundamentals first, then transition cleanly into Arduino IDE, real microcontroller boards, and practical robotics — without copying code blindly.
-        </p>
-        <div class="flex flex-wrap gap-sm mt-lg">
-          <a id="hero-start-btn" class="btn btn-accent btn-lg" href="./learn.html?lesson=m01-l01">Start From Zero →</a>
-          <a class="btn btn-secondary btn-lg" href="./academy.html">Explore 12-Module Curriculum</a>
-          <a class="btn btn-secondary btn-lg" href="./dashboard.html">Student Dashboard</a>
-        </div>
+        <span class="wordmark">RoboDex&#x0301;</span>
+        <span class="wordmark-sub" style="display:inline-block; margin-left:0.65rem;">| Train Yourself</span>
       </div>
-
-      <div class="code-block" style="margin:0; box-shadow:var(--shadow-lg);">
-        <div class="code-block-header">
-          <span>first_blink.ino · Arduino C++</span>
-          <span style="color:#22d3ee;">Read · Understand · Modify</span>
-        </div>
-        <pre><code id="hero-code-preview"></code></pre>
+      <div class="flex items-center gap-sm">
+        <a href="./about.html" class="utility-btn">About RoboDex&#x0301;</a>
+        <button type="button" id="gate-theme-toggle" class="utility-btn" aria-label="Toggle Dark or Light Hyper-Bloom theme">☀️ Light Theme</button>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <main class="page-main">
-    <div class="container">
-      <section class="mb-lg">
-        <h2>Why RoboDex́ Teaches Differently</h2>
-        <p>Every lesson follows a consistent 14-part engineering structure designed to build independent reasoning rather than copy-paste habits.</p>
-        <div class="grid grid-3 mt-md">
-          <div class="card">
-            <span class="badge badge-blue">Step 1 · Foundations First</span>
-            <h3 class="mt-sm">C++ &amp; Logic Before Hardware</h3>
-            <p class="text-sm" style="margin:0;">Start with variables, operators, decisions, loops, functions, and arrays before wiring sensors so every line of Arduino code makes sense.</p>
-          </div>
-          <div class="card">
-            <span class="badge badge-cyan">Step 2 · Active Practice</span>
-            <h3 class="mt-sm">Interactive Editor &amp; 7 Exercise Types</h3>
-            <p class="text-sm" style="margin:0;">Edit sketches, export real <code>.ino</code> files for Arduino IDE, solve 7 interactive exercise formats, and pass module quizzes at 70%+.</p>
-          </div>
-          <div class="card">
-            <span class="badge badge-success">Step 3 · Real Hardware</span>
-            <h3 class="mt-sm">5 Board Paths &amp; 8 Guided Projects</h3>
-            <p class="text-sm" style="margin:0;">Understand real voltage and pin differences across Uno R3, Uno R4, Nano variants, Mega 2560, and ESP32 variants — then build robotics projects step by step.</p>
-          </div>
-        </div>
-      </section>
+    <main class="gate-main">
+      <div class="gate-grid">
+        <!-- Left Asymmetric Column: Existing Local Profiles -->
+        <section>
+          <span class="badge badge-bloom mb-sm">Local Student Profiles</span>
+          <h1>Choose Your Profile to Begin</h1>
+          <p style="max-width:580px;">
+            Select your local student profile below to open your personal Dashboard, or create a new profile with your real full name. Each profile keeps its own independent IndexedDB progress.
+          </p>
 
-      <section class="mb-lg">
-        <div class="flex flex-wrap items-center justify-between gap-sm mb-md">
-          <div>
-            <h2>Four Structured Learning Tracks</h2>
-            <p style="margin:0;">Progress automatically saves locally in your browser's IndexedDB with zero accounts required.</p>
+          <h2 id="profiles-section-heading" class="mt-lg mb-md">Existing Local Profiles</h2>
+          <div id="profile-list-host">
+            <p class="text-muted">Loading locally stored profiles...</p>
           </div>
-          <a class="btn btn-primary btn-sm" href="./academy.html">View All 12 Modules →</a>
-        </div>
-        <div class="grid grid-4">
-          <div class="card card-hover">
-            <span class="badge badge-blue">Modules 01–02</span>
-            <h3 class="mt-sm">Programming &amp; Logic</h3>
-            <p class="text-sm">Algorithms, flowcharts, pseudocode, IPO models, and how microcontrollers execute source code.</p>
-            <a class="text-sm" href="./learn.html?lesson=m01-l01">Begin Module 01 →</a>
-          </div>
-          <div class="card card-hover">
-            <span class="badge badge-blue">Modules 03–08</span>
-            <h3 class="mt-sm">Core &amp; Advanced C++</h3>
-            <p class="text-sm">Syntax, variables, conditionals, loops, functions, arrays, structs, pointers, classes, and libraries.</p>
-            <a class="text-sm" href="./learn.html?lesson=m03-l01">Begin Module 03 →</a>
-          </div>
-          <div class="card card-hover">
-            <span class="badge badge-cyan">Modules 09–11</span>
-            <h3 class="mt-sm">Arduino IDE &amp; 5 Boards</h3>
-            <p class="text-sm">Compiling, uploading, Serial Monitor, millis(), PWM, and real board-specific hardware paths.</p>
-            <a class="text-sm" href="./boards.html">Explore Boards →</a>
-          </div>
-          <div class="card card-hover">
-            <span class="badge badge-success">Module 12 + Projects</span>
-            <h3 class="mt-sm">Practical Robotics</h3>
-            <p class="text-sm">LEDs, buttons, streetlights, buzzers, ultrasonic sensors, servos, DC motors, and obstacle detection.</p>
-            <a class="text-sm" href="./projects.html">Open Project Pathways →</a>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="card">
-        <div class="flex flex-wrap items-center justify-between gap-md">
-          <div>
-            <h2>Private, Local-First Student Profiles</h2>
-            <p style="margin:0;">Create multiple local profiles on this device, track real mastery across lessons, exercises, and quizzes, and back up your data anytime as versioned JSON.</p>
-          </div>
-          <div class="flex flex-wrap gap-sm">
-            <a class="btn btn-primary" href="./profiles.html">Manage Local Profiles</a>
-            <a class="btn btn-secondary" href="./my-data.html">Backup &amp; Restore Data</a>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
+        <!-- Right Column: Create New Local Profile (Full Name Only) -->
+        <aside>
+          <div class="card" style="padding:1.85rem; border-radius:var(--radius-lg);">
+            <span class="badge badge-bloom mb-sm">New Student</span>
+            <h2>Create a Local Profile</h2>
+            <p class="text-sm">
+              Enter only your real full name to get started immediately — no password, email, phone number, or setup wizard required. Multiple students with the same full name are supported independently.
+            </p>
 
-  <div id="site-footer"></div>
+            <form id="create-student-form" class="mt-md">
+              <div class="form-group">
+                <label class="form-label" for="student-full-name">Real Full Name</label>
+                <input
+                  class="form-input"
+                  id="student-full-name"
+                  type="text"
+                  required
+                  maxlength="64"
+                  autocomplete="name"
+                  placeholder="Enter your full name"
+                >
+                <div id="create-error" class="text-xs mt-sm" style="color:var(--danger-text);"></div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Create Profile &amp; Open Dashboard →</button>
+            </form>
+
+            <div class="callout callout-warning mt-lg" style="margin-bottom:0;">
+              <div class="callout-title">Local Profile Selection — Not Secure Authentication</div>
+              <p class="text-xs" style="margin:0;">
+                RoboDex&#x0301; stores profiles locally in this browser without passwords or server accounts. Anyone using this same browser can select another stored profile. Download backups regularly from <strong>My Information</strong>.
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
 
   <script src="./assets/js/prefs.js"></script>
   <script src="./assets/js/db.js"></script>
   <script src="./assets/js/progress.js"></script>
   <script src="./assets/js/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const sample = `// Non-blocking heartbeat concept (Arduino C++)
-const int LED_PIN = 13;
-
-void setup() {
-  pinMode(LED_PIN, OUTPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
-  digitalWrite(LED_PIN, HIGH);
-  delay(500);
-  digitalWrite(LED_PIN, LOW);
-  delay(500);
-}`;
-      const codeEl = document.getElementById('hero-code-preview');
-      if (codeEl) codeEl.innerHTML = window.RoboDexApp.highlightCpp(sample);
-
-      try {
-        const profile = await window.RoboDexDB.getActiveProfile();
-        if (profile && profile.lastVisitedLesson) {
-          const btn = document.getElementById('hero-start-btn');
-          btn.href = `./learn.html?lesson=${encodeURIComponent(profile.lastVisitedLesson)}`;
-          btn.textContent = `Continue Learning (${profile.displayName}) →`;
-        }
-      } catch {
-        // default href remains intact
-      }
-    });
-  </script>
+  <script src="./assets/js/profile-gate.js"></script>
 </body>
 </html>
