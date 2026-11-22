@@ -240,7 +240,7 @@
 
         <h1>${window.RoboDexApp.escapeHtml(lesson.title)}</h1>
         <p style="font-size:1.05rem; color:var(--text-primary);">${window.RoboDexApp.escapeHtml(lesson.introduction)}</p>
-        ${meta.mod.representativeBoardPhoto && window.RoboDexVisuals ? window.RoboDexVisuals.getBoardHeroPhotoHtml(
+        ${meta.mod.representativeBoardPhoto && window.RoboDexVisuals && parseInt(meta.mod.id.replace(/\D+/g, ''), 10) >= 9 ? window.RoboDexVisuals.getBoardHeroPhotoHtml(
           meta.mod.representativeBoardPhoto.url,
           meta.mod.representativeBoardPhoto.credit,
           `Representative Hardware for ${window.RoboDexApp.escapeHtml(meta.mod.shortTitle)}`,
@@ -269,12 +269,12 @@
 
         <section class="lesson-section" id="sec-concept">
           <h2 class="lesson-section-title">2. Concept Explanation</h2>
-          ${window.RoboDexVisuals ? window.RoboDexVisuals.getFigureHtml(
+          ${(window.RoboDexVisuals && parseInt(meta.mod.id.replace(/\D+/g, ''), 10) < 9) ? window.RoboDexVisuals.getFigureHtml(
             window.RoboDexVisuals.resolveProgrammingKey(meta.mod.id),
             {
               compact: true,
               title: `${meta.mod.shortTitle} — Conceptual Visual Model`,
-              caption: `Visualizing core concepts for ${lesson.title} alongside your real representative hardware.`
+              caption: `Visualizing core concepts for ${lesson.title}.`
             }
           ) : ""}
           ${lesson.conceptExplanation.map((p) => `<p>${window.RoboDexApp.escapeHtml(p)}</p>`).join('')}
@@ -333,14 +333,6 @@
 
         <section class="lesson-section" id="sec-arduino-app">
           <h2 class="lesson-section-title">7. Real-World Arduino Application</h2>
-          ${window.RoboDexVisuals ? window.RoboDexVisuals.getFigureHtml(
-            window.RoboDexVisuals.resolveProgrammingAppKey(meta.mod.id),
-            {
-              compact: true,
-              title: `Applying ${lesson.title} on Real Hardware`,
-              caption: `Conceptual visual demonstration of how this programming step connects to microcontroller I/O, power, and robotics hardware.`
-            }
-          ) : ''}
           <div class="callout callout-success">
             <div class="callout-title">How Robotics Engineers Use This</div>
             <p style="margin:0;">${window.RoboDexApp.escapeHtml(lesson.realWorldApplication)}</p>

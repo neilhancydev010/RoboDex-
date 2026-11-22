@@ -455,10 +455,11 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Real Representative Board Photograph Framing (Clean studio surface + offline fallback) */
+/* Real Representative Board Photograph Framing (Properly fitted, zero clipping) */
 .board-card-thumb {
+  position: relative;
   width: 100%;
-  height: 156px;
+  aspect-ratio: 16 / 10;
   border-radius: var(--radius-sm);
   background: #ffffff;
   border: 1px solid var(--border-color);
@@ -467,22 +468,49 @@
   justify-content: center;
   overflow: hidden;
   margin-bottom: 0.9rem;
-  padding: 0.6rem;
+  padding: 0.7rem;
+}
+
+.board-card-thumb.has-fallback {
+  padding: 0;
+  background: #0d0818;
+  aspect-ratio: 16 / 9;
 }
 
 .board-card-thumb img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
 }
 
+.board-card-thumb img.is-conceptual-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.board-card-tag {
+  position: absolute;
+  bottom: 0.45rem;
+  right: 0.45rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  color: #f5f3ff;
+  background: rgba(15, 10, 30, 0.8);
+  border: 1px solid rgba(192, 132, 252, 0.42);
+  pointer-events: none;
+}
+
 .board-photo-figure {
-  background: var(--bg-page);
+  background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
-  margin: 1rem 0 1.25rem;
+  margin: 1rem 0 1.35rem;
+  max-width: 660px;
 }
 
 .board-photo-stage {
@@ -491,14 +519,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 200px;
-  max-height: 280px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.board-photo-stage.has-fallback {
+  padding: 0;
+  background: #0d0818;
+  aspect-ratio: 16 / 9;
+  max-height: none;
 }
 
 .board-photo-stage img {
-  max-height: 245px;
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
+  height: auto;
   object-fit: contain;
+  display: block;
+}
+
+.board-photo-stage img.is-conceptual-fallback {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
 }
 
 .board-photo-caption {
@@ -519,34 +566,28 @@
   padding: 0.75rem;
 }
 
-/* Conceptual Visual Learning Figures (Hyper-Bloom framed, distinct from real hardware photos) */
+/* Conceptual Visual Learning Figures (True 16:9 ratio, zero awkward cropping) */
 .visual-figure {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
-  margin: 1.1rem 0 1.35rem;
+  margin: 1rem 0 1.35rem;
+  max-width: 660px;
   box-shadow: var(--shadow-sm);
 }
 
 .visual-figure--compact {
-  margin: 0.85rem 0 1.15rem;
+  max-width: 620px;
+  margin: 0.9rem 0 1.25rem;
 }
 
 .visual-figure-stage {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 360px;
   background: #0d0818;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.visual-figure--compact .visual-figure-stage {
-  max-height: 250px;
 }
 
 .visual-figure-stage img {
@@ -558,11 +599,11 @@
 
 .visual-figure-badge {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  padding: 0.28rem 0.65rem;
+  top: 0.65rem;
+  left: 0.65rem;
+  padding: 0.24rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #f5f3ff;
@@ -572,18 +613,18 @@
 }
 
 .visual-figure-caption {
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0.95rem;
   display: flex;
   flex-direction: column;
-  gap: 0.22rem;
-  font-size: 0.82rem;
+  gap: 0.2rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   border-top: 1px solid var(--border-color);
 }
 
 .visual-figure-caption strong {
   color: var(--text-primary);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
 }
 
 .visual-figure-fallback {
@@ -619,33 +660,6 @@
   position: absolute;
   bottom: 0.45rem;
   right: 0.45rem;
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 0.18rem 0.5rem;
-  border-radius: 999px;
-  color: #f5f3ff;
-  background: rgba(15, 10, 30, 0.76);
-  border: 1px solid rgba(192, 132, 252, 0.38);
-}
-
-/* Enhanced Board Card Photo Tag & Graceful Offline Fallback Framing */
-.board-card-thumb {
-  position: relative;
-}
-
-.board-card-thumb img.is-conceptual-fallback,
-.board-photo-stage img.is-conceptual-fallback {
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-  object-fit: cover;
-  border-radius: calc(var(--radius-sm) - 2px);
-}
-
-.board-card-tag {
-  position: absolute;
-  bottom: 0.4rem;
-  right: 0.4rem;
   font-size: 0.66rem;
   font-weight: 600;
   padding: 0.16rem 0.48rem;
@@ -653,5 +667,4 @@
   color: #f5f3ff;
   background: rgba(15, 10, 30, 0.78);
   border: 1px solid rgba(192, 132, 252, 0.4);
-  pointer-events: none;
 }

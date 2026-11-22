@@ -63,11 +63,6 @@
 
       <main class="page-body">
         <div class="container">
-          ${window.RoboDexVisuals ? window.RoboDexVisuals.getFigureHtml("boards-architecture", {
-            compact: true,
-            title: "Microcontroller Voltage Domains, Signal Buses & Wireless Architecture",
-            caption: "Conceptual visual reference complementing the real manufacturer board photographs below."
-          }) : ""}
           <!-- Family Filter Bar -->
           <div class="tab-bar" role="tablist" aria-label="Filter Board Families">
             <button type="button" class="tab-btn ${activeFamily === 'all' ? 'active' : ''}" data-family="all">All 15 Variants</button>
@@ -224,15 +219,6 @@
             <li class="text-xs"><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)} ↗</a></li>
           `).join('')}
         </ul>
-        <div class="toc-heading">Representative Board</div>
-        <div class="board-card-thumb" style="height:122px; margin-bottom:0.45rem;">
-          <img src="${esc(variant.photo.url)}" alt="${esc(variant.name)} photograph" loading="lazy"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-          <span class="board-photo-fallback" style="display:none;">${esc(variant.name)}</span>
-        </div>
-        <p class="text-xs text-muted" style="margin-bottom:1rem;">
-          <a href="${esc(variant.photo.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(variant.photo.credit)} ↗</a>
-        </p>
         <div class="toc-heading mt-md">Family Note</div>
         <p class="text-xs text-muted">${esc(family.familyWarning)}</p>
       </aside>
@@ -248,15 +234,6 @@
             <div class="lesson-article">
               <span class="badge badge-bloom">${esc(variant.name)} · Variant Assessment</span>
               <h1 class="mt-sm">${esc(qData.title)}</h1>
-              ${window.RoboDexVisuals ? window.RoboDexVisuals.getBoardHeroPhotoHtml(
-                variant.photo.url,
-                `${variant.name} real hardware photograph`,
-                `<strong>${esc(variant.name)}</strong> — Hardware Assessment Reference`,
-                variant.photo.sourceUrl,
-                variant.photo.credit,
-                'diagnostics',
-                true
-              ) : ''}
               <p>${esc(qData.description)} (Passing threshold: ${passScore}%)</p>
               <form id="board-quiz-form">
                 ${qData.questions.map((q, idx) => `

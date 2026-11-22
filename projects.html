@@ -33,9 +33,7 @@
 
       <main class="page-body">
         <div class="container">
-                    <div id="stage3-visual-figure-host" class="mb-lg"></div>
-
-          <section class="mb-lg">
+                              <section class="mb-lg">
             <h2>Upcoming Stage 3 Project Tracks</h2>
             <p class="text-sm mb-md">Preview of the guided robotics engineering domains arriving in Stage 3. No placeholder completion numbers are shown until you begin Stage 3.</p>
             <div id="stage3-preview-cards" class="grid grid-3"></div>
@@ -65,9 +63,6 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if (window.RoboDexVisuals) {
-        window.RoboDexVisuals.mountFigure("#stage3-visual-figure-host", "robotics-applied", {
-          badge: "Conceptual Visual Learning Figure · Stage 3 Preview"
-        });
         const cardsHost = document.getElementById("stage3-preview-cards");
         if (cardsHost) {
           const tracks = [

@@ -90,8 +90,8 @@
     switch (code) {
       case 'A': return 'boards-architecture';
       case 'B': return 'boards-architecture';
-      case 'C': return 'power-safety';
-      case 'D': return 'boards-architecture';
+      case 'C': return 'boards-architecture';
+      case 'D': return 'power-safety';
       case 'E': return 'ide-upload';
       case 'F': return 'embedded-io';
       case 'G': return 'programming';
@@ -146,7 +146,7 @@
     return `
       <div class="board-card-thumb"${styleAttr}>
         <img src="${esc(photoUrl)}" alt="${esc(altText)}" loading="lazy"
-             onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='${esc(fig.src)}';this.classList.add('is-conceptual-fallback');}">
+             onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='${esc(fig.src)}';this.classList.add('is-conceptual-fallback');if(this.parentElement)this.parentElement.classList.add('has-fallback');}">
         ${tagLabel ? `<span class="board-card-tag">${esc(tagLabel)}</span>` : ''}
       </div>
     `;
@@ -159,7 +159,7 @@
       <figure class="board-photo-figure">
         <div class="board-photo-stage"${stageStyle}>
           <img src="${esc(photoUrl)}" alt="${esc(altText)}" loading="lazy"
-               onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='${esc(fig.src)}';this.classList.add('is-conceptual-fallback');}">
+               onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='${esc(fig.src)}';this.classList.add('is-conceptual-fallback');if(this.parentElement)this.parentElement.classList.add('has-fallback');}">
         </div>
         <figcaption class="board-photo-caption">
           <span>${captionLeft}</span>

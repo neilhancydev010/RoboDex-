@@ -258,8 +258,7 @@
                     modObj.representativeBoardPhoto.url,
                     modObj.representativeBoardPhoto.credit,
                     window.RoboDexVisuals.resolveProgrammingKey(stat.moduleId),
-                    stat.shortTitle,
-                    136
+                    stat.shortTitle
                   )
                 : (window.RoboDexVisuals ? window.RoboDexVisuals.getTrackThumbHtml(window.RoboDexVisuals.resolveProgrammingKey(stat.moduleId), stat.shortTitle) : '')}
               <div class="card-header">
