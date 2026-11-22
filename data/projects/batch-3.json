@@ -70,6 +70,7 @@
       ],
       "partA": {
         "introduction": "Streetlights turn on only when needed, dim when no one is present, and report faults automatically.",
+        "plainEnglishGuide": "Think of Smart streetlight with motion, daylight, and fault reporting like a smart assistant on a workbench: first it senses what is happening around it (LDR module, PIR motion sensor HC-SR501), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (12 V LED strips or model streetlights, Relay module or MOSFET module) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Smart streetlight with motion, daylight, and fault reporting and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 12 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -117,7 +118,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -238,7 +239,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -485,7 +486,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #21 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -495,7 +497,8 @@
             "code": "// Stage 2: Read & Calibrate Primary Sensor Input (Smart streetlight with motion, daylight, and fault reporting)\nconst int SENSOR_PIN = 35;\n\nint readAveragedSensor() {\n  long sum = 0;\n  for (int i = 0; i < 10; i++) {\n    sum += analogRead(SENSOR_PIN);\n    delay(10);\n  }\n  return sum / 10;\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(SENSOR_PIN, INPUT);\n}\n\nvoid loop() {\n  int rawValue = readAveragedSensor();\n  Serial.print(\"Averaged raw reading: \");\n  Serial.println(rawValue);\n  delay(400);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -505,7 +508,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Smart streetlight with motion, daylight, and fault reporting)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 2200;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -577,6 +581,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #21 (Smart streetlight with motion, daylight, and fault reporting)\nProject #21 | Reading: [Normal Baseline] | Status: NORMAL\nProject #21 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #21 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -755,6 +760,7 @@
       ],
       "partA": {
         "introduction": "The system monitors hive temperature, humidity, weight, sound, and movement to detect overheating, swarming, or theft.",
+        "plainEnglishGuide": "Think of Beehive health and hive-theft monitor like a smart assistant on a workbench: first it senses what is happening around it (DHT22 sensor, Load cell 1–5 kg), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (Buzzer, OLED display) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Beehive health and hive-theft monitor and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 14 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -801,7 +807,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -922,7 +928,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -1197,7 +1203,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #22 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -1207,7 +1214,8 @@
             "code": "// Stage 2: Read Primary DHT22 Environmental Sensor (Beehive health and hive-theft monitor)\n#include <DHT.h>\n#define DHTPIN 4\n#define DHTTYPE DHT22\nDHT dht(DHTPIN, DHTTYPE);\n\nvoid setup() {\n  Serial.begin(115200);\n  dht.begin();\n}\n\nvoid loop() {\n  float tempC = dht.readTemperature();\n  float hum = dht.readHumidity();\n  if (isnan(tempC) || isnan(hum)) {\n    Serial.println(\"Sensor read failed - check wiring & 2s interval!\");\n  } else {\n    Serial.print(\"Temp: \"); Serial.print(tempC);\n    Serial.print(\" C | Humidity: \"); Serial.print(hum); Serial.println(\" %\");\n  }\n  delay(2000);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -1217,7 +1225,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Beehive health and hive-theft monitor)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 32.0;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -1290,6 +1299,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #22 (Beehive health and hive-theft monitor)\nProject #22 | Reading: [Normal Baseline] | Status: NORMAL\nProject #22 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #22 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -1468,6 +1478,7 @@
       ],
       "partA": {
         "introduction": "The system combines leaf color, temperature, humidity, and soil data to identify unhealthy plant conditions early.",
+        "plainEnglishGuide": "Think of Automated plant-disease early-warning system like a smart assistant on a workbench: first it senses what is happening around it (FTDI programmer, DHT22 sensor), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (Relay module, 5 V water pump) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Automated plant-disease early-warning system and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 14 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -1510,7 +1521,7 @@
             "current": "180–350 mA average, spikes >500 mA during flash LED / Wi-Fi stream",
             "protocol": "Wi-Fi, UART (via external 3.3V FTDI USB-to-Serial adapter), DVP camera bus",
             "howItWorks": "ESP32-S module paired with an OV2640 2MP camera and microSD slot; requires external USB-UART programmer because it has no onboard USB port.",
-            "precautions": "Brownout detector triggers constantly on weak USB power—power from a solid 5V 2A supply. Always disconnect GPIO0 from GND after flashing and press RESET.",
+            "precautions": "Brownout detector triggers constantly on weak USB power, power from a solid 5V 2A supply. Always disconnect GPIO0 from GND after flashing and press RESET.",
             "photo": {
               "type": "conceptual-technical-visual",
               "url": "./assets/img/visuals/visual-boards-architecture.jpg",
@@ -1635,7 +1646,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -1920,7 +1931,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #23 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -1930,7 +1942,8 @@
             "code": "// Stage 2: Read Primary DHT22 Environmental Sensor (Automated plant-disease early-warning system)\n#include <DHT.h>\n#define DHTPIN 4\n#define DHTTYPE DHT22\nDHT dht(DHTPIN, DHTTYPE);\n\nvoid setup() {\n  Serial.begin(115200);\n  dht.begin();\n}\n\nvoid loop() {\n  float tempC = dht.readTemperature();\n  float hum = dht.readHumidity();\n  if (isnan(tempC) || isnan(hum)) {\n    Serial.println(\"Sensor read failed - check wiring & 2s interval!\");\n  } else {\n    Serial.print(\"Temp: \"); Serial.print(tempC);\n    Serial.print(\" C | Humidity: \"); Serial.print(hum); Serial.println(\" %\");\n  }\n  delay(2000);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -1940,7 +1953,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Automated plant-disease early-warning system)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 32.0;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -2013,6 +2027,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #23 (Automated plant-disease early-warning system)\nProject #23 | Reading: [Normal Baseline] | Status: NORMAL\nProject #23 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #23 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -2191,6 +2206,7 @@
       ],
       "partA": {
         "introduction": "The system continuously monitors refrigerator temperature and humidity, warns before spoilage risk, and logs data.",
+        "plainEnglishGuide": "Think of Smart cold-storage temperature monitor for vaccines/food like a smart assistant on a workbench: first it senses what is happening around it (DS18B20 waterproof temperature sensors, DHT22 sensor), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (OLED display, Buzzer) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Smart cold-storage temperature monitor for vaccines/food and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 15 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -2237,7 +2253,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -2298,7 +2314,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -2658,7 +2674,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #24 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -2668,7 +2685,8 @@
             "code": "// Stage 2: Read Primary DHT22 Environmental Sensor (Smart cold-storage temperature monitor for vaccines/food)\n#include <DHT.h>\n#define DHTPIN 4\n#define DHTTYPE DHT22\nDHT dht(DHTPIN, DHTTYPE);\n\nvoid setup() {\n  Serial.begin(115200);\n  dht.begin();\n}\n\nvoid loop() {\n  float tempC = dht.readTemperature();\n  float hum = dht.readHumidity();\n  if (isnan(tempC) || isnan(hum)) {\n    Serial.println(\"Sensor read failed - check wiring & 2s interval!\");\n  } else {\n    Serial.print(\"Temp: \"); Serial.print(tempC);\n    Serial.print(\" C | Humidity: \"); Serial.print(hum); Serial.println(\" %\");\n  }\n  delay(2000);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -2678,7 +2696,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Smart cold-storage temperature monitor for vaccines/food)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 32.0;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -2752,6 +2771,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #24 (Smart cold-storage temperature monitor for vaccines/food)\nProject #24 | Reading: [Normal Baseline] | Status: NORMAL\nProject #24 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #24 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -2930,6 +2950,7 @@
       ],
       "partA": {
         "introduction": "A river-side station monitors water level, rainfall, vibration, and flow, then warns communities of flood or debris-flow risk.",
+        "plainEnglishGuide": "Think of River-water level and debris-flow warning station like a smart assistant on a workbench: first it senses what is happening around it (Ultrasonic sensor HC-SR04, Rain sensor module), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (Buzzer, Red/yellow/green LEDs) automatically.",
         "objectives": [
           "Explain the practical engineering need behind River-water level and debris-flow warning station and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 16 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -2977,7 +2998,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -2988,7 +3009,7 @@
             "catalogKey": "hc-sr04",
             "category": "Distance / Level Sensor",
             "operatingVoltage": "5V DC (standard HC-SR04; HC-SR04P supports 3.3V–5V)",
-            "logicVoltage": "5V ECHO output — MUST use 1kΩ / 2kΩ voltage divider to 3.3V on ESP32!",
+            "logicVoltage": "5V ECHO output: MUST use 1kΩ / 2kΩ voltage divider to 3.3V on ESP32!",
             "pins": "VCC (5V), TRIG (input), ECHO (output), GND",
             "current": "~15 mA during measurement pulse",
             "protocol": "Digital pulse-width timing (echo duration / 58.2 ≈ cm)",
@@ -3098,7 +3119,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -3421,7 +3442,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #25 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -3431,7 +3453,8 @@
             "code": "// Stage 2: Read Primary Ultrasonic Distance Sensor (River-water level and debris-flow warning station)\nconst int TRIG_PIN = 25;\nconst int ECHO_PIN = 26; // Use 1k/2k divider on ESP32!\n\nfloat readDistanceCm() {\n  digitalWrite(TRIG_PIN, LOW);\n  delayMicroseconds(2);\n  digitalWrite(TRIG_PIN, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(TRIG_PIN, LOW);\n  long duration = pulseIn(ECHO_PIN, HIGH, 30000);\n  if (duration == 0) return -1.0;\n  return duration / 58.2;\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(TRIG_PIN, OUTPUT);\n  pinMode(ECHO_PIN, INPUT);\n}\n\nvoid loop() {\n  float cm = readDistanceCm();\n  Serial.print(\"Measured distance (cm): \");\n  Serial.println(cm);\n  delay(500);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -3441,7 +3464,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (River-water level and debris-flow warning station)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 15.0;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -3514,6 +3538,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #25 (River-water level and debris-flow warning station)\nProject #25 | Reading: [Normal Baseline] | Status: NORMAL\nProject #25 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #25 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -3692,6 +3717,7 @@
       ],
       "partA": {
         "introduction": "The feeder dispenses feed on schedule and monitors animal movement, temperature, and feeding behavior.",
+        "plainEnglishGuide": "Think of Smart livestock feeder and animal-health monitor like a smart assistant on a workbench: first it senses what is happening around it (DS3231 RTC module, DC motor with auger, optional), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (Servo motor MG996R, DC motor with auger, optional) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Smart livestock feeder and animal-health monitor and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 18 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -3738,7 +3764,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -3904,7 +3930,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -4212,7 +4238,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #26 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -4222,7 +4249,8 @@
             "code": "// Stage 2: Read Primary DHT22 Environmental Sensor (Smart livestock feeder and animal-health monitor)\n#include <DHT.h>\n#define DHTPIN 4\n#define DHTTYPE DHT22\nDHT dht(DHTPIN, DHTTYPE);\n\nvoid setup() {\n  Serial.begin(115200);\n  dht.begin();\n}\n\nvoid loop() {\n  float tempC = dht.readTemperature();\n  float hum = dht.readHumidity();\n  if (isnan(tempC) || isnan(hum)) {\n    Serial.println(\"Sensor read failed - check wiring & 2s interval!\");\n  } else {\n    Serial.print(\"Temp: \"); Serial.print(tempC);\n    Serial.print(\" C | Humidity: \"); Serial.print(hum); Serial.println(\" %\");\n  }\n  delay(2000);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -4232,7 +4260,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Smart livestock feeder and animal-health monitor)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 32.0;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -4306,6 +4335,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #26 (Smart livestock feeder and animal-health monitor)\nProject #26 | Reading: [Normal Baseline] | Status: NORMAL\nProject #26 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #26 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -4484,6 +4514,7 @@
       ],
       "partA": {
         "introduction": "The cane detects obstacles, drops, and wet surfaces, then gives vibration or sound feedback to help visually impaired users.",
+        "plainEnglishGuide": "Think of Blind-navigation smart cane with obstacle and water alerts like a smart assistant on a workbench: first it senses what is happening around it (Ultrasonic sensor HC-SR04, IR obstacle sensor), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (Vibration motor, Buzzer) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Blind-navigation smart cane with obstacle and water alerts and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 15 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -4532,7 +4563,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -4543,7 +4574,7 @@
             "catalogKey": "hc-sr04",
             "category": "Distance / Level Sensor",
             "operatingVoltage": "5V DC (standard HC-SR04; HC-SR04P supports 3.3V–5V)",
-            "logicVoltage": "5V ECHO output — MUST use 1kΩ / 2kΩ voltage divider to 3.3V on ESP32!",
+            "logicVoltage": "5V ECHO output: MUST use 1kΩ / 2kΩ voltage divider to 3.3V on ESP32!",
             "pins": "VCC (5V), TRIG (input), ECHO (output), GND",
             "current": "~15 mA during measurement pulse",
             "protocol": "Digital pulse-width timing (echo duration / 58.2 ≈ cm)",
@@ -4943,7 +4974,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #27 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -4953,7 +4985,8 @@
             "code": "// Stage 2: Read Primary Ultrasonic Distance Sensor (Blind-navigation smart cane with obstacle and water alerts)\nconst int TRIG_PIN = 25;\nconst int ECHO_PIN = 26; // Use 1k/2k divider on ESP32!\n\nfloat readDistanceCm() {\n  digitalWrite(TRIG_PIN, LOW);\n  delayMicroseconds(2);\n  digitalWrite(TRIG_PIN, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(TRIG_PIN, LOW);\n  long duration = pulseIn(ECHO_PIN, HIGH, 30000);\n  if (duration == 0) return -1.0;\n  return duration / 58.2;\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(TRIG_PIN, OUTPUT);\n  pinMode(ECHO_PIN, INPUT);\n}\n\nvoid loop() {\n  float cm = readDistanceCm();\n  Serial.print(\"Measured distance (cm): \");\n  Serial.println(cm);\n  delay(500);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -4963,7 +4996,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Blind-navigation smart cane with obstacle and water alerts)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 15.0;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -5034,6 +5068,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #27 (Blind-navigation smart cane with obstacle and water alerts)\nProject #27 | Reading: [Normal Baseline] | Status: NORMAL\nProject #27 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #27 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -5212,6 +5247,7 @@
       ],
       "partA": {
         "introduction": "Plants grow without soil while the system controls nutrient solution, water level, pH, temperature, and lighting.",
+        "plainEnglishGuide": "Think of Automated hydroponics system like a smart assistant on a workbench: first it senses what is happening around it (pH sensor module with probe, TDS sensor module), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (12 V DC water pump, Relay module) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Automated hydroponics system and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 15 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -5259,7 +5295,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -5330,7 +5366,7 @@
             "catalogKey": "hc-sr04",
             "category": "Distance / Level Sensor",
             "operatingVoltage": "5V DC (standard HC-SR04; HC-SR04P supports 3.3V–5V)",
-            "logicVoltage": "5V ECHO output — MUST use 1kΩ / 2kΩ voltage divider to 3.3V on ESP32!",
+            "logicVoltage": "5V ECHO output: MUST use 1kΩ / 2kΩ voltage divider to 3.3V on ESP32!",
             "pins": "VCC (5V), TRIG (input), ECHO (output), GND",
             "current": "~15 mA during measurement pulse",
             "protocol": "Digital pulse-width timing (echo duration / 58.2 ≈ cm)",
@@ -5425,7 +5461,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -5688,7 +5724,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #28 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -5698,7 +5735,8 @@
             "code": "// Stage 2: Read Primary Ultrasonic Distance Sensor (Automated hydroponics system)\nconst int TRIG_PIN = 25;\nconst int ECHO_PIN = 26; // Use 1k/2k divider on ESP32!\n\nfloat readDistanceCm() {\n  digitalWrite(TRIG_PIN, LOW);\n  delayMicroseconds(2);\n  digitalWrite(TRIG_PIN, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(TRIG_PIN, LOW);\n  long duration = pulseIn(ECHO_PIN, HIGH, 30000);\n  if (duration == 0) return -1.0;\n  return duration / 58.2;\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(TRIG_PIN, OUTPUT);\n  pinMode(ECHO_PIN, INPUT);\n}\n\nvoid loop() {\n  float cm = readDistanceCm();\n  Serial.print(\"Measured distance (cm): \");\n  Serial.println(cm);\n  delay(500);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -5708,7 +5746,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Automated hydroponics system)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 15.0;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -5781,6 +5820,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #28 (Automated hydroponics system)\nProject #28 | Reading: [Normal Baseline] | Status: NORMAL\nProject #28 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #28 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -5959,6 +5999,7 @@
       ],
       "partA": {
         "introduction": "The system measures electricity use of model appliances, identifies high-consumption devices, and lets users control them remotely.",
+        "plainEnglishGuide": "Think of Energy-monitoring smart home with appliance control like a smart assistant on a workbench: first it senses what is happening around it (ACS712 current sensor, ZMPT101B voltage sensor, optional), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (Relay module, 12 V DC bulbs/fans as model appliances) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Energy-monitoring smart home with appliance control and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 13 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -6006,7 +6047,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -6112,7 +6153,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -6389,7 +6430,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #29 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -6399,7 +6441,8 @@
             "code": "// Stage 2: Read & Calibrate Primary Sensor Input (Energy-monitoring smart home with appliance control)\nconst int SENSOR_PIN = 35;\n\nint readAveragedSensor() {\n  long sum = 0;\n  for (int i = 0; i < 10; i++) {\n    sum += analogRead(SENSOR_PIN);\n    delay(10);\n  }\n  return sum / 10;\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(SENSOR_PIN, INPUT);\n}\n\nvoid loop() {\n  int rawValue = readAveragedSensor();\n  Serial.print(\"Averaged raw reading: \");\n  Serial.println(rawValue);\n  delay(400);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -6409,7 +6452,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Energy-monitoring smart home with appliance control)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 2200;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -6481,6 +6525,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #29 (Energy-monitoring smart home with appliance control)\nProject #29 | Reading: [Normal Baseline] | Status: NORMAL\nProject #29 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #29 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [
@@ -6659,6 +6704,7 @@
       ],
       "partA": {
         "introduction": "The system detects LPG, methane, smoke, or harmful gas, shuts off a model gas line, opens ventilation, and alerts occupants.",
+        "plainEnglishGuide": "Think of Gas-leak detection and ventilation system like a smart assistant on a workbench: first it senses what is happening around it (MQ-2 smoke/LPG sensor, MQ-5 LPG sensor, optional), then the microcontroller checks if the numbers crossed your safe limit, and finally it turns on your alerts or hardware (Buzzer, Red/yellow/green LEDs) automatically.",
         "objectives": [
           "Explain the practical engineering need behind Gas-leak detection and ventilation system and its complete sensor → processing → action → feedback loop.",
           "Identify, verify voltage levels for, and safely wire all 16 project components on ESP32 DevKit V1 (3.3V Logic).",
@@ -6706,7 +6752,7 @@
               "type": "official-manufacturer-photo",
               "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
               "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
-              "credit": "Espressif Systems — ESP32-DevKitC V4 Official Documentation",
+              "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
               "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
             }
           },
@@ -6717,7 +6763,7 @@
             "catalogKey": "mq-gas",
             "category": "Gas / Air Quality Sensor",
             "operatingVoltage": "5V DC required for internal SnO2 heater coil",
-            "logicVoltage": "Up to 5V Analog Out (AO) — MUST use voltage divider before ESP32 3.3V ADC!",
+            "logicVoltage": "Up to 5V Analog Out (AO): MUST use voltage divider before ESP32 3.3V ADC!",
             "pins": "VCC (5V), GND, DO (digital comparator), AO (analog voltage)",
             "current": "150–180 mA heater current (runs warm during operation)",
             "protocol": "Analog voltage + Digital threshold",
@@ -6732,7 +6778,7 @@
             "catalogKey": "mq-gas",
             "category": "Gas / Air Quality Sensor",
             "operatingVoltage": "5V DC required for internal SnO2 heater coil",
-            "logicVoltage": "Up to 5V Analog Out (AO) — MUST use voltage divider before ESP32 3.3V ADC!",
+            "logicVoltage": "Up to 5V Analog Out (AO): MUST use voltage divider before ESP32 3.3V ADC!",
             "pins": "VCC (5V), GND, DO (digital comparator), AO (analog voltage)",
             "current": "150–180 mA heater current (runs warm during operation)",
             "protocol": "Analog voltage + Digital threshold",
@@ -6747,7 +6793,7 @@
             "catalogKey": "mq-gas",
             "category": "Gas / Air Quality Sensor",
             "operatingVoltage": "5V DC required for internal SnO2 heater coil",
-            "logicVoltage": "Up to 5V Analog Out (AO) — MUST use voltage divider before ESP32 3.3V ADC!",
+            "logicVoltage": "Up to 5V Analog Out (AO): MUST use voltage divider before ESP32 3.3V ADC!",
             "pins": "VCC (5V), GND, DO (digital comparator), AO (analog voltage)",
             "current": "150–180 mA heater current (runs warm during operation)",
             "protocol": "Analog voltage + Digital threshold",
@@ -6887,7 +6933,7 @@
             "current": "10–25 mA depending on lit pixels",
             "protocol": "I2C (0x3C typical)",
             "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
-            "precautions": "Double-check VCC/GND pin order on your specific breakout—some modules swap pins 1 and 2.",
+            "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2.",
             "photo": null
           },
           {
@@ -6927,7 +6973,7 @@
             "catalogKey": "mq-gas",
             "category": "Gas / Air Quality Sensor",
             "operatingVoltage": "5V DC required for internal SnO2 heater coil",
-            "logicVoltage": "Up to 5V Analog Out (AO) — MUST use voltage divider before ESP32 3.3V ADC!",
+            "logicVoltage": "Up to 5V Analog Out (AO): MUST use voltage divider before ESP32 3.3V ADC!",
             "pins": "VCC (5V), GND, DO (digital comparator), AO (analog voltage)",
             "current": "150–180 mA heater current (runs warm during operation)",
             "protocol": "Analog voltage + Digital threshold",
@@ -7134,7 +7180,8 @@
             "code": "// Stage 1: Hardware Sanity Test: Verify Board, Serial Monitor & Status Output\nconst int STATUS_LED = 2;\nconst int BUZZER_PIN = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(STATUS_LED, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  Serial.println(\"RoboDex Project #30 Sanity Test Ready\");\n}\n\nvoid loop() {\n  digitalWrite(STATUS_LED, HIGH);\n  digitalWrite(BUZZER_PIN, HIGH);\n  Serial.println(\"Output ON: verify LED & buzzer polarity\");\n  delay(250);\n  digitalWrite(STATUS_LED, LOW);\n  digitalWrite(BUZZER_PIN, LOW);\n  delay(1000);\n}",
             "explanation": [
               "Initializes Serial communication at 115200 baud so every subsequent sensor test can print live diagnostic numbers.",
-              "Configures status LED and buzzer pins as OUTPUT and pulses them briefly to prove the board is alive and responding."
+              "pinMode(pin, OUTPUT) tells the chip that it will send voltage out to an LED or buzzer rather than reading from it.",
+              "digitalWrite(pin, HIGH) turns the output ON, delay(250) waits a quarter second, and digitalWrite(pin, LOW) turns it OFF cleanly."
             ]
           },
           {
@@ -7144,7 +7191,8 @@
             "code": "// Stage 2: Read & Calibrate Primary Sensor Input (Gas-leak detection and ventilation system)\nconst int SENSOR_PIN = 35;\n\nint readAveragedSensor() {\n  long sum = 0;\n  for (int i = 0; i < 10; i++) {\n    sum += analogRead(SENSOR_PIN);\n    delay(10);\n  }\n  return sum / 10;\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(SENSOR_PIN, INPUT);\n}\n\nvoid loop() {\n  int rawValue = readAveragedSensor();\n  Serial.print(\"Averaged raw reading: \");\n  Serial.println(rawValue);\n  delay(400);\n}",
             "explanation": [
               "Encapsulates sensor acquisition inside a dedicated helper function so loop() remains clean and testable.",
-              "Prints human-readable units to Serial Monitor so you can record baseline calibration values before setting alert thresholds."
+              "Averaging multiple readings smooths out tiny electrical spikes so your alarm does not false-trigger on random noise.",
+              "Serial.println() prints each measurement to your computer screen so you can write down your exact room baseline."
             ]
           },
           {
@@ -7154,7 +7202,8 @@
             "code": "// Stage 3: Decision Logic & Hysteresis Control (Gas-leak detection and ventilation system)\nconst int ACTUATOR_PIN = 27;\nconst int BUZZER_PIN   = 14;\nconst float ALERT_THRESHOLD = 2200;\nbool alertActive = false;\n\nvoid setSystemAction(bool trigger) {\n  alertActive = trigger;\n  digitalWrite(ACTUATOR_PIN, trigger ? HIGH : LOW);\n  digitalWrite(BUZZER_PIN, trigger ? HIGH : LOW);\n  Serial.println(trigger ? \"[STATE] ALERT / ACTUATOR ON\" : \"[STATE] NORMAL / STANDBY\");\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(ACTUATOR_PIN, OUTPUT);\n  pinMode(BUZZER_PIN, OUTPUT);\n  setSystemAction(false);\n}\n\nvoid loop() {\n  // Simulated threshold test before merging live sensor:\n  setSystemAction(true);\n  delay(1500);\n  setSystemAction(false);\n  delay(2500);\n}",
             "explanation": [
               "Separates decision-making from hardware toggling via setSystemAction(bool), making troubleshooting and future wireless triggers straightforward.",
-              "Defaults the actuator and alarm to OFF during setup() so pumps, relays, or motors never jump unexpectedly at power-on."
+              "The ternary expression (trigger ? HIGH : LOW) is a clean shorthand for an if/else that switches outputs ON when trigger is true and OFF when false.",
+              "Calling setSystemAction(false) inside setup() guarantees pumps, relays, or buzzers start safely OFF the moment you plug in power."
             ]
           }
         ],
@@ -7226,6 +7275,7 @@
           "Apply a known reference condition (e.g., measured ruler distance, known temperature, dry vs. wet soil, or controlled tilt/vibration).",
           "Set ALERT_THRESHOLD halfway between safe baseline and trigger condition, adding a small hysteresis band."
         ],
+        "exampleSerialOutput": "System Initialized: Project #30 (Gas-leak detection and ventilation system)\nProject #30 | Reading: [Normal Baseline] | Status: NORMAL\nProject #30 | Reading: [Stimulus Applied] | Status: ACTION TRIGGERED\nProject #30 | Reading: [Returned to Baseline] | Status: NORMAL",
         "sampleTestTable": {
           "disclaimer": "EXAMPLE TABLE STRUCTURE ONLY: Record your own actual measured hardware values during lab testing.",
           "columns": [

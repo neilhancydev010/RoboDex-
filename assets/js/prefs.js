@@ -9,7 +9,7 @@ window.RoboDexPrefs = (function () {
   const PREFIX = 'robodex_pref_';
   const SESSION_PROFILE_KEY = 'robodex_session_active_profile';
   const DEFAULTS = {
-    theme: 'dark',
+    theme: 'light',
     fontSize: 'md',
     quizPassScore: 70
   };

@@ -340,6 +340,12 @@
             <!-- PART A -->
             <section class="lesson-section" id="part-a">
               <h2 class="lesson-section-title">PART A: Understand the Project</h2>
+              ${project.partA.plainEnglishGuide ? `<div class="callout callout-success mb-md"><div class="callout-title">In Plain English: How This System Works</div><p class="text-sm" style="margin:0;">${esc(project.partA.plainEnglishGuide)}</p></div>` : ""}
+              <div class="beginner-strip">
+                <div class="beginner-rule-card"><strong>1. Unplug Before Wiring</strong><p>Always disconnect USB and batteries before moving any jumper wire.</p></div>
+                <div class="beginner-rule-card"><strong>2. Match 3.3V vs 5V</strong><p>ESP32 pins are 3.3V only; use resistor dividers for 5V sensor outputs.</p></div>
+                <div class="beginner-rule-card"><strong>3. Share Common GND</strong><p>Connect external motor/pump battery negative (-) to board GND.</p></div>
+              </div>
               <div class="callout callout-info mb-md">
                 <div class="callout-title">Learning Objectives</div>
                 <ul style="margin:0.4rem 0 0 1.2rem; padding:0;">
@@ -554,6 +560,7 @@
                 <li><strong>Output Test:</strong> ${esc(project.partJ.outputTest)}</li>
                 <li><strong>Integrated Test:</strong> ${esc(project.partJ.integratedTest)}</li>
               </ul>
+              ${project.partJ.exampleSerialOutput ? `<h3>What Working Output Looks Like (Example Serial Monitor)</h3><pre class="serial-preview-box">${esc(project.partJ.exampleSerialOutput)}</pre>` : ""}
               <h3>Calibration Procedure</h3>
               <ol class="text-sm mb-md" style="margin:0.35rem 0 1rem 1.25rem;">
                 ${project.partJ.calibrationSteps.map((c) => `<li>${esc(c)}</li>`).join('')}

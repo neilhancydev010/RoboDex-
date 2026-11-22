@@ -1,173 +1,167 @@
 /* ==========================================================================
-   RoboDex́ — Hyper-Bloom Design System Tokens
-   Two complete art-directed themes: Dark Hyper-Bloom & Light Hyper-Bloom.
-   Purple-centered dramatic gradients, organic curves, calm reading surfaces.
+   RoboDex́ — Clean Formal Minimal Design System with Fine Well-Defined Curves
+   Two refined architectural themes: Formal Minimal Light (default) & Minimal Dark.
+   Crisp 1px hairlines, restrained slate-indigo accents, calm reading surfaces.
    ========================================================================== */
 
 :root {
-  /* Typography: Geometric Editorial Display + Restrained Technical Sans */
-  --font-display: "Plus Jakarta Sans", "Space Grotesk", "Outfit", "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Typography: Refined Geometric Display + High-Legibility Technical Sans */
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, "Courier New", monospace;
 
-  --reading-font-size: 15.5px;
-  --line-height-body: 1.68;
+  --reading-font-size: 16px;
+  --line-height-body: 1.72;
 
   /* Spacing & Layout (Laptop-first 1280px / 1440px) */
-  --sidebar-nav-width: 258px;
+  --sidebar-nav-width: 252px;
   --utility-bar-height: 58px;
-  --lesson-sidebar-width: 276px;
+  --lesson-sidebar-width: 274px;
   --toc-width: 224px;
   --content-max-width: 1220px;
 
-  /* Radii */
+  /* Fine Well-Defined Radii */
   --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 22px;
-  --radius-xl: 32px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-pill: 9999px;
 
   /* Motion */
-  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
-  --transition-base: 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 140ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-base: 240ms cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Core Hyper-Bloom Purple Spectrum */
-  --bloom-700: #6d28d9;
-  --bloom-600: #7c3aed;
-  --bloom-500: #9333ea;
-  --bloom-400: #a855f7;
-  --bloom-300: #c084fc;
-  --bloom-200: #e9d5ff;
-  --indigo-600: #4f46e5;
-  --orchid-500: #d946ef;
+  /* Formal Academic Slate-Indigo Palette */
+  --bloom-700: #1e3a8a;
+  --bloom-600: #1d4ed8;
+  --bloom-500: #2563eb;
+  --bloom-400: #3b82f6;
+  --bloom-300: #93c5fd;
+  --bloom-200: #dbeafe;
+  --indigo-600: #3730a3;
+  --orchid-500: #4f46e5;
 
   /* Semantic Accents */
   --success-600: #15803d;
   --warning-600: #b45309;
   --danger-600: #be123c;
-  --info-600: #6d28d9;
+  --info-600: #1d4ed8;
 }
 
 /* ==========================================================================
-   DARK HYPER-BLOOM THEME (Default)
-   Deep obsidian-plum surfaces, luminous violet-orchid bloom curves
+   FORMAL MINIMAL LIGHT THEME (Default)
+   Architectural alabaster canvas, crisp white cards, fine hairline borders
    ========================================================================== */
 :root,
-[data-theme="dark"] {
-  --bg-page: #090612;
-  --bg-canvas-grad: radial-gradient(1200px 640px at 88% -8%, rgba(147, 51, 234, 0.28), transparent 62%),
-                    radial-gradient(900px 580px at 8% 18%, rgba(79, 70, 229, 0.22), transparent 60%),
-                    radial-gradient(840px 520px at 74% 92%, rgba(217, 70, 239, 0.14), transparent 64%),
-                    #090612;
-  --bg-sidebar: rgba(15, 10, 29, 0.88);
-  --bg-utility: rgba(13, 9, 25, 0.82);
-  --bg-surface: rgba(21, 15, 39, 0.86);
-  --bg-surface-solid: #150f27;
-  --bg-subtle: rgba(34, 24, 62, 0.72);
-  --bg-elevated: rgba(30, 21, 56, 0.94);
-  --bg-hero-grad: linear-gradient(135deg, #1b0f38 0%, #2c1558 48%, #471c7c 100%);
-  --bg-curve-fill-1: rgba(147, 51, 234, 0.22);
-  --bg-curve-fill-2: rgba(79, 70, 229, 0.18);
-  --bg-curve-fill-3: rgba(217, 70, 239, 0.12);
-  --bg-divider-fill: #090612;
+[data-theme="light"] {
+  --bg-page: #f8fafc;
+  --bg-canvas-grad: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  --bg-sidebar: #ffffff;
+  --bg-utility: rgba(255, 255, 255, 0.94);
+  --bg-surface: #ffffff;
+  --bg-surface-solid: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --bg-elevated: #ffffff;
+  --bg-hero-grad: linear-gradient(135deg, #0f172a 0%, #1e293b 58%, #1e3a8a 100%);
+  --bg-curve-fill-1: rgba(30, 58, 138, 0.05);
+  --bg-curve-fill-2: rgba(51, 65, 85, 0.04);
+  --bg-curve-fill-3: rgba(37, 99, 235, 0.03);
+  --bg-divider-fill: #f8fafc;
 
-  --border-color: rgba(192, 132, 252, 0.18);
-  --border-strong: rgba(192, 132, 252, 0.34);
+  --border-color: #e2e8f0;
+  --border-strong: #cbd5e1;
 
-  --text-primary: #f6f3ff;
-  --text-secondary: #cfc5e8;
-  --text-muted: #9b8ec2;
-  --text-inverse: #090612;
-  --link-color: #c4b5fd;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  --link-color: #1d4ed8;
 
-  --accent-primary: #9333ea;
-  --accent-primary-hover: #a855f7;
-  --accent-secondary: #c084fc;
-  --accent-grad: linear-gradient(135deg, #7c3aed 0%, #a855f7 55%, #d946ef 100%);
+  --accent-primary: #1e3a8a;
+  --accent-primary-hover: #1d4ed8;
+  --accent-secondary: #2563eb;
+  --accent-grad: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
 
-  --success-bg: rgba(34, 197, 94, 0.15);
-  --success-border: rgba(74, 222, 128, 0.42);
-  --success-text: #86efac;
-  --warning-bg: rgba(245, 158, 11, 0.16);
-  --warning-border: rgba(251, 191, 36, 0.44);
-  --warning-text: #fde68a;
-  --danger-bg: rgba(244, 63, 94, 0.16);
-  --danger-border: rgba(251, 113, 133, 0.44);
-  --danger-text: #fda4af;
-  --info-bg: rgba(147, 51, 234, 0.18);
-  --info-border: rgba(192, 132, 252, 0.42);
-  --info-text: #e9d5ff;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+  --success-text: #166534;
+  --warning-bg: #fffbeb;
+  --warning-border: #fde68a;
+  --warning-text: #92400e;
+  --danger-bg: #fff1f2;
+  --danger-border: #fecdd3;
+  --danger-text: #9f1239;
+  --info-bg: #eff6ff;
+  --info-border: #bfdbfe;
+  --info-text: #1e40af;
 
-  --code-bg: #0c0918;
-  --code-surface: #16102a;
-  --code-border: rgba(192, 132, 252, 0.24);
-  --code-text: #f0ebff;
+  --code-bg: #0f172a;
+  --code-surface: #1e293b;
+  --code-border: #334155;
+  --code-text: #f8fafc;
 
-  --shadow-sm: 0 4px 16px rgba(4, 2, 12, 0.35);
-  --shadow-md: 0 12px 32px rgba(4, 2, 12, 0.48);
-  --shadow-lg: 0 24px 56px rgba(4, 2, 12, 0.62);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 14px 32px rgba(15, 23, 42, 0.09);
 }
 
 /* ==========================================================================
-   LIGHT HYPER-BLOOM THEME
-   Intentional alabaster-lilac surfaces with dramatic orchid & iris bloom curves
+   REFINED MINIMAL DARK THEME
+   Matte obsidian-slate surfaces, crisp 1px hairlines, zero neon glare
    ========================================================================== */
-[data-theme="light"] {
-  --bg-page: #f7f4ff;
-  --bg-canvas-grad: radial-gradient(1150px 620px at 90% -6%, rgba(168, 85, 247, 0.22), transparent 58%),
-                    radial-gradient(880px 540px at 6% 16%, rgba(99, 102, 241, 0.16), transparent 56%),
-                    radial-gradient(800px 480px at 78% 92%, rgba(232, 121, 249, 0.15), transparent 62%),
-                    #f7f4ff;
-  --bg-sidebar: rgba(255, 255, 255, 0.88);
-  --bg-utility: rgba(252, 250, 255, 0.86);
-  --bg-surface: rgba(255, 255, 255, 0.92);
-  --bg-surface-solid: #ffffff;
-  --bg-subtle: #f1eafd;
-  --bg-elevated: #ffffff;
-  --bg-hero-grad: linear-gradient(135deg, #2d1463 0%, #5b21b6 52%, #9333ea 100%);
-  --bg-curve-fill-1: rgba(147, 51, 234, 0.13);
-  --bg-curve-fill-2: rgba(79, 70, 229, 0.11);
-  --bg-curve-fill-3: rgba(217, 70, 239, 0.09);
-  --bg-divider-fill: #f7f4ff;
+[data-theme="dark"] {
+  --bg-page: #0b1120;
+  --bg-canvas-grad: linear-gradient(180deg, #0b1120 0%, #0f172a 100%);
+  --bg-sidebar: #0f172a;
+  --bg-utility: rgba(15, 23, 42, 0.92);
+  --bg-surface: #111827;
+  --bg-surface-solid: #111827;
+  --bg-subtle: #1e293b;
+  --bg-elevated: #1e293b;
+  --bg-hero-grad: linear-gradient(135deg, #0f172a 0%, #1e293b 58%, #1e3a8a 100%);
+  --bg-curve-fill-1: rgba(148, 163, 184, 0.06);
+  --bg-curve-fill-2: rgba(59, 130, 246, 0.05);
+  --bg-curve-fill-3: rgba(148, 163, 184, 0.03);
+  --bg-divider-fill: #0b1120;
 
-  --border-color: rgba(109, 40, 217, 0.15);
-  --border-strong: rgba(109, 40, 217, 0.30);
+  --border-color: rgba(148, 163, 184, 0.18);
+  --border-strong: rgba(148, 163, 184, 0.34);
 
-  --text-primary: #170d2b;
-  --text-secondary: #3f315c;
-  --text-muted: #6b5b8c;
-  --text-inverse: #ffffff;
-  --link-color: #6d28d9;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0b1120;
+  --link-color: #60a5fa;
 
-  --accent-primary: #7c3aed;
-  --accent-primary-hover: #6d28d9;
-  --accent-secondary: #9333ea;
-  --accent-grad: linear-gradient(135deg, #6d28d9 0%, #9333ea 55%, #c026d3 100%);
+  --accent-primary: #2563eb;
+  --accent-primary-hover: #3b82f6;
+  --accent-secondary: #60a5fa;
+  --accent-grad: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
 
-  --success-bg: #ecfdf5;
-  --success-border: #86efac;
-  --success-text: #166534;
-  --warning-bg: #fffbeb;
-  --warning-border: #fcd34d;
-  --warning-text: #92400e;
-  --danger-bg: #fff1f2;
-  --danger-border: #fda4af;
-  --danger-text: #9f1239;
-  --info-bg: #f5f0ff;
-  --info-border: #d8b4fe;
-  --info-text: #581c87;
+  --success-bg: rgba(22, 163, 74, 0.14);
+  --success-border: rgba(74, 222, 128, 0.34);
+  --success-text: #86efac;
+  --warning-bg: rgba(217, 119, 6, 0.14);
+  --warning-border: rgba(251, 191, 36, 0.36);
+  --warning-text: #fde68a;
+  --danger-bg: rgba(225, 29, 72, 0.14);
+  --danger-border: rgba(251, 113, 133, 0.36);
+  --danger-text: #fda4af;
+  --info-bg: rgba(37, 99, 235, 0.15);
+  --info-border: rgba(96, 165, 250, 0.36);
+  --info-text: #bfdbfe;
 
-  --code-bg: #130e24;
-  --code-surface: #1e1638;
-  --code-border: rgba(147, 51, 234, 0.28);
-  --code-text: #f3eeff;
+  --code-bg: #070b14;
+  --code-surface: #0f172a;
+  --code-border: rgba(148, 163, 184, 0.22);
+  --code-text: #f1f5f9;
 
-  --shadow-sm: 0 3px 14px rgba(59, 24, 128, 0.07);
-  --shadow-md: 0 12px 30px rgba(59, 24, 128, 0.11);
-  --shadow-lg: 0 22px 52px rgba(59, 24, 128, 0.16);
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.36);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.48);
 }
 
 /* Reading Font Size Preferences */
-[data-font-size="sm"] { --reading-font-size: 14.5px; }
-[data-font-size="md"] { --reading-font-size: 15.5px; }
+[data-font-size="sm"] { --reading-font-size: 15px; }
+[data-font-size="md"] { --reading-font-size: 16px; }
 [data-font-size="lg"] { --reading-font-size: 17.5px; }
