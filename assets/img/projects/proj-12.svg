@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Smart traffic-light system with emergency-vehicle priority">
+  <defs>
+    <linearGradient id="g12" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#13152e"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <radialGradient id="r12" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#13152e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g12)"/>
+  <rect width="480" height="360" fill="url(#r12)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#22d3ee" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><rect x="195" y="72" width="90" height="196" rx="18" fill="#1e1b4b" stroke="#818cf8" stroke-width="3"/><circle cx="240" cy="116" r="22" fill="#ef4444"/><circle cx="240" cy="170" r="22" fill="#facc15" opacity="0.45"/><circle cx="240" cy="224" r="22" fill="#22c55e"/><path d="M308,132 A34,34 0 0,1 342,166 M322,116 A52,52 0 0,1 362,158" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/><rect x="85" y="218" width="84" height="42" rx="8" fill="#f8fafc" stroke="#ef4444" stroke-width="3"/><circle cx="106" cy="264" r="10" fill="#334155"/><circle cx="148" cy="264" r="10" fill="#334155"/></g>
+</svg>

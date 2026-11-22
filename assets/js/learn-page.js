@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RoboDex́ — Programming School Workspace Controller (Preserved for Stage 2)
+   RoboDex́: Programming School Workspace Controller (Preserved for Stage 2)
    3-Column W3Schools-style lesson & quiz runner inside the V2 shell.
    ========================================================================== */
 
@@ -220,7 +220,7 @@
       { id: 'sec-syntax', label: 'Syntax Breakdown' },
       { id: 'sec-examples', label: 'Code Examples' },
       { id: 'sec-line-by-line', label: 'Line-by-Line Walkthrough' },
-      { id: 'sec-arduino-app', label: 'Real-World Arduino Use' },
+      { id: 'sec-arduino-app', label: 'Practical Arduino Use' },
       { id: 'sec-mistakes', label: 'Common Mistakes' },
       { id: 'sec-try-it', label: 'Try It Yourself' },
       { id: 'sec-exercises', label: 'Practice Exercises' },
@@ -273,7 +273,7 @@
             window.RoboDexVisuals.resolveProgrammingKey(meta.mod.id),
             {
               compact: true,
-              title: `${meta.mod.shortTitle} — Conceptual Visual Model`,
+              title: `${meta.mod.shortTitle}: Conceptual Visual Model`,
               caption: `Visualizing core concepts for ${lesson.title}.`
             }
           ) : ""}
@@ -281,7 +281,7 @@
         </section>
 
         <section class="lesson-section" id="sec-analogy">
-          <h2 class="lesson-section-title">3. Beginner-Friendly Analogy</h2>
+          <h2 class="lesson-section-title">3. Clear Analogy</h2>
           <div class="callout">
             <div class="callout-title">Think of it this way</div>
             <p style="margin:0;">${window.RoboDexApp.escapeHtml(lesson.analogy)}</p>
@@ -332,7 +332,7 @@
         </section>
 
         <section class="lesson-section" id="sec-arduino-app">
-          <h2 class="lesson-section-title">7. Real-World Arduino Application</h2>
+          <h2 class="lesson-section-title">7. Practical Arduino Application</h2>
           <div class="callout callout-success">
             <div class="callout-title">How Robotics Engineers Use This</div>
             <p style="margin:0;">${window.RoboDexApp.escapeHtml(lesson.realWorldApplication)}</p>
@@ -413,7 +413,7 @@
           await navigator.clipboard.writeText(code);
           window.RoboDexApp.showToast('Example code copied.');
         } catch {
-          window.RoboDexApp.showToast('Copy failed — please select and copy manually.');
+          window.RoboDexApp.showToast('Copy failed: please select and copy manually.');
         }
       });
     });

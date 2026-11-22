@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Energy-monitoring smart home with appliance control">
+  <defs>
+    <linearGradient id="g29" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1726"/>
+      <stop offset="100%" stop-color="#6b21a8"/>
+    </linearGradient>
+    <radialGradient id="r29" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#1c1726" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g29)"/>
+  <rect width="480" height="360" fill="url(#r29)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#38bdf8" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><polygon points="105,165 240,82 375,165" fill="#312e81" stroke="#c084fc" stroke-width="3"/><rect x="135" y="165" width="210" height="105" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="3"/><polygon points="248,178 218,220 240,220 232,256 264,212 242,212" fill="#fbbf24"/></g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Solar-powered smart irrigation with weather-aware watering">
+  <defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122117"/>
+      <stop offset="100%" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="r6" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#122117" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g6)"/>
+  <rect width="480" height="360" fill="url(#r6)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#facc15" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><rect x="65" y="248" width="350" height="24" rx="8" fill="#422006" stroke="#854d0e" stroke-width="2"/><rect x="92" y="102" width="110" height="62" rx="6" transform="rotate(-14 147 133)" fill="#0369a1" stroke="#38bdf8" stroke-width="3"/><line x1="145" y1="168" x2="145" y2="248" stroke="#94a3b8" stroke-width="5"/><path d="M275,248 Q275,188 250,172 M275,248 Q275,190 302,168 M275,248 L275,155" fill="none" stroke="#4ade80" stroke-width="5" stroke-linecap="round"/><circle cx="348" cy="112" r="24" fill="#facc15" opacity="0.9"/><path d="M225,215 L225,260 M236,215 L236,260" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/><circle cx="282" cy="212" r="6" fill="#38bdf8"/><circle cx="296" cy="224" r="5" fill="#38bdf8"/></g>
+</svg>

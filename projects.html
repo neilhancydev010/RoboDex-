@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Application-Based Learning — RoboDex́ | Train Yourself</title>
+  <title>Application-Based Learning: RoboDex́ | Train Yourself</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./assets/css/tokens.css">
   <link rel="stylesheet" href="./assets/css/base.css">
@@ -17,39 +17,12 @@
     <div class="app-stage">
       <div id="utility-bar-host"></div>
 
-      <section class="bloom-hero">
-        <svg class="bloom-hero-curves" viewBox="0 0 1440 320" preserveAspectRatio="none" fill="none" aria-hidden="true">
-          <path d="M-40,230 C320,80 780,310 1480,90 L1480,-20 L-40,-20 Z" fill="rgba(216,180,254,0.12)"/>
-        </svg>
-        <div class="container" style="position:relative; z-index:2;">
-          <span class="badge" style="background:rgba(255,255,255,0.14); color:#fff; border-color:rgba(255,255,255,0.28);">Stage 3 Destination</span>
-          <h1 class="mt-sm">Application-Based Learning</h1>
-          <p style="max-width:640px;">The full guided robotics project curriculum is scheduled for Stage 3. Your local profile and Dashboard are already wired to record and surface project progress when it launches.</p>
+      <!-- Dynamic Mount: 40-Project Catalogue OR Individual Project Guided Course (Parts A–M) -->
+      <div id="projects-app-root" style="flex:1; display:flex; flex-direction:column;">
+        <div class="container" style="padding:2rem 1.75rem;">
+          <p class="text-muted">Loading Application-Based Learning (40 Robotics Projects)...</p>
         </div>
-        <svg class="hero-wave-divider" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,26 C400,72 980,-16 1440,32 L1440,64 L0,64 Z" fill="var(--bg-divider-fill)"/>
-        </svg>
-      </section>
-
-      <main class="page-body">
-        <div class="container">
-                              <section class="mb-lg">
-            <h2>Upcoming Stage 3 Project Tracks</h2>
-            <p class="text-sm mb-md">Preview of the guided robotics engineering domains arriving in Stage 3. No placeholder completion numbers are shown until you begin Stage 3.</p>
-            <div id="stage3-preview-cards" class="grid grid-3"></div>
-          </section>
-          <div class="empty-state">
-            <h3>Application-Based Learning Environment — Coming in Stage 3</h3>
-            <p class="mb-md">
-              No placeholder project cards or fabricated completion numbers are shown here. Prepare for Stage 3 projects by completing core C++ and Arduino lessons in Programming School.
-            </p>
-            <div class="flex flex-wrap gap-sm" style="justify-content:center;">
-              <a class="btn btn-primary" href="./learn.html">Go to Programming School →</a>
-              <a class="btn btn-secondary" href="./dashboard.html">Return to Dashboard</a>
-            </div>
-          </div>
-        </div>
-      </main>
+      </div>
 
       <div id="site-footer"></div>
     </div>
@@ -60,50 +33,8 @@
   <script src="./assets/js/progress.js"></script>
   <script src="./assets/js/app.js"></script>
   <script src="./assets/js/visual-figures.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if (window.RoboDexVisuals) {
-        const cardsHost = document.getElementById("stage3-preview-cards");
-        if (cardsHost) {
-          const tracks = [
-            {
-              key: "robotics-applied",
-              tag: "Stage 3 · Track A",
-              title: "Autonomous Navigation & Sensor Fusion",
-              desc: "Build ultrasonic obstacle-avoiding rovers, line-following PID controllers, and multi-sensor decision loops."
-            },
-            {
-              key: "power-safety",
-              tag: "Stage 3 · Track B",
-              title: "Motor Control, Actuators & Power Systems",
-              desc: "Design safe dual-rail battery layouts, H-bridge DC motor drivers, servo arms, and current-protected circuits."
-            },
-            {
-              key: "diagnostics",
-              tag: "Stage 3 · Track C",
-              title: "Wireless Telemetry, IoT & Diagnostics",
-              desc: "Stream live ESP32 Wi-Fi/BLE sensor data, debug serial protocols, and test real hardware under load."
-            }
-          ];
-          cardsHost.innerHTML = tracks.map(function (t) {
-            return `
-              <div class="card card-hover flex" style="flex-direction:column; justify-content:space-between;">
-                <div>
-                  ${window.RoboDexVisuals.getTrackThumbHtml(t.key, "Coming in Stage 3")}
-                  <div class="card-header">
-                    <span class="badge badge-bloom">${t.tag}</span>
-                    <span class="text-xs text-muted">Preview</span>
-                  </div>
-                  <h3>${t.title}</h3>
-                  <p class="text-sm">${t.desc}</p>
-                </div>
-                <a class="btn btn-secondary btn-sm" href="./learn.html">Prepare in Programming School →</a>
-              </div>
-            `;
-          }).join("");
-        }
-      }
-    });
-  </script>
+  <script src="./assets/js/editor.js"></script>
+  <script src="./assets/js/project-diagrams.js"></script>
+  <script src="./assets/js/projects-page.js"></script>
 </body>
 </html>

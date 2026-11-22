@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Noise-pollution mapping device">
+  <defs>
+    <linearGradient id="g34" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1f24"/>
+      <stop offset="100%" stop-color="#115e59"/>
+    </linearGradient>
+    <radialGradient id="r34" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0f1f24" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g34)"/>
+  <rect width="480" height="360" fill="url(#r34)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#a78bfa" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><rect x="115" y="110" width="250" height="145" rx="16" fill="#1e1b4b" stroke="#a78bfa" stroke-width="3"/><rect x="148" y="192" width="22" height="36" rx="4" fill="#34d399"/><rect x="184" y="162" width="22" height="66" rx="4" fill="#34d399"/><rect x="220" y="138" width="22" height="90" rx="4" fill="#facc15"/><rect x="256" y="152" width="22" height="76" rx="4" fill="#fb923c"/><rect x="292" y="128" width="22" height="100" rx="4" fill="#f43f5e"/></g>
+</svg>

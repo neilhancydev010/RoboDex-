@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Fire-detection and evacuation system for classrooms">
+  <defs>
+    <linearGradient id="g20" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#24121b"/>
+      <stop offset="100%" stop-color="#9f1239"/>
+    </linearGradient>
+    <radialGradient id="r20" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#fb923c" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#24121b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g20)"/>
+  <rect width="480" height="360" fill="url(#r20)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#f43f5e" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><rect x="105" y="110" width="270" height="150" rx="12" fill="#1e1b4b" stroke="#fb923c" stroke-width="3"/><path d="M185,222 Q208,162 185,142 Q162,162 185,222 Z" fill="#ef4444"/><path d="M185,218 Q198,182 185,168 Q172,182 185,218 Z" fill="#facc15"/><rect x="265" y="148" width="76" height="112" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="3"/><circle cx="240" cy="86" r="14" fill="#ef4444"/><circle cx="240" cy="86" r="26" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.6"/></g>
+</svg>

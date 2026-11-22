@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Smart streetlight with motion, daylight, and fault reporting">
+  <defs>
+    <linearGradient id="g21" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1726"/>
+      <stop offset="100%" stop-color="#6b21a8"/>
+    </linearGradient>
+    <radialGradient id="r21" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#1c1726" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g21)"/>
+  <rect width="480" height="360" fill="url(#r21)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#38bdf8" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><line x1="168" y1="268" x2="168" y2="108" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"/><path d="M168,108 Q168,85 210,85 L278,85" fill="none" stroke="#94a3b8" stroke-width="6"/><rect x="258" y="78" width="52" height="18" rx="6" fill="#facc15"/><polygon points="262,96 306,96 355,265 215,265" fill="#facc15" opacity="0.18"/><circle cx="284" cy="145" r="14" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4 4"/></g>
+</svg>

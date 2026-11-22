@@ -1,0 +1,245 @@
+{
+  "esp32-devkit-v1": {
+    "name": "ESP32 DevKit V1 / ESP32-DevKitC V4 (30-pin / 38-pin)",
+    "category": "Microcontroller Board",
+    "operatingVoltage": "5V via USB or VIN (onboard 3.3V AMS1117 regulator)",
+    "logicVoltage": "3.3V ONLY (NOT 5V tolerant on GPIO)",
+    "pins": "30–38 pins: I2C (GPIO21 SDA, GPIO22 SCL), SPI (GPIO18/19/23/5), UART2 (GPIO16/17), ADC1 (GPIO32–39 safe with Wi-Fi)",
+    "current": "80–240 mA active Wi-Fi; max 12 mA recommended per GPIO (40 mA absolute max)",
+    "protocol": "Wi-Fi 802.11 b/g/n, Bluetooth/BLE, ESP-NOW, I2C, SPI, UART, PWM, ADC",
+    "howItWorks": "Dual-core 32-bit Xtensa LX6 MCU running up to 240 MHz with integrated wireless radio and hardware peripherals.",
+    "precautions": "Never apply 5V directly to any GPIO pin. Use ADC1 pins (GPIO32–39) when Wi-Fi is active because ADC2 is shared with Wi-Fi. Avoid strapping pins (GPIO0, GPIO2, GPIO12, GPIO15) for sensors that hold high/low at boot.",
+    "boardVariantId": "esp32-devkitc",
+    "photo": {
+      "type": "official-manufacturer-photo",
+      "url": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/_images/esp32-devkitc-v4-functional-overview.png",
+      "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "credit": "Espressif Systems: ESP32-DevKitC V4 Official Documentation",
+      "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
+    }
+  },
+  "esp32-cam": {
+    "name": "ESP32-CAM (AI-Thinker Module with OV2640 Camera + FTDI Programmer)",
+    "category": "Vision Microcontroller Module",
+    "operatingVoltage": "5V regulated (minimum 500 mA–1 A peak during Wi-Fi + camera capture)",
+    "logicVoltage": "3.3V ONLY",
+    "pins": "Limited free GPIOs (GPIO12–15 shared with microSD; GPIO0 must be shorted to GND during flashing)",
+    "current": "180–350 mA average, spikes >500 mA during flash LED / Wi-Fi stream",
+    "protocol": "Wi-Fi, UART (via external 3.3V FTDI USB-to-Serial adapter), DVP camera bus",
+    "howItWorks": "ESP32-S module paired with an OV2640 2MP camera and microSD slot; requires external USB-UART programmer because it has no onboard USB port.",
+    "precautions": "Brownout detector triggers constantly on weak USB power, power from a solid 5V 2A supply. Always disconnect GPIO0 from GND after flashing and press RESET.",
+    "boardVariantId": "esp32-devkitc",
+    "photo": {
+      "type": "conceptual-technical-visual",
+      "url": "./assets/img/visuals/visual-boards-architecture.jpg",
+      "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "credit": "Conceptual visual (verify AI-Thinker ESP32-CAM pinout before wiring)"
+    }
+  },
+  "arduino-uno-r3": {
+    "name": "Arduino Uno R3 (ATmega328P)",
+    "category": "Microcontroller Board",
+    "operatingVoltage": "5V via USB or 7–12V DC barrel jack/VIN",
+    "logicVoltage": "5V TTL Logic",
+    "pins": "14 Digital I/O (6 PWM: D3, D5, D6, D9, D10, D11), 6 Analog (A0–A5; A4=SDA, A5=SCL)",
+    "current": "40–50 mA board idle; max 20 mA recommended per I/O pin (40 mA absolute max)",
+    "protocol": "UART, I2C, SPI, 10-bit ADC, PWM (no built-in Wi-Fi/BLE)",
+    "howItWorks": "8-bit AVR ATmega328P microcontroller at 16 MHz; ideal for deterministic local sensor/actuator control.",
+    "precautions": "Never power motors, pumps, or servos directly from the 5V pin. Use 3.3V level shifting when connecting 3.3V-only modules.",
+    "boardVariantId": "uno-r3",
+    "photo": {
+      "type": "official-manufacturer-photo",
+      "url": "https://store.arduino.cc/cdn/shop/files/A000066_03.front_934x700.jpg?v=1727098250",
+      "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+      "credit": "Arduino Official Store: Arduino Uno R3",
+      "fallback": "./assets/img/visuals/visual-boards-architecture.jpg"
+    }
+  },
+  "mpu6050": {
+    "name": "MPU6050 6-Axis Accelerometer & Gyroscope Module (GY-521)",
+    "category": "Motion / Vibration Sensor",
+    "operatingVoltage": "3.3V–5V (onboard 3.3V regulator on GY-521)",
+    "logicVoltage": "3.3V I2C",
+    "pins": "VCC, GND, SCL, SDA, XDA, XCL, AD0 (sets I2C address 0x68/0x69), INT",
+    "current": "~3.9 mA",
+    "protocol": "I2C (0x68 default, 0x69 when AD0=HIGH)",
+    "howItWorks": "MEMS 3-axis accelerometer measures linear acceleration/gravity/tilt and 3-axis gyroscope measures angular velocity.",
+    "precautions": "Connect AD0 to GND for 0x68 and to 3.3V for 0x69 when using two sensors on one I2C bus (3+ sensors need a TCA9548A I2C multiplexer)."
+  },
+  "hc-sr04": {
+    "name": "HC-SR04 Ultrasonic Distance Sensor (or JSN-SR04T Waterproof)",
+    "category": "Distance / Level Sensor",
+    "operatingVoltage": "5V DC (standard HC-SR04; HC-SR04P supports 3.3V–5V)",
+    "logicVoltage": "5V ECHO output: MUST use 1kΩ / 2kΩ voltage divider to 3.3V on ESP32!",
+    "pins": "VCC (5V), TRIG (input), ECHO (output), GND",
+    "current": "~15 mA during measurement pulse",
+    "protocol": "Digital pulse-width timing (echo duration / 58.2 ≈ cm)",
+    "howItWorks": "Emits 40 kHz ultrasonic burst on TRIG and outputs a HIGH pulse on ECHO proportional to round-trip sound travel time.",
+    "precautions": "CRITICAL: Standard HC-SR04 outputs 5V on ECHO. Always drop ECHO to ~3.3V using a 1kΩ + 2kΩ resistor divider before connecting to ESP32 GPIO."
+  },
+  "dht22": {
+    "name": "DHT22 (AM2302) Digital Temperature & Humidity Sensor",
+    "category": "Environmental Sensor",
+    "operatingVoltage": "3.3V–5V DC",
+    "logicVoltage": "Matches VCC (3.3V on ESP32)",
+    "pins": "VCC, DATA (needs 4.7kΩ–10kΩ pull-up resistor if bare sensor), GND",
+    "current": "~1.5 mA measuring",
+    "protocol": "Single-wire proprietary digital bus (max 0.5 Hz / once every 2 seconds)",
+    "howItWorks": "Measures relative humidity via capacitive element and temperature via thermistor, outputting calibrated 16-bit digital readings.",
+    "precautions": "Do not poll faster than once every 2 seconds or readings return NaN."
+  },
+  "bme280": {
+    "name": "BME280 / BMP280 Temperature, Humidity & Barometric Pressure Sensor",
+    "category": "Environmental Sensor",
+    "operatingVoltage": "3.3V (most breakouts are 3.3V ONLY; check regulator before 5V)",
+    "logicVoltage": "3.3V I2C / SPI",
+    "pins": "VCC, GND, SCL, SDA (I2C address 0x76 or 0x77)",
+    "current": "<1 mA",
+    "protocol": "I2C / SPI",
+    "howItWorks": "High-accuracy MEMS barometric pressure, humidity (BME280), and temperature sensor.",
+    "precautions": "Verify whether your breakout is BME280 (includes humidity) vs BMP280 (no humidity) and confirm 0x76 vs 0x77 with an I2C scanner."
+  },
+  "mq-gas": {
+    "name": "MQ-Series Gas/Smoke Sensor Module (MQ-2 / MQ-135 / MQ-7)",
+    "category": "Gas / Air Quality Sensor",
+    "operatingVoltage": "5V DC required for internal SnO2 heater coil",
+    "logicVoltage": "Up to 5V Analog Out (AO): MUST use voltage divider before ESP32 3.3V ADC!",
+    "pins": "VCC (5V), GND, DO (digital comparator), AO (analog voltage)",
+    "current": "150–180 mA heater current (runs warm during operation)",
+    "protocol": "Analog voltage + Digital threshold",
+    "howItWorks": "Heated tin-dioxide sensing element changes electrical resistance in presence of target gases/smoke.",
+    "precautions": "Requires 2–5 min warm-up for stable demo readings (24–48 hr burn-in for lab calibration). Not a certified life-safety gas detector. Always use a 1kΩ/2kΩ voltage divider on AO for ESP32."
+  },
+  "pms5003": {
+    "name": "PMS5003 Laser PM2.5 / PM10 Particulate Matter Sensor",
+    "category": "Air Quality Sensor",
+    "operatingVoltage": "5V DC for internal fan & laser diode",
+    "logicVoltage": "3.3V UART TTL (direct-safe with ESP32 UART2!)",
+    "pins": "PIN1 VCC (5V), PIN2 GND, PIN4 RXD, PIN5 TXD (connect sensor TXD -> ESP32 GPIO16 RX2)",
+    "current": "~100 mA active",
+    "protocol": "UART Serial 9600 bps (32-byte frame)",
+    "howItWorks": "Internal fan draws air past a laser beam; photodiode measures light scattering to calculate PM1.0, PM2.5, and PM10 in µg/m³.",
+    "precautions": "Do not obstruct air intake/exhaust vents. Needs 30 seconds of fan spin-up for stable readings."
+  },
+  "soil-moisture": {
+    "name": "Capacitive Soil Moisture Sensor v1.2 / v2.0",
+    "category": "Agricultural / Geotechnical Sensor",
+    "operatingVoltage": "3.3V–5V DC (power at 3.3V for ESP32)",
+    "logicVoltage": "Analog 0–3.0V (when powered at 3.3V)",
+    "pins": "VCC, GND, AOUT (connect to ESP32 ADC1 pin e.g. GPIO34)",
+    "current": "~5 mA",
+    "protocol": "Analog ADC (higher voltage = drier, lower voltage = wetter)",
+    "howItWorks": "Measures dielectric permittivity of surrounding soil without exposed copper electrolysis corrosion.",
+    "precautions": "Coat top PCB electronics edge with conformal coating/silicone if used outdoors; calibrate DRY (air) and WET (water) ADC values before setting thresholds."
+  },
+  "oled-096": {
+    "name": "0.96-inch I2C OLED Display (SSD1306, 128×64)",
+    "category": "Display",
+    "operatingVoltage": "3.3V–5V DC",
+    "logicVoltage": "3.3V I2C",
+    "pins": "GND, VCC, SCL (GPIO22 / A5), SDA (GPIO21 / A4)",
+    "current": "10–25 mA depending on lit pixels",
+    "protocol": "I2C (0x3C typical)",
+    "howItWorks": "Self-emissive monochrome OLED matrix driven by SSD1306 controller over 2-wire I2C.",
+    "precautions": "Double-check VCC/GND pin order on your specific breakout, some modules swap pins 1 and 2."
+  },
+  "lcd-1602-i2c": {
+    "name": "16×2 Character LCD with PCF8574 I2C Backpack",
+    "category": "Display",
+    "operatingVoltage": "5V DC (for readable backlight & contrast)",
+    "logicVoltage": "5V I2C (use logic level shifter or 3.3V pull-ups with ESP32)",
+    "pins": "GND, VCC (5V), SDA, SCL (I2C address 0x27 or 0x3F)",
+    "current": "20–35 mA with backlight",
+    "protocol": "I2C",
+    "howItWorks": "Displays 2 rows × 16 ASCII characters via PCF8574 I2C expander.",
+    "precautions": "Adjust blue potentiometer on the back if screen shows blank or solid blocks."
+  },
+  "relay-module": {
+    "name": "Optocoupled Relay Module (5V or 3.3V Trigger) / Logic-Level MOSFET",
+    "category": "Power Switching Driver",
+    "operatingVoltage": "5V DC coil supply (separate from MCU if driving multiple channels)",
+    "logicVoltage": "3.3V–5V control input (verify active-LOW vs active-HIGH)",
+    "pins": "VCC, GND, IN (control), COM, NO (Normally Open), NC (Normally Closed)",
+    "current": "~70 mA per energized relay coil",
+    "protocol": "Digital GPIO control",
+    "howItWorks": "Electromagnetically switches a higher-current isolated DC load (pump, fan, lamp) using a tiny microcontroller signal.",
+    "precautions": "Prefer 5V–12V DC loads for student builds. NEVER wire mains AC without qualified adult supervision, fused enclosure, and proper insulation. Add a 1N4007 flyback diode across inductive DC pumps/motors."
+  },
+  "servo-motor": {
+    "name": "Servo Motor (SG90 Micro / MG996R High-Torque)",
+    "category": "Actuator",
+    "operatingVoltage": "4.8V–6.0V External DC Supply (NEVER power MG996R from ESP32 3.3V/USB!)",
+    "logicVoltage": "3.3V–5V PWM control signal (50 Hz, 1–2 ms pulse)",
+    "pins": "Brown/Black = GND (common with MCU), Red = +5V External, Orange/Yellow = PWM Signal",
+    "current": "SG90: 250–500 mA stall; MG996R: 1.2–2.5 A stall",
+    "protocol": "50 Hz PWM",
+    "howItWorks": "Closed-loop geared DC motor with internal potentiometer that holds a commanded angle (0°–180°).",
+    "precautions": "Power servos from a dedicated 5V 2A+ external supply and tie external GND to MCU GND to prevent brownout resets."
+  },
+  "l298n-driver": {
+    "name": "L298N / TB6612FNG Dual H-Bridge Motor Driver",
+    "category": "Motor Driver",
+    "operatingVoltage": "6V–12V Motor Supply (separate battery pack)",
+    "logicVoltage": "3.3V–5V control inputs (ENA/ENB PWM + IN1–IN4)",
+    "pins": "12V/VM, GND (common with MCU), IN1–IN4, ENA/ENB, OUT1–OUT4",
+    "current": "Up to 2 A per channel (L298N drops ~2V; TB6612FNG is more efficient)",
+    "protocol": "Digital direction + PWM speed",
+    "howItWorks": "H-bridge transistor array reverses polarity and modulates PWM duty cycle to control DC motor speed and direction.",
+    "precautions": "NEVER connect DC motors directly to microcontroller GPIO pins. Always connect motor battery GND to microcontroller GND."
+  },
+  "dc-pump": {
+    "name": "5V–12V Submersible Mini DC Water Pump",
+    "category": "Fluid Actuator",
+    "operatingVoltage": "5V–12V External DC Supply (switched via Relay or MOSFET)",
+    "logicVoltage": "Driven via Relay / N-channel MOSFET (NOT direct GPIO)",
+    "pins": "Red (+V via relay NO / MOSFET drain), Black (GND)",
+    "current": "200–600 mA running (up to 1 A startup surge)",
+    "protocol": "Switched DC power",
+    "howItWorks": "Centrifugal impeller pushes water through silicone tubing when energized.",
+    "precautions": "Never run submersible pump dry for extended periods. Add a 1N4007 flyback diode across pump terminals and keep water strictly separated from electronics."
+  },
+  "gps-neo6m": {
+    "name": "NEO-6M GPS Receiver Module with Ceramic Antenna",
+    "category": "Positioning Module",
+    "operatingVoltage": "3.3V–5V DC",
+    "logicVoltage": "3.3V UART (direct-safe with ESP32)",
+    "pins": "VCC, GND, TX (to ESP32 RX2 GPIO16), RX (to ESP32 TX2 GPIO17)",
+    "current": "~45 mA tracking",
+    "protocol": "UART NMEA sentences at 9600 bps",
+    "howItWorks": "Receives L1 GPS satellite timing signals to calculate latitude, longitude, altitude, and UTC time.",
+    "precautions": "Requires clear view of sky (outdoors or near window) for first cold satellite fix (30–120 seconds)."
+  },
+  "tp4056-solar": {
+    "name": "TP4056 Li-Ion Charger (with DW01A Protection) + 18650 Cell + 5V Solar Panel",
+    "category": "Solar / Battery Power System",
+    "operatingVoltage": "5V solar/USB input -> 4.2V charge termination on 3.7V Li-Ion cell",
+    "logicVoltage": "Power rail only (boost/buck to stable 5V or 3.3V LDO for MCU)",
+    "pins": "IN+/IN- (5V solar/USB), B+/B- (18650 cell), OUT+/OUT- (protected load output)",
+    "current": "Up to 1 A charge (adjust Rprog resistor for small solar panels)",
+    "protocol": "Analog power management",
+    "howItWorks": "Charges single-cell 3.7V lithium-ion battery using CC/CV profile with over-discharge/short protection.",
+    "precautions": "Use ONLY protected 18650 cells or protected TP4056 boards (with OUT+/OUT-). Never short-circuit or puncture Li-Ion cells. Do not leave charging unattended near flammable materials."
+  },
+  "ad8232-max30102": {
+    "name": "AD8232 Single-Lead ECG Module / MAX30102 Pulse Oximeter",
+    "category": "Biometric Educational Sensor",
+    "operatingVoltage": "3.3V ONLY",
+    "logicVoltage": "3.3V Analog (AD8232) / 3.3V I2C (MAX30102)",
+    "pins": "AD8232: 3.3V, GND, OUTPUT (GPIO34), LO+, LO-; MAX30102: VIN (3.3V), GND, SDA, SCL",
+    "current": "<1 mA (AD8232), ~1–20 mA LED pulse (MAX30102)",
+    "protocol": "Analog ADC / I2C (0x57)",
+    "howItWorks": "Amplifies tiny biopotential voltage differences (AD8232) or optical photoplethysmography pulse absorption (MAX30102).",
+    "precautions": "EDUCATIONAL PROTOTYPE ONLY: NOT A MEDICAL DEVICE. CRITICAL SAFETY: When using AD8232 skin electrodes, ALWAYS power the ESP32 from an isolated battery/power bank, NEVER from a mains-connected laptop or wall charger!"
+  },
+  "passive-alert-kit": {
+    "name": "Active Buzzer, LEDs (R/Y/G), 220Ω Resistors, Push Buttons, Breadboard & Jumpers",
+    "category": "Indicators, Controls & Prototyping",
+    "operatingVoltage": "3.3V–5V DC",
+    "logicVoltage": "Digital GPIO (with 220Ω current-limiting resistor per LED)",
+    "pins": "LED Anode (+) -> 220Ω -> GPIO, Cathode (-) -> GND; Button -> GPIO (INPUT_PULLUP) + GND",
+    "current": "5–15 mA per LED; 15–30 mA active buzzer",
+    "protocol": "Digital GPIO",
+    "howItWorks": "Provides immediate local visual/audio feedback and manual override/reset controls.",
+    "precautions": "Always place a 220Ω–330Ω resistor in series with every LED to protect both the LED and the microcontroller GPIO pin."
+  }
+}

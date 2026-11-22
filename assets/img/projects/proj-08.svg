@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Smart greenhouse with automated climate control">
+  <defs>
+    <linearGradient id="g8" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122117"/>
+      <stop offset="100%" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="r8" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#122117" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g8)"/>
+  <rect width="480" height="360" fill="url(#r8)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#facc15" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><path d="M105,252 L105,158 Q240,75 375,158 L375,252 Z" fill="#064e3b" opacity="0.45" stroke="#34d399" stroke-width="3"/><line x1="240" y1="108" x2="240" y2="252" stroke="#34d399" stroke-width="2" opacity="0.5"/><path d="M165,248 Q165,198 148,185 M165,248 Q165,198 182,185 M240,248 Q240,192 222,178 M240,248 Q240,192 258,178 M315,248 Q315,198 298,185 M315,248 Q315,198 332,185" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round"/><circle cx="155" cy="148" r="16" fill="#1e1b4b" stroke="#38bdf8" stroke-width="2.5"/><circle cx="325" cy="148" r="16" fill="#1e1b4b" stroke="#facc15" stroke-width="2.5"/></g>
+</svg>

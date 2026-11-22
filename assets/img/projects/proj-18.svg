@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Automatic medicine dispenser with reminders">
+  <defs>
+    <linearGradient id="g18" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f1024"/>
+      <stop offset="100%" stop-color="#701a75"/>
+    </linearGradient>
+    <radialGradient id="r18" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#1f1024" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g18)"/>
+  <rect width="480" height="360" fill="url(#r18)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#38bdf8" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><circle cx="240" cy="180" r="88" fill="#1e1b4b" stroke="#fb7185" stroke-width="3.5"/><line x1="240" y1="92" x2="240" y2="268" stroke="#c084fc" stroke-width="2"/><line x1="152" y1="180" x2="328" y2="180" stroke="#c084fc" stroke-width="2"/><circle cx="240" cy="180" r="24" fill="#312e81" stroke="#38bdf8" stroke-width="3"/><rect x="190" y="128" width="26" height="12" rx="6" fill="#38bdf8"/><rect x="266" y="132" width="26" height="12" rx="6" fill="#fb7185"/><rect x="262" y="214" width="26" height="12" rx="6" fill="#34d399"/></g>
+</svg>

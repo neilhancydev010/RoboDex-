@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Solar tracking system with energy-yield comparison">
+  <defs>
+    <linearGradient id="g15" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1726"/>
+      <stop offset="100%" stop-color="#6b21a8"/>
+    </linearGradient>
+    <radialGradient id="r15" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#1c1726" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g15)"/>
+  <rect width="480" height="360" fill="url(#r15)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#38bdf8" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><rect x="115" y="112" width="185" height="92" rx="8" transform="rotate(-16 207 158)" fill="#0369a1" stroke="#38bdf8" stroke-width="3"/><line x1="165" y1="108" x2="188" y2="196" stroke="#bae6fd" stroke-width="2" opacity="0.6"/><line x1="222" y1="92" x2="245" y2="180" stroke="#bae6fd" stroke-width="2" opacity="0.6"/><rect x="208" y="202" width="24" height="58" rx="4" fill="#475569"/><rect x="165" y="256" width="110" height="16" rx="6" fill="#312e81" stroke="#c084fc" stroke-width="2"/><circle cx="358" cy="104" r="26" fill="#fbbf24"/><circle cx="358" cy="104" r="38" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6 5"/></g>
+</svg>

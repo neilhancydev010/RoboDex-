@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for River-water level and debris-flow warning station">
+  <defs>
+    <linearGradient id="g25" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1033"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <radialGradient id="r25" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#1a1033" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g25)"/>
+  <rect width="480" height="360" fill="url(#r25)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#38bdf8" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><path d="M45,250 Q140,222 240,250 T435,250 L435,315 L45,315 Z" fill="#0369a1" opacity="0.7"/><rect x="180" y="95" width="120" height="58" rx="10" fill="#1e1b4b" stroke="#c084fc" stroke-width="3"/><line x1="210" y1="153" x2="210" y2="245" stroke="#94a3b8" stroke-width="6"/><line x1="270" y1="153" x2="270" y2="245" stroke="#94a3b8" stroke-width="6"/><circle cx="240" cy="124" r="12" fill="#38bdf8"/><circle cx="155" cy="242" r="11" fill="#78350f"/><circle cx="310" cy="246" r="13" fill="#78350f"/></g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Digital thermometer, humidity, and air-comfort display">
+  <defs>
+    <linearGradient id="g40" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101b2e"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <radialGradient id="r40" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#101b2e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g40)"/>
+  <rect width="480" height="360" fill="url(#r40)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#a78bfa" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><rect x="110" y="96" width="260" height="168" rx="18" fill="#0f172a" stroke="#38bdf8" stroke-width="3.5"/><rect x="150" y="128" width="24" height="86" rx="12" fill="#1e293b" stroke="#fb7185" stroke-width="3"/><circle cx="162" cy="214" r="18" fill="#fb7185"/><rect x="156" y="160" width="12" height="52" rx="6" fill="#fb7185"/><path d="M268,132 Q302,175 268,210 Q234,175 268,132 Z" fill="#38bdf8"/><circle cx="322" cy="174" r="18" fill="none" stroke="#34d399" stroke-width="4"/></g>
+</svg>

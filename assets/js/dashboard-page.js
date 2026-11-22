@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RoboDex́ — Unified Student Dashboard Controller
+   RoboDex́: Unified Student Dashboard Controller
    Consolidates Dashboard + Explore Academy with 100% genuine IndexedDB data.
    ========================================================================== */
 
@@ -8,9 +8,10 @@
     const profile = await window.RoboDexApp.requireActiveProfile();
     if (!profile) return;
 
-    const [curriculum, boardsCurriculum, snapshot] = await Promise.all([
+    const [curriculum, boardsCurriculum, projectsCatalogue, snapshot] = await Promise.all([
       window.RoboDexApp.loadJSON('./data/curriculum.json'),
       window.RoboDexApp.loadJSON('./data/boards-curriculum.json'),
+      window.RoboDexApp.loadJSON('./data/projects-catalogue.json'),
       window.RoboDexDB.getProfileSnapshot(profile.id)
     ]);
     const boardMetrics = window.RoboDexProgress.computeBoardMetrics(boardsCurriculum, snapshot);
@@ -32,7 +33,7 @@
           </span>
           <h1 class="mt-sm">Welcome back, ${window.RoboDexApp.escapeHtml(profile.fullName)}</h1>
           <p style="max-width:600px;">
-            Track your real progress across Programming School, upcoming Boards hardware training, and Application-Based Learning — all stored locally for your profile.
+            Track your real progress across Programming School, upcoming Boards hardware training, and Application-Based Learning: all stored locally for your profile.
           </p>
           <div class="flex flex-wrap gap-sm mt-md">
             <a class="btn btn-primary btn-lg" href="./learn.html?lesson=${encodeURIComponent(profile.lastVisitedLesson || 'm01-l01')}">
@@ -95,15 +96,24 @@
         </a>
       </div>
 
-      <div class="card">
-        ${window.RoboDexVisuals ? window.RoboDexVisuals.getTrackThumbHtml("robotics-applied", "Stage 3 Preview") : ""}
+      <div class="card card-hover">
+        ${window.RoboDexVisuals ? window.RoboDexVisuals.getTrackThumbHtml("robotics-applied", "40 Robotics Courses") : ""}
         <div class="card-header">
-          <span class="badge">Track 3 · Stage 3</span>
-          <span class="text-xs text-muted">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} in progress` : 'Not started'}</span>
+          <span class="badge badge-bloom">Track 3 · Active</span>
+          <strong style="font-family:var(--font-display);">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount}/40 started` : 'Not started'}</strong>
         </div>
         <h3>Application-Based Learning</h3>
-        <p class="text-sm">${metrics.activeProjectsCount > 0 ? `${metrics.activeProjectsCount} saved project pathway record(s) found.` : 'No project progress recorded yet. Full project studio arrives in Stage 3.'}</p>
-        <a class="btn btn-secondary btn-sm" href="./projects.html">View Application Learning</a>
+        <p class="text-sm">
+          ${metrics.activeProjectsCount > 0
+            ? `${metrics.activeProjectsCount} of ${(projectsCatalogue && projectsCatalogue.totalProjects) || 40} robotics projects started · ${(snapshot.projects || []).reduce((a, r) => a + (r.completedSteps || []).length, 0)} engineering checkpoints saved.`
+            : 'Explore all 40 guided robotics engineering courses with verified wiring diagrams, BOM specs, and progressive .ino code.'}
+        </p>
+        <div class="progress-track sm mb-md">
+          <div class="progress-fill" style="width:${Math.round((metrics.activeProjectsCount / 40) * 100)}%"></div>
+        </div>
+        <a class="btn btn-primary btn-sm" href="./projects.html${(snapshot.projects && snapshot.projects[0]) ? `?project=${encodeURIComponent(snapshot.projects[0].projectId)}` : ''}">
+          ${metrics.activeProjectsCount > 0 ? 'Resume Project Course →' : 'Explore 40 Projects →'}
+        </a>
       </div>
     `;
 
@@ -143,7 +153,7 @@
             <div class="flex items-center justify-between gap-sm" style="padding:0.7rem 0.9rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--bg-surface-solid);">
               <div class="text-sm">
                 <span class="badge badge-bloom" style="margin-right:0.4rem;">${window.RoboDexApp.escapeHtml(item.area)}</span>
-                <strong>${window.RoboDexApp.escapeHtml(item.action)}</strong> —
+                <strong>${window.RoboDexApp.escapeHtml(item.action)}</strong> , 
                 ${item.targetUrl ? `<a href="${item.targetUrl}">${window.RoboDexApp.escapeHtml(item.label)}</a>` : window.RoboDexApp.escapeHtml(item.label)}
               </div>
               <span class="text-xs text-muted">${window.RoboDexApp.formatDateTime(item.timestamp)}</span>
@@ -155,18 +165,19 @@
 
     // 5. Project Progress & Next Steps (Stage 3 ready, zero fake values)
     const projHost = document.getElementById('dash-projects-overview');
+    const projTitleMap = new Map(((projectsCatalogue && projectsCatalogue.projects) || []).map((p) => [p.id, `#${p.num} ${p.title}`]));
     if (metrics.activeProjectsCount === 0) {
       projHost.innerHTML = `
         <div class="empty-state">
           <h3>No project records yet</h3>
-          <p>Application-Based Learning launches in Stage 3. Recommended next step right now: continue <a href="./learn.html?lesson=${encodeURIComponent(metrics.nextLesson.id)}">${window.RoboDexApp.escapeHtml(metrics.nextLesson.title)}</a>.</p>
+          <p>Start any of the 40 guided courses in <a href="./projects.html">Application-Based Learning</a>, or continue <a href="./learn.html?lesson=${encodeURIComponent(metrics.nextLesson.id)}">${window.RoboDexApp.escapeHtml(metrics.nextLesson.title)}</a>.</p>
         </div>
       `;
     } else {
       projHost.innerHTML = `
         <ul style="margin:0.4rem 0 0 1.2rem;">
           ${metrics.projectRecords.filter((p) => (p.completedSteps || []).length > 0).map((p) => `
-            <li class="text-sm"><strong>${window.RoboDexApp.escapeHtml(p.projectId)}</strong> — ${p.completedSteps.length} step(s) saved locally</li>
+            <li class="text-sm"><a href="./projects.html?project=${encodeURIComponent(p.projectId)}"><strong>${window.RoboDexApp.escapeHtml(projTitleMap.get(p.projectId) || p.projectId)}</strong></a>: ${p.completedSteps.length}/11 checkpoints completed</li>
           `).join('')}
         </ul>
       `;

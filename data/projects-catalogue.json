@@ -1,0 +1,1172 @@
+{
+  "version": "2.3.0",
+  "totalProjects": 40,
+  "batches": [
+    "./data/projects/batch-1.json",
+    "./data/projects/batch-2.json",
+    "./data/projects/batch-3.json",
+    "./data/projects/batch-4.json"
+  ],
+  "projects": [
+    {
+      "id": "proj-01",
+      "num": 1,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Earthquake early-warning and structural-safety simulator",
+      "area": "Natural disasters",
+      "categoryKey": "natural-disasters",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A shaking platform simulates earthquake motion while MPU6050 sensors measure vibration. The system detects dangerous shaking, warns occupants with a siren and display, and can automatically cut a model “power line” or stop a model elevator.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-01.svg",
+        "alt": "Conceptual prototype illustration of Earthquake early-warning and structural-safety simulator (Natural disasters).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Earthquake early-warning and structural-safety simulator"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "earthquake early-warning and structural-safety simulator natural disasters esp32 esp32 devkit v1 (3.3v logic) a shaking platform simulates earthquake motion while mpu6050 sensors measure vibration. the system detects dangerous shaking, warns occupants with a siren and display, and can automatically cut a model “power line” or stop a model elevator."
+    },
+    {
+      "id": "proj-02",
+      "num": 2,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "AI-assisted flood warning and evacuation system",
+      "area": "Natural disasters",
+      "categoryKey": "natural-disasters",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "Multiple water-level sensors placed in a model river detect rising water. The ESP32 predicts risk level, activates route lights, sounds alarms, displays evacuation instructions, and sends alerts through Wi‑Fi.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-02.svg",
+        "alt": "Conceptual prototype illustration of AI-assisted flood warning and evacuation system (Natural disasters).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: AI-assisted flood warning and evacuation system"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": true,
+      "keywords": "ai-assisted flood warning and evacuation system natural disasters esp32 esp32 devkit v1 (3.3v logic) multiple water-level sensors placed in a model river detect rising water. the esp32 predicts risk level, activates route lights, sounds alarms, displays evacuation instructions, and sends alerts through wi‑fi."
+    },
+    {
+      "id": "proj-03",
+      "num": 3,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Forest-fire detection mesh with solar-powered nodes",
+      "area": "Environment / disasters",
+      "categoryKey": "natural-disasters",
+      "difficulty": "Very Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "Several solar-powered ESP32 nodes detect heat, smoke, humidity, and flame in a model forest. When one node detects fire risk, it wirelessly alerts a central station, which activates an alarm and displays the affected zone.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-03.svg",
+        "alt": "Conceptual prototype illustration of Forest-fire detection mesh with solar-powered nodes (Environment / disasters).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Forest-fire detection mesh with solar-powered nodes"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "forest-fire detection mesh with solar-powered nodes environment / disasters esp32 esp32 devkit v1 (3.3v logic) several solar-powered esp32 nodes detect heat, smoke, humidity, and flame in a model forest. when one node detects fire risk, it wirelessly alerts a central station, which activates an alarm and displays the affected zone."
+    },
+    {
+      "id": "proj-04",
+      "num": 4,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Smart flood-barrier and drainage-control system",
+      "area": "Natural disasters",
+      "categoryKey": "natural-disasters",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "When water reaches a danger level, the system automatically raises a miniature flood barrier, starts a drainage pump, and alerts nearby residents.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-04.svg",
+        "alt": "Conceptual prototype illustration of Smart flood-barrier and drainage-control system (Natural disasters).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart flood-barrier and drainage-control system"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart flood-barrier and drainage-control system natural disasters esp32 esp32 devkit v1 (3.3v logic) when water reaches a danger level, the system automatically raises a miniature flood barrier, starts a drainage pump, and alerts nearby residents."
+    },
+    {
+      "id": "proj-05",
+      "num": 5,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Air-quality mapping network for Kathmandu streets",
+      "area": "Environment / health",
+      "categoryKey": "health-medical",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "Portable ESP32 nodes measure PM2.5, PM10, temperature, humidity, CO2, and location, then upload readings to a map or dashboard. This is especially relevant where traffic, dust, and winter pollution affect public health.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-05.svg",
+        "alt": "Conceptual prototype illustration of Air-quality mapping network for Kathmandu streets (Environment / health).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Air-quality mapping network for Kathmandu streets"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "air-quality mapping network for kathmandu streets environment / health esp32 esp32 devkit v1 (3.3v logic) portable esp32 nodes measure pm2.5, pm10, temperature, humidity, co2, and location, then upload readings to a map or dashboard. this is especially relevant where traffic, dust, and winter pollution affect public health."
+    },
+    {
+      "id": "proj-06",
+      "num": 6,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Solar-powered smart irrigation with weather-aware watering",
+      "area": "Farming / water",
+      "categoryKey": "farming-water",
+      "difficulty": "Medium–Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system waters crops only when soil is dry, avoids watering before rain, and uses solar power. It can reduce water waste while keeping plants healthy.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-06.svg",
+        "alt": "Conceptual prototype illustration of Solar-powered smart irrigation with weather-aware watering (Farming / water).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Solar-powered smart irrigation with weather-aware watering"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "solar-powered smart irrigation with weather-aware watering farming / water esp32 esp32 devkit v1 (3.3v logic) the system waters crops only when soil is dry, avoids watering before rain, and uses solar power. it can reduce water waste while keeping plants healthy."
+    },
+    {
+      "id": "proj-07",
+      "num": 7,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Low-cost landslide early-warning system",
+      "area": "Natural disasters",
+      "categoryKey": "natural-disasters",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A model slope uses tilt, vibration, rain, and soil-moisture data to detect conditions that may lead to a landslide. It warns residents before movement becomes severe.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-07.svg",
+        "alt": "Conceptual prototype illustration of Low-cost landslide early-warning system (Natural disasters).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Low-cost landslide early-warning system"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "low-cost landslide early-warning system natural disasters esp32 esp32 devkit v1 (3.3v logic) a model slope uses tilt, vibration, rain, and soil-moisture data to detect conditions that may lead to a landslide. it warns residents before movement becomes severe."
+    },
+    {
+      "id": "proj-08",
+      "num": 8,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Smart greenhouse with automated climate control",
+      "area": "Farming",
+      "categoryKey": "farming-water",
+      "difficulty": "Medium",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The greenhouse automatically controls watering, ventilation, lighting, and temperature to create ideal growing conditions.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-08.svg",
+        "alt": "Conceptual prototype illustration of Smart greenhouse with automated climate control (Farming).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart greenhouse with automated climate control"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart greenhouse with automated climate control farming esp32 esp32 devkit v1 (3.3v logic) the greenhouse automatically controls watering, ventilation, lighting, and temperature to create ideal growing conditions."
+    },
+    {
+      "id": "proj-09",
+      "num": 9,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Water-quality monitoring and alert buoy",
+      "area": "Environment / water",
+      "categoryKey": "environment-water",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A floating buoy measures pH, turbidity, temperature, and dissolved solids in a river or pond, then warns when water becomes unsafe.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-09.svg",
+        "alt": "Conceptual prototype illustration of Water-quality monitoring and alert buoy (Environment / water).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Water-quality monitoring and alert buoy"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "water-quality monitoring and alert buoy environment / water esp32 esp32 devkit v1 (3.3v logic) a floating buoy measures ph, turbidity, temperature, and dissolved solids in a river or pond, then warns when water becomes unsafe."
+    },
+    {
+      "id": "proj-10",
+      "num": 10,
+      "batchFile": "./data/projects/batch-1.json",
+      "title": "Smart waste-sorting bin using color/object recognition",
+      "area": "Environment / automation",
+      "categoryKey": "environment-water",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The bin identifies whether waste is biodegradable, plastic, metal, or general waste, then opens the correct compartment.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-10.svg",
+        "alt": "Conceptual prototype illustration of Smart waste-sorting bin using color/object recognition (Environment / automation).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart waste-sorting bin using color/object recognition"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": true,
+      "keywords": "smart waste-sorting bin using color/object recognition environment / automation esp32 esp32 devkit v1 (3.3v logic) the bin identifies whether waste is biodegradable, plastic, metal, or general waste, then opens the correct compartment."
+    },
+    {
+      "id": "proj-11",
+      "num": 11,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Portable ECG/heart-rate anomaly alert prototype",
+      "area": "Health",
+      "categoryKey": "health-medical",
+      "difficulty": "Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A wearable prototype measures pulse and movement, detects possible abnormal heart rate or fall, and sends an emergency alert.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-11.svg",
+        "alt": "Conceptual prototype illustration of Portable ECG/heart-rate anomaly alert prototype (Health).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Portable ECG/heart-rate anomaly alert prototype"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "portable ecg/heart-rate anomaly alert prototype health esp32 esp32 devkit v1 (3.3v logic) a wearable prototype measures pulse and movement, detects possible abnormal heart rate or fall, and sends an emergency alert."
+    },
+    {
+      "id": "proj-12",
+      "num": 12,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Smart traffic-light system with emergency-vehicle priority",
+      "area": "Transport / smart city",
+      "categoryKey": "safety-transport",
+      "difficulty": "Medium–Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A model intersection gives green priority to an approaching ambulance or fire truck, reducing delay in emergencies.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-12.svg",
+        "alt": "Conceptual prototype illustration of Smart traffic-light system with emergency-vehicle priority (Transport / smart city).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart traffic-light system with emergency-vehicle priority"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart traffic-light system with emergency-vehicle priority transport / smart city esp32 esp32 devkit v1 (3.3v logic) a model intersection gives green priority to an approaching ambulance or fire truck, reducing delay in emergencies."
+    },
+    {
+      "id": "proj-13",
+      "num": 13,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Sign-language-to-text/speech glove",
+      "area": "Accessibility",
+      "categoryKey": "accessibility",
+      "difficulty": "Very Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A glove recognizes finger bends and hand motion, converting selected gestures into text or spoken output to assist deaf or speech-impaired users.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-13.svg",
+        "alt": "Conceptual prototype illustration of Sign-language-to-text/speech glove (Accessibility).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Sign-language-to-text/speech glove"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": true,
+      "keywords": "sign-language-to-text/speech glove accessibility esp32 esp32 devkit v1 (3.3v logic) a glove recognizes finger bends and hand motion, converting selected gestures into text or spoken output to assist deaf or speech-impaired users."
+    },
+    {
+      "id": "proj-14",
+      "num": 14,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Smart helmet with accident detection and SOS",
+      "area": "Road safety",
+      "categoryKey": "safety-transport",
+      "difficulty": "Medium–Hard",
+      "awardPotential": "Very High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The helmet detects a hard impact, checks whether the rider is moving, and automatically alerts emergency contacts with location.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-14.svg",
+        "alt": "Conceptual prototype illustration of Smart helmet with accident detection and SOS (Road safety).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart helmet with accident detection and SOS"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart helmet with accident detection and sos road safety esp32 esp32 devkit v1 (3.3v logic) the helmet detects a hard impact, checks whether the rider is moving, and automatically alerts emergency contacts with location."
+    },
+    {
+      "id": "proj-15",
+      "num": 15,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Solar tracking system with energy-yield comparison",
+      "area": "Renewable energy",
+      "categoryKey": "energy-smart-city",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "Arduino/ESP32",
+      "recommendedBoardId": "uno-r3",
+      "recommendedBoardName": "Arduino Uno R3 (5V Logic)",
+      "compatibleBoardIds": [
+        "uno-r3",
+        "nano-classic",
+        "esp32-devkitc"
+      ],
+      "brief": "A solar panel automatically follows the sun and demonstrates how much more energy it produces than a fixed panel.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-15.svg",
+        "alt": "Conceptual prototype illustration of Solar tracking system with energy-yield comparison (Renewable energy).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Solar tracking system with energy-yield comparison"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "solar tracking system with energy-yield comparison renewable energy arduino/esp32 arduino uno r3 (5v logic) a solar panel automatically follows the sun and demonstrates how much more energy it produces than a fixed panel."
+    },
+    {
+      "id": "proj-16",
+      "num": 16,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "IoT weather station with rain, wind, UV, and air data",
+      "area": "Weather",
+      "categoryKey": "weather-climate",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A compact station measures temperature, humidity, pressure, rainfall, wind speed, UV index, and air quality, then displays and uploads the data.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-16.svg",
+        "alt": "Conceptual prototype illustration of IoT weather station with rain, wind, UV, and air data (Weather).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: IoT weather station with rain, wind, UV, and air data"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "iot weather station with rain, wind, uv, and air data weather esp32 esp32 devkit v1 (3.3v logic) a compact station measures temperature, humidity, pressure, rainfall, wind speed, uv index, and air quality, then displays and uploads the data."
+    },
+    {
+      "id": "proj-17",
+      "num": 17,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Smart water-tank level controller with leak detection",
+      "area": "Water / automation",
+      "categoryKey": "environment-water",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system prevents tank overflow, stops the pump when water is low, and detects abnormal leakage.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-17.svg",
+        "alt": "Conceptual prototype illustration of Smart water-tank level controller with leak detection (Water / automation).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart water-tank level controller with leak detection"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart water-tank level controller with leak detection water / automation esp32 esp32 devkit v1 (3.3v logic) the system prevents tank overflow, stops the pump when water is low, and detects abnormal leakage."
+    },
+    {
+      "id": "proj-18",
+      "num": 18,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Automatic medicine dispenser with reminders",
+      "area": "Health / automation",
+      "categoryKey": "health-medical",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The device reminds a patient at scheduled times, dispenses the correct pill compartment, and records whether the dose was taken.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-18.svg",
+        "alt": "Conceptual prototype illustration of Automatic medicine dispenser with reminders (Health / automation).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Automatic medicine dispenser with reminders"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "automatic medicine dispenser with reminders health / automation esp32 esp32 devkit v1 (3.3v logic) the device reminds a patient at scheduled times, dispenses the correct pill compartment, and records whether the dose was taken."
+    },
+    {
+      "id": "proj-19",
+      "num": 19,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Smart parking system with vacant-slot display",
+      "area": "Smart city",
+      "categoryKey": "energy-smart-city",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "IR sensors detect whether parking spaces are occupied, while a display and mobile app show available slots.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-19.svg",
+        "alt": "Conceptual prototype illustration of Smart parking system with vacant-slot display (Smart city).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart parking system with vacant-slot display"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart parking system with vacant-slot display smart city esp32 esp32 devkit v1 (3.3v logic) ir sensors detect whether parking spaces are occupied, while a display and mobile app show available slots."
+    },
+    {
+      "id": "proj-20",
+      "num": 20,
+      "batchFile": "./data/projects/batch-2.json",
+      "title": "Fire-detection and evacuation system for classrooms",
+      "area": "Safety",
+      "categoryKey": "safety-transport",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system detects smoke, high temperature, and flame, then activates alarms, evacuation lights, and automatic ventilation.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-20.svg",
+        "alt": "Conceptual prototype illustration of Fire-detection and evacuation system for classrooms (Safety).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Fire-detection and evacuation system for classrooms"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "fire-detection and evacuation system for classrooms safety esp32 esp32 devkit v1 (3.3v logic) the system detects smoke, high temperature, and flame, then activates alarms, evacuation lights, and automatic ventilation."
+    },
+    {
+      "id": "proj-21",
+      "num": 21,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Smart streetlight with motion, daylight, and fault reporting",
+      "area": "Energy / smart city",
+      "categoryKey": "energy-smart-city",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "Streetlights turn on only when needed, dim when no one is present, and report faults automatically.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-21.svg",
+        "alt": "Conceptual prototype illustration of Smart streetlight with motion, daylight, and fault reporting (Energy / smart city).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart streetlight with motion, daylight, and fault reporting"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart streetlight with motion, daylight, and fault reporting energy / smart city esp32 esp32 devkit v1 (3.3v logic) streetlights turn on only when needed, dim when no one is present, and report faults automatically."
+    },
+    {
+      "id": "proj-22",
+      "num": 22,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Beehive health and hive-theft monitor",
+      "area": "Farming / environment",
+      "categoryKey": "farming-water",
+      "difficulty": "Medium–Hard",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system monitors hive temperature, humidity, weight, sound, and movement to detect overheating, swarming, or theft.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-22.svg",
+        "alt": "Conceptual prototype illustration of Beehive health and hive-theft monitor (Farming / environment).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Beehive health and hive-theft monitor"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "beehive health and hive-theft monitor farming / environment esp32 esp32 devkit v1 (3.3v logic) the system monitors hive temperature, humidity, weight, sound, and movement to detect overheating, swarming, or theft."
+    },
+    {
+      "id": "proj-23",
+      "num": 23,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Automated plant-disease early-warning system",
+      "area": "Farming",
+      "categoryKey": "farming-water",
+      "difficulty": "Hard",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system combines leaf color, temperature, humidity, and soil data to identify unhealthy plant conditions early.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-23.svg",
+        "alt": "Conceptual prototype illustration of Automated plant-disease early-warning system (Farming).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Automated plant-disease early-warning system"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": true,
+      "keywords": "automated plant-disease early-warning system farming esp32 esp32 devkit v1 (3.3v logic) the system combines leaf color, temperature, humidity, and soil data to identify unhealthy plant conditions early."
+    },
+    {
+      "id": "proj-24",
+      "num": 24,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Smart cold-storage temperature monitor for vaccines/food",
+      "area": "Health / agriculture",
+      "categoryKey": "farming-water",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system continuously monitors refrigerator temperature and humidity, warns before spoilage risk, and logs data.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-24.svg",
+        "alt": "Conceptual prototype illustration of Smart cold-storage temperature monitor for vaccines/food (Health / agriculture).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart cold-storage temperature monitor for vaccines/food"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart cold-storage temperature monitor for vaccines/food health / agriculture esp32 esp32 devkit v1 (3.3v logic) the system continuously monitors refrigerator temperature and humidity, warns before spoilage risk, and logs data."
+    },
+    {
+      "id": "proj-25",
+      "num": 25,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "River-water level and debris-flow warning station",
+      "area": "Natural disasters",
+      "categoryKey": "natural-disasters",
+      "difficulty": "Medium–Hard",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A river-side station monitors water level, rainfall, vibration, and flow, then warns communities of flood or debris-flow risk.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-25.svg",
+        "alt": "Conceptual prototype illustration of River-water level and debris-flow warning station (Natural disasters).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: River-water level and debris-flow warning station"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "river-water level and debris-flow warning station natural disasters esp32 esp32 devkit v1 (3.3v logic) a river-side station monitors water level, rainfall, vibration, and flow, then warns communities of flood or debris-flow risk."
+    },
+    {
+      "id": "proj-26",
+      "num": 26,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Smart livestock feeder and animal-health monitor",
+      "area": "Farming",
+      "categoryKey": "farming-water",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The feeder dispenses feed on schedule and monitors animal movement, temperature, and feeding behavior.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-26.svg",
+        "alt": "Conceptual prototype illustration of Smart livestock feeder and animal-health monitor (Farming).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart livestock feeder and animal-health monitor"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart livestock feeder and animal-health monitor farming esp32 esp32 devkit v1 (3.3v logic) the feeder dispenses feed on schedule and monitors animal movement, temperature, and feeding behavior."
+    },
+    {
+      "id": "proj-27",
+      "num": 27,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Blind-navigation smart cane with obstacle and water alerts",
+      "area": "Accessibility",
+      "categoryKey": "accessibility",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The cane detects obstacles, drops, and wet surfaces, then gives vibration or sound feedback to help visually impaired users.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-27.svg",
+        "alt": "Conceptual prototype illustration of Blind-navigation smart cane with obstacle and water alerts (Accessibility).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Blind-navigation smart cane with obstacle and water alerts"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "blind-navigation smart cane with obstacle and water alerts accessibility esp32 esp32 devkit v1 (3.3v logic) the cane detects obstacles, drops, and wet surfaces, then gives vibration or sound feedback to help visually impaired users."
+    },
+    {
+      "id": "proj-28",
+      "num": 28,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Automated hydroponics system",
+      "area": "Farming",
+      "categoryKey": "farming-water",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "Plants grow without soil while the system controls nutrient solution, water level, pH, temperature, and lighting.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-28.svg",
+        "alt": "Conceptual prototype illustration of Automated hydroponics system (Farming).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Automated hydroponics system"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "automated hydroponics system farming esp32 esp32 devkit v1 (3.3v logic) plants grow without soil while the system controls nutrient solution, water level, ph, temperature, and lighting."
+    },
+    {
+      "id": "proj-29",
+      "num": 29,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Energy-monitoring smart home with appliance control",
+      "area": "Automation / energy",
+      "categoryKey": "energy-smart-city",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system measures electricity use of model appliances, identifies high-consumption devices, and lets users control them remotely.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-29.svg",
+        "alt": "Conceptual prototype illustration of Energy-monitoring smart home with appliance control (Automation / energy).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Energy-monitoring smart home with appliance control"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "energy-monitoring smart home with appliance control automation / energy esp32 esp32 devkit v1 (3.3v logic) the system measures electricity use of model appliances, identifies high-consumption devices, and lets users control them remotely."
+    },
+    {
+      "id": "proj-30",
+      "num": 30,
+      "batchFile": "./data/projects/batch-3.json",
+      "title": "Gas-leak detection and ventilation system",
+      "area": "Safety",
+      "categoryKey": "safety-transport",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system detects LPG, methane, smoke, or harmful gas, shuts off a model gas line, opens ventilation, and alerts occupants.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-30.svg",
+        "alt": "Conceptual prototype illustration of Gas-leak detection and ventilation system (Safety).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Gas-leak detection and ventilation system"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "gas-leak detection and ventilation system safety esp32 esp32 devkit v1 (3.3v logic) the system detects lpg, methane, smoke, or harmful gas, shuts off a model gas line, opens ventilation, and alerts occupants."
+    },
+    {
+      "id": "proj-31",
+      "num": 31,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Smart dustbin with fill-level alerts and route suggestion",
+      "area": "Environment / smart city",
+      "categoryKey": "energy-smart-city",
+      "difficulty": "Easy–Medium",
+      "awardPotential": "Medium–High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The bin measures fill level, alerts when nearly full, and suggests the best collection route based on multiple bins.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-31.svg",
+        "alt": "Conceptual prototype illustration of Smart dustbin with fill-level alerts and route suggestion (Environment / smart city).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart dustbin with fill-level alerts and route suggestion"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart dustbin with fill-level alerts and route suggestion environment / smart city esp32 esp32 devkit v1 (3.3v logic) the bin measures fill level, alerts when nearly full, and suggests the best collection route based on multiple bins."
+    },
+    {
+      "id": "proj-32",
+      "num": 32,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Automatic railway crossing barrier with obstacle detection",
+      "area": "Transport safety",
+      "categoryKey": "safety-transport",
+      "difficulty": "Medium",
+      "awardPotential": "Medium–High",
+      "initialBoard": "Arduino/ESP32",
+      "recommendedBoardId": "uno-r3",
+      "recommendedBoardName": "Arduino Uno R3 (5V Logic)",
+      "compatibleBoardIds": [
+        "uno-r3",
+        "nano-classic",
+        "esp32-devkitc"
+      ],
+      "brief": "The system detects an approaching train, closes barriers, warns pedestrians, and reopens only when the track is clear.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-32.svg",
+        "alt": "Conceptual prototype illustration of Automatic railway crossing barrier with obstacle detection (Transport safety).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Automatic railway crossing barrier with obstacle detection"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "automatic railway crossing barrier with obstacle detection transport safety arduino/esp32 arduino uno r3 (5v logic) the system detects an approaching train, closes barriers, warns pedestrians, and reopens only when the track is clear."
+    },
+    {
+      "id": "proj-33",
+      "num": 33,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Smart attendance system using RFID/fingerprint",
+      "area": "Automation",
+      "categoryKey": "automation-robotics",
+      "difficulty": "Easy–Medium",
+      "awardPotential": "Medium",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "Students tap an RFID card or place a finger on a scanner; the system records attendance and prevents duplicate entries.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-33.svg",
+        "alt": "Conceptual prototype illustration of Smart attendance system using RFID/fingerprint (Automation).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart attendance system using RFID/fingerprint"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart attendance system using rfid/fingerprint automation esp32 esp32 devkit v1 (3.3v logic) students tap an rfid card or place a finger on a scanner; the system records attendance and prevents duplicate entries."
+    },
+    {
+      "id": "proj-34",
+      "num": 34,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Noise-pollution mapping device",
+      "area": "Environment",
+      "categoryKey": "environment-water",
+      "difficulty": "Easy–Medium",
+      "awardPotential": "Medium",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "A portable device measures sound levels at different places and identifies the noisiest zones, such as roads, markets, or construction sites.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-34.svg",
+        "alt": "Conceptual prototype illustration of Noise-pollution mapping device (Environment).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Noise-pollution mapping device"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "noise-pollution mapping device environment esp32 esp32 devkit v1 (3.3v logic) a portable device measures sound levels at different places and identifies the noisiest zones, such as roads, markets, or construction sites."
+    },
+    {
+      "id": "proj-35",
+      "num": 35,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Automatic street-cleaning robot prototype",
+      "area": "Automation / environment",
+      "categoryKey": "environment-water",
+      "difficulty": "Hard",
+      "awardPotential": "Medium–High",
+      "initialBoard": "Arduino/ESP32",
+      "recommendedBoardId": "uno-r3",
+      "recommendedBoardName": "Arduino Uno R3 (5V Logic)",
+      "compatibleBoardIds": [
+        "uno-r3",
+        "nano-classic",
+        "esp32-devkitc"
+      ],
+      "brief": "A small robot moves along a model road, detects obstacles, collects debris, and can return to a charging station.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-35.svg",
+        "alt": "Conceptual prototype illustration of Automatic street-cleaning robot prototype (Automation / environment).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Automatic street-cleaning robot prototype"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "automatic street-cleaning robot prototype automation / environment arduino/esp32 arduino uno r3 (5v logic) a small robot moves along a model road, detects obstacles, collects debris, and can return to a charging station."
+    },
+    {
+      "id": "proj-36",
+      "num": 36,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Smart irrigation using soil moisture and rain prediction",
+      "area": "Farming",
+      "categoryKey": "farming-water",
+      "difficulty": "Medium",
+      "awardPotential": "High",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system checks soil moisture and online rain forecasts before watering, reducing unnecessary irrigation.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-36.svg",
+        "alt": "Conceptual prototype illustration of Smart irrigation using soil moisture and rain prediction (Farming).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart irrigation using soil moisture and rain prediction"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart irrigation using soil moisture and rain prediction farming esp32 esp32 devkit v1 (3.3v logic) the system checks soil moisture and online rain forecasts before watering, reducing unnecessary irrigation."
+    },
+    {
+      "id": "proj-37",
+      "num": 37,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Home security system with face/PIR alerts",
+      "area": "Security",
+      "categoryKey": "safety-transport",
+      "difficulty": "Medium",
+      "awardPotential": "Medium",
+      "initialBoard": "ESP32",
+      "recommendedBoardId": "esp32-devkitc",
+      "recommendedBoardName": "ESP32 DevKit V1 (3.3V Logic)",
+      "compatibleBoardIds": [
+        "esp32-devkitc",
+        "esp32-s3",
+        "uno-r4-wifi"
+      ],
+      "brief": "The system detects unauthorized entry through motion, door opening, or face recognition, then activates alarm and sends notification.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-37.svg",
+        "alt": "Conceptual prototype illustration of Home security system with face/PIR alerts (Security).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Home security system with face/PIR alerts"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": true,
+      "keywords": "home security system with face/pir alerts security esp32 esp32 devkit v1 (3.3v logic) the system detects unauthorized entry through motion, door opening, or face recognition, then activates alarm and sends notification."
+    },
+    {
+      "id": "proj-38",
+      "num": 38,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Smart wheelchair obstacle-avoidance and emergency alert",
+      "area": "Accessibility",
+      "categoryKey": "accessibility",
+      "difficulty": "Hard",
+      "awardPotential": "High",
+      "initialBoard": "Arduino/ESP32",
+      "recommendedBoardId": "uno-r3",
+      "recommendedBoardName": "Arduino Uno R3 (5V Logic)",
+      "compatibleBoardIds": [
+        "uno-r3",
+        "nano-classic",
+        "esp32-devkitc"
+      ],
+      "brief": "A wheelchair prototype detects obstacles and cliffs, prevents collisions, and alerts a caregiver in an emergency.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-38.svg",
+        "alt": "Conceptual prototype illustration of Smart wheelchair obstacle-avoidance and emergency alert (Accessibility).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Smart wheelchair obstacle-avoidance and emergency alert"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "smart wheelchair obstacle-avoidance and emergency alert accessibility arduino/esp32 arduino uno r3 (5v logic) a wheelchair prototype detects obstacles and cliffs, prevents collisions, and alerts a caregiver in an emergency."
+    },
+    {
+      "id": "proj-39",
+      "num": 39,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Automatic plant-watering system",
+      "area": "Farming / automation",
+      "categoryKey": "farming-water",
+      "difficulty": "Easy",
+      "awardPotential": "Medium",
+      "initialBoard": "Arduino/ESP32",
+      "recommendedBoardId": "uno-r3",
+      "recommendedBoardName": "Arduino Uno R3 (5V Logic)",
+      "compatibleBoardIds": [
+        "uno-r3",
+        "nano-classic",
+        "esp32-devkitc"
+      ],
+      "brief": "A simple, reliable beginner project that waters a plant automatically when soil becomes dry.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-39.svg",
+        "alt": "Conceptual prototype illustration of Automatic plant-watering system (Farming / automation).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Automatic plant-watering system"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "automatic plant-watering system farming / automation arduino/esp32 arduino uno r3 (5v logic) a simple, reliable beginner project that waters a plant automatically when soil becomes dry."
+    },
+    {
+      "id": "proj-40",
+      "num": 40,
+      "batchFile": "./data/projects/batch-4.json",
+      "title": "Digital thermometer, humidity, and air-comfort display",
+      "area": "Weather / environment",
+      "categoryKey": "weather-climate",
+      "difficulty": "Easy",
+      "awardPotential": "Medium",
+      "initialBoard": "Arduino/ESP32",
+      "recommendedBoardId": "uno-r3",
+      "recommendedBoardName": "Arduino Uno R3 (5V Logic)",
+      "compatibleBoardIds": [
+        "uno-r3",
+        "nano-classic",
+        "esp32-devkitc"
+      ],
+      "brief": "A simple weather-comfort station displays room temperature, humidity, heat index, and air-quality indication.",
+      "cardImage": {
+        "src": "./assets/img/projects/proj-40.svg",
+        "alt": "Conceptual prototype illustration of Digital thermometer, humidity, and air-comfort display (Weather / environment).",
+        "type": "conceptual-technical-illustration",
+        "caption": "Conceptual prototype visual: Digital thermometer, humidity, and air-comfort display"
+      },
+      "checkpointCount": 11,
+      "hasSafetyNotice": true,
+      "hasAiClarification": false,
+      "keywords": "digital thermometer, humidity, and air-comfort display weather / environment arduino/esp32 arduino uno r3 (5v logic) a simple weather-comfort station displays room temperature, humidity, heat index, and air-quality indication."
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RoboDex́ — Shared Hyper-Bloom Application Shell
+   RoboDex́: Shared Hyper-Bloom Application Shell
    - Text-only wordmark: RoboDex́ | Train Yourself (zero graphical logos)
    - Persistent 6-destination left sidebar + compact top utility bar
    - Organic Hyper-Bloom SVG background curves
@@ -22,7 +22,7 @@ window.RoboDexApp = (function () {
   const PAGE_TITLES = {
     'dashboard': 'Student Dashboard',
     'learn': 'Programming School',
-    'boards': 'Boards — Hardware Architecture',
+    'boards': 'Boards: Hardware Architecture',
     'projects': 'Application-Based Learning',
     'my-information': 'My Information & Local Data',
     'about': 'About RoboDex́',
@@ -107,20 +107,20 @@ window.RoboDexApp = (function () {
   }
 
   function formatDate(ts) {
-    if (!ts) return '—';
+    if (!ts) return ', ';
     try {
       return new Date(ts).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
     } catch {
-      return '—';
+      return ', ';
     }
   }
 
   function formatDateTime(ts) {
-    if (!ts) return '—';
+    if (!ts) return ', ';
     try {
       return new Date(ts).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     } catch {
-      return '—';
+      return ', ';
     }
   }
 

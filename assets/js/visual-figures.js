@@ -1,4 +1,4 @@
-/* RoboDex́ — Conceptual Visual Learning Figures Module
+/* RoboDex́: Conceptual Visual Learning Figures Module
  * Renders bundled local conceptual illustrations for visual learning across
  * Programming School, Boards Learning Environment (all steps A-H), Dashboard,
  * and the Stage 3 Application-Based Learning preview.

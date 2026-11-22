@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Sign-language-to-text/speech glove">
+  <defs>
+    <linearGradient id="g13" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#151430"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+    <radialGradient id="r13" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#151430" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g13)"/>
+  <rect width="480" height="360" fill="url(#r13)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#2dd4bf" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><path d="M165,255 L165,165 Q165,145 182,145 L182,95 Q182,82 195,82 Q208,82 208,95 L208,140 L218,140 L218,80 Q218,68 231,68 Q244,68 244,80 L244,140 L254,140 L254,88 Q254,76 267,76 Q280,76 280,88 L280,145 L290,145 L290,110 Q290,98 303,98 Q316,98 316,110 L316,205 Q316,255 265,255 Z" fill="#312e81" stroke="#c084fc" stroke-width="3"/><line x1="195" y1="95" x2="195" y2="155" stroke="#2dd4bf" stroke-width="5" stroke-linecap="round"/><line x1="231" y1="82" x2="231" y2="155" stroke="#2dd4bf" stroke-width="5" stroke-linecap="round"/><line x1="267" y1="90" x2="267" y2="155" stroke="#2dd4bf" stroke-width="5" stroke-linecap="round"/><line x1="303" y1="110" x2="303" y2="165" stroke="#2dd4bf" stroke-width="5" stroke-linecap="round"/><rect x="205" y="185" width="70" height="42" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/></g>
+</svg>

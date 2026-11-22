@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Conceptual prototype illustration for Automatic plant-watering system">
+  <defs>
+    <linearGradient id="g39" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122117"/>
+      <stop offset="100%" stop-color="#166534"/>
+    </linearGradient>
+    <radialGradient id="r39" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#122117" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g39)"/>
+  <rect width="480" height="360" fill="url(#r39)"/>
+  <path d="M0,295 C140,260 320,330 480,275 L480,360 L0,360 Z" fill="#facc15" opacity="0.12"/>
+  <g opacity="0.16" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/>
+  </g>
+  <g><polygon points="175,186 305,186 286,266 194,266" fill="#9a3412" stroke="#fdba74" stroke-width="3"/><path d="M240,186 Q240,122 206,108 M240,186 Q240,122 274,108 M240,186 L240,94" fill="none" stroke="#4ade80" stroke-width="6" stroke-linecap="round"/><circle cx="145" cy="142" r="10" fill="#38bdf8"/><circle cx="158" cy="162" r="7" fill="#38bdf8"/></g>
+</svg>

@@ -1,0 +1,871 @@
+{
+  "generatedDate": "2026-11-22",
+  "projectCardImagesCount": 40,
+  "dynamicTechnicalDiagramTypes": [
+    "PART B/C: Component & Pin-Location Concept SVG (data-driven from validated BOM + wiringTable)",
+    "PART D: Color-Coded Circuit & Power-Domain Schematic SVG (data-driven from validated wiringTable)",
+    "PART F: Physical Layout & Enclosure Placement Concept SVG",
+    "PART G: Input -> Process -> Output -> Feedback System-Flow SVG (data-driven from partG.ipo)",
+    "PART J: Testing & Calibration Signal-Loop SVG"
+  ],
+  "officialHardwarePhotos": [
+    {
+      "boardId": "esp32-devkitc",
+      "type": "official-manufacturer-photo",
+      "sourceUrl": "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html",
+      "creator": "Espressif Systems",
+      "license": "Official manufacturer technical documentation reference (linked online with local conceptual fallback)",
+      "verified": true
+    },
+    {
+      "boardId": "uno-r3",
+      "type": "official-manufacturer-photo",
+      "sourceUrl": "https://store.arduino.cc/products/arduino-uno-rev3",
+      "creator": "Arduino AG",
+      "license": "Official manufacturer product documentation reference (linked online with local conceptual fallback)",
+      "verified": true
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-01",
+      "num": 1,
+      "title": "Earthquake early-warning and structural-safety simulator",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-01.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-02",
+      "num": 2,
+      "title": "AI-assisted flood warning and evacuation system",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-02.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-03",
+      "num": 3,
+      "title": "Forest-fire detection mesh with solar-powered nodes",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-03.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-04",
+      "num": 4,
+      "title": "Smart flood-barrier and drainage-control system",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-04.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-05",
+      "num": 5,
+      "title": "Air-quality mapping network for Kathmandu streets",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-05.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-06",
+      "num": 6,
+      "title": "Solar-powered smart irrigation with weather-aware watering",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-06.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-07",
+      "num": 7,
+      "title": "Low-cost landslide early-warning system",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-07.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-08",
+      "num": 8,
+      "title": "Smart greenhouse with automated climate control",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-08.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-09",
+      "num": 9,
+      "title": "Water-quality monitoring and alert buoy",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-09.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-10",
+      "num": 10,
+      "title": "Smart waste-sorting bin using color/object recognition",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-10.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-11",
+      "num": 11,
+      "title": "Portable ECG/heart-rate anomaly alert prototype",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-11.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-12",
+      "num": 12,
+      "title": "Smart traffic-light system with emergency-vehicle priority",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-12.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-13",
+      "num": 13,
+      "title": "Sign-language-to-text/speech glove",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-13.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-14",
+      "num": 14,
+      "title": "Smart helmet with accident detection and SOS",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-14.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-15",
+      "num": 15,
+      "title": "Solar tracking system with energy-yield comparison",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-15.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-16",
+      "num": 16,
+      "title": "IoT weather station with rain, wind, UV, and air data",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-16.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-17",
+      "num": 17,
+      "title": "Smart water-tank level controller with leak detection",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-17.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-18",
+      "num": 18,
+      "title": "Automatic medicine dispenser with reminders",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-18.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-19",
+      "num": 19,
+      "title": "Smart parking system with vacant-slot display",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-19.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-20",
+      "num": 20,
+      "title": "Fire-detection and evacuation system for classrooms",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-20.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-21",
+      "num": 21,
+      "title": "Smart streetlight with motion, daylight, and fault reporting",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-21.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-22",
+      "num": 22,
+      "title": "Beehive health and hive-theft monitor",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-22.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-23",
+      "num": 23,
+      "title": "Automated plant-disease early-warning system",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-23.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-24",
+      "num": 24,
+      "title": "Smart cold-storage temperature monitor for vaccines/food",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-24.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-25",
+      "num": 25,
+      "title": "River-water level and debris-flow warning station",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-25.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-26",
+      "num": 26,
+      "title": "Smart livestock feeder and animal-health monitor",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-26.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-27",
+      "num": 27,
+      "title": "Blind-navigation smart cane with obstacle and water alerts",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-27.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-28",
+      "num": 28,
+      "title": "Automated hydroponics system",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-28.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-29",
+      "num": 29,
+      "title": "Energy-monitoring smart home with appliance control",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-29.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-30",
+      "num": 30,
+      "title": "Gas-leak detection and ventilation system",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-30.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-31",
+      "num": 31,
+      "title": "Smart dustbin with fill-level alerts and route suggestion",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-31.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-32",
+      "num": 32,
+      "title": "Automatic railway crossing barrier with obstacle detection",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-32.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-33",
+      "num": 33,
+      "title": "Smart attendance system using RFID/fingerprint",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-33.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-34",
+      "num": 34,
+      "title": "Noise-pollution mapping device",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-34.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-35",
+      "num": 35,
+      "title": "Automatic street-cleaning robot prototype",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-35.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-36",
+      "num": 36,
+      "title": "Smart irrigation using soil moisture and rain prediction",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-36.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-37",
+      "num": 37,
+      "title": "Home security system with face/PIR alerts",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-37.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-38",
+      "num": 38,
+      "title": "Smart wheelchair obstacle-avoidance and emergency alert",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-38.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-39",
+      "num": 39,
+      "title": "Automatic plant-watering system",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-39.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    },
+    {
+      "id": "proj-40",
+      "num": 40,
+      "title": "Digital thermometer, humidity, and air-comfort display",
+      "cardAsset": {
+        "path": "./assets/img/projects/proj-40.svg",
+        "type": "conceptual-technical-illustration",
+        "creator": "RoboDex́ Original Vector Asset",
+        "license": "Project-owned original SVG (MIT / offline-bundled)",
+        "dateAdded": "2026-11-22",
+        "verified": true
+      },
+      "courseVisuals": [
+        "Dynamic Pin/Component Overview SVG (Part C)",
+        "Dynamic Color-Coded Wiring & Power-Domain SVG (Part D)",
+        "Dynamic Physical Layout & Assembly SVG (Part F)",
+        "Dynamic IPO System-Flow SVG (Part G)",
+        "Dynamic Testing & Calibration Loop SVG (Part J)"
+      ],
+      "substitutionsOrNotes": "Individual commodity sensor/module manufacturer photos are not redistributed locally due to third-party licensing; verified pinouts and conceptual technical SVGs are provided with explicit 'verify against module datasheet before wiring' notices."
+    }
+  ]
+}

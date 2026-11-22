@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RoboDex́ — My Information Controller
+   RoboDex́: My Information Controller
    Replaces My Data & Profiles: Profile management, local progress overview,
    persistent storage status, backup/restore (V1 & V2), and profile deletion.
    ========================================================================== */
@@ -74,7 +74,7 @@
           ${storageStatus.usageBytes !== null ? ` · Current site usage: ${formatBytes(storageStatus.usageBytes)}` : ''}
         </p>
         <p class="text-xs text-muted" style="margin:0;">
-          <strong>Important:</strong> Local data does <em>not</em> automatically sync across devices or browsers. Data may be lost if you explicitly clear site data, reset or uninstall the browser, or lose the device. Requesting persistent storage reduces some automatic eviction risks but cannot guarantee permanent retention — download regular backups below.
+          <strong>Important:</strong> Local data does <em>not</em> automatically sync across devices or browsers. Data may be lost if you explicitly clear site data, reset or uninstall the browser, or lose the device. Requesting persistent storage reduces some automatic eviction risks but cannot guarantee permanent retention: download regular backups below.
         </p>
       </div>
     `;

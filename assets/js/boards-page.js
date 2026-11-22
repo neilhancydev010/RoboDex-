@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RoboDex́ — Stage 2 Boards Learning Environment Controller
+   RoboDex́: Stage 2 Boards Learning Environment Controller
    - Hub View: 4 Board Families & 15 Distinct Variants with live per-profile progress
    - Workspace View: 8 Structured Lessons (A–H) per Variant, Specs Table, Pin Mastery,
      Electrical Safety, Editable .ino Examples, Board Exercises, Variant Quiz,
@@ -75,12 +75,12 @@
 
           ${activeFamObj ? `
             <div class="callout callout-warning mb-lg">
-              <div class="callout-title">${esc(activeFamObj.name)} — Critical Hardware Distinction</div>
+              <div class="callout-title">${esc(activeFamObj.name)}: Critical Hardware Distinction</div>
               <p class="text-sm" style="margin:0;">${esc(activeFamObj.familyWarning)}</p>
             </div>
           ` : `
             <div class="callout callout-info mb-lg">
-              <div class="callout-title">Every Variant Matters — Never Assume Identical Specs</div>
+              <div class="callout-title">Every Variant Matters: Never Assume Identical Specs</div>
               <p class="text-sm" style="margin:0;">Uno R3 vs R4, Nano 5V vs 3.3V variants, Mega 2560, and ESP32 chip series differ in voltage, pin restrictions, wireless radios, and USB interfaces. Pick your exact hardware variant below.</p>
             </div>
           `}
@@ -280,7 +280,7 @@
           if (ok) correct++;
           const fb = form.querySelector(`[data-bq="${i}"] [data-bq-fb]`);
           fb.className = `exercise-feedback show ${ok ? 'correct' : 'incorrect'}`;
-          fb.innerHTML = `<strong>${ok ? '✓ Correct' : `✗ Incorrect — Correct: ${esc(q.options[q.correctIndex])}`}</strong><p style="margin:0.3rem 0 0;">${esc(q.explanation)}</p>`;
+          fb.innerHTML = `<strong>${ok ? '✓ Correct' : `✗ Incorrect: Correct: ${esc(q.options[q.correctIndex])}`}</strong><p style="margin:0.3rem 0 0;">${esc(q.explanation)}</p>`;
         });
         const pct = Math.round((correct / qData.questions.length) * 100);
         const passed = pct >= passScore;
@@ -288,7 +288,7 @@
           scorePercent: pct, correctCount: correct, totalQuestions: qData.questions.length, passed
         });
         await refreshBoardState();
-        sum.innerHTML = `<div class="callout ${passed ? 'callout-success' : 'callout-danger'}"><strong>${passed ? 'Assessment Passed!' : 'Keep Reviewing'}</strong> — Scored ${pct}% (${correct}/${qData.questions.length}). Saved to your local profile.</div>`;
+        sum.innerHTML = `<div class="callout ${passed ? 'callout-success' : 'callout-danger'}"><strong>${passed ? 'Assessment Passed!' : 'Keep Reviewing'}</strong>: Scored ${pct}% (${correct}/${qData.questions.length}). Saved to your local profile.</div>`;
         window.RoboDexApp.showToast(`Board quiz scored: ${pct}%`);
       });
       document.getElementById('bq-retake').addEventListener('click', () => {
@@ -323,7 +323,7 @@
                 ? window.RoboDexVisuals.getBoardHeroPhotoHtml(
                     variant.photo.url,
                     `${variant.name} real hardware photograph`,
-                    `<strong>${esc(variant.name)}</strong> — ${esc(variant.mcu)}`,
+                    `<strong>${esc(variant.name)}</strong>: ${esc(variant.mcu)}`,
                     variant.photo.sourceUrl,
                     variant.photo.credit,
                     'boards-architecture',
@@ -336,7 +336,7 @@
                     window.RoboDexVisuals.resolveBoardSectionKey(activeLesson.sectionCode),
                     {
                       compact: true,
-                      title: `${variant.name} — Section ${activeLesson.sectionCode}: ${activeLesson.title}`,
+                      title: `${variant.name}: Section ${activeLesson.sectionCode}: ${activeLesson.title}`,
                       caption: `Conceptual visual learning figure demonstrating ${activeLesson.title.toLowerCase()} for ${variant.name} (${variant.logicVoltage}).`
                     }
                   )
