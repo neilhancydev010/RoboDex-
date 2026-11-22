@@ -1,5 +1,5 @@
 /* RoboDex́ Service Worker — Offline-capable static asset caching (relative paths) */
-const CACHE_NAME = 'robodex-v2-stage2';
+const CACHE_NAME = 'robodex-v2-stage2-r2';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -35,7 +35,10 @@ const CORE_ASSETS = [
   './assets/img/visuals/visual-programming.jpg',
   './assets/img/visuals/visual-embedded-io.jpg',
   './assets/img/visuals/visual-boards-architecture.jpg',
-  './assets/img/visuals/visual-robotics-applied.jpg'
+  './assets/img/visuals/visual-robotics-applied.jpg',
+  './assets/img/visuals/visual-power-safety.jpg',
+  './assets/img/visuals/visual-ide-upload.jpg',
+  './assets/img/visuals/visual-diagnostics.jpg'
 ];
 
 self.addEventListener('install', (event) => {

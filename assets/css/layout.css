@@ -532,3 +532,39 @@
     border-bottom: 1px solid var(--border-color);
   }
 }
+
+/* Mobile Overflow Hardening (390px+) */
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+.app-shell, .app-stage, .page-body, .container, .learn-shell, .learn-content, .lesson-article, .card, .callout {
+  max-width: 100%;
+  min-width: 0;
+}
+.lesson-article pre, .code-block pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+@media (max-width: 640px) {
+  .utility-bar {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.6rem 0.85rem;
+  }
+  .utility-actions {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .container {
+    padding-left: 0.95rem;
+    padding-right: 0.95rem;
+  }
+  .tab-bar {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+  .learn-content {
+    padding: 1.25rem 0.95rem 2.5rem;
+  }
+}

@@ -97,11 +97,9 @@
               return `
                 <div class="card card-hover flex" style="flex-direction:column; justify-content:space-between;">
                   <div>
-                    <div class="board-card-thumb">
-                      <img src="${esc(v.photo.url)}" alt="${esc(v.name)} real hardware board" loading="lazy"
-                           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                      <span class="board-photo-fallback" style="display:none;">${esc(v.name)} (${esc(v.logicVoltage)})</span>
-                    </div>
+                    ${window.RoboDexVisuals
+                      ? window.RoboDexVisuals.getBoardCardPhotoHtml(v.photo.url, `${v.name} real hardware board`, 'boards-architecture', v.mcu.split(' ')[0])
+                      : `<div class="board-card-thumb"><img src="${esc(v.photo.url)}" alt="${esc(v.name)} real hardware board" loading="lazy"></div>`}
                     <div class="card-header">
                       <span class="badge ${is3v3 ? 'badge-warning' : 'badge-success'}">${esc(v.logicVoltage)}</span>
                       <span class="badge ${stat.skill.cls}">${stat.skill.label}</span>
@@ -250,6 +248,15 @@
             <div class="lesson-article">
               <span class="badge badge-bloom">${esc(variant.name)} · Variant Assessment</span>
               <h1 class="mt-sm">${esc(qData.title)}</h1>
+              ${window.RoboDexVisuals ? window.RoboDexVisuals.getBoardHeroPhotoHtml(
+                variant.photo.url,
+                `${variant.name} real hardware photograph`,
+                `<strong>${esc(variant.name)}</strong> — Hardware Assessment Reference`,
+                variant.photo.sourceUrl,
+                variant.photo.credit,
+                'diagnostics',
+                true
+              ) : ''}
               <p>${esc(qData.description)} (Passing threshold: ${passScore}%)</p>
               <form id="board-quiz-form">
                 ${qData.questions.map((q, idx) => `
@@ -334,25 +341,30 @@
 
             <h1>${esc(activeLesson.title)}</h1>
             <p style="font-size:1.04rem; color:var(--text-primary);">${esc(activeLesson.summary)}</p>
-            ${activeLesson.sectionCode === 'A' ? `
-              <figure class="board-photo-figure">
-                <div class="board-photo-stage">
-                  <img src="${esc(variant.photo.url)}" alt="${esc(variant.name)} real hardware photograph" loading="lazy"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                  <span class="board-photo-fallback" style="display:none;">${esc(variant.photoStatus.fallbackText)}</span>
-                </div>
-                <figcaption class="board-photo-caption">
-                  <span><strong>${esc(variant.name)}</strong> — ${esc(variant.mcu)}</span>
-                  <a href="${esc(variant.photo.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(variant.photo.credit)} ↗</a>
-                </figcaption>
-              </figure>
-            ` : ''}
-
-            ${(['B', 'C', 'D'].includes(activeLesson.sectionCode) && window.RoboDexVisuals) ? window.RoboDexVisuals.getFigureHtml('boards-architecture', {
-              compact: true,
-              title: `${variant.name} — Conceptual Signal & Power Architecture`,
-              caption: `Conceptual visual learning figure illustrating ${activeLesson.title.toLowerCase()} for ${variant.name} (${variant.logicVoltage}).`
-            }) : ''}
+            ${activeLesson.sectionCode === 'A' ? (
+              window.RoboDexVisuals
+                ? window.RoboDexVisuals.getBoardHeroPhotoHtml(
+                    variant.photo.url,
+                    `${variant.name} real hardware photograph`,
+                    `<strong>${esc(variant.name)}</strong> — ${esc(variant.mcu)}`,
+                    variant.photo.sourceUrl,
+                    variant.photo.credit,
+                    'boards-architecture',
+                    false
+                  )
+                : ''
+            ) : (
+              window.RoboDexVisuals
+                ? window.RoboDexVisuals.getFigureHtml(
+                    window.RoboDexVisuals.resolveBoardSectionKey(activeLesson.sectionCode),
+                    {
+                      compact: true,
+                      title: `${variant.name} — Section ${activeLesson.sectionCode}: ${activeLesson.title}`,
+                      caption: `Conceptual visual learning figure demonstrating ${activeLesson.title.toLowerCase()} for ${variant.name} (${variant.logicVoltage}).`
+                    }
+                  )
+                : ''
+            )}
             ${activeLesson.body.map((p) => `<p>${esc(p)}</p>`).join('')}
 
             ${activeLesson.specsTable ? `

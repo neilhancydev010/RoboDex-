@@ -253,13 +253,15 @@
         return `
           <div class="card card-hover flex" style="flex-direction:column; justify-content:space-between;">
             <div>
-              ${modObj.representativeBoardPhoto ? `
-                <div class="board-card-thumb" style="height:126px;">
-                  <img src="${window.RoboDexApp.escapeHtml(modObj.representativeBoardPhoto.url)}" alt="${window.RoboDexApp.escapeHtml(modObj.representativeBoardPhoto.credit)}" loading="lazy"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                  <span class="board-photo-fallback" style="display:none;">${window.RoboDexApp.escapeHtml(stat.shortTitle)} Hardware</span>
-                </div>
-              ` : ''}
+              ${modObj.representativeBoardPhoto && window.RoboDexVisuals
+                ? window.RoboDexVisuals.getBoardCardPhotoHtml(
+                    modObj.representativeBoardPhoto.url,
+                    modObj.representativeBoardPhoto.credit,
+                    window.RoboDexVisuals.resolveProgrammingKey(stat.moduleId),
+                    stat.shortTitle,
+                    136
+                  )
+                : (window.RoboDexVisuals ? window.RoboDexVisuals.getTrackThumbHtml(window.RoboDexVisuals.resolveProgrammingKey(stat.moduleId), stat.shortTitle) : '')}
               <div class="card-header">
                 <span class="badge badge-bloom">${window.RoboDexApp.escapeHtml(stat.shortTitle)}</span>
                 <span class="badge ${stat.skill.cls}">${stat.skill.label}</span>

@@ -33,7 +33,13 @@
 
       <main class="page-body">
         <div class="container">
-          <div id="stage3-visual-figure-host" class="mb-lg"></div>
+                    <div id="stage3-visual-figure-host" class="mb-lg"></div>
+
+          <section class="mb-lg">
+            <h2>Upcoming Stage 3 Project Tracks</h2>
+            <p class="text-sm mb-md">Preview of the guided robotics engineering domains arriving in Stage 3. No placeholder completion numbers are shown until you begin Stage 3.</p>
+            <div id="stage3-preview-cards" class="grid grid-3"></div>
+          </section>
           <div class="empty-state">
             <h3>Application-Based Learning Environment — Coming in Stage 3</h3>
             <p class="mb-md">
@@ -62,6 +68,45 @@
         window.RoboDexVisuals.mountFigure("#stage3-visual-figure-host", "robotics-applied", {
           badge: "Conceptual Visual Learning Figure · Stage 3 Preview"
         });
+        const cardsHost = document.getElementById("stage3-preview-cards");
+        if (cardsHost) {
+          const tracks = [
+            {
+              key: "robotics-applied",
+              tag: "Stage 3 · Track A",
+              title: "Autonomous Navigation & Sensor Fusion",
+              desc: "Build ultrasonic obstacle-avoiding rovers, line-following PID controllers, and multi-sensor decision loops."
+            },
+            {
+              key: "power-safety",
+              tag: "Stage 3 · Track B",
+              title: "Motor Control, Actuators & Power Systems",
+              desc: "Design safe dual-rail battery layouts, H-bridge DC motor drivers, servo arms, and current-protected circuits."
+            },
+            {
+              key: "diagnostics",
+              tag: "Stage 3 · Track C",
+              title: "Wireless Telemetry, IoT & Diagnostics",
+              desc: "Stream live ESP32 Wi-Fi/BLE sensor data, debug serial protocols, and test real hardware under load."
+            }
+          ];
+          cardsHost.innerHTML = tracks.map(function (t) {
+            return `
+              <div class="card card-hover flex" style="flex-direction:column; justify-content:space-between;">
+                <div>
+                  ${window.RoboDexVisuals.getTrackThumbHtml(t.key, "Coming in Stage 3")}
+                  <div class="card-header">
+                    <span class="badge badge-bloom">${t.tag}</span>
+                    <span class="text-xs text-muted">Preview</span>
+                  </div>
+                  <h3>${t.title}</h3>
+                  <p class="text-sm">${t.desc}</p>
+                </div>
+                <a class="btn btn-secondary btn-sm" href="./learn.html">Prepare in Programming School →</a>
+              </div>
+            `;
+          }).join("");
+        }
       }
     });
   </script>
