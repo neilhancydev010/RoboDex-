@@ -288,7 +288,9 @@
               <div class="progress-fill" id="proj-pct-fill" style="width:${pct}%"></div>
             </div>
             <div class="text-xs text-muted" id="proj-cp-count">${doneSet.size} / ${totalCp} checkpoints completed</div>
+            <div class="text-xs mt-xs" id="proj-next-step" style="color:var(--link-color); font-weight:600;"></div>
           </div>
+          <button type="button" id="open-toolkit-btn" class="btn btn-primary btn-sm mb-md" style="width:100%; justify-content:center;">Workbench Calculators ⚙</button>
           <ul class="sidebar-lesson-list" style="list-style:none; padding:0; margin:0; display:grid; gap:0.25rem;">
             ${partNav.map((n) => `
               <li>
@@ -436,12 +438,7 @@
               <ol style="margin:0.4rem 0 1rem 1.25rem;">
                 ${project.partD.connectionSteps.map((s) => `<li class="mb-xs">${esc(s)}</li>`).join('')}
               </ol>
-              <div class="callout callout-warning">
-                <div class="callout-title">Mandatory Pre-Power Verification Checklist</div>
-                <ul class="text-sm" style="margin:0.35rem 0 0 1.2rem; padding:0;">
-                  ${project.partD.prePowerChecklist.map((c) => `<li>${esc(c)}</li>`).join('')}
-                </ul>
-              </div>
+              <div id="proj-safety-gate-host"></div>
             </section>
 
             <!-- PART E -->
@@ -577,11 +574,13 @@
                   </tbody>
                 </table>
               </div>
+              <div id="proj-lab-notebook-host" class="mt-md"></div>
             </section>
 
             <!-- PART K -->
             <section class="lesson-section" id="part-k">
               <h2 class="lesson-section-title">PART K: Project-Specific Troubleshooting</h2>
+              <div id="proj-symptom-wizard-host"></div>
               <div class="grid">
                 ${project.partK.map((t) => `
                   <div class="callout callout-warning" style="margin:0;">
@@ -728,9 +727,30 @@
             const key = icon.dataset.navCp;
             icon.textContent = setNow.has(key) ? '✓' : (icon.dataset.navCode || '');
           });
+          updateNextStepLabel(completed);
           window.RoboDexApp.showToast(`Project #${project.num} progress saved (${completed.length}/${totalCp})`);
         });
       });
+    }
+
+    // Mount Beginner Confidence Toolkit (Safety Gate, Lab Notebook, Symptom Wizard, Calculators & Next Step)
+    function updateNextStepLabel(completedIds) {
+      const el = document.getElementById('proj-next-step');
+      if (!el) return;
+      const done = new Set(completedIds);
+      const next = project.checkpoints.find((c) => !done.has(c.id));
+      el.textContent = next ? `Next small win: ${next.label}` : 'All 11 engineering checkpoints complete!';
+    }
+    updateNextStepLabel(Array.from(doneSet));
+
+    const tkBtn = document.getElementById('open-toolkit-btn');
+    if (tkBtn && window.RoboDexToolkit) {
+      tkBtn.addEventListener('click', () => window.RoboDexToolkit.openToolkitModal());
+    }
+    if (window.RoboDexToolkit) {
+      window.RoboDexToolkit.renderSafetyGate(document.getElementById('proj-safety-gate-host'), project.partD.prePowerChecklist);
+      window.RoboDexToolkit.renderLabNotebook(document.getElementById('proj-lab-notebook-host'), project, profile.id);
+      window.RoboDexToolkit.renderSymptomTroubleshooter(document.getElementById('proj-symptom-wizard-host'));
     }
 
     // Bind click-to-zoom lightbox on technical SVGs
